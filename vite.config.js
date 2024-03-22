@@ -23,7 +23,7 @@ export default defineConfig({
 // For Git hub
 export default defineConfig({
   plugins: [react()],
-  base: "/vite-deploy",
+  base: "/vite-deploy/",
   server:{
   port:3000
   }
