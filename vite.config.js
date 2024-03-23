@@ -23,7 +23,7 @@ export default defineConfig({
 // For Git hub
 export default defineConfig({
   plugins: [react()],
-  base: "/my-app/",
+  base: "./my-app/",
   server:{
   port:3000
   }

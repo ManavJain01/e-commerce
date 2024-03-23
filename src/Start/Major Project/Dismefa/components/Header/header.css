@@ -1,0 +1,25 @@
+.header{
+  background-color: white;
+  width: 100vw;
+  height: 5rem;
+  padding: 0px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header.active{
+  background-color: white;
+  width: 100vw;
+  height: 5rem;
+  padding: 0px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}

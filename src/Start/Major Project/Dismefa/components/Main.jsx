@@ -1,7 +1,7 @@
 function Main(){
   return(
     <>
-      <div className="bg-blue-100 w-[100vw] min-h-[60vh]">
+      <div className="bg-blue-100 min-w-[100vw] min-h-[60vh]">
 
       </div>
     </>
