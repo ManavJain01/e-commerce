@@ -1,12 +1,16 @@
 import {useState} from 'react'
+import { Link } from 'react-router-dom'
 
 import InputBtn from '../InputBtn'
 import SearchInput from './SearchInput'
+
+import LoginSignup from '../../../Login-Signup/components/LoginSignup'
 
 import './header.css'
 
 function Header(){
   const [navbar, setNavbar] = useState(false);
+  const [isLogin, setIsLogin] = useState(true)
 
   const changeNavbar = () => {
     const inputBtn = document.getElementById("header-input");
@@ -27,14 +31,20 @@ function Header(){
   return(
     <>
       <div className={navbar ? 'header active' : 'header'}>
-        <h1 className="font-bold text-xl text-red-700">Dismefa <span className="text-green-700">Medicose</span></h1>
+        <Link to="/Home">
+          <h1 className="font-bold text-xl text-red-700">Dismefa <span className="text-green-700">Medicose</span></h1>
+        </Link>
+
         <p id="header-scrolledMsg">Buy Medicines</p>
+
         <InputBtn id="header-input" title="header-input" button="Search" placeholder="Search For medicines & wellness products..." />
+        
         <div>
           <ul className="flex gap-5">
-            <li><p>Login | Signup</p></li>
-            <li><p>Cart</p></li>
+            <li>Login | Signup</li>
+            <li><Link to="/Cart">Cart</Link></li>
           </ul>
+          {isLogin ? <LoginSignup /> : ""}
         </div>
       </div>
       <SearchInput />
