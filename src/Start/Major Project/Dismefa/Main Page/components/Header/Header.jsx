@@ -1,8 +1,13 @@
 import {useState} from 'react'
 import { Link } from 'react-router-dom'
 
+import cartLogo from '../../Images/cart.png'
+import loginLogo from '../../Images/login.png'
+import downArrowLogo from '../../Images/downArrow.png'
+
 import InputBtn from '../InputBtn'
 import SearchInput from './SearchInput'
+import UserNavbar from './UserNavbar'
 
 import LoginSignup from '../../../Login-Signup/components/LoginSignup'
 
@@ -10,7 +15,10 @@ import './header.css'
 
 function Header(){
   const [navbar, setNavbar] = useState(false);
-  const [isLogin, setIsLogin] = useState(false)
+  const [loginPage, setLoginPage] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+
+  let itemsInCart = 0;
 
   const changeNavbar = () => {
     const inputBtn = document.getElementById("header-input");
@@ -40,11 +48,28 @@ function Header(){
         <InputBtn id="header-input" title="header-input" button="Search" placeholder="Search For medicines & wellness products..." />
         
         <div>
-          <ul className="flex gap-5">
-            <li><button onClick={()=>setIsLogin(true)}>Login | Signup</button></li>
-            {isLogin ? <LoginSignup setIsLogin={setIsLogin} /> : ""}
+          <ul className="flex gap-5 relative">
+            {isLogin ?<li id="UserBtn" className="mr-4"><button className="flex gap-2 items-center">
+              <img src={loginLogo} className="object-contain w-6" />
+              <span>User</span>
+              <img src={downArrowLogo} className="object-contain w-3" />
+              </button>
+            
+              <div id="UserBtnDiv" className="hidden absolute top-6 right-10">
+                <UserNavbar />
+              </div>
+            </li>
+            :<li className="whitespace-nowrap"><button onClick={()=>setLoginPage(true)}>Login | Signup</button></li>
+            }
+            {loginPage ? <LoginSignup setLoginPage={setLoginPage} setIsLogin={setIsLogin} /> : ""}
 
-            <li><Link to="/Cart">Cart</Link></li>
+            <li>
+              <Link to="/Cart" className={`flex relative before:absolute before:content-['${itemsInCart}'] before:w-[13px] before:text-center before:z-20 before:-top-1 before:left-4
+               before:bg-green-700 before:text-white before:rounded-full before:text-[10px]`}>
+                <img src={cartLogo} className="object-contain w-5 mr-3" />
+                Cart
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

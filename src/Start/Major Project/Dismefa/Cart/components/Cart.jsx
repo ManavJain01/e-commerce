@@ -5,7 +5,7 @@ import bin from '../Images/bin.png'
 import minus from '../Images/minus.png'
 import plus from '../Images/plus.png'
 
-let cartItems = 1;
+let cartItems = 2;
 
 function Cart(){
   if(cartItems == 0){
@@ -25,6 +25,27 @@ function Cart(){
           <div className="m-10 flex flex-wrap justify-around">
             <div>
               <h1 className="font-bold text-2xl mb-5">{cartItems} Items in your Cart</h1>
+
+              <div className="border-2 border-gray-200 w-[45rem] h-[12rem] py-5 px-10 flex justify-between">
+                <div className="flex gap-5">
+                  <span>Product Image</span>
+                  <section className="flex flex-col gap-4">
+                    <span className="text-xl font-semibold">Product Name</span>
+                    <span>Company Name</span>
+                    <span>Quantity in product</span>
+                    <span>MRP</span>
+                  </section>
+                </div>
+                <section className="flex flex-col justify-between items-end">
+                  <button><img src={bin} className="object-contain w-8" /></button>
+                  <section className="w-32 flex items-center justify-between px-3 py-1 border-2 border-gray-500 rounded-md">
+                    Qty:
+                    <button><img src={plus} className="object-contain w-4" /></button>
+                    4
+                    <button><img src={minus} className="object-contain w-4" /></button>
+                  </section>
+                </section>
+              </div>
 
               <div className="border-2 border-gray-200 w-[45rem] h-[12rem] py-5 px-10 flex justify-between">
                 <div className="flex gap-5">

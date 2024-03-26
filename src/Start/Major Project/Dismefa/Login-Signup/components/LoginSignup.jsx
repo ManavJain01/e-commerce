@@ -1,18 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import close from '../Images/close.png'
 
-function LoginSignup({setIsLogin}){
+function LoginSignup({setLoginPage}){
   const [validNumber, setValidNumber] = useState(false)
   const [generateOTP, setGenerateOTP] = useState(false)
-  const [timer30, setTimer30] = useState(30)
 
   document.body.style.overflow = "hidden";
   let storePhnNo;
+  let timer30 = 30;
   let OTPArray = [1,2,3,4]
 
   function closePage(){
-    setIsLogin(false)
+    setLoginPage(false)
     document.body.style.overflow = "scroll";
   }
 
@@ -29,24 +29,38 @@ function LoginSignup({setIsLogin}){
 
   function openGenerateOTP(){
     setGenerateOTP(true)
-    resendEnable()
+    timer30sec();
   }
 
+
   function timer30sec(){
-    setTimer30(30)
-    // for(let i=0; i<30; i++){
-    //   // setInterval(()=>{setGenerate30(generate30-1)},1000)
-    //   setGenerate30(generate30-1)
-    // }
-    setInterval(()=>{setTimer30(timer30-1)},500)
-    // resendEnable();
+    const span = document.getElementById("resendSpan");
+    timer30 = 29;
+    resendEnable();
+    const interval = setInterval(()=>{
+      if(timer30 > 1){
+        span.innerHTML = " in " + timer30-- + " seconds";
+      }else if(timer30 == 1){
+        span.innerHTML = " in " + timer30-- + " second";
+      }else if(timer30 < 1){
+        clearInterval(interval)
+        resendEnable();
+        span.innerHTML = "";
+      }
+    },1000)
   }
-  
+
   function resendEnable(){
     const button = document.getElementById("resendBtn");
-    button.style.color = "gray";
-    button.disabled = true;
+    if(button.disabled == false){
+      button.style.color = "gray";
+      button.disabled = true;
+    }else{
+      button.style.color = "green";
+      button.disabled = false;
+    }
   }
+
   return(
     <>
       <div className="z-50 w-[30rem] h-screen bg-green-500 flex flex-col items-end absolute right-0 top-0">
@@ -67,12 +81,10 @@ function LoginSignup({setIsLogin}){
                   </span>
                   <div className="flex mt-5 mb-2 -mx-2">
                     {OTPArray.map((e)=>(
-                      <div className="size-14 mx-2 text-gray-500 flex items-center justify-center border-2 rounded-md">{e}</div>
+                      <div key={e} className="size-14 mx-2 text-gray-500 flex items-center justify-center border-2 rounded-md">{e}</div>
                     ))}
                   </div>
-                  <span id="resendSpan" className="text-xs">
-                    <button id="resendBtn" onClick={()=>timer30sec()} className="text-green-700 font-semibold">Resend OTP</button> in {timer30} seconds
-                  </span>
+                    <button id="resendBtn" disabled={false} onClick={()=>timer30sec()} className="text-green-700 text-xs font-semibold">Resend OTP</button><span id="resendSpan" className="text-xs"> in 5 seconds</span>
                 </section>
 
                 <button className="bg-green-700 text-white mt-8 py-3 rounded-md hover:opacity-70 active:opacity-80">Continue</button>
