@@ -15,9 +15,9 @@ function Footer(){
         <div className="flex flex-col text-center items-center lg:items-start lg:flex-row lg:justify-between gap-10 lg:gap-32 py-10 px-14">
           <ul className="flex flex-col gap-6 whitespace-nowrap">
             <li><h1 className="text-xl font-bold">Company</h1></li>
-            <li>Health Article</li>
-            <li><Link to="/Help">Need Help</Link></li>
-            <li><Link to="/Help">FAQ</Link></li>
+            <li><Link to="Company/Health-Article">Health Article</Link></li>
+            <li><Link to="Company/Help">Need Help</Link></li>
+            <li><Link to="Company/Help">FAQ</Link></li>
           </ul>
 
           <ul className="whitespace-nowrap flex flex-col gap-2">
@@ -32,9 +32,9 @@ function Footer(){
             <li>
               <section className="flex flex-col gap-6">
                 <p className="text-xl font-bold">Legal</p>
-                <p>Terms & Conditions</p>
-                <p>Privacy Policy</p>
-                <p>Editorial Policy</p>
+                <p><Link to="Legal/Terms&Conditions">Terms & Conditions</Link></p>
+                <p><Link to="Legal/Privacy-policy">Privacy Policy</Link></p>
+                <p><Link to="Legal/Editorial-policy">Editorial Policy</Link></p>
                 <p><Link to="Legal/Returns&Cancellation-policy">Returns & Cancellations</Link></p>
               </section>
             </li>

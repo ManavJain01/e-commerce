@@ -1,4 +1,5 @@
 import { styled } from "styled-components"
+import { Link } from 'react-router-dom'
 
 const ItemsStyle = styled.ul`
   li:nth-child(9){
@@ -12,7 +13,8 @@ function UserNavbar({ setIsLogin }){
     name:"My Orders"
   },{
     id:2,
-    name:"Save For Later"
+    name:"Save For Later",
+    link:"SavedForLater"
   },{
     id:3,
     name:"My Refills"
@@ -27,13 +29,15 @@ function UserNavbar({ setIsLogin }){
     name:"Wallet"
   },{
     id:7,
-    name:"Refer & Earn"
+    name:"Refer & Earn",
+    link:"Refer&Earn"
   },{
     id:8,
     name:"Notifications"
   },{
     id:9,
     name:"Log Out",
+    link:"Home",
     onClick:Logout
   }]
 
@@ -47,7 +51,7 @@ function UserNavbar({ setIsLogin }){
         <ItemsStyle>
           <ul className="text-black font-bold flex flex-col gap-4 items-center">
             {items.map((e)=>(
-              <li key={e.id} id={e.id}><button onClick={e.onClick} className="hover:text-green-700">{e.name}</button></li>
+              <li key={e.id} id={e.id}><Link to={e.link}><button onClick={e.onClick} className="hover:text-green-700">{e.name}</button></Link></li>
             ))}
             {/* <li><button className="text-gray-400 hover:text-green-700">Log Out</button></li> */}
           </ul>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import close from '../Images/close.png'
 
@@ -105,7 +106,7 @@ function LoginSignup({setLoginPage}){
 
             <section className='mb-5'>
               <span className='text-gray-500 text-sm'>
-                By continuing, you agree with our <button className='text-gray-800 underline'>Privacy Policy</button> and <button className='text-gray-800 underline'>Terms and Conditions</button>
+                By continuing, you agree with our <Link to="Legal/Privacy-policy" className='text-gray-800 underline'>Privacy Policy</Link> and <Link to="Legal/Terms&Conditions" className='text-gray-800 underline'>Terms and Conditions</Link>
               </span>
             </section>  
           </div>  

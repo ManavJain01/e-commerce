@@ -1,4 +1,4 @@
-import rightArrow from '../../Images/rightArrow.png'
+import rightArrow from '../../../Images/rightArrow.png'
 
 
 function Help(){
