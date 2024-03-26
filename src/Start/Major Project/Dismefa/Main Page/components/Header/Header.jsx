@@ -10,7 +10,7 @@ import './header.css'
 
 function Header(){
   const [navbar, setNavbar] = useState(false);
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
 
   const changeNavbar = () => {
     const inputBtn = document.getElementById("header-input");
@@ -41,10 +41,11 @@ function Header(){
         
         <div>
           <ul className="flex gap-5">
-            <li>Login | Signup</li>
+            <li><button onClick={()=>setIsLogin(true)}>Login | Signup</button></li>
+            {isLogin ? <LoginSignup setIsLogin={setIsLogin} /> : ""}
+
             <li><Link to="/Cart">Cart</Link></li>
           </ul>
-          {isLogin ? <LoginSignup /> : ""}
         </div>
       </div>
       <SearchInput />

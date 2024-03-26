@@ -38,12 +38,12 @@ function Cart(){
                 </div>
                 <section className="flex flex-col justify-between items-end">
                   <button><img src={bin} className="object-contain w-8" /></button>
-                  <button className="w-32 flex items-center justify-between px-3 py-1 border-2 border-gray-500 rounded-md">
+                  <section className="w-32 flex items-center justify-between px-3 py-1 border-2 border-gray-500 rounded-md">
                     Qty:
                     <button><img src={plus} className="object-contain w-4" /></button>
                     4
                     <button><img src={minus} className="object-contain w-4" /></button>
-                  </button>
+                  </section>
                 </section>
               </div>
             </div>
