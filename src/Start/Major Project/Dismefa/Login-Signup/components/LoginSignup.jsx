@@ -63,7 +63,7 @@ function LoginSignup({setLoginPage}){
 
   return(
     <>
-      <div className="z-50 w-[30rem] h-screen bg-green-500 flex flex-col items-end absolute right-0 top-0">
+      <div className="z-50 w-[30rem] h-screen bg-green-500 flex flex-col items-end shadow-2xl shadow-black fixed right-0 top-0">
         <button onClick={()=>closePage()} className="mx-5 my-3"><img src={close} /></button>
 
         <span className="text-white text-2xl font-semibold my-10 ml-8 mr-16">Login/Sign up to continue with your order</span>

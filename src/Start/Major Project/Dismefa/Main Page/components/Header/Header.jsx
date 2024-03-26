@@ -17,8 +17,9 @@ function Header(){
   const [navbar, setNavbar] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [userName, setUserName] = useState("Manav Jain");
 
-  let itemsInCart = 0;
+  let itemsInCart = 2;
 
   const changeNavbar = () => {
     const inputBtn = document.getElementById("header-input");
@@ -51,12 +52,12 @@ function Header(){
           <ul className="flex gap-5 relative">
             {isLogin ?<li id="UserBtn" className="mr-4"><button className="flex gap-2 items-center">
               <img src={loginLogo} className="object-contain w-6" />
-              <span>User</span>
+              <span>{userName? userName : "User"}</span>
               <img src={downArrowLogo} className="object-contain w-3" />
               </button>
             
               <div id="UserBtnDiv" className="hidden absolute top-6 right-10">
-                <UserNavbar />
+                <UserNavbar setIsLogin={setIsLogin} />
               </div>
             </li>
             :<li className="whitespace-nowrap"><button onClick={()=>setLoginPage(true)}>Login | Signup</button></li>

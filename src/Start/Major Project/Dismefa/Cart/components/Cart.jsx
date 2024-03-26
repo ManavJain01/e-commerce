@@ -71,7 +71,7 @@ function Cart(){
             
 
             <div className="px-10 flex flex-col flex-1 gap-4 font-semibold">
-              <h1 className="text-gray-500 text-xl">Payment details</h1>
+              <h1 className="text-gray-500 text-xl pl-2">Payment details</h1>
 
               <section className="flex flex-col gap-2">
                 <span className="pl-2 flex justify-between">Total MRP <span>rs.3000.00</span></span>
