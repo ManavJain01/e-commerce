@@ -97,12 +97,12 @@ function Privacy(){
             j. is patently false and untrue, and is written or published in any form, with the intent to mislead or harass a person, entity or agency for financial gain or to cause any injury to any person.</li>
           <li>10.6. In the event of a breach of clause 10.5 committed by You, Dismefa reserves the right to take appropriate actions as per applicable law.</li>
           <li>11. Contact Information & Grievances</li>
-          <li>11.1. If You have any questions regarding this Privacy Policy you may contact Mangesh Toraskar. You can also reach out to our support team via our mobile number at 08069808861 (Between 9 am - 9 pm) or email Us at support@Dismefa.in.</li>
+          <li>11.1. If You have any questions regarding this Privacy Policy you may contact Mangesh Toraskar. You can also reach out to our support team via our mobile number at 08269543305 (Between 9 am - 9 pm) or email Us at support@Dismefa.in.</li>
           <li>11.2. In accordance with the IT Act, and the rules and regulations thereunder, the contact details of the Grievance Officer are provided as below:</li>
           <li>Name: Mangesh Toraskar
             Email: care@Dismefa.in
-            Address: 2nd floor, Building A, Mahajan Compound, L B S Marg, Vikhroli, Mumbai, 400079
-            Contact No: 9930342888</li>
+            Address: Ground floor, Dismefa Medicose, Thatipur, Gwalior(M.P.), 474011
+            Contact No: 08269543305</li>
           <li>11.3. Grievance Officer working window: Monday to Friday (9:00 a.m. to 6:00 p.m.). 26th January, 15th August, 2nd October, and major festivals in India will be considered non-business days.</li>
           <li>11.4. In case You have any complaints or grievances on the Platforms, please contact the Grievance Officer with a thorough description of Your complaint. We shall acknowledge any complaint made within twenty-four hours, and shall try to resolve the same within a period of fifteen days from the date of its receipt. We shall also receive and acknowledge any order, notice or direction issued by the Government or any competent authority or court of competent jurisdiction.</li>
         </ul>

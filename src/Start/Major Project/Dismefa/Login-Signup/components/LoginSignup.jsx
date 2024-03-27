@@ -106,7 +106,7 @@ function LoginSignup({setLoginPage}){
 
             <section className='mb-5'>
               <span className='text-gray-500 text-sm'>
-                By continuing, you agree with our <Link to="Legal/Privacy-policy" className='text-gray-800 underline'>Privacy Policy</Link> and <Link to="Legal/Terms&Conditions" className='text-gray-800 underline'>Terms and Conditions</Link>
+                By continuing, you agree with our <Link to="Legal/Privacy-policy" className='text-gray-800 underline'><button onClick={()=>closePage()}>Privacy Policy</button></Link> and <Link to="Legal/Terms&Conditions" className='text-gray-800 underline'><button onClick={()=>closePage()}>Terms and Conditions</button></Link>
               </span>
             </section>  
           </div>  

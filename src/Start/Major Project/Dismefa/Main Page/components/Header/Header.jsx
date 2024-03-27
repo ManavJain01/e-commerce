@@ -11,6 +11,8 @@ import UserNavbar from './UserNavbar'
 
 import LoginSignup from '../../../Login-Signup/components/LoginSignup'
 
+import ProductsNavbar from './ProductsNavbar'
+
 import './header.css'
 
 function Header(){
@@ -73,6 +75,7 @@ function Header(){
             </li>
           </ul>
         </div>
+        <ProductsNavbar />
       </div>
       <SearchInput />
     </>
