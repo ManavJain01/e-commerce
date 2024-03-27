@@ -1,14 +1,18 @@
 import { styled } from "styled-components";
 
-function ProductsNavbar(){
+import ProductSlide from './ProductsSlide'
 
+function ProductsNavbar(){
   const items = [{
     id:1,
     name:"Medicines"
   },{
     id:2,
     name:"Personal care",
-    list:["skin care", "hair care", "Baby and Mom care", "Oral care", "Elderly Care"]
+    list:[{
+      name:"skin care",
+      list:["Skin Cream", "Sunscreen", "Face Wash", "Skin and Body Soap", "Acne Care", "Body Lotions", "Moisturising Lotion", "Moisturising Cream", "Mosquito Repellent", "Moisturising Gel", "Body Wash"]
+    }, "hair care", "Baby and Mom care", "Oral care", "Elderly Care"]
   },{
     id:3,
     name:"Health Conditions",
@@ -25,20 +29,34 @@ function ProductsNavbar(){
     id:6,
     name:"Healthcare Devices",
     list:["BP Monitors", "Nebulizers and Vaporizers", "Supports and Braces"]
+  },{
+    id:7,
+    name:"Health Article",
   }]
+
+  const ItemStyles = styled.div`
+    li:hover {
+      color: red;
+      
+    }
+
+    li:hover ~ div, ul div:hover{
+      display: flex;
+    }
+  `
 
   return(
     <>
       <div className="relative">
         <ItemStyles>
-          <div className="w-screen absolute top-10 -right-4 z-50 px-5 py-1 mb-10 flex justify-between bg-white text-gray-500 text-sm border shadow-md shadow-gray-700">
+          <div className="w-screen absolute top-10 -right-4 z-50 px-10 py-1 mb-10 flex justify-between bg-white text-gray-500 text-sm border shadow-md shadow-gray-700">
             {items.map((e)=>(
-              <div key={e.id} id={e.id} className="flex flex-col gap-3">
-                <ul>
-                  <li>{e.name}</li>
+              <div key={e.id} className="flex flex-col gap-3">
+                <ul className="relative">
+                  <li id={e.id}>{e.name}</li>
+                  {e.list ? <ProductSlide list={e.list} /> : ""}
+                  {/* {e.list ? e.list.map((f)=>(<div key={f} className="/absolute /top-10 /left-0 px-2 my-2 hidden">{f}</div>)) : ""} */}
                 </ul>
-
-                {e.list ? e.list.map((f)=>(<div key={f} className="">{f}</div>)) : ""}
               </div>
             ))}
           </div>
@@ -49,9 +67,3 @@ function ProductsNavbar(){
 }
 
 export default ProductsNavbar;
-
-const ItemStyles = styled.div`
-  li:hover{
-    color: red;
-  }
-`
