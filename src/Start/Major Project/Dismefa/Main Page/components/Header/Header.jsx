@@ -42,38 +42,40 @@ function Header(){
   return(
     <>
       <div className={navbar ? 'header active' : 'header'}>
-        <Link to="/Home">
-          <h1 className="font-bold text-xl text-red-700">Dismefa <span className="text-green-700">Medicose</span></h1>
-        </Link>
+        <div className="bg-white w-screen h-[5rem] px-10 flex justify-between items-center">
+          <Link to="/Home">
+            <h1 className="font-bold text-xl text-red-700">Dismefa <span className="text-green-700">Medicos</span></h1>
+          </Link>
 
-        <p id="header-scrolledMsg">Buy Medicines</p>
+          <p id="header-scrolledMsg">Buy Medicines</p>
 
-        <InputBtn id="header-input" title="header-input" button="Search" placeholder="Search For medicines & wellness products..." />
-        
-        <div>
-          <ul className="flex gap-5 relative">
-            {isLogin ?<li id="UserBtn" className="mr-4"><button className="flex gap-2 items-center">
-              <img src={loginLogo} className="object-contain w-6" />
-              <span>{userName? userName : "User"}</span>
-              <img src={downArrowLogo} className="object-contain w-3" />
-              </button>
-            
-              <div id="UserBtnDiv" className="hidden absolute top-6 right-10">
-                <UserNavbar setIsLogin={setIsLogin} />
-              </div>
-            </li>
-            :<li className="whitespace-nowrap"><button onClick={()=>setLoginPage(true)}>Login | Signup</button></li>
-            }
-            {loginPage ? <LoginSignup setLoginPage={setLoginPage} setIsLogin={setIsLogin} /> : ""}
+          <InputBtn id="header-input" title="header-input" button="Search" placeholder="Search For medicines & wellness products..." />
+          
+          <div>
+            <ul className="flex gap-5 relative">
+              {isLogin ?<li id="UserBtn" className="mr-4"><button className="flex gap-2 items-center">
+                <img src={loginLogo} className="object-contain w-6" />
+                <span>{userName? userName : "User"}</span>
+                <img src={downArrowLogo} className="object-contain w-3" />
+                </button>
+              
+                <div id="UserBtnDiv" className="hidden absolute top-6 right-10">
+                  <UserNavbar setIsLogin={setIsLogin} />
+                </div>
+              </li>
+              :<li className="whitespace-nowrap"><button onClick={()=>setLoginPage(true)}>Login | Signup</button></li>
+              }
+              {loginPage ? <LoginSignup setLoginPage={setLoginPage} setIsLogin={setIsLogin} /> : ""}
 
-            <li>
-              <Link to="/Cart" className={`flex relative before:absolute before:content-['${itemsInCart}'] before:w-[13px] before:text-center before:z-20 before:-top-1 before:left-4
-               before:bg-green-700 before:text-white before:rounded-full before:text-[10px]`}>
-                <img src={cartLogo} className="object-contain w-5 mr-3" />
-                Cart
-              </Link>
-            </li>
-          </ul>
+              <li>
+                <Link to="/Cart" className={`flex relative before:absolute before:content-['${itemsInCart}'] before:w-[13px] before:text-center before:z-20 before:-top-1 before:left-4
+                before:bg-green-700 before:text-white before:rounded-full before:text-[10px]`}>
+                  <img src={cartLogo} className="object-contain w-5 mr-3" />
+                  Cart
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
         <ProductsNavbar />
       </div>

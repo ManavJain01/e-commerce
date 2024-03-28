@@ -1,25 +1,26 @@
 .header{
-  background-color: white;
+  /* background-color: white;
   width: 100vw;
-  height: 5rem;
   padding: 0px 30px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  z-index: 100;
+  align-items: center; */
+  z-index: 50;
+  height: 5rem;
 }
 
 .header.active{
-  background-color: white;
+  /* background-color: white;
   width: 100vw;
   height: 5rem;
   padding: 0px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 50; */
   position: fixed;
   top: 0;
-  z-index: 40;
+
 }
 
 #UserBtn:hover #UserBtnDiv{

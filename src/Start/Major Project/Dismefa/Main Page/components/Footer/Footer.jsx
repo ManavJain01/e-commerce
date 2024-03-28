@@ -53,7 +53,7 @@ function Footer(){
           </ul>
 
           <ul className="flex flex-col gap-3">
-            <li><h4 className="text-xl font-bold">Download Disfema</h4></li>
+            <li><h4 className="text-xl font-bold">Download Dismefa</h4></li>
             <li><p className="font-bold">Manage your health with ease Download Dismefa today!</p></li>
             <li><p>Get easy access to medicines, health information, and more. With our app, you'll never have to wait in line again. Download now and start taking control of your health.</p></li>
             <li><button><img src={googleStoreLogo} className="object-contain w-56" /></button></li>
