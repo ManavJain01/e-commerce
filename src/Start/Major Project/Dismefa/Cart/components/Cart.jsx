@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 import emptyCart from '../Images/cart.png'
 import bin from '../Images/bin.png'
@@ -6,8 +7,34 @@ import minus from '../Images/minus.png'
 import plus from '../Images/plus.png'
 
 let cartItems = 2;
+let allMRP = 0 //"mrp" * "qty"
+let allDiscount = 0 //"qty" * "discount"
 
 function Cart(){
+  const [totalMRP, setTotalMRP] = useState(2000)
+  const [discount, setDiscount] = useState(50)
+  const [totalAmount, setTotalAmount] = useState(0)
+  const [deliveryCharges, setDeliveryCharges] = useState(56)
+  const [totalPayable, setTotalPayable] = useState(0)
+  const [totalSavings, setTotalSavings] = useState(0) 
+
+  useEffect(function calculateMRP(){
+    allMRP = 500;
+    allDiscount = 58    
+
+    setTotalMRP(allMRP);
+    setDiscount(allDiscount);
+    paymentAmount();
+  },[totalMRP])
+  
+
+
+  function paymentAmount(){
+    setTotalAmount((totalMRP - discount).toFixed(2))
+    setTotalPayable((totalAmount - deliveryCharges).toFixed(2))
+    setTotalSavings(discount.toFixed(2))
+  }
+
   if(cartItems == 0){
     return (
       <> 
@@ -22,7 +49,7 @@ function Cart(){
     }else{
       return(
         <>
-          <div className="m-10 flex flex-wrap justify-around">
+          <div className="m-10 flex flex-wrap gap-20 lg:gap-0 justify-around">
             <div>
               <h1 className="font-bold text-2xl mb-5">{cartItems} Items in your Cart</h1>
 
@@ -74,14 +101,14 @@ function Cart(){
               <h1 className="text-gray-500 text-xl pl-2">Payment details</h1>
 
               <section className="flex flex-col gap-2">
-                <span className="pl-2 flex justify-between">Total MRP <span>rs.3000.00</span></span>
-                <span className="pl-2 flex justify-between">Discount <span>- rs.300.00</span></span>
-                <span className="pl-2 flex justify-between">Total Amount <span>rs.2700.00</span></span>
-                <span className="pl-2 flex justify-between">Shipping/Delivery Charges <span>rs.30.00</span></span>
+                <span className="pl-2 flex justify-between">Total MRP <span>rs.{totalMRP}</span></span>
+                <span className="pl-2 flex justify-between">Discount <span>- rs.{discount}</span></span>
+                <span className="pl-2 flex justify-between">Total Amount <span>rs.{totalAmount}</span></span>
+                <span className="pl-2 flex justify-between">Shipping/Delivery Charges <span>rs.{deliveryCharges}</span></span>
               </section>
 
-              <span className="text-blue-400 pl-2 flex justify-between">Total Payable <span>rs.2730.00</span></span>
-              <span className="text-green-600 bg-green-100 px-2 py-1 rounded-mg flex justify-between">Total Savings <span>- rs.50.00</span></span>
+              <span className="text-blue-400 pl-2 flex justify-between">Total Payable <span>rs.{totalPayable}</span></span>
+              <span className="text-green-600 bg-green-100 px-2 py-1 rounded-mg flex justify-between">Total Savings <span>- rs.{totalSavings}</span></span>
             </div>
           </div>
         </>

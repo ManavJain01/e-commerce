@@ -47,7 +47,7 @@ function Header(){
             <h1 className="font-bold text-xl text-red-700">Dismefa <span className="text-green-700">Medicos</span></h1>
           </Link>
 
-          <p id="header-scrolledMsg">Buy Medicines</p>
+          <p id="header-scrolledMsg" className="text-green-700 hover:scale-150 transition-all duration-300 delay-200 animate-pulse">Buy Medicines {/*with 15% OFF*/}</p>
 
           <InputBtn id="header-input" title="header-input" button="Search" placeholder="Search For medicines & wellness products..." />
           

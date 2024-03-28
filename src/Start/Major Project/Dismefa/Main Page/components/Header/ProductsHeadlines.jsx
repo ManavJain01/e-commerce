@@ -1,6 +1,7 @@
 export const items = [{
   id:1,
-  name:"Medicines"
+  name:"Medicines",
+  path:"Medicines"
 },{
   id:2,
   name:"Personal care",

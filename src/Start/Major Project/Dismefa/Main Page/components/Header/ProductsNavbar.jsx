@@ -7,12 +7,7 @@ import ProductSlide from './ProductsSlide'
 function ProductsNavbar(){
 
   const ItemStyles = styled.div`
-    li:hover {
-      color: red;
-      cursor: pointer;
-    }
-
-    a:hover {
+    li:hover, a:hover {
       color: red;
       cursor: pointer;
     }
@@ -25,6 +20,12 @@ function ProductsNavbar(){
     #secondName-wrapper:hover div div{
       display: flex;
     }
+
+    #secondName-wrapper:hover div div div:active{
+      color: green;
+    }
+
+
   `
 
   return(

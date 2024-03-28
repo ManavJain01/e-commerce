@@ -20,6 +20,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import Layout from './Start/Major Project/Dismefa/Layout'
 import Home from './Start/Major Project/Dismefa/Main Page/components/Main'
+import MedicinePage from './Start/Major Project/Dismefa/Medicines/components/MedicinePage'
 // Header Links
 import Cart from './Start/Major Project/Dismefa/Cart/components/Cart'
 import SavedForLater from './Start/Major Project/Dismefa/Main Page/components/Header/SavedForLater'
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
     element: <Layout />,
     children : [
       {
+        path: "",
+        element : <Home />
+      },
+      {
         path: "Home",
         element : <Home />
       },
@@ -52,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "Refer&Earn",
         element: <ReferEarn />
+      },
+      {
+        path: "Medicines",
+        element: <MedicinePage />
       },
       {
         path: "Company/Help",
