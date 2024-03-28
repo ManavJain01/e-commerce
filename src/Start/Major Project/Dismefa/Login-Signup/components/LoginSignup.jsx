@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { PhoneInput } from "react-phone-input-2"
+import "react-phone-input-2/lib/style.css"
+
+import { BsFillShieldLockFill, BsTelephoneFill } from 'react-icons/bs'
 
 import close from '../Images/close.png'
+
+import OtpPage from './OtpPage'
 
 function LoginSignup({setLoginPage}){
   const [validNumber, setValidNumber] = useState(false)
   const [generateOTP, setGenerateOTP] = useState(false)
+  const [ph, setPh] = useState("")
 
   document.body.style.overflow = "hidden";
   let storePhnNo;
-  let timer30 = 30;
-  let OTPArray = [1,2,3,4]
 
   function closePage(){
     setLoginPage(false)
@@ -30,37 +35,11 @@ function LoginSignup({setLoginPage}){
 
   function openGenerateOTP(){
     setGenerateOTP(true)
-    timer30sec();
+    // timer30sec();
   }
 
 
-  function timer30sec(){
-    const span = document.getElementById("resendSpan");
-    timer30 = 29;
-    resendEnable();
-    const interval = setInterval(()=>{
-      if(timer30 > 1){
-        span.innerHTML = " in " + timer30-- + " seconds";
-      }else if(timer30 == 1){
-        span.innerHTML = " in " + timer30-- + " second";
-      }else if(timer30 < 1){
-        clearInterval(interval)
-        resendEnable();
-        span.innerHTML = "";
-      }
-    },1000)
-  }
-
-  function resendEnable(){
-    const button = document.getElementById("resendBtn");
-    if(button.disabled == false){
-      button.style.color = "gray";
-      button.disabled = true;
-    }else{
-      button.style.color = "green";
-      button.disabled = false;
-    }
-  }
+  
 
   return(
     <>
@@ -72,27 +51,10 @@ function LoginSignup({setLoginPage}){
         <div className="flex-grow w-full bg-white rounded-t-md" >
           <div className="mx-8 flex flex-col h-full justify-between">
             {generateOTP ?
-              <section className="flex flex-col">
-                <section className="mt-10">
-                  <h1 className="font-semibold text-lg">Enter OTP</h1>
-                  <span className="text-sm text-gray-400 font-semibold">
-                    we have sent an OTP on +91 {storePhnNo+"hi"} <button 
-                                                                    onClick={()=>setGenerateOTP(false)} className="underline text-gray-500 ml-1">Edit Number
-                                                                 </button>
-                  </span>
-                  <div className="flex mt-5 mb-2 -mx-2">
-                    {OTPArray.map((e)=>(
-                      <div key={e} className="size-14 mx-2 text-gray-500 flex items-center justify-center border-2 rounded-md">{e}</div>
-                    ))}
-                  </div>
-                    <button id="resendBtn" disabled={false} onClick={()=>timer30sec()} className="text-green-700 text-xs font-semibold">Resend OTP</button><span id="resendSpan" className="text-xs"> in 5 seconds</span>
-                </section>
-
-                <button className="bg-green-700 text-white mt-8 py-3 rounded-md hover:opacity-70 active:opacity-80">Continue</button>
-              </section>
-
-              :<section className='mt-10 flex flex-col relative'>
-                <span className='mb-5 font-semibold text-lg relative before:absolute before:content-["+91"] before:text-gray-400 before:top-14 before:left-1'>Enter your mobile number</span>
+              <OtpPage storePhnNo={storePhnNo} setGenerateOTP={setGenerateOTP} />           
+              
+              :/*<section className='mt-10 flex flex-col relative'>
+                <span className='mb-5 font-semibold text-lg flex gap-5 items-center relative before:absolute before:content-["+91"] before:text-gray-400 before:top-14 before:left-1'><BsFillShieldLockFill />Enter your mobile number</span>
                 <input type="number" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="validPhn" placeholder='Your Mobile Number' onChange={()=>setValidNumber(false)}
                       className="px-10 py-2 border-2 border-gray-400 rounded-md" /> 
                 {validNumber ? <span 
@@ -101,7 +63,9 @@ function LoginSignup({setLoginPage}){
                                 </span> : ""
                 }
                 <button onClick={()=>checkValidNumber()} className="bg-green-700 text-white rounded-md mt-10 py-3 hover:opacity-80 active:opacity-90">Send OTP</button>
-              </section>
+              </section>*/
+              <PhoneInput country={"in"} value={ph} onChange={setPh} ></PhoneInput>
+              
             }
 
             <section className='mb-5'>

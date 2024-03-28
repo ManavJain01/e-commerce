@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Hide this firebase configuration file
+src/Start/Major Project/Dismefa/Firebase/firebase.config.js
