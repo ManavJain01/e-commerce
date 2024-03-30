@@ -164,13 +164,12 @@ function Footer(){
                   </button>}
                   
                   <p>Our customer representative team is available 7 days a week from 9 am - 9 pm.</p>
-                  <p className="flex gap-5 font-semibold justify-between">
+                  <p className="flex flex-col md:flex-row lg:flex-nowrap gap-5 font-semibold justify-between">
                     <span>support@dismefa.in</span>
                     <span>8269543305</span>
                   </p>
                 </section>
-              </li>
-            </ul>
+              </li></ul>
           </div>
         </Styles>
         <hr className="min-w-[100vw] h-1 bg-white" />

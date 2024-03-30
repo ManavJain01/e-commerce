@@ -21,7 +21,7 @@ function Header(){
   const [isLogin, setIsLogin] = useState(true);
   const [userName, setUserName] = useState("Manav Jain");
 
-  let itemsInCart = 2;
+  const [itemsInCart, setItemsInCart] = useState('2');
 
   const changeNavbar = () => {
     const inputBtn = document.getElementById("header-input");

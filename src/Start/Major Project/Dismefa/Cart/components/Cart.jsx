@@ -67,9 +67,9 @@ function Cart(){
                   <button><img src={bin} className="object-contain w-8" /></button>
                   <section className="w-32 flex items-center justify-between px-3 py-1 border-2 border-gray-500 rounded-md">
                     Qty:
-                    <button><img src={plus} className="object-contain w-4" /></button>
-                    4
                     <button><img src={minus} className="object-contain w-4" /></button>
+                    4
+                    <button><img src={plus} className="object-contain w-4" /></button>
                   </section>
                 </section>
               </div>
