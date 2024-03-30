@@ -17,10 +17,12 @@ function MedicinePage(){
         </section>
 
         <div to="/Home" className="mt-10 flex flex-wrap gap-2">
-          {medicinesList.map((e)=><ProductCard e={e} key={e.name} />)}
+          {medicinesList.map((e)=>(
+            // <ProductCard e={e} key={e.name} />
+            <Link to="/Products" e={"hi"} className=''>Click ME :)</Link>
+          ))}
         </div>
 
-        <Link to="/Products" className=''>Click ME :)</Link>
       </div>
     </>
   )

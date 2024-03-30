@@ -13,8 +13,8 @@ function ProductCard({ e }){
       <div className="flex flex-col justify-between">
         <p className="text-xl font-bold">{e.name}</p>
         <p className="text-gray-400 text-sm">{e.company}</p>
-        <p>Pack of {e.Units} Units</p>
-        <p className="font-bold">MRP रु. {/*(e.MRP).toFixed(2)*/}</p>
+        <p>{e.Units}</p>
+        <p className="font-bold">MRP रु.{(e.MRP).toFixed(2)}</p>
         <p className="text-gray-400 text-sm">(inclusive of all taxes)</p>
         {medicineQTY == 0
           ?<button onClick={()=>setMedicineQTY(1)} className="bg-blue-700 text-white py-1 px-5 rounded-md active:opacity-80">ADD</button>
@@ -23,7 +23,7 @@ function ProductCard({ e }){
               <button onClick={()=>{setMedicineQTY(medicineQTY-1)}}><img src={minus} className="object-contain w-4 active:opacity-80" /></button>
               {medicineQTY}
               <button onClick={()=>{setMedicineQTY(medicineQTY+1)}} ><img src={plus} className="object-contain w-4 active:opacity-80" /></button>
-            </section>
+          </section>
         }
       </div>
     </div>

@@ -8,15 +8,17 @@ export const medicines = [{
     name: 'Crocin Advance 500mg',
     company: 'Herb Edge Health Care Pvt. Ltd.',
     MRP: 19.93,
-    Units: 15,
+    Units: 'Pack of 15 Units',
     QTY: 10,
+    prescription: 'required',
     img: crocinLogo
   },{
     name: 'Limcee',
     company: 'Abbott',
     MRP: 23,
-    Units: 15,
+    Units: 'Pack of 15 Units',
     QTY: 5,
+    prescription: 'not-required',
     img: limceeLogo
   }]
 },{
