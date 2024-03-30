@@ -22,6 +22,7 @@ import Layout from './Start/Major Project/Dismefa/Layout'
 import Home from './Start/Major Project/Dismefa/Main Page/components/Main'
 import MedicinePage from './Start/Major Project/Dismefa/Medicines/components/MedicinePage'
 import ProductCard2 from './Start/Major Project/Dismefa/Product Card/components/ProductCard2'
+import Categories from './Start/Major Project/Dismefa/Categories/components/Categories'
 // Header Links
 import Cart from './Start/Major Project/Dismefa/Cart/components/Cart'
 import SavedForLater from './Start/Major Project/Dismefa/Main Page/components/Header/SavedForLater'
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "Medicines",
         element: <MedicinePage />
+      },
+      {
+        path: "Categories/:type",
+        element: <Categories />
       },
       {
         path: "Company/Help",

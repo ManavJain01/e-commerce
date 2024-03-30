@@ -8,51 +8,51 @@ export const items = [{
   list:[{
     name:"skin care",
     subList:[{
-      subItems:"Skin Cream"
+      subItems:"Skin Cream",
     },{
-      subItems:"Sunscreen"
+      subItems:"Sunscreen",
     },{
-      subItems:"Face Wash"
+      subItems:"Face Wash",
     },{
-      subItems:"Skin and Body Soap"
+      subItems:"Skin and Body Soap",
     },{
-      subItems:"Acne Care"
+      subItems:"Acne Care",
     },{
-      subItems:"Body Lotions"
+      subItems:"Body Lotions",
     },{
-      subItems:"Moisturising Lotion"
+      subItems:"Moisturising Lotion",
     },{
-      subItems:"Moisturising Cream"
+      subItems:"Moisturising Cream",
     },{
-      subItems:"Mosquito Repellent"
+      subItems:"Mosquito Repellent",
     },{
-      subItems:"Moisturising Gel"
+      subItems:"Moisturising Gel",
     },{
-      subItems:"Body Wash"
+      subItems:"Body Wash",
     }]
   },{
     name:"hair care",
     subList:[{
-      subItems:"Hair Oils"
+      subItems:"Hair Oils",
     },{
-      subItems:"Hair Shampoo"
+      subItems:"Hair Shampoo",
     },{
-      subItems:"Hair Conditioners"
+      subItems:"Hair Conditioners",
     },{
-      subItems:"Hair Supplements"
+      subItems:"Hair Supplements",
     },{
-      subItems:"Hair Color"
+      subItems:"Hair Color",
     },{
-      subItems:"Hair Serium"
+      subItems:"Hair Serium",
     },{
-      subItems:"Hair Mask"
+      subItems:"Hair Mask",
     },{
-      subItems:"Hair Solutions"
+      subItems:"Hair Solutions",
     }]
   },{
     name:"Baby and Mom care",
     subList:[{
-      subItems:"Baby Diapers and Wipes"
+      subItems:"Baby Diapers and Wipes",
     },{
       subItems:"Baby Lotion and Moisturising Cream"
     },{

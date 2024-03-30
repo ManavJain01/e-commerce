@@ -36,8 +36,8 @@ function ProductsNavbar(){
             {items.map((e)=>(
               <div key={e.id} className="flex flex-col gap-3">
                 <ul className="relative">
-                  {e.path ? <Link to={e.path} id={e.id}>{e.name}</Link> : <li id={e.id}>{e.name}</li>}
-                  {e.list ? <ProductSlide list={e.list} /> : ""}
+                  {e.path ? <Link to={e.path} id={e.id}>{e.name}</Link> : <li id={e.id}><Link to={`Categories/${e.name}`} state={{value: e.name}}>{e.name}</Link></li>}
+                  {e.list ? <ProductSlide list={e.list} categoryName={e.name} /> : ""}
                   {/* {e.list ? e.list.map((f)=>(<div key={f} className="/absolute /top-10 /left-0 px-2 my-2 hidden">{f}</div>)) : ""} */}
                 </ul>
               </div>
