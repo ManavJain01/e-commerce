@@ -11,12 +11,12 @@ function ProductCard({ e }){
   return(
     <div key={e.name} className="flex flex-col gap-2 items-end border px-5 py-2 border-black rounded-md">
       <Link to='/Products/parameter-data' state={{value: e}} className='flex gap-5'>
-        <img src={e.img} className="object-contain w-40" />
+        {e.img && <img src={e.img} className="object-contain w-40" />}
         <div className="flex flex-col justify-between">
           <p className="text-xl font-bold">{e.name}</p>
           <p className="text-gray-400 text-sm">{e.company}</p>
-          <p>{e.Units}</p>
-          <p className="font-bold">MRP रु.{(e.MRP).toFixed(2)}</p>
+          {e.Units && <p>{e.Units}</p>}
+          {e.MRP && <p className="font-bold">MRP रु.{(e.MRP).toFixed(2)}</p>}
           <p className="text-gray-400 text-sm">(inclusive of all taxes)</p>
           
         </div>

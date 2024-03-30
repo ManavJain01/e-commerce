@@ -28,6 +28,10 @@ export const medicines = [{
     name:"skin care",
     subList:[{
       subItems:"Skin Cream",
+      Items:[{
+        name:"honda city",
+        company:"honda"
+      }]
     },{
       subItems:"Sunscreen",
     },{
