@@ -25,9 +25,9 @@ function InputBtn(e){
   if(e.title == "footer-subscribe"){
     return(
       <>
-        <div className="relative w-[23rem]">
-          <input type="text" placeholder={e.placeholder} className="h-12 w-[23rem] px-5 py-3 rounded-md" />
-          <button className="bg-blue-600 text-white text-lg font-semibold h-12 px-8 rounded-e-lg absolute inset-y-0 right-0">{e.button}</button>
+        <div className="relative max-w-[23rem]">
+          <input type="text" placeholder={e.placeholder} className="h-12 max-w-[23rem] lg:w-[23rem] px-5 py-3 rounded-md" />
+          <button className="bg-blue-600 text-white text-lg font-semibold h-12 px-8 rounded-e-lg absolute inset-y-0 right-1 lg:right-0">{e.button}</button>
       </div>
       </>
     )

@@ -156,7 +156,7 @@ function Footer(){
               <li><p>Get easy access to medicines, health information, and more. With our app, you'll never have to wait in line again. Download now and start taking control of your health.</p></li>
               <li><button><img src={googleStoreLogo} className="object-contain w-56" /></button></li>
               <li>
-                <section className='flex flex-col gap-3'>
+                <section className='flex flex-col gap-3 w-[85vw] lg:w-fit'>
                   {screenSize ? <span className='text-xl font-bold'>Contact Us</span>
                   :<button id='contact' onClick={()=>enableAccordion4()} className="text-xl font-bold flex justify-between lg:block">
                     <span>Contact Us</span>
