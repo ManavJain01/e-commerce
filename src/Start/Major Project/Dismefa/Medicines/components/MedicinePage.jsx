@@ -1,9 +1,5 @@
-import { Link } from 'react-router-dom'
-
-
 import { medicines } from './MedicinesAPI'
 import ProductCard from '../../Product Card/components/ProductCard'
-import ProductCard2 from '../../Product Card/components/ProductCard2'
 
 function MedicinePage(){
   const medicinesList = medicines.filter(e => e.type.includes('Medicines'))[0].list
@@ -18,9 +14,8 @@ function MedicinePage(){
 
         <div to="/Home" className="mt-10 flex flex-wrap gap-2">
           {medicinesList.map((e)=>(
-            // <ProductCard e={e} key={e.name} />
-            <Link to="/Products" e={"hi"} className=''>Click ME :)</Link>
-          ))}
+            <ProductCard e={e} key={e.name} />
+            ))}
         </div>
 
       </div>

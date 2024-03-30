@@ -7,15 +7,18 @@ import plus from '../Images/plus.png'
 import leftArrowLogo from '../Images/leftArrow.png'
 import rightArrowLogo from '../Images/rightArrow.png'
 
-import { medicines } from '../../Medicines/components/MedicinesAPI'
-
 import { useState } from 'react'
+import { useParams, useLocation } from 'react-router-dom'
 
 
-function ProductCard2( f ){
-  console.log(f.e)
-
-  const e = medicines.filter(e => e.type.includes('Medicines'))[0].list
+function ProductCard2(){
+  // const type = useParams().type
+  // const {value} = useLocation().state;
+  // console.log("props parameter value - " + type);
+  // console.log("props state value - " + value1);
+  
+  //const {type} = useParams()
+  const e = useLocation().state.value;
 
   const [ medicineQTY, setMedicineQTY ] = useState(0);
   const [ deliveryDate, setdeliveryDate ] = useState('Today');
@@ -25,17 +28,17 @@ function ProductCard2( f ){
 
       <div className="sticky flex justify-between py-2 px-10 border border-gray-200">
         <button><img src={leftArrowLogo} className="object-contain w-10" /></button>
-        <img src={e[1].img} className="object-contain w-64" />
+        <img src={e.img} className="object-contain w-64" />
         <button><img src={rightArrowLogo} className="object-contain w-10" /></button>
       </div>
 
       <div className="flex flex-col gap-5">
         <div className="flex flex-wrap /gap-10 justify-between items-center">
           <div className="flex flex-col gap-2">
-            <p className="text-2xl font-bold opacity-70">{e[1].name}</p>
-            <p className="text-lg font-bold text-gray-400">{e[1].company}</p>
-            <p className="text-lg">{e[1].Units}</p>
-            <p className="text-lg font-semibold">MRP ₹{e[1].MRP}</p>
+            <p className="text-2xl font-bold opacity-70">{e.name}</p>
+            <p className="text-lg font-bold text-gray-400">{e.company}</p>
+            <p className="text-lg">{e.Units}</p>
+            <p className="text-lg font-semibold">MRP ₹{e.MRP}</p>
             <p className="text-gray-400 font-semibold">*MRP inclusive of all taxes</p>
           </div>
           {medicineQTY == 0
@@ -67,7 +70,7 @@ function ProductCard2( f ){
           </section>
         </div>
 
-        {e[1].prescription != 'required' ? ""
+        {e.prescription != 'required' ? ""
           :<div className="flex gap-2 items-center">
             <img src={prescriptionLogo} className="object-contain w-8" />
             <p className="text-gray-400 text-sm font-semibold">Prescription required for this medicine</p>

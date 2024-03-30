@@ -60,7 +60,7 @@ const router = createBrowserRouter([
         element: <ReferEarn />
       },
       {
-        path: "Products",
+        path: "Products/:type",
         element: <ProductCard2 />
       },
       {
