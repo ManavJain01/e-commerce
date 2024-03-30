@@ -5,7 +5,7 @@ import { useState } from "react"
 import styled from "styled-components"
 import { RecaptchaVerifier } from "firebase/auth"
 
-import { auth } from "../../Firebase/firebase.config"
+// import { auth } from "../../Firebase/firebase.config"
 
 function OtpPage({ storePhnNo, setGenerateOTP }){
   let timer30 = 30;

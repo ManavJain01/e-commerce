@@ -53,7 +53,7 @@ function LoginSignup({setLoginPage}){
             {generateOTP ?
               <OtpPage storePhnNo={storePhnNo} setGenerateOTP={setGenerateOTP} />           
               
-              :/*<section className='mt-10 flex flex-col relative'>
+              :<section className='mt-10 flex flex-col relative'>
                 <span className='mb-5 font-semibold text-lg flex gap-5 items-center relative before:absolute before:content-["+91"] before:text-gray-400 before:top-14 before:left-1'><BsFillShieldLockFill />Enter your mobile number</span>
                 <input type="number" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="validPhn" placeholder='Your Mobile Number' onChange={()=>setValidNumber(false)}
                       className="px-10 py-2 border-2 border-gray-400 rounded-md" /> 
@@ -63,8 +63,8 @@ function LoginSignup({setLoginPage}){
                                 </span> : ""
                 }
                 <button onClick={()=>checkValidNumber()} className="bg-green-700 text-white rounded-md mt-10 py-3 hover:opacity-80 active:opacity-90">Send OTP</button>
-              </section>*/
-              <PhoneInput country={"in"} value={ph} onChange={setPh} ></PhoneInput>
+              </section>
+              // <PhoneInput country={"in"} value={ph} onChange={setPh} ></PhoneInput>
               
             }
 

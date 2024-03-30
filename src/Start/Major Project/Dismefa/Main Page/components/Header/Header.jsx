@@ -59,7 +59,7 @@ function Header(){
                 <img src={downArrowLogo} className="object-contain w-3" />
                 </button>
               
-                <div id="UserBtnDiv" className="hidden absolute top-6 right-10">
+                <div id="UserBtnDiv" className="hidden absolute right-10">
                   <UserNavbar setIsLogin={setIsLogin} />
                 </div>
               </li>

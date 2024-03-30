@@ -8,7 +8,7 @@ function ProductSlide({ list }){
       <div className="hidden absolute whitespace-nowrap text-sm bg-white w-[calc(250%)] py-2 rounded-md shadow-md /flex">
         <ItemsStyle className="flex flex-1 flex-col gap-2">
           {list.map((e)=>(
-            <div id="secondName-wrapper" key={e.name} className="flex justify-between pl-5 py-1">
+            <div id="secondName-wrapper" key={e.name} className="flex justify-between pl-5 py-1 text-xs lg:text-sm">
               {e.name}
               {e.subList?
               <div className="flex relative">
@@ -33,7 +33,6 @@ export default ProductSlide;
 const ItemsStyle = styled.div`
   div:hover{
     background-color:lightblue;
-    color:white;
   }
 
   div:hover div div{

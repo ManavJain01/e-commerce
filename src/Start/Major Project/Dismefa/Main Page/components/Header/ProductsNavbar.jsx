@@ -32,7 +32,7 @@ function ProductsNavbar(){
     <>
       <div className="relative">
         <ItemStyles>
-          <div className="w-[100vw] relative z-40 px-10 py-1 mb-10 flex justify-between bg-white text-gray-500 text-sm border shadow-md shadow-gray-700">
+          <div className="w-[100vw] relative z-40 py-1 mb-10 flex justify-around bg-white text-gray-500 text-xs lg:text-sm whitespace-nowrap border shadow-md shadow-gray-700">
             {items.map((e)=>(
               <div key={e.id} className="flex flex-col gap-3">
                 <ul className="relative">
