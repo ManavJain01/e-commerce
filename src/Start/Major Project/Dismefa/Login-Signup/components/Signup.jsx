@@ -66,10 +66,10 @@ function Signup({ ph, setPh }){
         </span>
         : ""
       }
-      <button onClick={() => checkValidNumber()} className="bg-green-700 text-white flex justify-center items-center gap-5 rounded-md mt-10 py-3 hover:opacity-80 active:opacity-90">
+      {/* <button onClick={() => checkValidNumber()} className="bg-green-700 text-white flex justify-center items-center gap-5 rounded-md mt-10 py-3 hover:opacity-80 active:opacity-90">
         { loading && <CgSpinner size={20} className="animate-spin" />}
         Send OTP
-      </button>
+      </button> */}
 
       {/* Here Firebase CheckBot Comes */}
       <div id="recaptcha" className="mt-5 m-auto" />
