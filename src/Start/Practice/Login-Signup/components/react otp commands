@@ -1,0 +1,108 @@
+// first video
+
+// https://www.youtube.com/watch?v=Q--CGvbvY3k
+
+// npm install firebase
+
+// yarn add react-icons
+// # or
+// npm install react-icons --save
+
+// npm install --save react-otp-input
+// or, npm i otp-input-react
+
+// npm install react-phone-input-2 --save
+
+// npm i react-hot-toast
+
+// npm install react-toastify
+
+import { BsFillShieldLockFill, BsTelephoneFill } from 'react-icons/bs'
+// import { CgSpinner } from "react-icons/cg"
+
+// import { OtpInput } from "otp-input-react"
+// import { useState } from "react"
+import { PhoneInput } from "react-phone-input-2"
+import "react-phone-input-2/lib/style.css"
+
+// import { auth } from "../../Firebase/firebase.config.js"
+
+// import { RecaptchaVerifier } from "firebase/auth"
+
+inside index.css
+  .react-tel-input .form-control{
+    @apply !w-full py-6 !text-base;
+  }
+
+// const [otp, setOtp] = useState("")
+// const [ph, setPh] = useState("")
+// const [loading, setLoading] = useState(false)
+// const [showOTP, setShowOTP] = useState(false)
+
+<BsFillShieldLockFill size={30} />
+{/* <OtpInput 
+      value={otp}
+      onChange={setOtp}
+      OTPLength={6}
+      otpType="number"
+      disabled={false}
+      autoFocus
+      className="flex justify-between gap-2">
+</OtpInput> */}
+
+{/* <PhoneInput country={"in"} value={ph} onChange={setPh} */}
+
+// <button>
+//   {loading && <CgSpinner size={20} className="animate-spin" />}
+//   <span>Verify OTP</span>
+// </button>
+
+//-------------------------------------------------------------------------------------------------
+// function onCaptchVerify(){
+//   if(!window.recaptchaVerifier){
+
+//     window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+//       'size': 'invisible',
+//       'callback': (response) => {
+        
+//       },
+//       'expired-callback': () => {
+        
+//       }
+//     }, auth);
+//   }
+// }
+
+
+// i need to learn react icons
+
+// https://firebase.google.com/docs/auth/web/phone-auth?hl=en&authuser=0&_gl=1*1jz9jdb*_ga*MTg5MDMzMDQwNi4xNzA5MzcwMTg0*_ga_CW55HF8NVT*MTcxMTYxNzUwMC4xMi4xLjE3MTE2MTc5NDYuMjcuMC4w
+
+
+
+// Second video
+
+const [user, setUser] = useState(null)
+
+/* const sendOtp = async() => {
+  try{
+    const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {})
+    const confirmation = signInWithPhoneNumber(auth, phone, recaptcha)
+    setUser(confirmation)
+  }catch(err){
+    console.log(err)
+  }
+}
+
+<div id="recaptcha"></div>
+
+  const verifyOtp = async() =>{
+    try{
+    user.confirm(otp)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+
+*/
