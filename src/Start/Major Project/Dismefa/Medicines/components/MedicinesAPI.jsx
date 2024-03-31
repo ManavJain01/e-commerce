@@ -34,6 +34,10 @@ export const medicines = [{
       }]
     },{
       subItems:"Sunscreen",
+      Items:[{
+        name:"Creata",
+        company:"hyundai"
+      }]
     },{
       subItems:"Face Wash",
     },{
@@ -57,6 +61,10 @@ export const medicines = [{
     name:"hair care",
     subList:[{
       subItems:"Hair Oils",
+      Items:[{
+        name:"Aspire 7",
+        company:"Acer"
+      }]
     },{
       subItems:"Hair Shampoo",
     },{

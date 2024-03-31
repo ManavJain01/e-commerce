@@ -13,7 +13,7 @@ function LoginSignup({ setLoginPage }){
   document.body.style.overflow = "hidden";
 
   const [ph, setPh] = useState("")
-  const [generateOTP, setGenerateOTP] = useState(false)
+  const [generateOTP, setGenerateOTP] = useState(true)
 
   //Function to close this component and sub-components
   function closePage(){

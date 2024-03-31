@@ -1,5 +1,13 @@
+import { useState } from 'react'
 
 function Filters({ e }){
+  const [filtered, setFiltered] = useState("")
+
+  function filterOptions(x){
+    console.log(x.target.value)
+  }
+
+  console.log(filtered)
 
   return(
     <div className="flex flex-col gap-4 ">
@@ -13,7 +21,7 @@ function Filters({ e }){
         <div className="flex flex-col gap-3 text-gray-500 text-sm my-2 max-h-[10rem] overflow-y-scroll">
           {e[0].list.map(f=>(
               <div key={f.name} className="flex gap-2">
-                <input type="checkbox" className=""></input>
+                <input type="checkbox" onClick={()=>setFiltered([f.name, e[0].name])} className="" />
                 <span>{f.name}</span>
               </div>
             ))
@@ -32,7 +40,7 @@ function Filters({ e }){
             {e[0].list.map((f)=>
               f.subList && f.subList.map((g)=>
                 <div key={g.subItems} className="flex gap-2">
-                  <input type="checkbox" className=""></input>
+                  <input type="checkbox" onClick={()=>setFiltered(f.name)} className=""></input>
                   <span>{g.subItems}</span>
                 </div>
               )
@@ -53,7 +61,7 @@ function Filters({ e }){
               f.subList && f.subList.map((g)=>
                 g.Items && g.Items.map((h)=>
                   <div key={h.name} className="flex gap-2">
-                    <input type="checkbox" />
+                    <input type="checkbox" onClick={()=>setFiltered(f.name)} />
                     <span>{h.company}</span>
                   </div>
                 )

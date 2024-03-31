@@ -12,7 +12,7 @@ function Categories(){
   const [categories, setCategories] = useState(medicines.filter(e => e.type != 'Medicines'))
 
   useEffect(()=>{
-    setCategories(medicines.filter(e => e.type == propsValue[1]))  
+    setCategories(medicines.filter(e => e.type == propsValue[2]))  
   },[propsValue])
 
   return(
@@ -22,10 +22,10 @@ function Categories(){
       <div>
         <h1 className="text-2xl font-semibold">{propsValue[0]}</h1>
 
-        <div className="py-10 my-4 border-t border-gray-400">
+        <div className="flex gap-5 py-10 my-4 border-t border-gray-400">
           {categories[0].list.map((f)=>
-            f.subList && f.subList.map((g)=>
-              g.Items && g.Items.map((h)=>
+            f.subList && (propsValue[0] == propsValue[2] || propsValue[1] == f.name || propsValue[0] == f.name) && f.subList.map((g)=>
+              g.Items && (propsValue[0] == propsValue[2] || propsValue[0] == propsValue[1] || propsValue[0] == g.subItems) && g.Items.map((h)=>
                 <div key={h.name} className="flex gap-2">
                   <ProductCard e={h} />
                 </div>
