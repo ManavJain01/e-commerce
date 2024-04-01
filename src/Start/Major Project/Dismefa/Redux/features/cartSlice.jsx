@@ -1,8 +1,8 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit'
 
 const initialState = {
-  cartItems: [{id: 1, list: {name: 'honda city', company: 'honda', MRP: 19.93, Units: 'Pack of 15 Units', QTY: 10}}]
-  // cartItems: []
+  // cartItems: [{id: 1, list: {name: 'honda city', company: 'honda', MRP: 19.93, Units: 'Pack of 15 Units', QTY: 10}}]
+  cartItems: []
 }
 
 let i = 2;

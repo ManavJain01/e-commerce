@@ -5,8 +5,8 @@ import { BsFillShieldLockFill } from 'react-icons/bs'
 import { useState } from 'react'
 
 // Importing Firebase configuration
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
-import { auth } from "../../Firebase/firebase.config"
+// import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
+// import { auth } from "../../Firebase/firebase.config"
 
 function Signup({ ph, setPh }){
   const [notValid, setNotValid] = useState(false)
