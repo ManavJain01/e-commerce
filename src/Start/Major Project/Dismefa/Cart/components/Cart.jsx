@@ -1,14 +1,29 @@
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-
+// Importing Local Icons
 import emptyCart from '../Images/cart.png'
 import bin from '../Images/bin.png'
 import minus from '../Images/minus.png'
 import plus from '../Images/plus.png'
 
+// Importing Product Card
+import ProductCard from '../../Product Card/components/ProductCard'
+
+// Importing React Files
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
+// Importing Redux Files
+import { useSelector, useDispatch } from 'react-redux'
+
 let cartItems = 2;
 let allMRP = 0 //"mrp" * "qty"
 let allDiscount = 0 //"qty" * "discount"
+
+//---------------------------------------------
+
+
+
+//---------------------------------------------
+
 
 function Cart(){
   const [totalMRP, setTotalMRP] = useState(2000)
@@ -18,6 +33,10 @@ function Cart(){
   const [totalPayable, setTotalPayable] = useState(0)
   const [totalSavings, setTotalSavings] = useState(0) 
 
+  //---------------------------------------------
+  const reduxItems = useSelector(state => state.cartItems)
+  //---------------------------------------------
+  
   useEffect(function calculateMRP(){
     allMRP = 500;
     allDiscount = 58    
@@ -26,8 +45,6 @@ function Cart(){
     setDiscount(allDiscount);
     paymentAmount();
   },[totalMRP])
-  
-
 
   function paymentAmount(){
     setTotalAmount((totalMRP - discount).toFixed(2))
@@ -52,6 +69,13 @@ function Cart(){
           <div className="m-10 flex flex-wrap gap-20 lg:gap-0 justify-around">
             <div>
               <h1 className="font-bold text-2xl mb-5">{cartItems} Items in your Cart</h1>
+
+              {
+                reduxItems.map((item) => {
+                  console.log(item.list)
+                  return <ProductCard key={item.id} e={item.list} />
+                })
+              }
 
               <div className="border-2 border-gray-200 w-[45rem] h-[12rem] py-5 px-10 flex justify-between">
                 <div className="flex gap-5">

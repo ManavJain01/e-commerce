@@ -1,15 +1,22 @@
+// Importing Local Png Images
 import secureLogo from '../Images/secure.png'
 import securePaymentLogo from '../Images/secure-payment.png'
 import returnLogo from '../Images/return.png'
 import prescriptionLogo from '../Images/prescription.png'
+
+// Importing Local Logos
 import minus from '../Images/minus.png'
 import plus from '../Images/plus.png'
 import leftArrowLogo from '../Images/leftArrow.png'
 import rightArrowLogo from '../Images/rightArrow.png'
 
+// Importing React Files
 import { useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 
+// Importing redux Files
+import {useDispatch} from 'react-redux' 
+import { addToCart, removeFromCart } from '../../Redux/features/cartSlice'
 
 function ProductCard2(){
   // const type = useParams().type
@@ -20,8 +27,18 @@ function ProductCard2(){
   //const {type} = useParams()
   const e = useLocation().state.value;
 
+  const dispatch = useDispatch()
+
   const [ medicineQTY, setMedicineQTY ] = useState(0);
   const [ deliveryDate, setdeliveryDate ] = useState('Today');
+
+  useEffect(() => {
+    if(medicineQTY == 1){
+      dispatch(addToCart(e))
+    }else if(medicineQTY == 0){
+      dispatch(removeFromCart(e))
+    }
+  },[medicineQTY])
 
   return(
     <div className='flex flex-col lg:flex-row gap-5 py-20 px-10 border border-gray-200 m-10 rounded-md shadow-md'>

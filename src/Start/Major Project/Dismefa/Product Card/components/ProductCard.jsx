@@ -1,12 +1,27 @@
+// Importing Local Icons
 import minus from '../Images/minus.png'
 import plus from '../Images/plus.png'
 
-import { useState } from 'react'
+// Importing React Files
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+// Importing redux Files
+import {useDispatch} from 'react-redux' 
+import { addToCart, removeFromCart } from '../../Redux/features/cartSlice'
+
 function ProductCard({ e }){
+  const dispatch = useDispatch()
 
   const [ medicineQTY, setMedicineQTY ] = useState(0);
+
+  useEffect(() => {
+    if(medicineQTY == 1){
+      dispatch(addToCart(e))
+    }else if(medicineQTY == 0){
+      dispatch(removeFromCart(e))
+    }
+  },[medicineQTY])
 
   return(
     <div key={e.name} className="flex flex-col gap-2 items-end border px-5 py-2 border-black rounded-md">
