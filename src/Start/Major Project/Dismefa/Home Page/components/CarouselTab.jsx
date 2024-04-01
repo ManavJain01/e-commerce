@@ -1,16 +1,22 @@
+import step from '../Images/3step.jpg'
+import cod from '../Images/cod.jpg'
+import indiaCovered from '../Images/india_covered.jpg'
+
+import { IoIosArrowDropright } from "react-icons/io";
+import { FiArrowLeftCircle } from "react-icons/fi";
+
 import { useState } from 'react'
 
 function CarouselTab(){
-  const slides = [{url : 'https://picsum.photos/id/236/1000/500'},
-                  {url : 'https://picsum.photos/id/237/1000/500'},
-                  {url : 'https://picsum.photos/id/238/1000/500'},
-                  {url: 'https://picsum.photos/id/239/1000/500'}]
+  const slides = [{url : step},
+                  {url : cod},
+                  {url: indiaCovered}]
 
   const [currIndex, setCurrIndex] = useState(0)
   
   const containerStyles = {
-    width: '500px',
-    height: '280px',
+    width: '800px',
+    height: '400px',
     position: 'relative',
     margin: '0 auto',
   }
@@ -76,9 +82,9 @@ function CarouselTab(){
   return(
     <div style={containerStyles}>
       {/* Left arrow key functionality */}
-      <div style={leftArrowStyles} onClick={goToPrevious}>left</div>
+      <div style={leftArrowStyles} onClick={goToPrevious}><FiArrowLeftCircle /></div>
       {/* Right arrow key functionality */}
-      <div style={rightArrowStyles} onClick={goToNext}>right</div>
+      <div style={rightArrowStyles} onClick={goToNext}><IoIosArrowDropright /></div>
       {/* It is carousel container */}
       <div style={slideStyles}></div>
       {/* It is dots container */}

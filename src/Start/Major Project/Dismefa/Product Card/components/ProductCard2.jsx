@@ -11,7 +11,7 @@ import leftArrowLogo from '../Images/leftArrow.png'
 import rightArrowLogo from '../Images/rightArrow.png'
 
 // Importing React Files
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 
 // Importing redux Files

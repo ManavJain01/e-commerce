@@ -24,9 +24,9 @@ function ProductCard({ e }){
   },[medicineQTY])
 
   return(
-    <div key={e.name} className="flex flex-col gap-2 items-end border px-5 py-2 border-black rounded-md">
-      <Link to='/Products/parameter-data' state={{value: e}} className='flex gap-5'>
-        {e.img && <img src={e.img} className="object-contain w-40" />}
+    <div key={e.name} className="h-[20rem] w-[30rem] flex flex-col gap-2 items-end border px-5 py-2 border-black rounded-md">
+      <Link to='/Products/parameter-data' state={{value: e}} className='flex gap-5 justify-around'>
+        {e.img && <img src={e.img} className="object-contain /w-[20%] w-40" />}
         <div className="flex flex-col justify-between">
           <p className="text-xl font-bold">{e.name}</p>
           <p className="text-gray-400 text-sm">{e.company}</p>

@@ -4,7 +4,7 @@ import whatsapp from '../../Images/whatsapp.png'
 function ReferEarn(){
   return(
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col py-20">
         <h1 className="font-semibold text-xl text-red-700 m-8">Refer & Earn</h1>
         <div className="flex flex-col items-center p-8 mx-10 rounded-t-md border">
           <button

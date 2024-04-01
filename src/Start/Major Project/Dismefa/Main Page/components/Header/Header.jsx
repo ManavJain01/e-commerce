@@ -6,7 +6,6 @@ import loginLogo from '../../Images/login.png'
 import downArrowLogo from '../../Images/downArrow.png'
 
 import InputBtn from '../InputBtn'
-import SearchInput from './SearchInput'
 import UserNavbar from './UserNavbar'
 
 import LoginSignup from '../../../Login-Signup/components/LoginSignup'
@@ -53,7 +52,7 @@ function Header(){
           
           <div>
             <ul className="flex gap-5 relative">
-              {isLogin ?<li id="UserBtn" className="mr-4"><button className="flex gap-2 items-center">
+              {/* {isLogin ?<li id="UserBtn" className="mr-4"><button className="flex gap-2 items-center">
                 <img src={loginLogo} className="object-contain w-6" />
                 <span>{userName? userName : "User"}</span>
                 <img src={downArrowLogo} className="object-contain w-3" />
@@ -64,7 +63,7 @@ function Header(){
                 </div>
               </li>
               :<li className="whitespace-nowrap"><button onClick={()=>setLoginPage(true)}>Login | Signup</button></li>
-              }
+              } */}
               {loginPage ? <LoginSignup setLoginPage={setLoginPage} setIsLogin={setIsLogin} /> : ""}
 
               <li>
@@ -79,7 +78,6 @@ function Header(){
         </div>
         <ProductsNavbar />
       </div>
-      <SearchInput />
     </>
   )
 }
