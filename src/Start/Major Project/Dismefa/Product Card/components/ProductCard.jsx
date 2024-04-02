@@ -33,7 +33,7 @@ function ProductCard({ e, title }){
 
   // dispatch(storeStates(medicineQTY))
 
-  if(title == 'Categories'){
+  if(title == 'Categories' || title == 'MedicinePage'){
     return(
       <div key={e.name} className="h-[19rem] w-[18rem] flex flex-col gap-2 border px-5 py-2 border-black rounded-md">
       <Link to='/Products/parameter-data' state={{value: e}} className='h-[19rem] flex flex-col items-center justify-around gap-5'>

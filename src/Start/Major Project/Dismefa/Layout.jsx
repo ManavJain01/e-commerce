@@ -24,7 +24,7 @@ function Layout(){
   return(
     <>
       <Provider store={store}>
-        <div className='overflow-x-hidden flex flex-col gap-10'>
+        <div className='overflow-x-hidden flex flex-col'>
           <ScrollToTop />
           <Header />
           <Outlet />

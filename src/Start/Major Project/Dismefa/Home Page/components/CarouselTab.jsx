@@ -91,7 +91,7 @@ function CarouselTab(){
       <div style={dotsContainerStyles}>
         {slides.map((slide, slideIndex) => (
           <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}>
-            <p className='text-red-600 relative before:absolute before:top-3 before:left-0 before:bg-red-700 before:content["hi"] before:w-2 before:h-2 before:rounded-full' >&#9900;</p>
+            <p className='text-blue-600 relative before:absolute before:top-3 before:left-0 before:bg-blue-700 before:content["hi"] before:w-2 before:h-2 before:rounded-full' >&#9900;</p>
           </div>
         ))}
       </div>

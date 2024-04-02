@@ -48,7 +48,7 @@ function ProductCard2(){
 
       <div className="sticky flex justify-between py-2 px-10 border border-gray-200">
         <button><img src={leftArrowLogo} className="object-contain w-10" /></button>
-        <div className='/size-[20rem]'>
+        <div className='size-[20rem]'>
           <ReactImageMagnify {...{
             smallImage: {
               alt: 'Wristwatch by Ted Baker London',
@@ -59,7 +59,7 @@ function ProductCard2(){
               src: e.img,
               // width: 1200,
               // height: 1800
-              width: 2000,
+              width: 2500,
               height: 500,
             }
           }} />

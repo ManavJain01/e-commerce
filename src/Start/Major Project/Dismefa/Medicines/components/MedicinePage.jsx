@@ -14,7 +14,7 @@ function MedicinePage(){
 
         <div to="/Home" className="mt-10 flex flex-wrap gap-2">
           {medicinesList.map((e)=>(
-            <ProductCard e={e} key={e.name} />
+            <ProductCard key={e.name} e={e} title={'MedicinePage'} />
             ))}
         </div>
 
