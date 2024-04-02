@@ -17,7 +17,7 @@ function Categories(){
     setCategories(medicines.filter(e => e.type == propsValue[2]))  
   },[propsValue])
 
-  console.log(propsValue)
+  // console.log(categories[0].list)
 
   return(
     <div className="flex gap-10 py-20 px-8">
@@ -31,18 +31,20 @@ function Categories(){
             //  Search Through Navbar
             !filtered ? 
             categories[0].list.map((f)=>
-              //  Navbar Headlines's List have subLists
+              //  Navbar Headlines's List have subLists 1st Condition
               f.subList ? (propsValue[0] == propsValue[2] || propsValue[1] == f.name || propsValue[0] == f.name) && f.subList.map((g)=>
                 g.Items && (propsValue[0] == propsValue[2] || propsValue[0] == propsValue[1] || propsValue[0] == g.subItems) && g.Items.map((h)=>
                   <div key={h.name} className="flex gap-2">
                     <ProductCard e={h} title={'Categories'} />
                   </div>
                 )
-              //  Now Navbar Headlines's List who don't have subLists
+              //  Now Navbar Headlines's List who don't have subLists 2nd Condition
               ) : (propsValue[0] == propsValue[2]) && f.Items && f.Items.map((g) =>
                   <div key={g.name} className="flex gap-2">
                     <ProductCard e={g} title={'Categories'} />
-                  </div>) || ((propsValue[0] == propsValue[1]) && f.Items) && f.Items.map((g) => <div>4</div>)
+                            {/* 3rd Condition */}
+                  </div>) || (propsValue[0] == propsValue[1] && propsValue[0] == f.name) && f.Items && f.Items.map((g) =>
+                    <ProductCard e={g} title={'Categories'} />)
             //  Search Through Filters
             ):<FilteredComponent filtered={filtered} e={categories} />
           }

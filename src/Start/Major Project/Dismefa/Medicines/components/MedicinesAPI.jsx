@@ -17,6 +17,16 @@ import drMorepinBPLogo from '../Images/dr-morepen-bp.webp'
 import omronHemLogo from '../Images/omron-hem-7124.webp'
 import indulekhaLogo from '../Images/INDULEKHA-BRINGHA-HAIR.webp'
 import daburKeratoneLogo from '../Images/KERATONE-OIL-100-ML.webp'
+import thermosealProxaLogo from '../Images/thermoseal-proxa.webp'
+import stimOrthoMbLogo from '../Images/stim-ortho-mb-super-soft.webp'
+import glucozoneCgOrangePineappleLogo from '../Images/GLUCOZONE-CG-SACHET.webp'
+import shelcalJointsCapsuleLogo from '../Images/SHELCAL-JOINTS-CAPSULE-10.webp'
+import daburChyawanprash3xLogo from '../Images/DABUR-CHYAWANPRASH-3X-IMMUITY-ACTION-950-GM_dabur-chyawanprash-3x.webp'
+import daburHoney100Logo from '../Images/dabur-honey-100--pure-1000-gm.webp'
+import sblDiaboherbCapLogo from '../Images/sbl-diaboherb-capsule-100.webp'
+import drWillmarSchwabeIndiaSyzygiumLogo from '../Images/dr-willmar-schwabe-india-syzygium.webp'
+import himalayaSeptilinTabletLogo from '../Images/SEPTILIN-Tablet-60_1.webp'
+import vicksVaporub10Logo from '../Images/VICKS-VAPORUB-OINTMENT-10-GM_1.webp'
 
 export const medicines = [{
   id: 1,
@@ -187,7 +197,24 @@ export const medicines = [{
     },{
       subItems:"Toothache and Gum Pain"
     },{
-      subItems:"Tooth Brush"
+      subItems:"Tooth Brush",
+      Items:[{
+        name: 'Thermoseal Proxa Ns Brush 5',
+        company: 'Icpa Health Products Ltd',
+        MRP: 161.28,
+        Units: 'Pack of 5 Units',
+        QTY: 22,
+        prescription: 'not-required',
+        img: thermosealProxaLogo
+      },{
+        name: 'Stim Ortho Mb Super Soft Toothbrush 1',
+        company: 'Global Dent Aids Pvt Ltd',
+        MRP: 90.00,
+        Units: 'Pack of 1 Unit',
+        QTY: 32,
+        prescription: 'not-required',
+        img: stimOrthoMbLogo
+      }]
     },{
       subItems:"Gargle Solution"
     }]
@@ -209,7 +236,24 @@ export const medicines = [{
   id: 3,
   type: 'Health Conditions',
   list:[{
-    name:"Bone and Joint Care"
+    name:"Bone and Joint Care",
+    Items:[{
+      name: 'Glucozone Cg Orange Pineapple Flavour Sugar Free Sachet 12 GM',
+      company: 'Leeford Healthcare',
+      MRP: 54.48,
+      Units: 'Pack of 12 GM',
+      QTY: 100,
+      prescription: 'not-required',
+      img: glucozoneCgOrangePineappleLogo
+    },{
+      name: 'Shelcal Joints Capsule 10',
+      company: 'Torrent Pharmaceuticals Ltd.',
+      MRP: 693.28,
+      Units: 'Pack of 10 Units',
+      QTY: 27,
+      prescription: 'not-required',
+      img: shelcalJointsCapsuleLogo
+    }]
   },{
     name:"Digestive Care",
     subList:[{
@@ -298,7 +342,24 @@ export const medicines = [{
   },{
     name:"Piles, Fissures & Fistula"
   },{
-    name:"Respiratory Care"
+    name:"Respiratory Care",
+    Items:[{
+      name: 'Himalaya Septilin Tablet 60',
+      company: 'Himalaya Drug Company',
+      MRP: 199.50,
+      Units: 'Pack of 60 Units',
+      QTY: 15,
+      prescription: 'not-required',
+      img: himalayaSeptilinTabletLogo
+    },{
+      name: 'Vicks Vaporub 10 ML',
+      company: 'Torrent Pharmaceuticals Ltd.',
+      MRP: 43.65,
+      Units: 'BOTTLE of 10 GM',
+      QTY: 23,
+      prescription: 'not-required',
+      img: vicksVaporub10Logo
+    }]
   },{
     name:"Mental Wellness"
   },{
@@ -339,7 +400,24 @@ export const medicines = [{
   },{
     name:"Mineral Supplements"
   },{
-    name:"Immunity Boosters"
+    name:"Immunity Boosters",
+    Items:[{
+      name: 'Dabur Chyawanprash 3x Immuity Action 950 GM',
+      company: 'Dabur India Ltd.',
+      MRP: 395.00,
+      Units: 'BOTTLE of 950 GM',
+      QTY: 225,
+      prescription: 'not-required',
+      img: daburChyawanprash3xLogo
+    },{
+      name: 'Dabur Honey 100 % Pure 1000 GM',
+      company: 'Dabur India Ltd.',
+      MRP: 386.78,
+      Units: 'Pack of 1000 GM',
+      QTY: 16,
+      prescription: 'not-required',
+      img: daburHoney100Logo
+    }]
   },{
     name:"Omega and Fish Oil"
 }]
@@ -376,7 +454,26 @@ export const medicines = [{
   },{
     name:"Diabetes Ayurvedic Medicines"
   },{
-    name:"Homeopathy"
+    name:"Homeopathy",
+    Items:[{
+      name: 'Sbl Diaboherb Capsule 100',
+      company: 'Sbl Pvt Ltd',
+      MRP: 500.00,
+      Units: 'PACKET of 100 Units',
+      QTY: 5,
+      prescription: 'not-required',
+      condition: 'returnable',
+      img: sblDiaboherbCapLogo
+    },{
+      name: 'Dr Willmar Schwabe India Syzygium Jambolanum Trituration 1x Tablet 20 GM',
+      company: 'Dr Willmar Schwabe India Pvt Ltd',
+      MRP: 157.50,
+      Units: 'Pack of 20 GM',
+      QTY: 17,
+      prescription: 'not-required',
+      condition: 'returnable',
+      img: drWillmarSchwabeIndiaSyzygiumLogo
+    }]
   },{
     name:"Syringes and Pens"
 }]
