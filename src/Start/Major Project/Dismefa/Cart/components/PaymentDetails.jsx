@@ -1,45 +1,44 @@
 // Importing React Files
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
-let allMRP = 0 //"mrp" * "qty"
-let allDiscount = 0 //"qty" * "discount"
+import { useSelector } from 'react-redux'
 
 function PaymentDetails({ reduxItems, cartItems }){
   const [totalMRP, setTotalMRP] = useState(0)
   const [discount, setDiscount] = useState(0)
   const [totalAmount, setTotalAmount] = useState(0)
-  const [deliveryCharges, setDeliveryCharges] = useState(50)
+  const [deliveryCharges, setDeliveryCharges] = useState((50).toFixed(2))
   const [totalPayable, setTotalPayable] = useState(0)
   const [totalSavings, setTotalSavings] = useState(0) 
 
-  // const totalMRP = 0
-  // const discount = 0
-  // const totalAmount = 0
-  // const deliveryCharges = 0
-  // const totalPayable = 0
-  // const [totalSavings, setTotalSavings] = useState(0) 
+  const [totalQuantities, setTotalQuantities] = useState(0)
+  
+  // const medicineQTY = useSelector(state => state.cartItems)
 
-  useEffect(function calculateMRP(){
-    // allMRP = 500;
-    // allDiscount = 58    
+  // console.log(medicineQTY)
 
-    // setTotalMRP(allMRP);
-    // setDiscount(allDiscount);
-    // paymentAmount();
-
+  useEffect(() => {
+    let tempMRP = 0
+    let tempDiscount = 0
     reduxItems.map((item) => {
-      setTotalMRP(totalMRP + item.list.MRP)
-      setDiscount(discount + ((item.list.MRP)*.15).toFixed(2))
-      paymentAmount()
+      tempMRP += (item.list.MRP * item.cartQty)
+      tempDiscount += (item.list.MRP)*.15
     })
-
+    
+    setTotalMRP(tempMRP.toFixed(2))
+    setDiscount(tempDiscount.toFixed(2))
+  
   },[cartItems])
-
-  function paymentAmount(){
-    setTotalAmount(totalMRP - discount)
-    setTotalPayable(totalAmount - deliveryCharges)
+  
+  
+  useMemo(() => {
+    setTotalAmount((totalMRP - discount).toFixed(2))
+  },[totalMRP])
+  
+  useMemo(() => {
+    setTotalPayable((totalAmount - deliveryCharges).toFixed(2))
     setTotalSavings(discount)
-  }
+  },[totalAmount])
 
   return(
     <div className="max-w-[30rem] px-10 flex flex-col flex-1 gap-4 font-semibold">

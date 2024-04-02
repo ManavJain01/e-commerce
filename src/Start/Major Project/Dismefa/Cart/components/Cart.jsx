@@ -20,7 +20,6 @@ import PaymentDetails from './PaymentDetails'
 
 function Cart(){
   const reduxItems = useSelector(state => state.cartItems)
-
   const [cartItems, setCartItems] = useState(reduxItems.length)
 
   if(cartItems == 0){
@@ -43,6 +42,7 @@ function Cart(){
 
               {
                 reduxItems.map((item) => {
+                  // console.log(item)
                   return <ProductCard key={item.id} e={item.list} />
                 })
               }

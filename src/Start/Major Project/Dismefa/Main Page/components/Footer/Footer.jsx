@@ -92,7 +92,7 @@ function Footer(){
       <div className="bg-blue-100 w-fit min-h-[20vh] text-gray-500">
         <hr className="min-w-[100vw] h-1 bg-white" />
         <Styles>
-          <div className="flex flex-col text-center items-center lg:items-start lg:flex-row lg:justify-between gap-10 lg:gap-32 py-10 px-14">
+          <div className="flex /flex-col flex-col-reverse text-center items-center lg:items-start lg:flex-row lg:justify-between gap-10 lg:gap-32 py-10 px-14">
             <ul className="flex flex-col gap-6 whitespace-nowrap">
               <li>
                 {screenSize ? <h1 className="text-xl font-bold">Company</h1> 

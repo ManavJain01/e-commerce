@@ -11,32 +11,34 @@ import leftArrowLogo from '../Images/leftArrow.png'
 import rightArrowLogo from '../Images/rightArrow.png'
 
 // Importing React Files
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 
 // Importing redux Files
-import {useDispatch} from 'react-redux' 
+import { useDispatch, useSelector} from 'react-redux' 
 import { addToCart, removeFromCart } from '../../Redux/features/cartSlice'
 
 function ProductCard2(){
-  // const type = useParams().type
-  // const {value} = useLocation().state;
-  // console.log("props parameter value - " + type);
-  // console.log("props state value - " + value1);
-  
-  //const {type} = useParams()
   const e = useLocation().state.value;
 
   const dispatch = useDispatch()
-
-  const [ medicineQTY, setMedicineQTY ] = useState(0);
+  const reduxItems = useSelector(state => state.cartItems)
+  
   const [ deliveryDate, setdeliveryDate ] = useState('Today');
-
+  const [ medicineQTY, setMedicineQTY ] = useState(0);
+  useMemo(() => {
+    reduxItems.map((item) => {
+      if(item.list.name === e.name) setMedicineQTY(item.cartQty)
+    })
+  },[])
+  
   useEffect(() => {
-    if(medicineQTY == 1){
-      dispatch(addToCart(e))
-    }else if(medicineQTY == 0){
-      dispatch(removeFromCart(e))
+    if(medicineQTY == 0)  dispatch(removeFromCart(e))
+    else if(medicineQTY == 1) dispatch(addToCart(e))
+    else{
+      reduxItems.map((item) => {
+        if(item.list.name === e.name) dispatch(updateCart({e,medicineQTY}))
+      })
     }
   },[medicineQTY])
 

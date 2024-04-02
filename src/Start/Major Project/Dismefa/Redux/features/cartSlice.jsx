@@ -1,8 +1,9 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit'
 
 const initialState = {
-  // cartItems: [{id: 1, list: {name: 'honda city', company: 'honda', MRP: 19.93, Units: 'Pack of 15 Units', QTY: 10}}]
-  cartItems: []
+  // cartItems: [{id: 1, cartQty: 2, list: {name: 'honda city', company: 'honda', MRP: 19.93, Units: 'Pack of 15 Units', QTY: 10}}]
+  cartItems: [],
+  stateItems: [{stateName: 'stateName'}]
 }
 
 let i = 2;
@@ -12,34 +13,38 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
+      let isAvailable = false
       state.cartItems.map((item) =>{
-        if(item.name === action.payload.name) return
+        if(item.list.name === action.payload.name) isAvailable = true;
       })
-
-      const item = {
-        id: i++,
-        list: action.payload
+      if(!isAvailable){
+        const item = {
+          id: i++,
+          cartQty: 1,
+          list: action.payload
+        }
+        state.cartItems.push(item)
       }
-      state.cartItems.push(item)
-      // console.log(state.cartItems)
     },
     removeFromCart: (state, action) => {
-      state.cartItems = state.cartItems.filter((item) => item.name !== action.payload.name )
-      // console.log(state.cartItems)
+      i--;
+      state.cartItems = state.cartItems.filter((item) => item.list.name !== action.payload.name )
     },
     updateCart: (state, action) => {
       state.cartItems.map((item) =>{
-        if(item.id === action.payload[1]){
-          item.text = action.payload[0]
+        if(item.list.name === action.payload.e.name){
+          item.cartQty = action.payload.medicineQTY
+          item.list = action.payload.e
         }
       })
     },
-    showCart: (state, action) => {
-      return state.cartItems
+    storeStates: (state, action) => {
+      const item = {stateName: action.payload}
+      state.stateItems = item
     }
   }
 })
 
-export const {addToCart, removeFromCart, updateCart, showCart} = cartSlice.actions
+export const {addToCart, removeFromCart, updateCart, storeStates} = cartSlice.actions
 
 export default cartSlice.reducer
