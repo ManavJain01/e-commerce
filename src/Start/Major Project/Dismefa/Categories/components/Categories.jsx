@@ -36,12 +36,12 @@ function Categories(){
               f.subList ? (propsValue[0] == propsValue[2] || propsValue[1] == f.name || propsValue[0] == f.name) && f.subList.map((g)=>
                 g.Items && (propsValue[0] == propsValue[2] || propsValue[0] == propsValue[1] || propsValue[0] == g.subItems) && g.Items.map((h)=>
                   <div key={h.name} className="flex gap-2">
-                    <ProductCard e={h} />
+                    <ProductCard e={h} title={'Categories'} />
                   </div>
                 )
                 ) : f.Items && f.Items.map((g) =>
                   <div key={g.name} className="flex gap-2">
-                    <ProductCard e={g} />
+                    <ProductCard e={g} title={'Categories'} />
                   </div>))
             // :  <FilteredComponent filtered={filtered} e={categories} />
           }

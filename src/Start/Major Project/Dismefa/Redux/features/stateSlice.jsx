@@ -8,8 +8,9 @@ export const stateSlice = createSlice({
   name: 'items',
   initialState,
   reducers: {
-
+    
   }
 })
 
+export const {storeStates} = stateSlice.actions
 export default stateSlice.reducer

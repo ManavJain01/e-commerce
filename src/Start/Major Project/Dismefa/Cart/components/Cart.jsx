@@ -43,7 +43,7 @@ function Cart(){
               {
                 reduxItems.map((item) => {
                   // console.log(item)
-                  return <ProductCard key={item.id} e={item.list} />
+                  return <ProductCard key={item.id} e={item.list} title="Cart" />
                 })
               }
 
