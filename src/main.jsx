@@ -19,7 +19,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import Layout from './Start/Major Project/Dismefa/Layout'
-import Home from './Start/Major Project/Dismefa/Main Page/components/Main'
+import Home from './Start/Major Project/Dismefa/Home Page/components/Main'
 import MedicinePage from './Start/Major Project/Dismefa/Medicines/components/MedicinePage'
 import ProductCard2 from './Start/Major Project/Dismefa/Product Card/components/ProductCard2'
 import Categories from './Start/Major Project/Dismefa/Categories/components/Categories'

@@ -1,5 +1,5 @@
 import { useParams, useLocation } from 'react-router-dom'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import { medicines } from '../../Medicines/components/MedicinesAPI'
 import ProductCard from '../../Product Card/components/ProductCard'
@@ -17,33 +17,34 @@ function Categories(){
     setCategories(medicines.filter(e => e.type == propsValue[2]))  
   },[propsValue])
 
-  useEffect(()=>{
-
-    setFiltered(false)
-  },[])
+  console.log(propsValue)
 
   return(
     <div className="flex gap-10 py-20 px-8">
       <Filters e={categories} setFiltered={setFiltered} />
 
       <div>
-        <h1 className="text-2xl font-semibold">{propsValue[0]}</h1>
+        <h1 className="text-2xl font-semibold">{!filtered ? propsValue[0] : filtered[0]}</h1>
 
         <div className="flex flex-wrap gap-5 py-10 my-4 border-t border-gray-400">
           {
-            // !filtered ? 
+            //  Search Through Navbar
+            !filtered ? 
             categories[0].list.map((f)=>
+              //  Navbar Headlines's List have subLists
               f.subList ? (propsValue[0] == propsValue[2] || propsValue[1] == f.name || propsValue[0] == f.name) && f.subList.map((g)=>
                 g.Items && (propsValue[0] == propsValue[2] || propsValue[0] == propsValue[1] || propsValue[0] == g.subItems) && g.Items.map((h)=>
                   <div key={h.name} className="flex gap-2">
                     <ProductCard e={h} title={'Categories'} />
                   </div>
                 )
-                ) : f.Items && f.Items.map((g) =>
+              //  Now Navbar Headlines's List who don't have subLists
+              ) : (propsValue[0] == propsValue[2]) && f.Items && f.Items.map((g) =>
                   <div key={g.name} className="flex gap-2">
                     <ProductCard e={g} title={'Categories'} />
-                  </div>))
-            // :  <FilteredComponent filtered={filtered} e={categories} />
+                  </div>) || ((propsValue[0] == propsValue[1]) && f.Items) && f.Items.map((g) => <div>4</div>)
+            //  Search Through Filters
+            ):<FilteredComponent filtered={filtered} e={categories} />
           }
         </div>
       </div>

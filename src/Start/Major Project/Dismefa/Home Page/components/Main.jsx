@@ -1,5 +1,5 @@
 import SearchInput from '../../Main Page/components/Header/SearchInput'
-import CarouselTab from '../../Home Page/components/CarouselTab'
+import CarouselTab from './CarouselTab'
 
 function Main(){
   return(
