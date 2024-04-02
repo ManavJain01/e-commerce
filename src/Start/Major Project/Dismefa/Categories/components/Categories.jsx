@@ -44,7 +44,7 @@ function Categories(){
                     <ProductCard e={g} title={'Categories'} />
                             {/* 3rd Condition */}
                   </div>) || (propsValue[0] == propsValue[1] && propsValue[0] == f.name) && f.Items && f.Items.map((g) =>
-                    <ProductCard e={g} title={'Categories'} />)
+                    <ProductCard key={g.name} e={g} title={'Categories'} />)
             //  Search Through Filters
             ):<FilteredComponent filtered={filtered} e={categories} />
           }

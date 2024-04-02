@@ -13,7 +13,7 @@ import rightArrowLogo from '../Images/rightArrow.png'
 // Importing React Files
 import { useState, useEffect, useMemo } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import ReactImageMagnify from 'react-image-magnify'
+// import ReactImageMagnify from 'react-image-magnify'
 
 // Importing redux Files
 import { useDispatch, useSelector} from 'react-redux' 
@@ -48,23 +48,7 @@ function ProductCard2(){
 
       <div className="sticky flex justify-between py-2 px-10 border border-gray-200">
         <button><img src={leftArrowLogo} className="object-contain w-10" /></button>
-        <div className='size-[20rem]'>
-          <ReactImageMagnify {...{
-            smallImage: {
-              alt: 'Wristwatch by Ted Baker London',
-              isFluidWidth: true,
-              src: e.img
-            },
-            largeImage: {
-              src: e.img,
-              // width: 1200,
-              // height: 1800
-              width: 2500,
-              height: 500,
-            }
-          }} />
-        </div>
-        {/* <img src={e.img} className="object-contain w-64" /> */}
+        <img src={e.img} className="object-contain w-64" />
         <button><img src={rightArrowLogo} className="object-contain w-10" /></button>
       </div>
 
@@ -118,3 +102,24 @@ function ProductCard2(){
 }
 
 export default ProductCard2;
+
+/*
+        <div className='size-[20rem]'>
+          <ReactImageMagnify {...{
+            smallImage: {
+              alt: 'Wristwatch by Ted Baker London',
+              isFluidWidth: true,
+              src: e.img
+            },
+            largeImage: {
+              src: e.img,
+              // width: 1200,
+              // height: 1800
+              width: 2500,
+              height: 500,
+            }
+          }} />
+        </div>
+
+
+*/
