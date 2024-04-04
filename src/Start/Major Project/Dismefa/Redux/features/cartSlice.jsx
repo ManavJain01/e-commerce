@@ -1,9 +1,9 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit'
 
 const initialState = {
-  // cartItems: [{id: 1, cartQty: 2, list: {name: 'honda city', company: 'honda', MRP: 19.93, Units: 'Pack of 15 Units', QTY: 10}}]
+  // cartItems: [{id: 1, cartQty: 2, list: {name: 'honda city', company: 'honda', MRP: 19.93, Units: 'Pack of 15 Units', QTY: 10}}],
   cartItems: [],
-  stateItems: [{stateName: 'stateName'}]
+  stateItems: [{stateName: 'stateName', state: 'state'}]
 }
 
 let i = 2;
@@ -39,8 +39,19 @@ export const cartSlice = createSlice({
       })
     },
     storeStates: (state, action) => {
-      const item = {stateName: action.payload}
-      state.stateItems = item
+      let isAvailable = false
+      state.stateItems.map((item) =>{
+        if(item.stateName === action.payload.name) isAvailable = true;
+      })
+
+      if(!isAvailable){
+        const item = {
+          stateName: action.payload.name,
+          state: action.payload.state
+        }
+
+        state.stateItems.push(item)
+      }
     }
   }
 })

@@ -15,9 +15,9 @@ function Categories(){
 
   useEffect(()=>{
     setCategories(medicines.filter(e => e.type == propsValue[2]))  
+    setFiltered(false);
   },[propsValue])
 
-  // console.log(categories[0].list)
 
   return(
     <div className="flex gap-10 py-20 px-8">

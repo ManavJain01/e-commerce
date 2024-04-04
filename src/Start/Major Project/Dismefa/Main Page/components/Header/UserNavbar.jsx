@@ -1,12 +1,6 @@
 import { styled } from "styled-components"
 import { Link } from 'react-router-dom'
 
-const ItemsStyle = styled.ul`
-  li:nth-child(9){
-    color:gray;
-  }
-`
-
 function UserNavbar({ setIsLogin }){
   const items = [{
     id:1,
@@ -62,3 +56,9 @@ function UserNavbar({ setIsLogin }){
 }
 
 export default UserNavbar;
+
+const ItemsStyle = styled.ul`
+  li:nth-child(9){
+    color:gray;
+  }
+`

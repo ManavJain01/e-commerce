@@ -1,8 +1,6 @@
 // Importing React Files
 import { useState, useEffect, useMemo } from 'react'
 
-import { useSelector } from 'react-redux'
-
 function PaymentDetails({ reduxItems, cartItems }){
   const [totalMRP, setTotalMRP] = useState(0)
   const [discount, setDiscount] = useState(0)
@@ -13,10 +11,6 @@ function PaymentDetails({ reduxItems, cartItems }){
 
   const [totalQuantities, setTotalQuantities] = useState(0)
   
-  // const medicineQTY = useSelector(state => state.cartItems)
-
-  // console.log(medicineQTY)
-
   useEffect(() => {
     let tempMRP = 0
     let tempDiscount = 0
@@ -28,7 +22,7 @@ function PaymentDetails({ reduxItems, cartItems }){
     setTotalMRP(tempMRP.toFixed(2))
     setDiscount(tempDiscount.toFixed(2))
   
-  },[cartItems])
+  },[cartItems, reduxItems])
   
   
   useMemo(() => {

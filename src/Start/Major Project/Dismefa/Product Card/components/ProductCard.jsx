@@ -24,20 +24,18 @@ function ProductCard({ e, title }){
   useEffect(() => {
     if(medicineQTY == 0)  dispatch(removeFromCart(e))
     else if(medicineQTY == 1) dispatch(addToCart(e))
-  else{
-    reduxItems.map((item) => {
-      if(item.list.name === e.name) dispatch(updateCart({e,medicineQTY}))
-    })
-  }
+    else{
+      reduxItems.map((item) => {
+        if(item.list.name === e.name) dispatch(updateCart({e,medicineQTY}))
+      })
+    }
   },[medicineQTY])
-
-  // dispatch(storeStates(medicineQTY))
 
   if(title == 'Categories' || title == 'MedicinePage'){
     return(
       <div key={e.name} className="h-[19rem] w-[18rem] flex flex-col gap-2 border px-5 py-2 border-black rounded-md">
-      <Link to='/Products/parameter-data' state={{value: e}} className='h-[19rem] flex flex-col items-center justify-around gap-5'>
-        {e.img && <img src={e.img} className="object-contain /w-[20%] w-28" />}
+      <Link to='/Products/parameter-data' state={{value: e}} className='h-[19rem] flex flex-col items-center justify-around /gap-5'>
+        {e.img && <img src={e.img} className="object-contain w-28 h-32" />}
         <div className="flex flex-col justify-between">
           <p className="font-bold">{e.name}</p>
           {e.MRP && <p className="font-semibold">MRP रु.{(e.MRP).toFixed(2)}</p>}
