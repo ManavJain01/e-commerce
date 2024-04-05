@@ -1,6 +1,6 @@
 function Filters({ e, setFiltered }){  
   return(
-    <div className="flex flex-col gap-4 ">
+    <div className="hidden sm:flex flex-col gap-4">
       <h1 className="text-2xl font-semibold">Filters</h1>
       <div className="py-2 px-5 max-w-[15rem] border border-gray-400 rounded-md">
         <section className="flex justify-between pb-3 border-b border-gray-300">

@@ -33,12 +33,12 @@ function ProductCard({ e, title }){
 
   if(title == 'Categories' || title == 'MedicinePage'){
     return(
-      <div key={e.name} className="h-[19rem] w-[18rem] flex flex-col gap-2 border px-5 py-2 border-black rounded-md">
+      <div key={e.name} className="h-[19rem] w-[16rem] flex flex-col gap-2 border px-5 py-2 border-black rounded-md">
       <Link to='/Products/parameter-data' state={{value: e}} className='h-[19rem] flex flex-col items-center justify-around /gap-5'>
-        {e.img && <img src={e.img} className="object-contain w-28 h-32" />}
-        <div className="flex flex-col justify-between">
+        {e.img && <img src={e.img} className="object-contain w-48 h-32" />}
+        <div className="text-sm flex flex-col justify-between">
           <p className="font-bold">{e.name}</p>
-          {e.MRP && <p className="font-semibold">MRP रु.{(e.MRP).toFixed(2)}</p>}
+          {e.MRP && <p className="/font-semibold">MRP रु.{(e.MRP).toFixed(2)}</p>}
         </div>
       </Link>
 
@@ -57,9 +57,9 @@ function ProductCard({ e, title }){
 
   if(title == 'Cart'){
     return(
-      <div key={e.name} className="h-[10rem] w-[30rem] flex flex-col border px-5 py-2 border-black rounded-md">
+      <div key={e.name} className="h-[11rem] w-[30rem] flex flex-col border px-5 py-2 border-black rounded-md">
       <Link to='/Products/parameter-data' state={{value: e}} className='flex justify-around'>
-        {e.img && <img src={e.img} className="object-contain w-16" />}
+        {e.img && <img src={e.img} className="object-contain w-28 h-28" />}
         <div className="m-auto ml-2 flex flex-col justify-between">
           <p className="font-bold">{e.name}</p>
           <p className="text-gray-400 text-sm">{e.company}</p>
@@ -84,7 +84,7 @@ function ProductCard({ e, title }){
   return(
     <div key={e.name} className="h-[20rem] w-[30rem] flex flex-col gap-2 items-end border px-5 py-2 border-black rounded-md">
       <Link to='/Products/parameter-data' state={{value: e}} className='flex gap-5 justify-around'>
-        {e.img && <img src={e.img} className="object-contain /w-[20%] w-40" />}
+        {e.img && <img src={e.img} className="object-contain w-32 h-28" />}
         <div className="flex flex-col justify-between">
           <p className="text-xl font-bold">{e.name}</p>
           <p className="text-gray-400 text-sm">{e.company}</p>

@@ -10,12 +10,12 @@ function ProductsNavbar(){
 
   return(
     <>
-      <div className="relative">
+      <div className="absolute -right-10 top-12">
         <ItemStyles>
-          <div className="w-[100vw] relative z-40 py-1 flex justify-around bg-white text-gray-500 text-xs lg:text-sm whitespace-nowrap border shadow-md shadow-gray-700">
+          <div className="w-[100vw] z-40 py-1 flex justify-around bg-white text-gray-500 text-xs lg:text-sm whitespace-nowrap border shadow-md shadow-gray-700">
             {items.map((e)=>(
               <div key={e.id} className="flex flex-col gap-3">
-                <ul className="relative">
+                <ul>
                   {e.path ? <Link to={e.path} id={e.id}>{e.name}</Link>
                     :<li id={e.id}><Link
                       to={`Categories/${e.name}`}

@@ -9,7 +9,7 @@ import ProductCard from '../../Product Card/components/ProductCard'
 
 // Importing React Files
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 
 // Importing Redux Files
 import { useSelector, useDispatch } from 'react-redux'
@@ -22,6 +22,10 @@ function Cart(){
   const reduxItems = useSelector(state => state.cartItems)
   
   const [cartItems, setCartItems] = useState(reduxItems.length)
+
+  useMemo(()=>{
+    setCartItems(reduxItems.length)
+  },[reduxItems])
 
   if(cartItems == 0){
     return (

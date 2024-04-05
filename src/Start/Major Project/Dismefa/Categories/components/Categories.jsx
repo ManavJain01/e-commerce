@@ -1,3 +1,5 @@
+import { RiExpandUpDownFill } from "react-icons/ri";
+
 import { useParams, useLocation } from 'react-router-dom'
 import { useState, useEffect, useMemo } from "react";
 
@@ -8,8 +10,11 @@ import Filters from './Filters'
 import FilteredComponent from './FilteredComponent';
 
 function Categories(){
-  const propsValue = useLocation().state.value;
-  
+  let propsValue;
+  if(useLocation().state) propsValue = useLocation().state.value;
+  else propsValue = useParams()
+  console.log(propsValue)
+
   const [categories, setCategories] = useState(medicines.filter(e => e.type != 'Medicines'))
   const [filtered, setFiltered] = useState(false)
 
@@ -24,13 +29,19 @@ function Categories(){
       <Filters e={categories} setFiltered={setFiltered} />
 
       <div>
-        <h1 className="text-2xl font-semibold">{!filtered ? propsValue[0] : filtered[0]}</h1>
+        <h1 className="text-2xl font-semibold flex justify-between">
+          {!filtered ? propsValue[0] : filtered[0]}
+          <span className='flex items-center sm:hidden text-green-700 cursor-pointer'>
+            <RiExpandUpDownFill />
+            Filter
+          </span>
+        </h1>
 
         <div className="flex flex-wrap gap-5 py-10 my-4 border-t border-gray-400">
           {
             //  Search Through Navbar
             !filtered ? 
-            categories[0].list.map((f)=>
+            categories[0].list && categories[0].list.map((f)=>
               //  Navbar Headlines's List have subLists 1st Condition
               f.subList ? (propsValue[0] == propsValue[2] || propsValue[1] == f.name || propsValue[0] == f.name) && f.subList.map((g)=>
                 g.Items && (propsValue[0] == propsValue[2] || propsValue[0] == propsValue[1] || propsValue[0] == g.subItems) && g.Items.map((h)=>

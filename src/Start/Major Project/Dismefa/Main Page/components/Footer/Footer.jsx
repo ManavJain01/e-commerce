@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 
 import fb from '../../Images/fb.jpeg'
@@ -14,6 +14,10 @@ function Footer(){
 
   //For smaller screen size accordion appears
   const [screenSize, setScreenSize] = useState(true);
+  const [isFlex1, setIsFlex1] = useState("flex")
+  const [isFlex2, setIsFlex2] = useState("flex")
+  const [isFlex3, setIsFlex3] = useState("flex")
+  const [isFlex4, setIsFlex4] = useState("flex")
 
   //For smaller screen size accordion appears
   function handleResizeDuringActive(){
@@ -21,69 +25,69 @@ function Footer(){
     else setScreenSize(false)
   }
 
-  //For smaller screen size accordion appears
-  const handleResizeDuringPageLoad = useEffect(()=>{
-    if(window.innerWidth > '1023')  setScreenSize(true);
-    else setScreenSize(false)
-  },[])
+  // For smaller screen size accordion appears
+  const handleResizeDuringPageLoad = useMemo(()=>{
+    if(window.innerWidth > '1023'){
+      setScreenSize(true);
+      // setIsFlex1("flex")
+      // setIsFlex2("flex")
+      // setIsFlex3("flex")
+      // setIsFlex4("flex")
+    }
+    else{
+      setScreenSize(false)
+      // setIsFlex1("none")
+      // setIsFlex2("none")
+      // setIsFlex3("none")
+      // setIsFlex4("none")
+    }
+  },[window.innerWidth])
 
   //For smaller screen size accordion appears
   window.addEventListener('resize', handleResizeDuringActive);
 
   //For smaller screen size accordion appears
   function enableAccordion1(){
-    const links = document.getElementsByTagName('a');
-    if(links[13].style.display == "flex"){
-      links[13].style.display = "none";
-      links[14].style.display = "none";
-      links[15].style.display = "none";
-    }else{
-      links[13].style.display = "flex";
-      links[14].style.display = "flex";
-      links[15].style.display = "flex";
-    }
+    const ul = document.getElementById('company-links');
+    if(ul.childNodes[1].style.display == "flex")  setIsFlex1("none");
+    else  setIsFlex1("flex");
+  
+    ul.childNodes[1].style.display = isFlex1;
+    ul.childNodes[2].style.display = isFlex1;
+    ul.childNodes[3].style.display = isFlex1;
   }
 
   //For smaller screen size accordion appears
   function enableAccordion2(){
     const logos = document.getElementById('social-logos');
-    if(logos.childNodes[0].style.display == "flex"){
-      logos.childNodes[0].style.display = "none";
-      logos.childNodes[1].style.display = "none";
-      logos.childNodes[2].style.display = "none";
-    }else{
-      logos.childNodes[0].style.display = "flex";
-      logos.childNodes[1].style.display = "flex";
-      logos.childNodes[2].style.display = "flex";
-    }
+    if(logos.childNodes[0].style.display == "flex") setIsFlex2("none")
+    else setIsFlex2("flex")
+
+    logos.childNodes[0].style.display = isFlex2;
+    logos.childNodes[1].style.display = isFlex2;
+    logos.childNodes[2].style.display = isFlex2;
   }
 
   //For smaller screen size accordion appears
   function enableAccordion3(){
-    const links = document.getElementsByTagName('a');
-    if(links[16].style.display == "flex"){
-      links[16].style.display = "none";
-      links[17].style.display = "none";
-      links[18].style.display = "none";
-      links[19].style.display = "none";
-    }else{
-      links[16].style.display = "flex";
-      links[17].style.display = "flex";
-      links[18].style.display = "flex";
-      links[19].style.display = "flex";
-    }
+    const ul = document.getElementById('legal-links');
+    if(ul.childNodes[1].style.display == "flex") setIsFlex3("none")
+    else setIsFlex3("flex")
+
+    ul.childNodes[1].style.display = isFlex3;
+    ul.childNodes[2].style.display = isFlex3;
+    ul.childNodes[3].style.display = isFlex3;
+    ul.childNodes[4].style.display = isFlex3;
   }
 
   //For smaller screen size accordion appears
   function enableAccordion4(){
-    const p = document.getElementById('contact');
-    if(p.nextElementSibling.style.display == "flex"){
-      p.nextElementSibling.style.display = "none";
-      p.nextElementSibling.nextElementSibling.style.display = "none";
-    }else{
-      p.nextElementSibling.style.display = "flex";
-      p.nextElementSibling.nextElementSibling.style.display = "flex";
-    }
+    const section = document.getElementById('contact-info');
+    if(section.childNodes[1].style.display == "flex")  setIsFlex4("none")
+    else  setIsFlex4("flex")
+
+    section.childNodes[1].style.display = isFlex4;
+    section.childNodes[2].style.display = isFlex4;
   }
 
 
@@ -92,14 +96,14 @@ function Footer(){
       <div className="bg-blue-100 w-fit min-h-[20vh] text-gray-500">
         <hr className="min-w-[100vw] h-1 bg-white" />
         <Styles>
-          <div className="flex /flex-col flex-col-reverse text-center items-center lg:items-start lg:flex-row lg:justify-between gap-10 lg:gap-32 py-10 px-14">
-            <ul className="flex flex-col gap-6 whitespace-nowrap">
+          <div className="flex flex-col-reverse text-center items-center lg:items-start lg:flex-row lg:justify-between gap-2 lg:gap-32 py-10 px-14">
+            <ul id="company-links" className="flex flex-col gap-6 whitespace-nowrap">
               <li>
                 {screenSize ? <h1 className="text-xl font-bold">Company</h1> 
-                :<button onClick={()=>enableAccordion1()}>
+                :<button onClick={()=>enableAccordion1()} className="w-[85vw] flex justify-between">
                   <h1 className="text-xl font-bold">Company</h1>
                   <img src={downArrow} className='object-contain w-6 mr-5' />
-                </button>}  
+                </button>}
               </li>
               <li><Link to="Company/Health-Article">Health Article</Link></li>
               <li><Link to="Company/Help">Need Help</Link></li>
@@ -109,23 +113,23 @@ function Footer(){
             <ul className="whitespace-nowrap flex flex-col gap-2">
               <li>
                 {screenSize ? <h2 className="text-xl font-bold">Social</h2>
-                :<button onClick={()=>enableAccordion2()}>
+                :<button onClick={()=>enableAccordion2()} className="w-[85vw] flex justify-between">
                   <h2 className="text-xl font-bold">Social</h2>
                   <img src={downArrow} className='object-contain w-6 mr-5' />
                 </button>}
               </li>
               <li>
-                <section id='social-logos' className="flex gap-5 py-5">
+                <section id='social-logos' className="flex gap-5">
                   <img src={fb} className="w-10 object-contain rounded-full" />
                   <img src={youtube} className="w-10 object-contain rounded-xl" />
                   <img src={insta} className="w-10 object-contain rounded-md" />
                 </section>
               </li>
               <li>
-                <section className="flex flex-col gap-6">
+                <section id="legal-links" className="flex flex-col gap-6">
                   <p className="text-xl font-bold">
                     {screenSize ? <span>Legal</span>
-                    :<button onClick={()=>enableAccordion3()}>
+                    :<button onClick={()=>enableAccordion3()} className="flex justify-between w-[85vw]">
                       <span>Legal</span>
                       <img src={downArrow} className='object-contain w-6 mr-5' />
                     </button>}
@@ -138,7 +142,7 @@ function Footer(){
               </li>
             </ul>
 
-            <ul className="flex flex-col gap-5">
+            <ul className="text-left lg:text-center flex flex-col gap-5">
               <li><h3 className="text-xl font-bold">Subscribe</h3></li>
               <li><p>Claim your complimentary health and fitness tips subscription and stay updated on our newest promotions.</p></li>
               <li>
@@ -150,15 +154,15 @@ function Footer(){
               </li>
             </ul>
 
-            <ul className="flex flex-col gap-3">
+            <ul className="text-left lg:text-center flex flex-col gap-3">
               <li><h4 className="text-xl font-bold">Download Dismefa</h4></li>
               <li><p className="font-bold">Manage your health with ease Download Dismefa today!</p></li>
               <li><p>Get easy access to medicines, health information, and more. With our app, you'll never have to wait in line again. Download now and start taking control of your health.</p></li>
               <li><button><img src={googleStoreLogo} className="object-contain w-56" /></button></li>
               <li>
-                <section className='flex flex-col gap-3 w-[85vw] lg:w-fit'>
+                <section id='contact-info' className='flex flex-col gap-3 w-[85vw] lg:w-fit'>
                   {screenSize ? <span className='text-xl font-bold'>Contact Us</span>
-                  :<button id='contact' onClick={()=>enableAccordion4()} className="text-xl font-bold flex justify-between lg:block">
+                  :<button onClick={()=>enableAccordion4()} className="text-xl font-bold flex justify-between lg:block">
                     <span>Contact Us</span>
                     <img src={downArrow} className='object-contain w-6 mr-5' />
                   </button>}
@@ -192,34 +196,9 @@ const Styles = styled.div`
   }
 
   @media screen and (max-width: 1023px) {
-    div{
-      align-items: start;
-    }
-
     ul:first-child, li > section{
       padding-bottom: 10px;
       border-bottom: 2px solid white;
-    }
-
-    ul:nth-child(3), ul:nth-child(4){
-      text-align: left;
-    }
-
-    p > button{
-      width: 85vw;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    li > button{
-      display: flex;
-      width: 85vw;
-      justify-content: space-between;
-    }
-
-    li a, #contact ~ p, section > img{
-      display: none;
-      /* transition: 0.4s; */
     }
   }
 `
