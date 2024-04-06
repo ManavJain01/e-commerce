@@ -1,15 +1,21 @@
 import { medicines } from '../../Medicines/components/MedicinesAPI'
-
+import SearchFiltered from './SearchFiltered'
 
 function InputBtn(e){
+  let filtered = []
 
   // console.log(medicines[1].list)
 
   function searchInputOnChange(e){
     if(e.target.value){}
-    // const filtered = medicines.filter(item => item.type.toLowerCase() == (e.target.value).toLowerCase())
     // const filtered = medicines.filter(item1 => item1.list.filter(item2 => item2.name.toLowerCase() == (e.target.value).toLowerCase()))
-    // console.log(filtered)
+    filtered = medicines.filter(
+      item => 
+        item.type.toLowerCase().includes((e.target.value).toLowerCase())
+        // || item.list && item.list.filter((x => {
+        //   x.name.includes(e.target.value)
+        // }))
+    )
   }
 
   function searchInputOnClick(){
@@ -18,13 +24,16 @@ function InputBtn(e){
 
   if(e.title == "header-input" && e.id == "enable"){
     return(
-      <>
-        <div id={e.id} className="flex-1 flex relative">
+      // <div className="flex flex-col items-center w-screen">
+      <div className='w-screen'>
+        <form id={e.id} onSubmit={()=>searchInputOnClick()} className="flex relative">
           <button className="bg-blue-100 text-black h-10 mt-1 px-8 rounded-lg absolute left-11">Deliver to Address</button>
-          <input type="text" placeholder={e.placeholder} className="h-12 w-full pl-52 px-2 mx-10 border-2 border-blue-300 rounded-md" />
+          <input type="text" placeholder={e.placeholder} onChange={(e)=>searchInputOnChange(e)} className="h-12 w-full pl-52 px-2 mx-10 border-2 border-blue-300 rounded-md" />
           <button className="bg-blue-600 text-white font-semibold h-12 px-8 rounded-e-lg absolute right-9">{e.button}</button>
-        </div>
-      </>
+        </form>
+
+        <SearchFiltered filtered={filtered} />
+      </div>
     )
   }
   if(e.title == "header-input"){

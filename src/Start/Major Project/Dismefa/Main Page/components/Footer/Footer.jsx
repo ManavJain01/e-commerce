@@ -142,7 +142,7 @@ function Footer(){
               </li>
             </ul>
 
-            <ul className="text-left lg:text-center flex flex-col gap-5">
+            <ul id="subscribe" className="text-left lg:text-center flex flex-col gap-5">
               <li><h3 className="text-xl font-bold">Subscribe</h3></li>
               <li><p>Claim your complimentary health and fitness tips subscription and stay updated on our newest promotions.</p></li>
               <li>
@@ -196,7 +196,7 @@ const Styles = styled.div`
   }
 
   @media screen and (max-width: 1023px) {
-    ul:first-child, li > section{
+    ul:first-child, li > section, #subscribe:nth-child(3){
       padding-bottom: 10px;
       border-bottom: 2px solid white;
     }

@@ -13,7 +13,6 @@ function Categories(){
   let propsValue;
   if(useLocation().state) propsValue = useLocation().state.value;
   else propsValue = useParams()
-  console.log(propsValue)
 
   const [categories, setCategories] = useState(medicines.filter(e => e.type != 'Medicines'))
   const [filtered, setFiltered] = useState(false)
