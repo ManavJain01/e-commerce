@@ -1,3 +1,5 @@
+import { CiSearch } from "react-icons/ci";
+
 import { Link } from 'react-router-dom'
 
 function SearchFiltered({ filtered, setFiltered }){
@@ -10,8 +12,9 @@ function SearchFiltered({ filtered, setFiltered }){
           to={e.path}
           state={{value: [e.type,e.type,e.type]}}
           onClick={()=>setFiltered("")}
-          className="p-2 hover:bg-green-200">
+          className="p-2 hover:bg-green-200 flex items-center justify-between">
             {e.type}
+            <CiSearch className="size-7 text-green-500" />
           </Link>
         )
       })}
