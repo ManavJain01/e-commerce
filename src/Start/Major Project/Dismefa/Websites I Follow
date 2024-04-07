@@ -19,3 +19,5 @@ Commands:-
 2. npm i react-image-magnify --force
 
 3. npm install react-dotenv
+
+4. npm i dotenv
