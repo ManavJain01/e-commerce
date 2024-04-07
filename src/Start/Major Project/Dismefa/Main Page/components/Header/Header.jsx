@@ -23,7 +23,8 @@ function Header(){
 
   const [navbar, setNavbar] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  // const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [userName, setUserName] = useState("Manav Jain");
   const [itemsInCart, setItemsInCart] = useState(reduxItems.length);
   const [hamMenu, setHamMenu] = useState(false)
@@ -67,7 +68,7 @@ function Header(){
           </div>
 
           <ul className="hidden sm:flex gap-5 relative">
-            {/* {isLogin ?<li id="UserBtn" className="mr-4"><button className="flex gap-2 items-center">
+            {isLogin ?<li id="UserBtn" className="mr-4"><button className="flex gap-2 items-center">
               <img src={loginLogo} className="object-contain w-6" />
               <span>{userName? userName : "User"}</span>
               <img src={downArrowLogo} className="object-contain w-3" />
@@ -78,7 +79,7 @@ function Header(){
               </div>
             </li>
             :<li className="whitespace-nowrap"><button onClick={()=>setLoginPage(true)}>Login | Signup</button></li>
-            } */}
+            }
             {loginPage ? <LoginSignup setLoginPage={setLoginPage} setIsLogin={setIsLogin} /> : ""}
 
             <li>

@@ -2,46 +2,67 @@
 import { CgSpinner } from "react-icons/cg";
 import { BsFillShieldLockFill } from 'react-icons/bs'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
 // Importing Firebase configuration
-// import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
-// import { auth } from "../../Firebase/firebase.config"
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
+import { auth } from "../../Firebase/firebase.config"
 
-function Signup({ ph, setPh }){
+function Signup({ setPh, setGenerateOTP }){
   const [notValid, setNotValid] = useState(false)
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState(null)
 
-  function checkValidNumber(){
+  let tempPh = ""
+  
+  function PhFormatOnChange(e){
+    setNotValid(false);
+
+    if(e.target.value[0] == 0 && e.target.value.length > 3){
+      e.target.value = e.target.value.slice(1,e.target.value.length)
+    }
+
+    if(e.target.value.slice(0,3) == "+91" && e.target.value.length > 4){
+      e.target.value = e.target.value.slice(3,e.target.length)
+    }
+
+    if(e.target.value[0] != 0 && (e.target.value.length == 4 || e.target.value.length == 8)){
+      e.target.value += '-'
+    }
+  }
+
+  function PhFormatOnKeyDown(e){
+    if(e.key==="Backspace" && (e.target.value.length == 5)){
+      e.target.value = e.target.value.slice(0,4)
+    }else if(e.key==="Backspace" && (e.target.value.length == 9)){
+      e.target.value = e.target.value.slice(0,8)
+    }
+  }
+
+  function checkValidNumber(e){
     const input = document.getElementById("validPhn");
     if(input.value == "" || String(input.value).length < 10){
       setNotValid(true);
     }else{
-      setPh(input.value)
-      setNotValid(false);
-      console.log(ph + "hia")
+      e.target.disabled = true
+      tempPh = "+91 " + input.value;
+      setPh(tempPh)
       sendOtp();
-
-      // onSignup()
-      // openGenerateOTP()
     }
-  }
-  
-  function PhFormatOnChange(e){
-    // if(e.target.value[0] == 0 && (e.target.value.length == 5 || e.target.value.length == 9)){
-    //   e.target.value += ' '
-    // }else if(e.target.value[0] != 0 && (e.target.value.length == 4 || e.target.value.length == 8)){
-    //   e.target.value += ' '
-    // }
   }
 
   const sendOtp = async() => {
+    console.log("ph->" + tempPh)
     try{
       setLoading(true)
       const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {})
-      const confirmation = signInWithPhoneNumber(auth, ph, recaptcha)
-      setUser(confirmation)
+      const confirmation = signInWithPhoneNumber(auth, tempPh, recaptcha)
+
+      // confirmation((resolve, reject) => {
+      //   resolve(setGenerateOTP(true))
+
+      //   reject("failed")
+      // })
     }catch(err){
       console.log(err)
     }
@@ -59,6 +80,7 @@ function Signup({ ph, setPh }){
         placeholder='Your Mobile Number'
         // onChange={() => setNotValid(false)}
         onChange={(e) => PhFormatOnChange(e)}
+        onKeyDown={(e) => PhFormatOnKeyDown(e)}
         className="px-10 py-2 border-2 border-gray-400 rounded-md"
       /> 
       {notValid ?<span className="absolute top-24 left-10 text-sm text-red-500">
@@ -66,7 +88,7 @@ function Signup({ ph, setPh }){
         </span>
         : ""
       }
-      <button onClick={() => checkValidNumber()} className="bg-green-700 text-white flex justify-center items-center gap-5 rounded-md mt-10 py-3 hover:opacity-80 active:opacity-90">
+      <button onClick={(e) => checkValidNumber(e)} className="bg-green-700 text-white flex justify-center items-center gap-5 rounded-md mt-10 py-3 hover:opacity-80 active:opacity-90">
         { loading && <CgSpinner size={20} className="animate-spin" />}
         Send OTP
       </button>

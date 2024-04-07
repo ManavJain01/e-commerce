@@ -53,14 +53,19 @@ function OtpDetails({ ph, generateOTP, setGenerateOTP }){
     <div className="mt-10 flex flex-col gap-3">
       <h1 className="font-semibold text-lg">Enter OTP</h1>
       <span className="text-sm text-gray-400 font-semibold">
-        we have sent an OTP on +91 {ph}
+        we have sent an OTP on {ph}
         <button
           onClick={()=>setGenerateOTP(false)} className="underline text-gray-500 ml-1">Edit Number
         </button>
       </span>
 
       <div className="flex gap-1">
-        <button id="resendBtn" disabled={true} onClick={()=>timer30sec()} className="text-green-700 text-xs font-semibold">Resend OTP</button>
+        <button
+          id="resendBtn"
+          onClick={()=>timer30sec()}
+          className="text-green-700 text-xs font-semibold">
+            Resend OTP
+          </button>
         <span id="resendSpan" className="text-xs"> in 30 seconds</span>
       </div>
     </div>

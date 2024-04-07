@@ -38,7 +38,7 @@ function LoginSignup({ setLoginPage }){
       <div className="flex-grow w-full bg-white rounded-t-md" >
         <div className="mx-8 flex flex-col h-full justify-between">
           {!generateOTP
-            ?<Signup ph={ph} setPh={setPh} />
+            ?<Signup setPh={setPh} setGenerateOTP={setGenerateOTP} />
             :<OtpPage ph={ph} length={6} onOtpSubmit={onOtpSubmit} generateOTP={generateOTP} setGenerateOTP={setGenerateOTP} />               
           }
 
