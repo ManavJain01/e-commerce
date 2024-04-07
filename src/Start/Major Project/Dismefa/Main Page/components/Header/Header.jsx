@@ -78,8 +78,7 @@ function Header(){
                 <UserNavbar setIsLogin={setIsLogin} />
               </div>
             </li>
-            : ""
-            // :<li className="whitespace-nowrap"><button onClick={()=>setLoginPage(true)}>Login | Signup</button></li>
+            :<li className="whitespace-nowrap"><button onClick={()=>setLoginPage(true)}>Login | Signup</button></li>
             }
             {loginPage ? <LoginSignup setLoginPage={setLoginPage} setIsLogin={setIsLogin} /> : ""}
 
