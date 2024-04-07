@@ -31,6 +31,7 @@ import vicksVaporub10Logo from '../Images/VICKS-VAPORUB-OINTMENT-10-GM_1.webp'
 export const medicines = [{
   id: 1,
   type: 'Medicines',
+  path: '/Medicines',
   list: [{
     name: 'Crocin Advance 500mg',
     company: 'Herb Edge Health Care Pvt. Ltd.',
@@ -51,6 +52,7 @@ export const medicines = [{
 },{
   id: 2,
   type: 'Personal care',
+  path: '/Categories/Personal%20care',
   list:[{
     name:"skin care",
     subList:[{
@@ -235,6 +237,7 @@ export const medicines = [{
 },{
   id: 3,
   type: 'Health Conditions',
+  path: '/Categories/Health%20Conditions',
   list:[{
     name:"Bone and Joint Care",
     Items:[{
@@ -368,6 +371,7 @@ export const medicines = [{
 },{
   id: 4,
   type: 'Vitamins & Supplements',
+  path: '/Categories/Vitamins%20&%20Supplements',
   list:[{
     name:"Multivitamins, Multiminerals and Antioxidants",
     Items:[{
@@ -424,6 +428,7 @@ export const medicines = [{
 },{
   id: 5,
   type: 'Diabetes Care',
+  path: '/Categories/Diabetes%20Care',
   list:[{
     name:"Test Strips and Lancets",
     Items:[{
@@ -480,6 +485,7 @@ export const medicines = [{
 },{
   id: 6,
   type: 'Healthcare Devices',
+  path: '/Categories/Healthcare%20Devices',
   list:[{
     name:"BP Monitors",
     Items:[{
@@ -509,4 +515,5 @@ export const medicines = [{
 },{
   id: 7,
   type: 'Health Article',
+  path: '/Company/Health-Article'
 }]
