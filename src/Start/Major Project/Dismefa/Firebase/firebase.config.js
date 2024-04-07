@@ -1,6 +1,9 @@
 // npm install firebase
 // npm i dotenv
 
+// Accessing Conf File
+import Conf from '../Conf/Conf'
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"
@@ -9,12 +12,12 @@ import { getAuth } from "firebase/auth"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_REACT_APP_api_Key,
-  authDomain: import.meta.env.VITE_REACT_APP_auth_Domain,
-  projectId: import.meta.env.VITE_REACT_APP_project_Id,
-  storageBucket: import.meta.env.VITE_REACT_APP_storage_Bucket,
-  messagingSenderId: import.meta.env.VITE_REACT_APP_messaging_Sender_Id,
-  appId: import.meta.env.VITE_REACT_APP_app_Id,
+  apiKey: Conf.api_Key,
+  authDomain: Conf.auth_Domain,
+  projectId: Conf.project_Id,
+  storageBucket: Conf.storage_Bucket,
+  messagingSenderId: Conf.messaging_Sender_Id,
+  appId: Conf.app_Id,
 };
 
 // Initialize Firebase
