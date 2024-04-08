@@ -16,6 +16,7 @@ function LoginSignup({ setLoginPage }){
   const [generateOTP, setGenerateOTP] = useState(false)
   const [confirmation, setConfirmation] = useState("")
 
+  
   //Function to close this component and sub-components
   function closePage(){
     setLoginPage(false)
