@@ -2,7 +2,7 @@
 import close from '../Images/close.png'
 
 
-import { useState, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 
 // Importing Local components
@@ -14,6 +14,7 @@ function LoginSignup({ setLoginPage }){
 
   const [ph, setPh] = useState("")
   const [generateOTP, setGenerateOTP] = useState(false)
+  const [confirmation, setConfirmation] = useState("")
 
   //Function to close this component and sub-components
   function closePage(){
@@ -23,8 +24,26 @@ function LoginSignup({ setLoginPage }){
 
   // Sent to Otp Page
   const onOtpSubmit = (otp) => {
-    alert('Login Successful')
+    console.log(otp)
+    const verifyOtp = async() =>{
+      try{
+        console.log("confirmation -> ")
+        console.log(confirmation)
+
+        console.log("otp -> ")
+        console.log(otp)
+        
+        confirmation.confirm(otp)
+        console.log(confirmation.confirm(otp))
+        alert('Login Successful')
+      }catch(err){
+        console.log(err)
+      }
+    }
+
+    verifyOtp();
   }
+
 
   return(
   <div className="z-50 w-[30rem] h-screen bg-green-500 flex flex-col items-end shadow-2xl shadow-black fixed right-0 top-0">
@@ -38,7 +57,7 @@ function LoginSignup({ setLoginPage }){
       <div className="flex-grow w-full bg-white rounded-t-md" >
         <div className="mx-8 flex flex-col h-full justify-between">
           {!generateOTP
-            ?<Signup setPh={setPh} setGenerateOTP={setGenerateOTP} />
+            ?<Signup setPh={setPh} setGenerateOTP={setGenerateOTP} setConfirmation={setConfirmation} />
             :<OtpPage ph={ph} length={6} onOtpSubmit={onOtpSubmit} generateOTP={generateOTP} setGenerateOTP={setGenerateOTP} />               
           }
 

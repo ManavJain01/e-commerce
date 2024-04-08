@@ -82,6 +82,8 @@ inside index.css
 
 // Second video
 
+// https://www.youtube.com/watch?v=hhc8ChN9XxY&t=599s
+
 const [user, setUser] = useState(null)
 
 /* const sendOtp = async() => {

@@ -8,7 +8,7 @@ import { useState, useMemo } from 'react'
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
 import { auth } from "../../Firebase/firebase.config"
 
-function Signup({ setPh, setGenerateOTP }){
+function Signup({ setPh, setGenerateOTP, setConfirmation }){
   const [notValid, setNotValid] = useState(false)
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState(null)
@@ -18,16 +18,29 @@ function Signup({ setPh, setGenerateOTP }){
   function PhFormatOnChange(e){
     setNotValid(false);
 
+    // If there exist a '0' before a phone number
     if(e.target.value[0] == 0 && e.target.value.length > 3){
       e.target.value = e.target.value.slice(1,e.target.value.length)
     }
 
+    // If there exist a '+91' before a phone number
     if(e.target.value.slice(0,3) == "+91" && e.target.value.length > 4){
       e.target.value = e.target.value.slice(3,e.target.length)
     }
 
+    // Formatting phone number at the time of typing phone number
     if(e.target.value[0] != 0 && (e.target.value.length == 4 || e.target.value.length == 8)){
       e.target.value += '-'
+    }
+
+    // Formatting phone number at the time of copy-paste the whole phone number - part 1
+    if(e.target.value.length > 5 && e.target.value[4] != '-'){
+      e.target.value = e.target.value.slice(0,4) + '-' + e.target.value.slice(4,e.target.value.length)
+    }
+
+    // Formatting phone number at the time of copy-paste the whole phone number - part 2
+    if(e.target.value.length > 9 && e.target.value[8] != '-'){
+      e.target.value = e.target.value.slice(0,8) + '-' + e.target.value.slice(8,e.target.value.length)
     }
   }
 
@@ -52,17 +65,15 @@ function Signup({ setPh, setGenerateOTP }){
   }
 
   const sendOtp = async() => {
-    console.log("ph->" + tempPh)
     try{
       setLoading(true)
       const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {})
-      const confirmation = signInWithPhoneNumber(auth, tempPh, recaptcha)
-
-      // confirmation((resolve, reject) => {
-      //   resolve(setGenerateOTP(true))
-
-      //   reject("failed")
-      // })
+      const confirm = signInWithPhoneNumber(auth, tempPh, recaptcha)
+      setConfirmation(confirm)
+      confirm.then((value) => {
+        setGenerateOTP(true)
+      })
+      
     }catch(err){
       console.log(err)
     }

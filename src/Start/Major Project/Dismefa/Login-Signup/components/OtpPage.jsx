@@ -13,13 +13,13 @@ function OtpPage({ ph, length, generateOTP, setGenerateOTP, onOtpSubmit = () => 
 // const ref = useRef();
 
 
-  const verifyOtp = async() =>{
-    try{
-      user.confirm(otp)
-    }catch(err){
-      console.log(err)
-    }
-  }
+  // const verifyOtp = async() =>{
+  //   try{
+  //     user.confirm(otp)
+  //   }catch(err){
+  //     console.log(err)
+  //   }
+  // }
 
   return(
     <div className="flex flex-col">

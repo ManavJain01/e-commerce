@@ -1,12 +1,15 @@
-import { Link } from 'react-router-dom'
-import { useState, useEffect, useMemo } from 'react'
-import styled from 'styled-components'
+import { FaWhatsapp } from "react-icons/fa";
 
 import fb from '../../Images/fb.jpeg'
 import insta from '../../Images/Instagram.jpeg'
 import youtube from '../../Images/YouTube.jpeg'
 import googleStoreLogo from '../../Images/googleStoreLogo.png'
 import downArrow from '../../Images/downArrow.png'
+
+import { Link } from 'react-router-dom'
+import { useState, useEffect, useMemo } from 'react'
+import styled from 'styled-components'
+
 
 import InputBtn from '../InputBtn'
 
@@ -93,8 +96,12 @@ function Footer(){
 
   return(
     <>
-      <div className="bg-blue-100 w-fit min-h-[20vh] text-gray-500">
-        <hr className="min-w-[100vw] h-1 bg-white" />
+      <div className="relative bg-blue-100 w-fit min-h-[20vh] text-gray-500">
+        <a target="_blank" href="https://wa.me/8269543305?text=Hello How can I help you?"><FaWhatsapp
+          className="fixed bottom-10 right-10 z-50 size-12 bg-green-500 text-white p-1 rounded-[17px] shadow-md shadow-gray-400"
+        /></a>
+        
+        <hr className="min-w-[100vw] h-1 bg-white" />    
         <Styles>
           <div className="flex flex-col-reverse text-center items-center lg:items-start lg:flex-row lg:justify-between gap-2 lg:gap-32 py-10 px-14">
             <ul id="company-links" className="flex flex-col gap-6 whitespace-nowrap">
@@ -168,10 +175,10 @@ function Footer(){
                   </button>}
                   
                   <p>Our customer representative team is available 7 days a week from 9 am - 9 pm.</p>
-                  <p className="flex flex-col md:flex-row lg:flex-nowrap gap-5 font-semibold justify-between">
-                    <span>support@dismefa.in</span>
-                    <span>8269543305</span>
-                  </p>
+                  <section className="flex flex-col md:flex-row lg:flex-nowrap gap-5 font-semibold justify-between">
+                    <a href="mailto:support@dismefa.in">support@dismefa.in</a>
+                    <a href="tel:+918269543305">8269543305</a>
+                  </section>
                 </section>
               </li></ul>
           </div>
@@ -188,7 +195,7 @@ function Footer(){
 export default Footer;
 
 const Styles = styled.div`
-  li a:hover{
+  li > a:hover, p > a:hover{
     border-bottom:  2px solid #312f2f;
     color: #312f2f;
     transition-duration: 100ms;
