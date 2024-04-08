@@ -1,4 +1,4 @@
-import SearchInput from '../../Header-Footer/components/Header/SearchInput'
+import SearchInput from '../../Main Page/components/Header/SearchInput'
 import CarouselTab from './CarouselTab'
 
 function Main(){
