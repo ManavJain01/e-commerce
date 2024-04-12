@@ -7,8 +7,6 @@ import prescriptionLogo from '../Images/prescription.png'
 // Importing Local Logos
 import minus from '../Images/minus.png'
 import plus from '../Images/plus.png'
-import leftArrowLogo from '../Images/leftArrow.png'
-import rightArrowLogo from '../Images/rightArrow.png'
 
 // Importing Local Files
 import CarouselTab from '../../Home Page/components/CarouselTab'
@@ -17,7 +15,6 @@ import CarouselTab from '../../Home Page/components/CarouselTab'
 // Importing React Files
 import { useState, useEffect, useMemo } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-// import ReactImageMagnify from 'react-image-magnify'
 
 // Importing redux Files
 import { useDispatch, useSelector} from 'react-redux' 
@@ -52,13 +49,9 @@ function ProductCard2(){
   return(
     <div className='flex flex-col lg:flex-row gap-5 py-20 px-10 border border-gray-200 m-10 rounded-md shadow-md'>
 
-      <div className="sticky flex justify-between py-2 px-10 border border-gray-200">
+      <div className="sticky flex justify-center py-2 px-10 border border-gray-200">
         { Array.isArray(e.img) ? <CarouselTab slides={slides} />
-        :<div className="flex">
-          {/* <button><img src={leftArrowLogo} className="object-contain w-10" /></button> */}
-          <img src={e.img} className="object-contain w-64" />
-          {/* <button><img src={rightArrowLogo} className="object-contain w-10" /></button> */}
-        </div>}
+        :<img src={e.img} className="object-contain w-64" />}
       </div>
 
       <div className="flex flex-col gap-5">
@@ -111,24 +104,3 @@ function ProductCard2(){
 }
 
 export default ProductCard2;
-
-/*
-        <div className='size-[20rem]'>
-          <ReactImageMagnify {...{
-            smallImage: {
-              alt: 'Wristwatch by Ted Baker London',
-              isFluidWidth: true,
-              src: e.img
-            },
-            largeImage: {
-              src: e.img,
-              // width: 1200,
-              // height: 1800
-              width: 2500,
-              height: 500,
-            }
-          }} />
-        </div>
-
-
-*/

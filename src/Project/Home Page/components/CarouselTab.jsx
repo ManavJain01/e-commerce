@@ -2,7 +2,8 @@ import { IoIosArrowDropright } from "react-icons/io";
 import { FiArrowLeftCircle } from "react-icons/fi";
 import { FaRegCircle } from "react-icons/fa";
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { styled } from 'styled-components'
 
 function CarouselTab({slides}){
   const [currIndex, setCurrIndex] = useState(0)
@@ -94,25 +95,106 @@ function CarouselTab({slides}){
     setCurrIndex(slideIndex)
   }
 
+  //--------------------------------------------------------------------------------------------------------
+  // Code for magnifying image
+  // https://www.youtube.com/watch?v=E-dekdL0BOs
+
+  const lens = document.querySelector('#magnifier-lens')
+  const product_img = document.querySelector('#img')
+  const magnified_img = document.querySelector('#magnified-img')
+
+  function magnify(product_img, magnified_img){
+    lens.addEventListener('mousemove', moveLens)
+    product_img.addEventListener('mousemove', moveLens)
+    // take mouse out of image
+    lens.addEventListener('mouseout', leaveLens)
+  }
+
+  function moveLens(e){
+    let x, y, cx, cy;
+    // Get the position of the cursor
+    const product_img_rect = product_img.getBoundingClientRect();
+    x = e.pageX - product_img_rect.left - lens.offsetWidth/2;
+    y = e.pageY - product_img_rect.top - lens.offsetHeight/2;
+
+    
+    let max_xpos = product_img_rect.width - lens.offsetWidth;
+    let max_ypos = product_img_rect.height - lens.offsetHeight;
+    
+    if(x > max_xpos) x = max_xpos;
+    if(x < 0) x = 0;
+    
+    if(y > max_ypos) y = max_ypos;
+    if(y < 0) y = 0;
+
+    lens.style.cssText = `top: ${y}px; left: ${x}px` 
+
+    // calculate the magnified_Img & len's Aspect Ratio
+    cx = magnified_img.offsetWidth / lens.offsetWidth
+    cy = magnified_img.offsetHeight / lens.offsetHeight
+
+    magnified_img.style.cssText = `
+      background: url(${slides[currIndex]})
+      -${x *cx}px -${y *cy}px /
+      ${product_img_rect.width * cx}px ${product_img_rect.height * cy}px
+      no-repeat
+    `
+
+    lens.classList.add("active")
+    magnified_img.classList.add("active")
+  }
+
+  function leaveLens(){
+    lens.classList.remove("active")
+    magnified_img.classList.remove("active")
+  }
+
+  
+  // magnify(product_img, magnified_img)
+
   return(
-    <div style={containerStyles}>
-      {/* Left arrow key functionality */}
-      <div style={leftArrowStyles} onClick={goToPrevious}><FiArrowLeftCircle /></div>
-      {/* Right arrow key functionality */}
-      <div style={rightArrowStyles} onClick={goToNext}><IoIosArrowDropright /></div>
-      {/* It is carousel container */}
-      <div style={slideStyles}></div>
-      {/* It is dots container */}
-      <div style={dotsContainerStyles}>
-        {slides.map((slide, slideIndex) => (
-          <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}>
-            <FaRegCircle className={`size-2 rounded-full ${slideIndex == currIndex ? "bg-black" : "bg-white"}`} />
-            {/* <p className='text-blue-600 relative before:absolute before:top-3 before:left-0 before:bg-blue-700 before:content["hi"] before:w-2 before:h-2 before:rounded-full' >&#9900;</p> */}
-          </div>
-        ))}
+    <DIVSTYLES>
+      <div id="img-container" style={containerStyles}>
+        {/* Left arrow key functionality */}
+        <div style={leftArrowStyles} onClick={goToPrevious}><FiArrowLeftCircle /></div>
+        {/* Right arrow key functionality */}
+        <div style={rightArrowStyles} onClick={goToNext}><IoIosArrowDropright /></div>
+        {/* It is carousel container */}
+        <div id="img" style={slideStyles}></div>
+        {/* It is dots container */}
+        <div style={dotsContainerStyles}>
+          {slides.map((slide, slideIndex) => (
+            <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}>
+              <FaRegCircle className={`size-2 rounded-full ${slideIndex == currIndex ? "bg-black" : "bg-white"}`} />
+            </div>
+          ))}
+        </div>
+
+        <div
+          id="magnifier-lens"
+          className="absolute /top-10 /left-0 w-[150px] h-[100px] bg-orange-200 opacity-0 /opacity-50 border-2 border-orange-400 rounded-md"></div>
+        <div
+          id="magnified-img"
+          className="absolute top-0 -right-[400px] w-[400px] /w-full h-full bg-orange-200 opacity-0 /opacity-50"></div>
       </div>
-    </div>
+    </DIVSTYLES>
   )
 }
 
 export default CarouselTab;
+
+const DIVSTYLES = styled.div`
+  #magnifier-lens.active{
+    opacity: .5;
+  }
+
+  #magnified-img{
+    transform: scale(0.5);
+    transition: opacity .5s, transform .5s;
+  }
+
+  #magnified-img.active{
+    opacity: 1;
+    transform: scale(1);
+  }
+`
