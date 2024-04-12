@@ -61,6 +61,10 @@ function InputBtn(e){
   function searchInputOnClick(e){
     e.preventDefault()
     setFiltered("")
+    setFiltered2("")
+    setFiltered3("")
+    setFiltered4("")
+    setFiltered5("")
   }
 
     if(e.title == "header-input" && e.id == "enable"){
