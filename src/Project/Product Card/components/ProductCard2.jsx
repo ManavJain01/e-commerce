@@ -10,6 +10,10 @@ import plus from '../Images/plus.png'
 import leftArrowLogo from '../Images/leftArrow.png'
 import rightArrowLogo from '../Images/rightArrow.png'
 
+// Importing Local Files
+import CarouselTab from '../../Home Page/components/CarouselTab'
+
+
 // Importing React Files
 import { useState, useEffect, useMemo } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
@@ -25,6 +29,8 @@ function ProductCard2(){
   const dispatch = useDispatch()
   const reduxItems = useSelector(state => state.cartItems)
   
+  const slides = e.img
+
   const [ deliveryDate, setdeliveryDate ] = useState('Today');
   const [ medicineQTY, setMedicineQTY ] = useState(0);
   useMemo(() => {
@@ -47,9 +53,12 @@ function ProductCard2(){
     <div className='flex flex-col lg:flex-row gap-5 py-20 px-10 border border-gray-200 m-10 rounded-md shadow-md'>
 
       <div className="sticky flex justify-between py-2 px-10 border border-gray-200">
-        <button><img src={leftArrowLogo} className="object-contain w-10" /></button>
-        <img src={e.img} className="object-contain w-64" />
-        <button><img src={rightArrowLogo} className="object-contain w-10" /></button>
+        { Array.isArray(e.img) ? <CarouselTab slides={slides} />
+        :<div className="flex">
+          {/* <button><img src={leftArrowLogo} className="object-contain w-10" /></button> */}
+          <img src={e.img} className="object-contain w-64" />
+          {/* <button><img src={rightArrowLogo} className="object-contain w-10" /></button> */}
+        </div>}
       </div>
 
       <div className="flex flex-col gap-5">

@@ -1,33 +1,46 @@
-import step from '../Images/3step.jpg'
-import cod from '../Images/cod.jpg'
-import indiaCovered from '../Images/india_covered.jpg'
-
 import { IoIosArrowDropright } from "react-icons/io";
 import { FiArrowLeftCircle } from "react-icons/fi";
 
 import { useState } from 'react'
 
-function CarouselTab(){
-  const slides = [{url : step},
-                  {url : cod},
-                  {url: indiaCovered}]
-
+function CarouselTab({slides}){
   const [currIndex, setCurrIndex] = useState(0)
-  
-  const containerStyles = {
-    width: '800px',
-    height: '400px',
-    position: 'relative',
-    margin: '0 auto',
-  }
 
-  const slideStyles = {
-    width: '100%',
-    height: '100%',
-    borderRadius: '10px',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundImage: `url(${slides[currIndex].url})` 
+  let slideStyles
+  let containerStyles
+
+  if(slides[currIndex].url){
+    slideStyles = {
+      width: '100%',
+      height: '100%',
+      borderRadius: '10px',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundImage: `url(${slides[currIndex].url})` 
+    }
+
+    containerStyles = {
+      width: '800px',
+      height: '400px',
+      position: 'relative',
+      margin: '0 auto',
+    }
+  }else{
+    slideStyles = {
+      width: '100%',
+      height: '100%',
+      borderRadius: '10px',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundImage: `url(${slides[currIndex]})` 
+    }
+
+    containerStyles = {
+      width: '400px',
+      height: '400px',
+      position: 'relative',
+      margin: '0 auto',
+    }
   }
 
   const dotsContainerStyles = {
@@ -47,7 +60,7 @@ function CarouselTab(){
     transform: 'translate(0, -50%)',
     left: '32px',
     fontSize: '45px',
-    color: '#fff',
+    color: 'black',
     zIndex: 1,
     cursor: 'pointer'
   }
@@ -58,7 +71,7 @@ function CarouselTab(){
     transform: 'translate(0, -50%)',
     right: '32px',
     fontSize: '45px',
-    color: '#fff',
+    color: 'black',
     zIndex: 1,
     cursor: 'pointer'
   }

@@ -1,5 +1,6 @@
 import crocinLogo from '../Images/crocin.jpg'
 import limceeLogo from '../Images/limcee.webp'
+import limceeLogo2 from '../Images/Limcee_2.jpg'
 
 import alograceLogo from '../Images/ALOGRACE.webp'
 import borolineLogo from '../Images/BOROLINE.webp'
@@ -47,7 +48,7 @@ export const medicines = [{
     Units: 'Pack of 15 Units',
     QTY: 5,
     prescription: 'not-required',
-    img: limceeLogo
+    img: [limceeLogo, limceeLogo2],
   }]
 },{
   id: 2,
