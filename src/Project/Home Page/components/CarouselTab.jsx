@@ -1,5 +1,6 @@
 import { IoIosArrowDropright } from "react-icons/io";
 import { FiArrowLeftCircle } from "react-icons/fi";
+import { FaRegCircle } from "react-icons/fa";
 
 import { useState } from 'react'
 
@@ -50,6 +51,7 @@ function CarouselTab({slides}){
 
   const dotStyles = {
     margin: '0 3px',
+    marginTop: '-15px',
     cursor: 'pointer',
     fontSize: '20px'
   }
@@ -104,7 +106,8 @@ function CarouselTab({slides}){
       <div style={dotsContainerStyles}>
         {slides.map((slide, slideIndex) => (
           <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}>
-            <p className='text-blue-600 relative before:absolute before:top-3 before:left-0 before:bg-blue-700 before:content["hi"] before:w-2 before:h-2 before:rounded-full' >&#9900;</p>
+            <FaRegCircle className={`size-2 rounded-full ${slideIndex == currIndex ? "bg-black" : "bg-white"}`} />
+            {/* <p className='text-blue-600 relative before:absolute before:top-3 before:left-0 before:bg-blue-700 before:content["hi"] before:w-2 before:h-2 before:rounded-full' >&#9900;</p> */}
           </div>
         ))}
       </div>
