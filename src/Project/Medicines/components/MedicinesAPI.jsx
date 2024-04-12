@@ -4,6 +4,7 @@ import limceeLogo2 from '../Images/Limcee_2.jpg'
 
 import alograceLogo from '../Images/ALOGRACE.webp'
 import borolineLogo from '../Images/BOROLINE.webp'
+import borolineLogo2 from '../Images/BOROLINE_2.webp'
 import laShieldLogo from '../Images/LA-SHIELD.webp'
 import acneLogo from '../Images/ACNE-UV.webp'
 import cetaphilLogo from '../Images/CETAPHIL.webp'
@@ -73,7 +74,7 @@ export const medicines = [{
         Units: 'Pack of 50 GM',
         QTY: 2,
         prescription: 'not-required',
-        img: borolineLogo
+        img: [borolineLogo, borolineLogo2]
       }]
     },{
       subItems:"Sunscreen",

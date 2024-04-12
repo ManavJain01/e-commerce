@@ -57,10 +57,10 @@ function ProductCard2(){
       <div className="flex flex-col gap-5">
         <div className="flex flex-wrap /gap-10 justify-between items-center">
           <div className="flex flex-col gap-2">
-            <p className="text-2xl font-bold opacity-70">{e.name}</p>
+            <p className="text-2xl font-bold">{e.name}</p>
             <p className="text-lg font-bold text-gray-400">{e.company}</p>
             <p className="text-lg">{e.Units}</p>
-            <p className="text-lg font-semibold">MRP ₹{e.MRP}</p>
+            <p className="text-lg font-semibold">MRP ₹ {e.MRP}</p>
             <p className="text-gray-400 font-semibold">*MRP inclusive of all taxes</p>
           </div>
           {medicineQTY == 0

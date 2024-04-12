@@ -1,5 +1,5 @@
 import { IoIosArrowDropright } from "react-icons/io";
-import { FiArrowLeftCircle } from "react-icons/fi";
+import { IoIosArrowDropleft } from "react-icons/io";
 import { FaRegCircle } from "react-icons/fa";
 
 import { useState, useEffect } from 'react'
@@ -149,14 +149,13 @@ function CarouselTab({slides}){
     magnified_img.classList.remove("active")
   }
 
+  setTimeout(()=>magnify(product_img, magnified_img), 0)
   
-  // magnify(product_img, magnified_img)
-
   return(
     <DIVSTYLES>
       <div id="img-container" style={containerStyles}>
         {/* Left arrow key functionality */}
-        <div style={leftArrowStyles} onClick={goToPrevious}><FiArrowLeftCircle /></div>
+        <div style={leftArrowStyles} onClick={goToPrevious}><IoIosArrowDropleft /></div>
         {/* Right arrow key functionality */}
         <div style={rightArrowStyles} onClick={goToNext}><IoIosArrowDropright /></div>
         {/* It is carousel container */}
@@ -175,7 +174,7 @@ function CarouselTab({slides}){
           className="absolute /top-10 /left-0 w-[150px] h-[100px] bg-orange-200 opacity-0 /opacity-50 border-2 border-orange-400 rounded-md"></div>
         <div
           id="magnified-img"
-          className="absolute top-0 -right-[400px] w-[400px] /w-full h-full bg-orange-200 opacity-0 /opacity-50"></div>
+          className="absolute -top-0 -right-[550px] w-[500px] h-full bg-white opacity-0 border border-black shadow-md shadow-gray-400"></div>
       </div>
     </DIVSTYLES>
   )
