@@ -7,8 +7,11 @@ import { useState, useEffect } from "react";
 function AddressBtn({ setCheckAddress, setEnableAddressBox }){
 
   function checkPostcode(){
-    const input = document.getElementById("checkAddress")
-
+    const input = document.getElementById("checkAddress").value
+    const url = `https://api.postalpincode.in/pincode/${input}`
+    fetch(url).then(res=>res.json()).then(data=>{
+      setCheckAddress(`${data[0].PostOffice[0].District}, ${input}`)
+    })
     
   }
 
