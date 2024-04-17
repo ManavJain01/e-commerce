@@ -24,7 +24,7 @@ function Signup({ setPh, setGenerateOTP, setConfirmation }){
     }
 
     // If there exist a '+91' before a phone number
-    if(e.target.value.slice(0,3) == "+91" && e.target.value.length > 4){
+    if(e.target.value.slice(0,3) == "+91" && e.target.value.length >= 4){
       e.target.value = e.target.value.slice(3,e.target.length)
     }
 
