@@ -155,9 +155,9 @@ function CarouselTab({slides}){
     <DIVSTYLES>
       <div id="img-container" style={containerStyles}>
         {/* Left arrow key functionality */}
-        <div style={leftArrowStyles} onClick={goToPrevious}><IoIosArrowDropleft /></div>
+        <div style={leftArrowStyles} onClick={goToPrevious} className="hover:opacity-65"><IoIosArrowDropleft /></div>
         {/* Right arrow key functionality */}
-        <div style={rightArrowStyles} onClick={goToNext}><IoIosArrowDropright /></div>
+        <div style={rightArrowStyles} onClick={goToNext} className="hover:opacity-65"><IoIosArrowDropright /></div>
         {/* It is carousel container */}
         <div id="img" style={slideStyles}></div>
         {/* It is dots container */}
