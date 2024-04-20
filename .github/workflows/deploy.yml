@@ -25,11 +25,16 @@ jobs:
       - name: Build project
         run: npm run build
 
+      # - name: Upload production-ready build files
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: production-files
+      #     path: ./dist
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
         with:
           name: production-files
-          path: ./dist
+          path: ./FrontEnd/dist
 
   deploy:
     name: Deploy
@@ -37,15 +42,27 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
-    steps:
+    # steps:
+    #   - name: Download artifact
+    #     uses: actions/download-artifact@v2
+    #     with:
+    #       name: production-files
+    #       path: ./dist
+
+    #   - name: Deploy to GitHub Pages
+    #     uses: peaceiris/actions-gh-pages@v3
+    #     with:
+    #       github_token: ${{ secrets.GITHUB_TOKEN }}
+    #       publish_dir: ./dist
+        steps:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: production-files
-          path: ./dist
+          path: ./FrontEnd/dist
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./FrontEnd/dist
