@@ -2,7 +2,7 @@
   "homepage": "https://github.com/ManavJain01/e-commerce",
   "name": "FrontEnd",
   "private": true,
-  "proxy":"http://127.0.0.1:5000",
+  "proxy": "http://127.0.0.1:5000",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
