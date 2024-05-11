@@ -23,7 +23,7 @@ const HealthcareDeviceModel = require('../models/healthcare_devices')
 // Function To Get JSON Data
 async function ExtractingJSON(Model){
   return await Model.find({})
-  .then(users => {  return users  })
+  .then(users => {  console.log( users ) })
   .catch(err => console.log(err))
 }
 
@@ -38,4 +38,4 @@ const HealthcareDeviceJSON = ExtractingJSON(HealthcareDeviceModel)
 
 
 // Exporting these JSON Data
-module.exports =  ExtractingJSON
+// module.exports =  ExtractingJSON

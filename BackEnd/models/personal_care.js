@@ -7,19 +7,19 @@ const itemSchema = mongoose.Schema({
   price: Number,
   quantity: Number,
   prescription: String,
-  img: String,
+  img: Object,
   description: String,
 })
 
 const subItemSchema = mongoose.Schema({
   item: String,
-  subitems: ([itemSchema] || [] || Array)
+  subitems: [itemSchema]
 })
 
 const PersonalCareSchema = mongoose.Schema({
   item: String,
-  subitems: ([subItemSchema] || [] || Array)
+  subitems: [subItemSchema]
 })
 
-const PersonalCareModel = mongoose.model('personal_care', PersonalCareSchema)
+const PersonalCareModel = mongoose.model('personal_cares', PersonalCareSchema)
 module.exports = PersonalCareModel

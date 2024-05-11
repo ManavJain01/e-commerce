@@ -33,7 +33,9 @@ function Categories(){
     }
 
     getData();
+
   }, [])
+  console.log(categories1);
 
   useEffect(()=>{
     // Accessing FrontEnd Object File
@@ -41,12 +43,16 @@ function Categories(){
     setFiltered(false);
     
     // Setting Backend Data
-    if(propsValue[2] === "Health Conditions"){
+    if(propsValue[2] === "Personal care"){
       api && setCategories(api[0])
-    }else if(propsValue[2] === "Vitamins & Supplements"){
+    }else if(propsValue[2] === "Health Conditions"){
       api && setCategories(api[1])
-    }else if(propsValue[2] === "Healthcare Devices"){
+    }else if(propsValue[2] === "Vitamins & Supplements"){
       api && setCategories(api[2])
+    }else if(propsValue[2] === "Diabetes Care"){
+      api && setCategories(api[3])
+    }else if(propsValue[2] === "Healthcare Devices"){
+      api && setCategories(api[4])
     }else{
       setCategories(0)
     }

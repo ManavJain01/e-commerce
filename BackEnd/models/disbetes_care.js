@@ -7,7 +7,7 @@ const itemSchema = mongoose.Schema({
   price: Number,
   quantity: Number,
   prescription: String,
-  img: String,
+  img: Object,
   description: String,
 })
 
@@ -16,5 +16,5 @@ const DiabetesCareSchema = mongoose.Schema({
   subitems: [itemSchema]
 })
 
-const DiabetesCareModel = mongoose.model('diabetes_care', DiabetesCareSchema)
+const DiabetesCareModel = mongoose.model('diabetes_cares', DiabetesCareSchema)
 module.exports = DiabetesCareModel
