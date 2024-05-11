@@ -18,11 +18,11 @@ function FilteredComponent({ filtered, e }){
         e[0].list.map((f) => {
           if (f.name == filtered[0] && f.subList) return f.subList.map((g) => {
             return g.Items && g.Items.map((h) => {
-              return  <ProductCard key={h.name} e={h} title='Categories' />
+              return  <ProductCard key={h.item} e={h} title='Categories' />
             })
           })  
           else if(f.name == filtered[0] && !f.subList) return f.Items && f.Items.map((g) =>{
-            return<ProductCard key={g.name} e={g} title='Categories' />
+            return<ProductCard key={g.item} e={g} title='Categories' />
           })
         })
       }
@@ -30,18 +30,18 @@ function FilteredComponent({ filtered, e }){
 
 
 // For Filtering By SubCategory
-if(selectDiv == 3)
-return <div className='flex flex-wrap gap-5'>
-    {
-      e[0].list.map((f) => {
-        if(f.name == filtered[1] && f.subList) return f.subList.map((g) => {
-          return g.subItems == filtered[0] && g.Items && g.Items.map((h) => {
-            return  <ProductCard key={h.name} e={h} title='Categories' />
+  if(selectDiv == 3)
+  return <div className='flex flex-wrap gap-5'>
+      {
+        e[0].list.map((f) => {
+          if(f.name == filtered[1] && f.subList) return f.subList.map((g) => {
+            return g.subItems == filtered[0] && g.Items && g.Items.map((h) => {
+              return  <ProductCard key={h.item} e={h} title='Categories' />
+            })
           })
         })
-      })
-    }
-  </div>
+      }
+    </div>
   
   // For Filtering By Brands
   if(selectDiv == 4)
@@ -50,12 +50,12 @@ return <div className='flex flex-wrap gap-5'>
       e[0].list.map((f) => {
         if(f.subList) return f.subList.map((g) => {
           return g.Items && g.Items.map((h) => {
-            if(h.company == filtered[0]) return <ProductCard key={h.name} e={h} title='Categories' />  
+            if(h.company == filtered[0]) return <ProductCard key={h.item} e={h} title='Categories' />  
           })
         })
         
         if(!f.subList && f.Items) return f.Items.map((g) => {
-          if(g.company == filtered[0]) return <ProductCard key={g.name} e={g} title='Categories' />
+          if(g.company == filtered[0]) return <ProductCard key={g.item} e={g} title='Categories' />
         })
       })
     }

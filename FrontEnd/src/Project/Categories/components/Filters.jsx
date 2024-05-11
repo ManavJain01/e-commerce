@@ -10,12 +10,12 @@ function Filters({ e, setFiltered }){
 
         <div className="flex flex-col gap-3 text-gray-500 text-sm my-2 max-h-[10rem] overflow-y-scroll">
           {e[0].list.map(f=>(
-            <div key={f.name} className="flex gap-2">
+            <div key={f.item} className="flex gap-2">
                 <input 
                   type="radio"
                   name="category"
-                  onClick={(x)=>setFiltered([f.name, e[0].type])} />
-                <span>{f.name}</span>
+                  onClick={(x)=>setFiltered([f.item, e[0].type])} />
+                <span>{f.item}</span>
               </div>
             ))
           }
@@ -57,7 +57,7 @@ function Filters({ e, setFiltered }){
           {e[0].list.map((f)=>
               f.subList && f.subList.map((g)=>
                 g.Items && g.Items.map((h)=>
-                  <div key={h.name} className="flex gap-2">
+                  <div key={h.item} className="flex gap-2">
                     <input type="checkbox" onClick={()=>setFiltered([h.company, g.subItems ,f.name, e[0].type])} />
                     <span>{h.company}</span>
                   </div>

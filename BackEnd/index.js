@@ -25,6 +25,35 @@ mongoose.connect('mongodb://localhost:27017/dismefa')
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 
+// Creating Categories
+
+function getHealthCondition(){
+  return HealthConditionModel.find({})
+  .then(users => { return users })
+  .catch(err => res.json(err))
+}
+
+function getVitamins_supplement(){
+  return vitamins_supplementModel.find({})
+  .then(users => { return users })
+  .catch(err => res.json(err))
+}
+
+function getHealthcareDevice(){
+  return HealthcareDeviceModel.find({})
+  .then(users => { return users })
+  .catch(err => res.json(err))
+}
+
+async function getCategories(){
+  let Categories = [];
+
+  Categories.push(await getHealthCondition())
+  Categories.push(await getVitamins_supplement())
+  Categories.push(await getHealthcareDevice())
+  return Categories;
+}
+
 
 
 // Reading User
@@ -32,6 +61,14 @@ app.get('/Medicines', (req, res)=>{
   MedicineModel.find({})
   .then(users => res.json(users))
   .catch(err => res.json(err))
+})
+
+app.get('/Categories', (req, res)=>{
+  async function getItem(){
+    res.json(await getCategories());
+  }
+
+  getItem();
 })
 
 
