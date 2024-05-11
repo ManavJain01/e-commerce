@@ -27,32 +27,8 @@ mongoose.connect('mongodb://localhost:27017/dismefa')
 
 // Creating Categories
 
-function getPersonalCare(){
-  return PersonalCareModel.find({})
-  .then(users => { return users })
-  .catch(err => res.json(err))
-}
-
-function getHealthCondition(){
-  return HealthConditionModel.find({})
-  .then(users => { return users })
-  .catch(err => res.json(err))
-}
-
-function getVitamins_supplement(){
-  return vitamins_supplementModel.find({})
-  .then(users => { return users })
-  .catch(err => res.json(err))
-}
-
-function getDiabetesCare(){
-  return DiabetesCareModel.find({})
-  .then(users => { return users })
-  .catch(err => res.json(err))
-}
-
-function getHealthcareDevice(){
-  return HealthcareDeviceModel.find({})
+function getAPI(Model){
+  return Model.find({})
   .then(users => { return users })
   .catch(err => res.json(err))
 }
@@ -60,12 +36,48 @@ function getHealthcareDevice(){
 async function getCategories(){
   let Categories = [];
 
-  Categories.push(await getPersonalCare())
-  Categories.push(await getHealthCondition())
-  Categories.push(await getVitamins_supplement())
-  Categories.push(await getDiabetesCare())
-  Categories.push(await getHealthcareDevice())
+  Categories.push(await getAPI(PersonalCareModel))
+  Categories.push(await getAPI(HealthConditionModel))
+  Categories.push(await getAPI(vitamins_supplementModel))
+  Categories.push(await getAPI(DiabetesCareModel))
+  Categories.push(await getAPI(HealthcareDeviceModel))
   return Categories;
+}
+
+async function getCategory(Model, category, res){
+  Model.find({$or: [
+    {'category': category},
+    {'item' : category},
+    { subitems: {$all: [ { $elemMatch: {item: category}} ]}}
+  ]})
+  .then(users => res.json(users))
+  .catch(err => res.json(err))
+
+  // var data = await Model.aggregate([
+  //   {
+  //     // $lookup: {
+  //     //   from: "health_conditions",
+  //     //   localField: "item",
+  //     //   foreignField: "item",
+  //     //   as: "item"
+  //     // }
+
+  //     // $lookup: {
+  //     //   from: "health_conditions",
+  //     //   let: {
+  //     //     "item": "$item"
+  //     //   },
+  //     //   "pipeline": [
+  //     //     {
+  //     //       item: category
+  //     //     }
+  //     //   ],
+  //     //   as: "item"
+  //     // }
+  //   }
+  // ])
+
+  // res.json(data);
 }
 
 
@@ -74,7 +86,7 @@ async function getCategories(){
 app.get('/Medicines', (req, res)=>{
   MedicineModel.find({})
   .then(users => res.json(users))
-  .catch(err => res.json(err))
+  .catch(err => {console.log("hi")})
 })
 
 app.get('/Categories', (req, res)=>{
@@ -85,13 +97,28 @@ app.get('/Categories', (req, res)=>{
 })
 
 app.get('/Categories/:category', (req, res)=>{
-  console.log("hi");
-  // const id = req.params.id;
-  // console.log(id);
+  const category = req.params.category;
+
+  getCategory(PersonalCareModel ,category, res)
 })
 
 
-
+// [
+//   {
+//     $lookup: {
+//       from: PersonalCareModel,
+//       localField: "item",
+//       foreignField: "item",
+//       as: "item"
+//     },
+//     {
+//       from: HealthConditionModel,
+//       localField: "item",
+//       foreignField: "item",
+//       as: "item"
+//     }
+//   }
+// ]
 
 
 

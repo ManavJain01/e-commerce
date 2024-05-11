@@ -12,6 +12,7 @@ const itemSchema = mongoose.Schema({
 })
 
 const DiabetesCareSchema = mongoose.Schema({
+  category: String,
   item: String,
   subitems: [itemSchema]
 })

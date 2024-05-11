@@ -12,6 +12,7 @@ const itemSchema = mongoose.Schema({
 })
 
 const vitamins_supplementSchema = mongoose.Schema({
+  category: String,
   item: String,
   subitems: [itemSchema]
 })

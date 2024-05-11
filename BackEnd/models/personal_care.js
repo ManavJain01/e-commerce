@@ -17,6 +17,7 @@ const subItemSchema = mongoose.Schema({
 })
 
 const PersonalCareSchema = mongoose.Schema({
+  category: String,
   item: String,
   subitems: [subItemSchema]
 })

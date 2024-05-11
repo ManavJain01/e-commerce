@@ -17,6 +17,7 @@ const subItemSchema = mongoose.Schema({
 })
 
 const HealthConditionSchema = mongoose.Schema({
+  category: String,
   item: String,
   subitems: ([subItemSchema] || [itemSchema])
 })
