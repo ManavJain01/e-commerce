@@ -1,8 +1,29 @@
-import { medicines } from './MedicinesAPI'
+// Importing Local Files
+// import { medicines } from './MedicinesAPI'
 import ProductCard from '../../Product Card/components/ProductCard'
 
+// Importing React Packages
+import { useState, useEffect } from 'react'
+
+// Importing Axios Packages
+import axios from 'axios'
+
+
 function MedicinePage(){
-  const medicinesList = medicines.filter(e => e.type.includes('Medicines'))[0].list
+  const [medicines, setMedicines] = useState()
+
+  // Getting Medicines API
+  useEffect(() => {
+    const getData = async () => {
+      const response = await axios.get('http://localhost:5000/Medicines')
+      setMedicines(response.data)
+    }
+
+    getData();
+  }, [])
+
+  // when accessing frontend object file
+  // const medicinesList = medicines.filter(e => e.type.includes('Medicines'))[0].list
 
   return(
     <>
@@ -13,9 +34,9 @@ function MedicinePage(){
         </section>
 
         <div to="/Home" className="mt-10 flex flex-wrap gap-2">
-          {medicinesList.map((e)=>(
-            <ProductCard key={e.name} e={e} title={'MedicinePage'} />
-            ))}
+          {medicines && medicines.map((e)=>(
+            <ProductCard key={e._id} e={e} title={'MedicinePage'} />
+          ))}
         </div>
 
       </div>

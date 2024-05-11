@@ -14,9 +14,9 @@ function PaymentDetails({ reduxItems, cartItems }){
   useEffect(() => {
     let tempMRP = 0
     let tempDiscount = 0
-    reduxItems.map((item) => {
-      tempMRP += (item.list.MRP * item.cartQty)
-      tempDiscount += (item.list.MRP)*.15
+    reduxItems.map((e) => {
+      tempMRP += (e.list.price * e.cartQty)
+      tempDiscount += (e.list.price)*.15
     })
     
     setTotalMRP(tempMRP.toFixed(2))

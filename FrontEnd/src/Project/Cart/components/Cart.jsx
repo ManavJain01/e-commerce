@@ -20,13 +20,12 @@ import PaymentDetails from './PaymentDetails'
 
 function Cart(){
   const reduxItems = useSelector(state => state.cartItems)
-  
   const [cartItems, setCartItems] = useState(reduxItems.length)
-
+  
   useMemo(()=>{
     setCartItems(reduxItems.length)
   },[reduxItems])
-
+  
   if(cartItems == 0){
     return (
       <> 
@@ -46,10 +45,9 @@ function Cart(){
               <h1 className="font-bold text-2xl mb-5">{cartItems} Items in your Cart</h1>
 
               {
-                reduxItems.map((item) => {
-                  // console.log(item)
-                  return <ProductCard key={item.id} e={item.list} title="Cart" />
-                })
+                reduxItems.map((item) => (
+                  <ProductCard key={item.id} e={item.list} title="Cart" />
+                ))
               }
 
               {/* <div className="border-2 border-gray-200 w-[45rem] h-[12rem] py-5 px-10 flex justify-between">

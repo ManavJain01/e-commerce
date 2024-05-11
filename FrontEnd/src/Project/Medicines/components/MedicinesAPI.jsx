@@ -35,19 +35,19 @@ export const medicines = [{
   type: 'Medicines',
   path: '/Medicines',
   list: [{
-    name: 'Crocin Advance 500mg',
+    item: 'Crocin Advance 500mg',
     company: 'Herb Edge Health Care Pvt. Ltd.',
-    MRP: 19.93,
-    Units: 'Pack of 15 Units',
-    QTY: 10,
+    price: 19.93,
+    packaging: 'Pack of 15 packaging',
+    quantity: 10,
     prescription: 'required',
-    img: crocinLogo
+    img: [crocinLogo]
   },{
-    name: 'Limcee',
+    item: 'Limcee',
     company: 'Abbott',
-    MRP: 23,
-    Units: 'Pack of 15 Units',
-    QTY: 5,
+    price: 23,
+    packaging: 'Pack of 15 packaging',
+    quantity: 5,
     prescription: 'not-required',
     img: [limceeLogo, limceeLogo2],
   }]
@@ -56,63 +56,63 @@ export const medicines = [{
   type: 'Personal care',
   path: '/Categories/Personal%20care',
   list:[{
-    name:"skin care",
+    item:"skin care",
     subList:[{
       subItems:"Skin Cream",
       Items:[{
-        name: 'Alograce Cream 50 GM',
+        item: 'Alograce Cream 50 GM',
         company: 'Lifestar',
-        MRP: 165.30,
-        Units: 'Pack of 50 GM',
-        QTY: 20,
+        price: 165.30,
+        packaging: 'Pack of 50 GM',
+        quantity: 20,
         prescription: 'not-required',
-        img: alograceLogo
+        img: [alograceLogo]
       },{
-        name: 'Boroline Sx Cream 40 GM',
+        item: 'Boroline Sx Cream 40 GM',
         company: 'G. D. Pharmaceuticals Ltd.',
-        MRP: 74.80,
-        Units: 'Pack of 50 GM',
-        QTY: 2,
+        price: 74.80,
+        packaging: 'Pack of 50 GM',
+        quantity: 2,
         prescription: 'not-required',
         img: [borolineLogo, borolineLogo2]
       }]
     },{
       subItems:"Sunscreen",
       Items:[{
-        name: 'La Shield Spf 40 Gel 50 GM',
+        item: 'La Shield Spf 40 Gel 50 GM',
         company: 'Glenmark Pharmaceuticals Ltd.',
-        MRP: 639.90,
-        Units: 'Tube of 50 GM',
-        QTY: 2,
+        price: 639.90,
+        packaging: 'Tube of 50 GM',
+        quantity: 2,
         prescription: 'not-required',
-        img: laShieldLogo
+        img: [laShieldLogo]
       },{
-        name: 'Acne Uv Spf 30 Gel 30 GM',
+        item: 'Acne Uv Spf 30 Gel 30 GM',
         company: 'Ipca Laboratories Pvt Ltd.',
-        MRP: 415.80,
-        Units: 'Pack of 30 GM',
-        QTY: 40,
+        price: 415.80,
+        packaging: 'Pack of 30 GM',
+        quantity: 40,
         prescription: 'not-required',
-        img: acneLogo
+        img: [acneLogo]
       }]
     },{
       subItems:"Face Wash",
       Items:[{
-        name: 'Cetaphil Gentle Skin Cleanser 125 ML',
+        item: 'Cetaphil Gentle Skin Cleanser 125 ML',
         company: 'Galderma India Pvt. Ltd',
-        MRP: 371.07,
-        Units: 'Bottle of 125 ML',
-        QTY: 120,
+        price: 371.07,
+        packaging: 'Bottle of 125 ML',
+        quantity: 120,
         prescription: 'not-required',
-        img: cetaphilLogo
+        img: [cetaphilLogo]
       },{
-        name: 'Dermadew Glow Facewash 100 ML',
+        item: 'Dermadew Glow Facewash 100 ML',
         company: 'Hegde & Hegde',
-        MRP: 336.00,
-        Units: 'Pack of 100 ML',
-        QTY: 2,
+        price: 336.00,
+        packaging: 'Pack of 100 ML',
+        quantity: 2,
         prescription: 'not-required',
-        img: dermadewLogo
+        img: [dermadewLogo]
       }]
     },{
       subItems:"Skin and Body Soap",
@@ -132,25 +132,25 @@ export const medicines = [{
       subItems:"Body Wash",
     }]
   },{
-    name:"hair care",
+    item:"hair care",
     subList:[{
       subItems:"Hair Oils",
       Items:[{
-        name: 'Indulekha Bringha Hair Oil 100 ML',
+        item: 'Indulekha Bringha Hair Oil 100 ML',
         company: 'Hindustan Lab',
-        MRP: 416.88,
-        Units: 'BOTTLE of 100 ML',
-        QTY: 20,
+        price: 416.88,
+        packaging: 'BOTTLE of 100 ML',
+        quantity: 20,
         prescription: 'not-required',
-        img: indulekhaLogo
+        img: [indulekhaLogo]
       },{
-        name: 'Dabur Keratone Oil 100 ML',
+        item: 'Dabur Keratone Oil 100 ML',
         company: 'Dabur India Ltd.',
-        MRP: 187.44,
-        Units: 'Pack of 100 ML',
-        QTY: 3,
+        price: 187.44,
+        packaging: 'Pack of 100 ML',
+        quantity: 3,
         prescription: 'not-required',
-        img: daburKeratoneLogo
+        img: [daburKeratoneLogo]
       }]
     },{
       subItems:"Hair Shampoo",
@@ -168,7 +168,7 @@ export const medicines = [{
       subItems:"Hair Solutions",
     }]
   },{
-    name:"Baby and Mom care",
+    item:"Baby and Mom care",
     subList:[{
       subItems:"Baby Diapers and Wipes",
     },{
@@ -191,7 +191,7 @@ export const medicines = [{
       subItems:"Nutritional Drinks"
     }]
   },{
-    name:"Oral care",
+    item:"Oral care",
     subList:[{
       subItems:"Tooth Paste"
     },{
@@ -203,27 +203,27 @@ export const medicines = [{
     },{
       subItems:"Tooth Brush",
       Items:[{
-        name: 'Thermoseal Proxa Ns Brush 5',
+        item: 'Thermoseal Proxa Ns Brush 5',
         company: 'Icpa Health Products Ltd',
-        MRP: 161.28,
-        Units: 'Pack of 5 Units',
-        QTY: 22,
+        price: 161.28,
+        packaging: 'Pack of 5 packaging',
+        quantity: 22,
         prescription: 'not-required',
-        img: thermosealProxaLogo
+        img: [thermosealProxaLogo]
       },{
-        name: 'Stim Ortho Mb Super Soft Toothbrush 1',
+        item: 'Stim Ortho Mb Super Soft Toothbrush 1',
         company: 'Global Dent Aids Pvt Ltd',
-        MRP: 90.00,
-        Units: 'Pack of 1 Unit',
-        QTY: 32,
+        price: 90.00,
+        packaging: 'Pack of 1 Unit',
+        quantity: 32,
         prescription: 'not-required',
-        img: stimOrthoMbLogo
+        img: [stimOrthoMbLogo]
       }]
     },{
       subItems:"Gargle Solution"
     }]
   },{
-    name:"Elderly Care",
+    item:"Elderly Care",
     subList:[{
       subItems:"Orthopaedic Supports"
     },{
@@ -241,44 +241,44 @@ export const medicines = [{
   type: 'Health Conditions',
   path: '/Categories/Health%20Conditions',
   list:[{
-    name:"Bone and Joint Care",
+    item:"Bone and Joint Care",
     Items:[{
-      name: 'Glucozone Cg Orange Pineapple Flavour Sugar Free Sachet 12 GM',
+      item: 'Glucozone Cg Orange Pineapple Flavour Sugar Free Sachet 12 GM',
       company: 'Leeford Healthcare',
-      MRP: 54.48,
-      Units: 'Pack of 12 GM',
-      QTY: 100,
+      price: 54.48,
+      packaging: 'Pack of 12 GM',
+      quantity: 100,
       prescription: 'not-required',
-      img: glucozoneCgOrangePineappleLogo
+      img: [glucozoneCgOrangePineappleLogo]
     },{
-      name: 'Shelcal Joints Capsule 10',
+      item: 'Shelcal Joints Capsule 10',
       company: 'Torrent Pharmaceuticals Ltd.',
-      MRP: 693.28,
-      Units: 'Pack of 10 Units',
-      QTY: 27,
+      price: 693.28,
+      packaging: 'Pack of 10 packaging',
+      quantity: 27,
       prescription: 'not-required',
-      img: shelcalJointsCapsuleLogo
+      img: [shelcalJointsCapsuleLogo]
     }]
   },{
-    name:"Digestive Care",
+    item:"Digestive Care",
     subList:[{
       subItems:"Pre and Probiotics",
       Items:[{
-        name: 'Vibact Ds Capsule 10',
+        item: 'Vibact Ds Capsule 10',
         company: 'Usv Pvt Ltd',
-        MRP: 176.71,
-        Units: 'Pack of 10 Units',
-        QTY: 200,
+        price: 176.71,
+        packaging: 'Pack of 10 packaging',
+        quantity: 200,
         prescription: 'not-required',
-        img: vibactLogo
+        img: [vibactLogo]
       },{
-        name: 'Velgut 100 MG Capsule 15',
+        item: 'Velgut 100 MG Capsule 15',
         company: 'Eris Lifesciences Ltd',
-        MRP: 220.35,
-        Units: 'STRIP of 15 Units',
-        QTY: 2,
+        price: 220.35,
+        packaging: 'STRIP of 15 packaging',
+        quantity: 2,
         prescription: 'not-required',
-        img: velgutLogo
+        img: [velgutLogo]
       }]
     },{
       subItems:"Acidity"
@@ -294,7 +294,7 @@ export const medicines = [{
       subItems:"Digestive Enzymes"
     }]
   },{
-    name:"Eye Care",
+    item:"Eye Care",
     subList:[{
       subItems:"Eye Lubricant Drops"
     },{
@@ -311,9 +311,9 @@ export const medicines = [{
       subItems:"Eye Ointment and Gel"
     }]
   },{
-    name:"Pain Relief"
+    item:"Pain Relief"
   },{
-    name:"Smoking Cessation",
+    item:"Smoking Cessation",
     subList:[{
       subItems:"Nicotine Patch"
     },{
@@ -322,11 +322,11 @@ export const medicines = [{
       subItems:"Nicotine Lozenges"
     }]
   },{
-    name:"Liver Care"
+    item:"Liver Care"
   },{
-    name:"Stomach Care"
+    item:"Stomach Care"
   },{
-    name:"Cold and Cough",
+    item:"Cold and Cough",
     subList:[{
       subItems:"Cough Syrups"
     },{
@@ -341,178 +341,178 @@ export const medicines = [{
       subItems:"Cold and Cough Tablets"
     }]
   },{
-    name:"Heart Care"
+    item:"Heart Care"
   },{
-    name:"Kidney Care"
+    item:"Kidney Care"
   },{
-    name:"Piles, Fissures & Fistula"
+    item:"Piles, Fissures & Fistula"
   },{
-    name:"Respiratory Care",
+    item:"Respiratory Care",
     Items:[{
-      name: 'Himalaya Septilin Tablet 60',
+      item: 'Himalaya Septilin Tablet 60',
       company: 'Himalaya Drug Company',
-      MRP: 199.50,
-      Units: 'Pack of 60 Units',
-      QTY: 15,
+      price: 199.50,
+      packaging: 'Pack of 60 packaging',
+      quantity: 15,
       prescription: 'not-required',
-      img: himalayaSeptilinTabletLogo
+      img: [himalayaSeptilinTabletLogo]
     },{
-      name: 'Vicks Vaporub 10 ML',
+      item: 'Vicks Vaporub 10 ML',
       company: 'Torrent Pharmaceuticals Ltd.',
-      MRP: 43.65,
-      Units: 'BOTTLE of 10 GM',
-      QTY: 23,
+      price: 43.65,
+      packaging: 'BOTTLE of 10 GM',
+      quantity: 23,
       prescription: 'not-required',
-      img: vicksVaporub10Logo
+      img: [vicksVaporub10Logo]
     }]
   },{
-    name:"Mental Wellness"
+    item:"Mental Wellness"
   },{
-    name:"Derma Care"
+    item:"Derma Care"
 }]
 },{
   id: 4,
   type: 'Vitamins & Supplements',
   path: '/Categories/Vitamins%20&%20Supplements',
   list:[{
-    name:"Multivitamins, Multiminerals and Antioxidants",
+    item:"Multivitamins, Multiminerals and Antioxidants",
     Items:[{
-      name: 'Revital H Woman Tablet 30',
+      item: 'Revital H Woman Tablet 30',
       company: 'Sun Pharmaceutical Industries Ltd',
-      MRP: 346.40,
-      Units: 'BOTTLE of 30 Units',
-      QTY: 250,
+      price: 346.40,
+      packaging: 'BOTTLE of 30 packaging',
+      quantity: 250,
       prescription: 'not-required',
-      img: revitalHLogo
+      img: [revitalHLogo]
     },{
-      name: 'Antoxipan Tablet 15',
+      item: 'Antoxipan Tablet 15',
       company: 'Abbott India Ltd.',
-      MRP: 386.78,
-      Units: 'Pack of 15 Units',
-      QTY: 1,
+      price: 386.78,
+      packaging: 'Pack of 15 packaging',
+      quantity: 1,
       prescription: 'not-required',
-      img: antoxipanLogo
+      img: [antoxipanLogo]
     }]
   },{
-    name:"Calcium & Minerals"
+    item:"Calcium & Minerals"
   },{
-    name:"Vitamin A to Z"
+    item:"Vitamin A to Z"
   },{
-    name:"Protein Supplements"
+    item:"Protein Supplements"
   },{
-    name:"Supplement Power"
+    item:"Supplement Power"
   },{
-    name:"Vitamin B12 and B Complex"
+    item:"Vitamin B12 and B Complex"
   },{
-    name:"Mineral Supplements"
+    item:"Mineral Supplements"
   },{
-    name:"Immunity Boosters",
+    item:"Immunity Boosters",
     Items:[{
-      name: 'Dabur Chyawanprash 3x Immuity Action 950 GM',
+      item: 'Dabur Chyawanprash 3x Immuity Action 950 GM',
       company: 'Dabur India Ltd.',
-      MRP: 395.00,
-      Units: 'BOTTLE of 950 GM',
-      QTY: 225,
+      price: 395.00,
+      packaging: 'BOTTLE of 950 GM',
+      quantity: 225,
       prescription: 'not-required',
-      img: daburChyawanprash3xLogo
+      img: [daburChyawanprash3xLogo]
     },{
-      name: 'Dabur Honey 100 % Pure 1000 GM',
+      item: 'Dabur Honey 100 % Pure 1000 GM',
       company: 'Dabur India Ltd.',
-      MRP: 386.78,
-      Units: 'Pack of 1000 GM',
-      QTY: 16,
+      price: 386.78,
+      packaging: 'Pack of 1000 GM',
+      quantity: 16,
       prescription: 'not-required',
-      img: daburHoney100Logo
+      img: [daburHoney100Logo]
     }]
   },{
-    name:"Omega and Fish Oil"
+    item:"Omega and Fish Oil"
 }]
 },{
   id: 5,
   type: 'Diabetes Care',
   path: '/Categories/Diabetes%20Care',
   list:[{
-    name:"Test Strips and Lancets",
+    item:"Test Strips and Lancets",
     Items:[{
-      name: 'Accu Chek Active Strips 50',
+      item: 'Accu Chek Active Strips 50',
       company: 'Roche',
-      MRP: 1053.40,
-      Units: 'PACKET of 50 Units',
-      QTY: 54,
+      price: 1053.40,
+      packaging: 'PACKET of 50 packaging',
+      quantity: 54,
       prescription: 'not-required',
       condition: 'not-returnable',
-      img: accuChekLogo
+      img: [accuChekLogo]
     },{
-      name: 'Dr Morepen Gluco One Bg 03 Blood Glucose Test Strip 50',
+      item: 'Dr Morepen Gluco One Bg 03 Blood Glucose Test Strip 50',
       company: 'Morepen Laboratories Limited',
-      MRP: 679.20,
-      Units: 'Pack of 50 Units',
-      QTY: 16,
+      price: 679.20,
+      packaging: 'Pack of 50 packaging',
+      quantity: 16,
       prescription: 'not-required',
       condition: 'not-returnable',
-      img: drMorepinLogo
+      img: [drMorepinLogo]
     }]
   },{
-    name:"Blood Glucose Monitors"
+    item:"Blood Glucose Monitors"
   },{
-    name:"Diabetic Diet"
+    item:"Diabetic Diet"
   },{
-    name:"Sugar Substitutes"
+    item:"Sugar Substitutes"
   },{
-    name:"Diabetes Ayurvedic Medicines"
+    item:"Diabetes Ayurvedic Medicines"
   },{
-    name:"Homeopathy",
+    item:"Homeopathy",
     Items:[{
-      name: 'Sbl Diaboherb Capsule 100',
+      item: 'Sbl Diaboherb Capsule 100',
       company: 'Sbl Pvt Ltd',
-      MRP: 500.00,
-      Units: 'PACKET of 100 Units',
-      QTY: 5,
+      price: 500.00,
+      packaging: 'PACKET of 100 packaging',
+      quantity: 5,
       prescription: 'not-required',
       condition: 'returnable',
-      img: sblDiaboherbCapLogo
+      img: [sblDiaboherbCapLogo]
     },{
-      name: 'Dr Willmar Schwabe India Syzygium Jambolanum Trituration 1x Tablet 20 GM',
+      item: 'Dr Willmar Schwabe India Syzygium Jambolanum Trituration 1x Tablet 20 GM',
       company: 'Dr Willmar Schwabe India Pvt Ltd',
-      MRP: 157.50,
-      Units: 'Pack of 20 GM',
-      QTY: 17,
+      price: 157.50,
+      packaging: 'Pack of 20 GM',
+      quantity: 17,
       prescription: 'not-required',
       condition: 'returnable',
-      img: drWillmarSchwabeIndiaSyzygiumLogo
+      img: [drWillmarSchwabeIndiaSyzygiumLogo]
     }]
   },{
-    name:"Syringes and Pens"
+    item:"Syringes and Pens"
 }]
 },{
   id: 6,
   type: 'Healthcare Devices',
   path: '/Categories/Healthcare%20Devices',
   list:[{
-    name:"BP Monitors",
+    item:"BP Monitors",
     Items:[{
-      name: 'Dr Morepen Bp 15 Automatic Bp Monitor (bp Machine) 1',
+      item: 'Dr Morepen Bp 15 Automatic Bp Monitor (bp Machine) 1',
       company: 'Morepen Laboratories Limited',
-      MRP: 1120.00,
-      Units: 'Pack of 1 UNIT',
-      QTY: 27,
+      price: 1120.00,
+      packaging: 'Pack of 1 UNIT',
+      quantity: 27,
       prescription: 'not-required',
       condition: 'non-returnable',
-      img: drMorepinBPLogo
+      img: [drMorepinBPLogo]
     },{
-      name: 'Omron Hem 7124 In Bp Monitor (bp Machine) 1',
+      item: 'Omron Hem 7124 In Bp Monitor (bp Machine) 1',
       company: 'Omron Healthcare India Pvt Ltd',
-      MRP: 1908.06,
-      Units: 'Pack of 1 Unit',
-      QTY: 16,
+      price: 1908.06,
+      packaging: 'Pack of 1 Unit',
+      quantity: 16,
       prescription: 'not-required',
       condition: 'non-returnable',
-      img: omronHemLogo
+      img: [omronHemLogo]
     }]
   },{
-    name:"Nebulizers and Vaporizers"
+    item:"Nebulizers and Vaporizers"
   },{
-    name:"Supports and Braces"
+    item:"Supports and Braces"
 }]
 },{
   id: 7,

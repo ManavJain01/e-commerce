@@ -15,6 +15,7 @@ import CarouselTab from '../../Home Page/components/CarouselTab'
 // Importing React Files
 import { useState, useEffect, useMemo } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
+import { IoImageOutline } from "react-icons/io5";
 
 // Importing redux Files
 import { useDispatch, useSelector} from 'react-redux' 
@@ -32,7 +33,7 @@ function ProductCard2(){
   const [ medicineQTY, setMedicineQTY ] = useState(0);
   useMemo(() => {
     reduxItems.map((item) => {
-      if(item.list.name === e.name) setMedicineQTY(item.cartQty)
+      if(item.list.item === e.item) setMedicineQTY(item.cartQty)
     })
   },[])
   
@@ -41,7 +42,7 @@ function ProductCard2(){
     else if(medicineQTY == 1) dispatch(addToCart(e))
     else{
       reduxItems.map((item) => {
-        if(item.list.name === e.name) dispatch(updateCart({e,medicineQTY}))
+        if(item.list.item === e.item) dispatch(updateCart({e,medicineQTY}))
       })
     }
   },[medicineQTY])
@@ -50,17 +51,17 @@ function ProductCard2(){
     <div className='flex flex-col lg:flex-row gap-5 py-20 px-10 border border-gray-200 m-10 rounded-md shadow-md'>
 
       <div className="sticky flex justify-center py-2 px-10 border border-gray-200">
-        { Array.isArray(e.img) ? <CarouselTab slides={slides} />
-        :<img src={e.img} className="object-contain w-64" />}
+        { e.img ? <CarouselTab slides={slides} />
+        :<IoImageOutline className='object-contain w-64 h-64 mt-10 text-blue-600' />}
       </div>
 
       <div className="flex flex-col gap-5">
         <div className="flex flex-wrap /gap-10 justify-between items-center">
           <div className="flex flex-col gap-2">
-            <p className="text-2xl font-bold">{e.name}</p>
+            <p className="text-2xl font-bold">{e.item}</p>
             <p className="text-lg font-bold text-gray-400">{e.company}</p>
-            <p className="text-lg">{e.Units}</p>
-            <p className="text-lg font-semibold">MRP ₹ {e.MRP}</p>
+            <p className="text-lg">{e.packaging}</p>
+            <p className="text-lg font-semibold">MRP ₹ {e.price}</p>
             <p className="text-gray-400 font-semibold">*MRP inclusive of all taxes</p>
           </div>
           {medicineQTY == 0

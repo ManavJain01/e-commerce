@@ -1,8 +1,14 @@
+// Importing React Icons
 import { RiExpandUpDownFill } from "react-icons/ri";
 
+// Importing React Packages
 import { useParams, useLocation } from 'react-router-dom'
 import { useState, useEffect, useMemo } from "react";
 
+// Importing Axios Packages
+import axios from 'axios'
+
+// Imaporting Local Files
 import { medicines } from '../../Medicines/components/MedicinesAPI'
 import ProductCard from '../../Product Card/components/ProductCard'
 
