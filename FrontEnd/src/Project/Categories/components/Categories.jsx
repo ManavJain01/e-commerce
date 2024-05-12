@@ -1,5 +1,6 @@
 // Importing React Icons
 import { RiExpandUpDownFill } from "react-icons/ri";
+import { CgUnavailable } from "react-icons/cg";
 
 // Importing React Packages
 import { useParams, useLocation } from 'react-router-dom'
@@ -44,30 +45,15 @@ function Categories(){
 
     // Getting Data From BackEnd
     const getData = async () => {
-      const response1 = await axios.get('http://localhost:5000/Categories/' + propsValue)
-      // console.log(response1.data);
+      const response1 = await axios.post('http://localhost:5000/Categories/' + propsValue[0], { data : propsValue })
+
       setCategories(response1.data)
-      console.log(categories);
     }
     getData();
-
-    // Setting Backend Data
-    // if(propsValue === "Personal care"){
-    //   api && setCategories(api[0])
-    // }else if(propsValue === "Health Conditions"){
-    //   api && setCategories(api[1])
-    // }else if(propsValue === "Vitamins & Supplements"){
-    //   api && setCategories(api[2])
-    // }else if(propsValue === "Diabetes Care"){
-    //   api && setCategories(api[3])
-    // }else if(propsValue === "Healthcare Devices"){
-    //   api && setCategories(api[4])
-    // }else{
-    //   setCategories(0)
-    // }
     
   },[propsValue])
   
+  console.log(categories);
   return(
     <div className="flex gap-10 py-20 px-8">
       {/* <Filters e={categories1} setFiltered={setFiltered} /> */}
@@ -102,7 +88,10 @@ function Categories(){
             //                 {/* 3rd Condition */}
             //       </div>) || (propsValue[0] == propsValue[1] && propsValue[0] == f.name) && f.Items && f.Items.map((g) =>
             //         <ProductCard key={g.item} e={g} title={'Categories'} />))
-            <div>hi</div>
+            <div className="flex flex-col justify-center items-center w-[100vw] text-red-500">
+              <span className="text-6xl font-bold">No Result Found</span>
+              <CgUnavailable className="h-[40vh] w-[40vw]" />
+            </div>
             // BackEnd API
             :Array.isArray(categories) && categories.map(e => {
               // console.log(e);
