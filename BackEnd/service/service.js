@@ -47,17 +47,11 @@ function getCategory(category, subCategory){
   const Model = getModel(category)
   
   if(typeof subCategory === 'string'){
-    // return Model.find({$or: [
-    //   {'item' : subCategory},
-    //   // { subsitems: {$all: [ { $elemMatch: {item: subCategory}} ]}}
-    // ]})
-    // .then(users => { return users })
-    // .catch(err => { return err })
-
-    // return Model.find({ "subitems.item" :  "Skin Cream"  })
-    return Model.find({ subitems : { $elemMatch: { item: "Skin Cream"}}},
-      { "subitems.$": 1 }
-    )
+    return Model.find({$or: [
+      {'item' : subCategory},
+      // { subsitems: {$all: [ { $elemMatch: {item: subCategory}} ]}}
+      {"subitems.item" :  "Skin Cream"}
+    ]})
     .then(users => { return users })
     .catch(err => { return err })
     
