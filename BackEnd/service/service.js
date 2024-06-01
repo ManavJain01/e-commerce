@@ -48,11 +48,13 @@ function getCategory(category, subCategory){
   
   if(typeof subCategory === 'string'){
     return Model.find({$or: [
-      {'item' : subCategory},
+      // {'item' : subCategory},
       // { subsitems: {$all: [ { $elemMatch: {item: subCategory}} ]}}
       {"subitems.item" :  "Skin Cream"}
     ]})
-    .then(users => { return users })
+    .then(users => { 
+      console.log(users);
+      return users })
     .catch(err => { return err })
     
   }else{

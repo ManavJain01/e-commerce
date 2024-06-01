@@ -25,7 +25,6 @@ function Categories(){
   const [categories, setCategories] = useState(0)
   const [allCategories, setAllCategories] = useState(0)
 
-  // allCategories.then(res => {console.log(res);})
   
   useEffect(()=>{
     setFiltered(false);
@@ -48,7 +47,7 @@ function Categories(){
   
   return(
     <div className="flex gap-10 py-20 px-8">
-      <Filters e={allCategories} setFiltered={setFiltered} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} propsValue={propsValue} />
+      {/* <Filters e={allCategories} categories={categories} setFiltered={setFiltered} propsValue={propsValue} /> */}
 
       <div>
         {/* For small screen */}
