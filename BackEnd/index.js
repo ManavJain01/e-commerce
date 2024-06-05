@@ -1,6 +1,9 @@
 // Importing Routes
 const routes = require('./routes/route')
 
+// Importing env file
+require("dotenv").config();
+
 // Accessing Express and MongoDB Packages
 const express = require('express')
 const mongoose = require('mongoose')
@@ -11,7 +14,7 @@ app.use(express.json())
 
 
 // Connecting MongoDB DataBase
-mongoose.connect('mongodb://localhost:27017/dismefa')
+mongoose.connect(`${process.env.MONGODB_URI}/dismefa`)
 .then(()=>console.log("MongoDB Connected."))
 .catch(err => console.log("Mongo Error" + err))
 
