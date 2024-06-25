@@ -11,11 +11,11 @@ const itemSchema = mongoose.Schema({
   description: String,
 })
 
-const HealthcareDeviceSchema = mongoose.Schema({
+const vitamins_supplementSchema = mongoose.Schema({
   category: String,
   item: String,
   subitems: [itemSchema]
 })
 
-const HealthcareDeviceModel = mongoose.model('healthcare_devices', HealthcareDeviceSchema)
-module.exports = HealthcareDeviceModel
+const vitamins_supplementModel = mongoose.model('product_vitamins&supplements', vitamins_supplementSchema)
+module.exports = vitamins_supplementModel

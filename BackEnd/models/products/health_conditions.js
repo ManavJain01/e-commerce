@@ -22,5 +22,5 @@ const HealthConditionSchema = mongoose.Schema({
   subitems: ([subItemSchema] || [itemSchema])
 })
 
-const HealthConditionModel = mongoose.model('health_conditions', HealthConditionSchema)
+const HealthConditionModel = mongoose.model('product_health_conditions', HealthConditionSchema)
 module.exports = HealthConditionModel

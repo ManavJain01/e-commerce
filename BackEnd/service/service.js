@@ -1,10 +1,10 @@
 // Importing Models
-const MedicineModel = require('../models/medicines')
-const PersonalCareModel = require('../models/personal_care')
-const HealthConditionModel = require('../models/health_conditions')
-const vitamins_supplementModel = require('../models/vitamins&supplements')
-const DiabetesCareModel = require('../models/disbetes_care')
-const HealthcareDeviceModel = require('../models/healthcare_devices')
+const MedicineModel = require('../models/products/medicines')
+const PersonalCareModel = require('../models/products/personal_care')
+const HealthConditionModel = require('../models/products/health_conditions')
+const vitamins_supplementModel = require('../models/products/vitamins&supplements')
+const DiabetesCareModel = require('../models/products/disbetes_care')
+const HealthcareDeviceModel = require('../models/products/healthcare_devices')
 
 const getMedicines = () => {
   return MedicineModel.find({})

@@ -22,5 +22,5 @@ const PersonalCareSchema = mongoose.Schema({
   subitems: [subItemSchema]
 })
 
-const PersonalCareModel = mongoose.model('personal_cares', PersonalCareSchema)
+const PersonalCareModel = mongoose.model('product_personal_cares', PersonalCareSchema)
 module.exports = PersonalCareModel

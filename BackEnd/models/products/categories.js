@@ -10,5 +10,5 @@ const itemSchema = mongoose.Schema({
   subitems: subItemsSchema
 })
 
-const CategoryModel = mongoose.model('categories', itemSchema)
+const CategoryModel = mongoose.model('product_categories', itemSchema)
 module.exports = CategoryModel
