@@ -6,7 +6,10 @@ import { useState } from "react"
 export default function App() {
   return (
     <div>
-      <h1>Admin Panel</h1>
+      <span>
+        <h1 className="text-4xl font-bold">DASHBOARD</h1>
+        <p className="text-green-600">Welcome to Dismefa Dashboard</p>
+      </span>
     </div>
   )
 }
