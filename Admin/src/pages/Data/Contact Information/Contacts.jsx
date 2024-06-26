@@ -62,35 +62,39 @@ export default function Contacts() {
         {/* table structure */}
         <table className="border-2 border-blue-800">
           {/* First row */}
-          <tr className="bg-blue-800">
-            <td className="py-2 px-5"><input type="checkbox" /></td>
-            <td className="px-2">ID</td>
-            <td className="px-10">Register ID</td>
-            <td className="px-10">Name</td>
-            <td className="px-5">Age</td>
-            <td className="px-8">Phone Number</td>
-            <td className="px-10">Email</td>
-            <td className="px-5">Address</td>
-            <td className="px-5">City</td>
-            <td className="px-5">Zip Code</td>
-          </tr>
+          <thead>
+            <tr className="bg-blue-800">
+              <td className="py-2 px-5"><input type="checkbox" /></td>
+              <td className="px-2">ID</td>
+              <td className="px-10">Register ID</td>
+              <td className="px-10">Name</td>
+              <td className="px-5">Age</td>
+              <td className="px-8">Phone Number</td>
+              <td className="px-10">Email</td>
+              <td className="px-5">Address</td>
+              <td className="px-5">City</td>
+              <td className="px-5">Zip Code</td>
+            </tr>
+          </thead>
           {/* nth rows */}
-          {sampleData?.map((e, i) => {
-            return(
-              <tr key={i} className="border-b-[1px] border-gray-500 hover:opacity-60">
-                <td className="py-5 px-5"><input type="checkbox" /></td>
-                <td className="px-2">1</td>
-                <td className="px-2">12321</td>
-                <td className="px-10">{e?.name}</td>
-                <td className="px-5">{e?.age}</td>
-                <td className="px-8">{e?.phoneNumber}</td>
-                <td className="px-10">{e?.email}</td>
-                <td className="px-10">{e?.address}</td>
-                <td className="px-10">{e?.city}</td>
-                <td className="px-10">{e?.zipCode}</td>
-              </tr>
-            )
-          })}
+          <tbody>
+            {sampleData?.map((e, i) => {
+              return(
+                <tr key={i} className="border-b-[1px] border-gray-500 hover:opacity-60">
+                  <td className="py-5 px-5"><input type="checkbox" /></td>
+                  <td className="px-2">1</td>
+                  <td className="px-2">12321</td>
+                  <td className="px-10">{e?.name}</td>
+                  <td className="px-5">{e?.age}</td>
+                  <td className="px-8">{e?.phoneNumber}</td>
+                  <td className="px-10">{e?.email}</td>
+                  <td className="px-10">{e?.address}</td>
+                  <td className="px-10">{e?.city}</td>
+                  <td className="px-10">{e?.zipCode}</td>
+                </tr>
+              )
+            })}
+          </tbody>
         </table>
 
         {/* last row */}

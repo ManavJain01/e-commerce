@@ -6,13 +6,21 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 // Importing local files
 import './index.css'
 import Layout from './Layout.jsx'
+// Dashboard
 import App from './App.jsx'
-import Team from './pages/Team/Team.jsx'
-import Contacts from './pages/Contact Information/Contacts.jsx'
-import Invoices from './pages/Invoices/Invoices.jsx'
-import Profile from './pages/Profile Form/Profile.jsx'
-import Calender from './pages/Calender/Calender.jsx'
-import FAQ from './pages/FAQ Page/FAQ.jsx'
+// Data
+import Team from './pages/Data/Team/Team.jsx'
+import Contacts from './pages/Data/Contact Information/Contacts.jsx'
+import Invoices from './pages/Data/Invoices/Invoices.jsx'
+// Client
+import Orders from './pages/Client/Orders/Orders.jsx'
+import Customers from './pages/Client/Customers/Customers.jsx'
+import Products from './pages/Client/Products/Products.jsx'
+// Pages
+import Profile from './pages/Pages/Profile Form/Profile.jsx'
+import Calender from './pages/Pages/Calender/Calender.jsx'
+import FAQ from './pages/Pages/FAQ Page/FAQ.jsx'
+// Charts
 import BarChart from './pages/Charts/Bar Chart/BarChart.jsx'
 import PieChart from './pages/Charts/Pie Chart/PieChart.jsx'
 import LineChart from './pages/Charts/Line Chart/LineChart.jsx'
@@ -28,6 +36,7 @@ const router = createBrowserRouter([
         path: "",
         element : <App />
       },
+      // Data
       {
         path: "Team",
         element : <Team />
@@ -40,6 +49,20 @@ const router = createBrowserRouter([
         path: "Invoices",
         element : <Invoices />
       },
+      // Client
+      {
+        path: "Orders",
+        element : <Orders />
+      },
+      {
+        path: "Customers",
+        element : <Customers />
+      },
+      {
+        path: "Products",
+        element : <Products />
+      },
+      // Pages
       {
         path: "Profile",
         element : <Profile />
