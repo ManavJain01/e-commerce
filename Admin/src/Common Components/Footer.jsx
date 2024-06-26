@@ -3,7 +3,7 @@ export default function Footer() {
     <div>
       <hr className="border-gray-500" />
       <div className="flex justify-end items-center">
-        <p className="font-bold">2024 - Dismefa | All rights reserveds</p>
+        <p className="font-bold">2024 - Dismefa | All rights reserved</p>
       </div>
     </div>
   )
