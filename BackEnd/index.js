@@ -4,26 +4,32 @@ const routes = require('./routes/route')
 // Importing env file
 require("dotenv").config();
 
-// Accessing Express and MongoDB Packages
+// Accessing Express Packages
 const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
 const app = express()
+
+// Importing cors and using it.
+const cors = require('cors')
 app.use(cors())
+app.use((req, res, next)=>{
+  res.setHeader("Access-Control-Allow-Origin",process.env.CLIENT_LOCATION);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+})
 app.use(express.json())
 
 
-// Connecting MongoDB DataBase
-mongoose.connect(`${process.env.MONGODB_URI}/dismefa`)
-.then(()=>console.log("MongoDB Connected."))
-.catch(err => console.log("Mongo Error" + err))
+// Importing Database
+const mongoDB = require("./database/db")
 
-
-// // middleware or to set router
+// middleware or to set router
 app.use("/", routes)
 
-
-
+// Connecting MongoDB Server
+mongoDB();
 
 // Starting the server
 app.listen(5000, ()=>{
