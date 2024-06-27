@@ -32,7 +32,12 @@ function UserNavbar({ userName, setUserName }){
     id:9,
     name:"Log Out",
     link:"Home",
-    onClick: () => setUserName(prevUsername => {return {...prevUsername, isLoggedIn: false}})
+    onClick: () => {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("phoneNumber");
+      localStorage.removeItem("name");
+      setUserName(prevUsername => {return {...prevUsername, isLoggedIn: false}})
+    }
   }]
 
   return(

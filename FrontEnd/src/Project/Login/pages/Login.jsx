@@ -29,8 +29,12 @@ function Login({ loginPage, setLoginPage, setUserName }){
         const {latitude,longitude} = pos.coords;
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
         location = await fetch(url).then(res=>res.json())
+          
         const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Customer`, { phone: ph.phone, location: location.address})
         const data = response.data;
+        localStorage.setItem("authToken", data.authToken);
+        localStorage.setItem("phoneNumber", data.phone);
+        localStorage.setItem("name", data.name ? data.name : "");
         setUserName(prevUsername => {return {...prevUsername, name: data?.name, phone: ph.phone, isLoggedIn: true}});
         setLoginPage(!loginPage);
         

@@ -9,7 +9,7 @@ import loginLogo from '../../Images/login.png'
 import downArrowLogo from '../../Images/downArrow.png'
 
 // Importing React Packages
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 // Importing React Redux
@@ -24,18 +24,31 @@ import ProductsNavbar from './ProductsNavbar'
 import './header.css'
 
 function Header(){
+  // redux
   const reduxItems = useSelector(state => state.cartItems)
 
+  // UseStates
   const [navbar, setNavbar] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
-  // const [userName, setUserName] = useState({name: "Manav Jain", phone: "", isLoggedIn: true});
   const [userName, setUserName] = useState({name: "", phone: "", isLoggedIn: false});
   const [itemsInCart, setItemsInCart] = useState(reduxItems.length);
 
+  // UseMemo
   useMemo(()=>{
     setItemsInCart(reduxItems.length)
   },[reduxItems])
 
+  // UseEffect
+  useEffect(() => {
+    if(localStorage.getItem("authToken")){
+      let name = localStorage.getItem('name') && localStorage.getItem('name').split(' ')[0];
+      let phone = localStorage.getItem("phoneNumber")
+      setUserName(prevUsername => {return {...prevUsername, name: name, phone: phone, isLoggedIn: true}})
+    }
+
+  }, [])
+
+  // Functions
   const changeNavbar = () => {
     const inputBtn = document.getElementById("header-input");
     const p = document.getElementById("header-scrolledMsg");

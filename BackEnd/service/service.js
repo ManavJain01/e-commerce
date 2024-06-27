@@ -1,3 +1,10 @@
+// Json Web Token
+const jwt = require("jsonwebtoken");
+
+// Importing env file
+require("dotenv").config();
+const jwtSecret = process.env.JWT_TOKEN
+
 // Importing Models
   // Navbar Structure
 const NavOptionModel = require('../models/categories')
@@ -39,8 +46,12 @@ const getCustomer = async (data) => {
         phone: data.phone,
         signupLocation: data.location
       })
+
+      const authToken = jwt.sign(data.phone, jwtSecret)
+      return { authToken: authToken }
     }else{
-      return userData;
+      const authToken = jwt.sign(userData.phone, jwtSecret)
+      return { data: userData, authToken: authToken };
     }
   } catch (error) {
     console.log("Error Occurred:", error);
