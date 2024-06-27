@@ -1,19 +1,24 @@
+// Importing React-Icons
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 
 
+// Importing Local Images
 import cartLogo from '../../Images/cart.png'
 import loginLogo from '../../Images/login.png'
 import downArrowLogo from '../../Images/downArrow.png'
 
+// Importing React Packages
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 
+// Importing React Redux
 import { useSelector } from 'react-redux'
 
+// Importing Local Files
 import InputBtn from '../InputBtn'
 import UserNavbar from './UserNavbar'
-import LoginSignup from '../../../Login-Signup/components/LoginSignup'
+import Login from '../../../Login/pages/Login'
 import ProductsNavbar from './ProductsNavbar'
 
 import './header.css'
@@ -23,11 +28,8 @@ function Header(){
 
   const [navbar, setNavbar] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
-  // const [isLogin, setIsLogin] = useState(false);
-  const [userName, setUserName] = useState("Manav Jain");
+  const [userName, setUserName] = useState({name: "Manav Jain", phone: "", isLoggedIn: true});
   const [itemsInCart, setItemsInCart] = useState(reduxItems.length);
-  const [hamMenu, setHamMenu] = useState(false)
 
   useMemo(()=>{
     setItemsInCart(reduxItems.length)
@@ -68,19 +70,23 @@ function Header(){
           </div>
 
           <ul className="hidden sm:flex gap-5 relative">
-            {isLogin ?<li id="UserBtn" className="mr-4"><button className="flex gap-2 items-center">
-              <img src={loginLogo} className="object-contain w-6" />
-              <span>{userName? userName : "User"}</span>
-              <img src={downArrowLogo} className="object-contain w-3" />
-              </button>
-            
-              <div id="UserBtnDiv" className="hidden absolute right-10">
-                <UserNavbar setIsLogin={setIsLogin} />
-              </div>
-            </li>
-            :<li className="whitespace-nowrap"><button onClick={()=>setLoginPage(true)}>Login | Signup</button></li>
+            {userName.isLoggedIn
+              ? <li id="UserBtn" className="mr-4">
+                  <button className="flex gap-2 items-center">
+                    <img src={loginLogo} className="object-contain w-6" />
+                    <span>{userName.name ? userName.name : "User"}</span>
+                    <img src={downArrowLogo} className="object-contain w-3" />
+                  </button>
+                
+                  <div id="UserBtnDiv" className="hidden absolute right-10">
+                    <UserNavbar userName={userName} setUserName={setUserName} />
+                  </div>
+                </li>
+              : <li className="whitespace-nowrap">
+                  <button onClick={()=>setLoginPage(true)}>Login | Signup</button>
+                </li>
             }
-            {loginPage ? <LoginSignup setLoginPage={setLoginPage} setIsLogin={setIsLogin} /> : ""}
+            {loginPage ? <Login loginPage={loginPage} setLoginPage={setLoginPage} setUserName={setUserName} /> : ""}
 
             <li>
               <Link to="/Cart"
@@ -95,25 +101,27 @@ function Header(){
           </ul>
 
           <div className="flex sm:hidden relative">
-            <GiHamburgerMenu onClick={()=>setHamMenu(true)} className="size-8 cursor-pointer" />
-            {hamMenu && <div className="bg-white absolute -right-6 -top-6 w-72 h-screen py-5 flex flex-col justify-between rounded-l-md shadow-md shadow-gray-600">
-              <RxCross2 onClick={()=>setHamMenu(false)} className="size-8 absolute right-5 cursor-pointer"/>
+            <GiHamburgerMenu onClick={()=>setNavbar(!navbar)} className="size-8 cursor-pointer" />
+            {navbar
+              &&<div className="bg-white absolute -right-6 -top-6 w-72 h-screen py-5 flex flex-col justify-between rounded-l-md shadow-md shadow-gray-600">
+                  <RxCross2 onClick={()=>setNavbar(!navbar)} className="size-8 absolute right-5 cursor-pointer"/>
 
-              <ul className=" flex flex-col gap-5 py-10">
-                <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Medicines</li>
-                <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Personal Care</li>
-                <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Health Conditions</li>
-                <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Vitamins & Supplements</li>
-                <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Diabetes Care</li>
-                <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Healthcare Devices</li>
-                <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Health Article</li>
-              </ul>
+                  <ul className=" flex flex-col gap-5 py-10">
+                    <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Medicines</li>
+                    <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Personal Care</li>
+                    <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Health Conditions</li>
+                    <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Vitamins & Supplements</li>
+                    <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Diabetes Care</li>
+                    <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Healthcare Devices</li>
+                    <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">Health Article</li>
+                  </ul>
 
-              <ul className="flex flex-col gap-5">
-                <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">My orders</li>
-                <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">My Account</li>
-              </ul>
-            </div>}
+                  <ul className="flex flex-col gap-5">
+                    <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">My orders</li>
+                    <li className="px-5 py-2 hover:bg-gray-200 hover:text-green-700 active:bg-gray-300 active:text-green-800">My Account</li>
+                  </ul>
+                </div>
+            }
           </div>
         </div>
       </div>

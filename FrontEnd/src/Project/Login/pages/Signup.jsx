@@ -2,19 +2,21 @@
 import { CgSpinner } from "react-icons/cg";
 import { BsFillShieldLockFill } from 'react-icons/bs'
 
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 
 // Importing Firebase configuration
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
 import { auth } from "../../Firebase/firebase.config"
 
-function Signup({ setPh, setGenerateOTP, setConfirmation }){
-  const [notValid, setNotValid] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [user, setUser] = useState(null)
-
+function Signup({ setPh, setGenerateOtpPage }){
+  // Variables
   let tempPh = ""
   
+  // UseStates
+  const [notValid, setNotValid] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  // Functions
   function PhFormatOnChange(e){
     setNotValid(false);
 
@@ -59,7 +61,7 @@ function Signup({ setPh, setGenerateOTP, setConfirmation }){
     }else{
       e.target.disabled = true
       tempPh = "+91 " + input.value;
-      setPh(tempPh)
+      setPh(prevPh => {return{...prevPh, phone: tempPh}})
       sendOtp();
     }
   }
@@ -68,17 +70,14 @@ function Signup({ setPh, setGenerateOTP, setConfirmation }){
     try{
       setLoading(true)
       const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {})
-      const confirm = signInWithPhoneNumber(auth, tempPh, recaptcha)
-      setConfirmation(confirm)
-      confirm.then((value) => {
-        setGenerateOTP(true)
-      })
+      const confirm = await signInWithPhoneNumber(auth, tempPh, recaptcha)
       
+      await setPh(prevPh => {return{...prevPh, confirmation: confirm}})
+      await setGenerateOtpPage(true)
     }catch(err){
-      console.log(err)
+      console.log("Error when sending otp in signup page :", err)
     }
   }
-
 
   return(
     <div className='mt-10 flex flex-col relative'>
@@ -89,7 +88,6 @@ function Signup({ setPh, setGenerateOTP, setConfirmation }){
         id="validPhn"
         type="text"
         placeholder='Your Mobile Number'
-        // onChange={() => setNotValid(false)}
         onChange={(e) => PhFormatOnChange(e)}
         onKeyDown={(e) => PhFormatOnKeyDown(e)}
         className="px-10 py-2 border-2 border-gray-400 rounded-md"

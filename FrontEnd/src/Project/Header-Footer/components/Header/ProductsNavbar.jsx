@@ -1,32 +1,55 @@
 // Importing React configs
 import { styled } from "styled-components";
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 // Importing Local Components
-import { items } from './ProductsHeadlines'
 import ProductSlide from './ProductsSlide'
+import { useEffect, useState } from "react";
+
+// Importing Axios Packages
+import axios from 'axios'
 
 function ProductsNavbar(){
+  // useState
+  const [navOptions, setNavOptions] = useState("")
 
+  // useEffect
+  useEffect(()=>{
+    
+    // Getting Data From BackEnd
+    const getData = async () => {
+      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/NavOptions`)
+      setNavOptions(response.data)
+    }
+    getData();
+  }, [])
+  
   return(
     <>
       <div className="absolute -right-10 top-12">
         <ItemStyles>
           <div className="w-[100vw] z-40 py-1 flex justify-around bg-white text-gray-500 text-xs lg:text-sm whitespace-nowrap border shadow-md shadow-gray-700">
-            {items.map((e)=>(
-              <div key={e.id} className="flex flex-col gap-3">
-                <ul>
-                  {e.path ? <Link to={e.path} id={e.id}>{e.name}</Link>
-                    :<li id={e.id}><Link
-                      to={`Categories/${e.name}`}
-                      // state={{value: [e.name,e.name,e.name]}}
-                      state={{value: e.name}}
-                    >{e.name}</Link></li>}
-                  {e.list ? <ProductSlide list={e.list} categoryName={e.name} /> : ""}
-                  {/* {e.list ? e.list.map((f)=>(<div key={f} className="/absolute /top-10 /left-0 px-2 my-2 hidden">{f}</div>)) : ""} */}
-                </ul>
-              </div>
-            ))}
+            {navOptions && navOptions.map((e,i) => {
+              return(
+                <div key={i} className="flex flex-col gap-3">
+                  <ul>
+                    {e.path 
+                      ?<NavLink to={e?.path} id={e._id} className="aria-[current=page]:text-red-400">{e?.item}</NavLink>
+                      :<li id={e._id}><NavLink
+                        to={`Categories/${e?.item}`}
+                        state={{value: e?.item}}
+                        className="aria-[current=page]:text-red-600"
+                      >{e?.item}</NavLink></li>
+                    }
+
+                    {e.subitems
+                      ?<ProductSlide list={e.subitems} categoryName={e.item} />
+                      :""
+                    }
+                  </ul>
+                </div>
+              )
+            })}
           </div>
         </ItemStyles>
       </div>

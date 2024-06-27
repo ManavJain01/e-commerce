@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useRef, useEffect } from "react"
 
 
 function OtpInput({ otp, setOtp, length, onOtpSubmit = () => {} }){
@@ -44,21 +44,25 @@ function OtpInput({ otp, setOtp, length, onOtpSubmit = () => {} }){
       inputRefs.current[index - 1].focus()
     }
   }
-
   return(
-    <div>
-      {otp.map((value, index) => {
-        return <input
-          key={index}
-            type="text"
-            ref={(input) => (inputRefs.current[index] = input)}
-          value={value}
-          onChange={(e) => otpOnChange(index, e)}
-          onClick={() => otpOnClick(index)}
-          onKeyDown={(e) => otpOnKeyDown(index, e)}
-          id='otpInput'
-          className='text-center text-black border border-black w-8 py-1 mx-2 my-5 rounded-full' />
-      })} 
+    <div className="flex flex-col">
+      <div>
+        {otp.map((value, index) => {
+          return <input
+            key={index}
+              type="text"
+              ref={(input) => (inputRefs.current[index] = input)}
+            value={value}
+            onChange={(e) => otpOnChange(index, e)}
+            onClick={() => otpOnClick(index)}
+            onKeyDown={(e) => otpOnKeyDown(index, e)}
+            id='otpInput'
+            className='text-center text-black border border-black w-8 py-1 mx-2 my-5 rounded-full' />
+        })}
+      </div>
+
+       {/* Here Firebase CheckBot Comes */}
+       <div id="recaptcha" className="mt-5 m-auto" />
     </div>
   )
 }

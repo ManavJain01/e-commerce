@@ -1,10 +1,20 @@
 // Importing Models
+const NavOptionModel = require('../models/categories')
 const MedicineModel = require('../models/products/medicines')
 const PersonalCareModel = require('../models/products/personal_care')
 const HealthConditionModel = require('../models/products/health_conditions')
 const vitamins_supplementModel = require('../models/products/vitamins&supplements')
 const DiabetesCareModel = require('../models/products/disbetes_care')
 const HealthcareDeviceModel = require('../models/products/healthcare_devices')
+
+const getNavOptions = async () => {
+  try {
+    return await NavOptionModel.find({})
+    
+  } catch (error) {
+    return error
+  }
+}
 
 const getMedicines = () => {
   return MedicineModel.find({})
@@ -67,7 +77,7 @@ function getCategory(category, subCategory){
 }
 
 
-module.exports = { getMedicines, getAllCategories, getCategory }
+module.exports = { getNavOptions, getMedicines, getAllCategories, getCategory }
   
   // var data = await Model.aggregate([{
   //     // $lookup: {

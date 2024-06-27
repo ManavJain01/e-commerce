@@ -1,7 +1,7 @@
 import { styled } from "styled-components"
 import { Link } from 'react-router-dom'
 
-function UserNavbar({ setIsLogin }){
+function UserNavbar({ userName, setUserName }){
   const items = [{
     id:1,
     name:"My Orders"
@@ -32,12 +32,8 @@ function UserNavbar({ setIsLogin }){
     id:9,
     name:"Log Out",
     link:"Home",
-    onClick:Logout
+    onClick: () => setUserName(prevUsername => {return {...prevUsername, isLoggedIn: false}})
   }]
-
-  function Logout(){
-    setIsLogin(false);
-  }
 
   return(
     <>

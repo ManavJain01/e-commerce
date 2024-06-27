@@ -1,6 +1,16 @@
 // Importing Services
 const service = require('../service/service')
 
+const findNavOptions = async (req, res) => {
+  try {
+    const result = await service.getNavOptions();
+    res.send(result);
+    
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+}
+
 const findAllMedicines = async (req, res) => {
   const result = await service.getMedicines();
   if(result){
@@ -39,4 +49,4 @@ const findCategory = async (req, res) => {
 
 
 // Exporting controllers
-module.exports = { findAllMedicines, findAllCategory, findCategory }
+module.exports = { findNavOptions, findAllMedicines, findAllCategory, findCategory }
