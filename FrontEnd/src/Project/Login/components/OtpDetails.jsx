@@ -7,7 +7,7 @@ import { auth } from "../../Firebase/firebase.config"
 
 function OtpDetails({ ph, setPh, setOtp, length, setGenerateOtpPage }){
   // Variables
-  let timerCount = 2
+  let timerCount = 29
 
   // Functions
   const Timer = (timer) => {

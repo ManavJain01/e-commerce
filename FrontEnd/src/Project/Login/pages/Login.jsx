@@ -5,6 +5,9 @@ import close from '../Images/close.png'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+// Importing Axios Packages
+import axios from 'axios'
+
 // Importing Local files
 import Signup from './Signup'
 import OtpPage from './OtpPage'
@@ -16,23 +19,37 @@ function Login({ loginPage, setLoginPage, setUserName }){
   const [ph, setPh] = useState({phone: "", confirmation: ""})
   const [generateOtpPage, setGenerateOtpPage] = useState(false)
 
-  
-  // When Submitting Otp
-  const onOtpSubmit = (otp) => {
-    const verifyOtp = async() =>{
-      try{   
-        await ph.confirmation.confirm(otp)
-        setUserName(prevUsername => {return {...prevUsername, name: "", phone: ph.phone, isLoggedIn: true}});
+  // Functions
+    // Customer Logging/Signing In
+  const getCustomer = async () => {
+    try {
+      // With User Permission
+      let location = "";
+      navigator.geolocation.getCurrentPosition(async pos=>{
+        const {latitude,longitude} = pos.coords;
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+        location = await fetch(url).then(res=>res.json())
+        const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Customer`, { phone: ph.phone, location: location.address})
+        const data = response.data;
+        setUserName(prevUsername => {return {...prevUsername, name: data?.name, phone: ph.phone, isLoggedIn: true}});
         setLoginPage(!loginPage);
-        alert("Login Successful")
-      }catch(err){
-        console.log("Error when LogIn not successfull!!!", err)
-        alert("Error While Loggin, Try Again!!!");
-        setGenerateOtpPage(false);
-      }
+        
+      })
+    } catch (error) {
+      console.log("Customer Logging In Error: ", error);
     }
+  }
 
-    verifyOtp();
+    // When Submitting Otp
+  const onOtpSubmit = async (otp) => {
+    try{   
+      await ph.confirmation.confirm(otp)
+      getCustomer();
+    }catch(err){
+      console.log("Error when LogIn not successfull!!!", err)
+      alert("Error While Loggin, Try Again!!!");
+      setGenerateOtpPage(false);
+    }
   }
 
   return(

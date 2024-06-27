@@ -5,7 +5,7 @@ import SearchFiltered from './SearchFiltered'
 import AddressBtn from "./AddressBtn";
 
 import { Link } from 'react-router-dom'
-import { useState ,useMemo, useEffect } from 'react'
+import { useState } from 'react'
 
 function InputBtn(e){
   const [filtered, setFiltered] = useState(null)
@@ -14,7 +14,7 @@ function InputBtn(e){
   const [filtered4, setFiltered4] = useState(null)
   const [filtered5, setFiltered5] = useState(null)
   const [ enableAddressBox, setEnableAddressBox ] = useState(false)
-  const [ checkAddress, setCheckAddress ] = useState("474011, Gwalior")
+  const [ checkAddress, setCheckAddress ] = useState("Gwalior, 474011")
   
   function searchInputOnChange(e){
     let tempForFiltered2 = []

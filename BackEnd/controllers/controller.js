@@ -1,33 +1,50 @@
 // Importing Services
 const service = require('../service/service')
 
+// Navbar Structure Controller
 const findNavOptions = async (req, res) => {
   try {
     const result = await service.getNavOptions();
-    res.send(result);
-    
+    res.status(200).send(result);
+
   } catch (error) {
     console.log("Error: ", error);
+    res.status(400).send(error);
   }
 }
 
+// Customer Controller
+const findCustomer = async (req, res) => {
+  try {
+    const result = await service.getCustomer(req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(400).send(error);
+  }
+}
+
+// Medicines Controller
 const findAllMedicines = async (req, res) => {
-  const result = await service.getMedicines();
-  if(result){
-    res.send(result)
-  } else {
+  try {
+    const result = await service.getMedicines();
+    res.status(200).send(result)
+
+  } catch (error) {
     console.log("Medicines not found");
-    res.send("Medicines not found")
+    res.status(400).send("Medicines not found")
   }
 }
 
+// Categories Controllers
 const findAllCategory = async (req, res) => {
-  const result = await service.getAllCategories();
-  if(result){
-    res.send(result)
-  } else {
+  try {
+    const result = await service.getAllCategories();
+    res.status(200).send(result)
+
+  } catch (error) {
     console.log("Categories not found");
-    res.send("Categories not found")
+    res.status(400).send("Categories not found")
   }
 }
 
@@ -49,4 +66,4 @@ const findCategory = async (req, res) => {
 
 
 // Exporting controllers
-module.exports = { findNavOptions, findAllMedicines, findAllCategory, findCategory }
+module.exports = { findNavOptions, findCustomer, findAllMedicines, findAllCategory, findCategory }

@@ -1,5 +1,9 @@
 // Importing Models
+  // Navbar Structure
 const NavOptionModel = require('../models/categories')
+  // Customers
+const CustomerModel = require("../models/User/customers")
+  // Products
 const MedicineModel = require('../models/products/medicines')
 const PersonalCareModel = require('../models/products/personal_care')
 const HealthConditionModel = require('../models/products/health_conditions')
@@ -7,24 +11,44 @@ const vitamins_supplementModel = require('../models/products/vitamins&supplement
 const DiabetesCareModel = require('../models/products/disbetes_care')
 const HealthcareDeviceModel = require('../models/products/healthcare_devices')
 
+// Sending Navbar Structure
 const getNavOptions = async () => {
   try {
     return await NavOptionModel.find({})
-    
   } catch (error) {
     return error
   }
 }
 
-const getMedicines = () => {
-  return MedicineModel.find({})
-  .then(users => { return users })
-  .catch(err => { return err })
+// Sending Medicines
+const getMedicines = async () => {
+  try {
+    return await MedicineModel.find({})  
+  } catch (error) {
+    return error
+  }
 }
 
+// Customer Login request
+const getCustomer = async (data) => {
+  try {
+    let phone = data.phone;
+    let userData = await CustomerModel.findOne({phone});
+    if(userData == null){
+      await CustomerModel.create({
+        phone: data.phone,
+        signupLocation: data.location
+      })
+    }else{
+      return userData;
+    }
+  } catch (error) {
+    console.log("Error Occurred:", error);
+    return error
+  }
+}
 
 // Creating Categories
-
 function getAPI(Model){
   return Model.find({})
   .then(users => { return users })
@@ -72,49 +96,7 @@ function getCategory(category, subCategory){
     .then(users => { return users })
     .catch(err => { return err })
   }
-
-
 }
 
 
-module.exports = { getNavOptions, getMedicines, getAllCategories, getCategory }
-  
-  // var data = await Model.aggregate([{
-  //     // $lookup: {
-  //     //   from: "health_conditions",
-  //     //   localField: "item",
-  //     //   foreignField: "item",
-  //     //   as: "item"
-  //     // }
-
-  //     // $lookup: {
-  //     //   from: "health_conditions",
-  //     //   let: {
-  //     //     "item": "$item"
-  //     //   },
-  //     //   "pipeline": [
-  //     //     {
-  //     //       item: category
-  //     //     }
-  //     //   ],
-  //     //   as: "item"
-  //     // }
-  //   }
-  // ])
-  
-// [
-//   {
-//     $lookup: {
-//       from: PersonalCareModel,
-//       localField: "item",
-//       foreignField: "item",
-//       as: "item"
-//     },
-//     {
-//       from: HealthConditionModel,
-//       localField: "item",
-//       foreignField: "item",
-//       as: "item"
-//     }
-//   }
-// ]
+module.exports = { getNavOptions, getCustomer, getMedicines, getAllCategories, getCategory }

@@ -31,8 +31,8 @@ function Categories(){
     
     // Getting Data From BackEnd
     const getData = async () => {
-      const response1 = await axios.post('http://localhost:5000/Categories/' + propsValue[0], { data : propsValue })
-      const response2 = await axios.get('http://localhost:5000/Categories/')
+      const response1 = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories/${propsValue[0]}`, { data : propsValue })
+      const response2 = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories/`)
       
       setCategories(response1.data)
       setAllCategories(response2.data)

@@ -28,7 +28,8 @@ function Header(){
 
   const [navbar, setNavbar] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
-  const [userName, setUserName] = useState({name: "Manav Jain", phone: "", isLoggedIn: true});
+  // const [userName, setUserName] = useState({name: "Manav Jain", phone: "", isLoggedIn: true});
+  const [userName, setUserName] = useState({name: "", phone: "", isLoggedIn: false});
   const [itemsInCart, setItemsInCart] = useState(reduxItems.length);
 
   useMemo(()=>{

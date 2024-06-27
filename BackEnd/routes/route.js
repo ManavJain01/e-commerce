@@ -6,7 +6,7 @@ const express = require('express')
 const router = express.Router();
 
 // Importing Controllers
-const { findNavOptions, findAllMedicines, findAllCategory, findCategory } = require('../controllers/controller')
+const { findNavOptions, findCustomer, findAllMedicines, findAllCategory, findCategory } = require('../controllers/controller')
 
 // Integrating Admin Panel
 // Serve static files from the React app
@@ -22,6 +22,7 @@ const { findNavOptions, findAllMedicines, findAllCategory, findCategory } = requ
 
 // Reading User
 router.route('/NavOptions').get(findNavOptions)
+router.route('/Customer').post(findCustomer)
 router.route('/Medicines').get(findAllMedicines)
 router.route('/Categories').get(findAllCategory)
 router.route('/Categories/:category').post(findCategory)
