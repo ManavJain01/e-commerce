@@ -4,15 +4,22 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
+// Header Links
 import Layout from './Project/Layout'
 import Home from './Project/Home Page/components/Main'
 import MedicinePage from './Project/Medicines/components/MedicinePage'
-import ProductCard2 from './Project/Product Card/components/ProductCard2'
 import Categories from './Project/Categories/components/Categories'
-// Header Links
+import ProductCard2 from './Project/Product Card/components/ProductCard2'
+// User Links
+import User from './Project/User/pages/User'
+import Profile from './Project/User/pages/Profile'
+import MyOrders from './Project/User/pages/MyOrders'
+import MyRefills from './Project/User/pages/MyRefills'
+import MedicalRecords from './Project/User/pages/MedicalRecords'
+import SavedForLater from './Project/User/pages/SavedForLater'
+import Wallet from './Project/User/pages/Wallet'
+import ReferEarn from './Project/User/pages/ReferEarn'
 import Cart from './Project/Cart/components/Cart'
-import SavedForLater from './Project/Header-Footer/components/Header/SavedForLater'
-import ReferEarn from './Project/Header-Footer/components/Header/ReferEarn'
 // Footer Links
 import FAQ from './Project/Header-Footer/components/Footer/Company/Help'
 import Health from './Project/Header-Footer/components/Footer/Company/Health'
@@ -26,6 +33,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children : [
+      // Header Links-----------------------------------------------------------------
       {
         path: "",
         element : <Home />
@@ -35,22 +43,6 @@ const router = createBrowserRouter([
         element : <Home />
       },
       {
-        path: "Cart",
-        element: <Cart />
-      },
-      {
-        path: "SavedForLater",
-        element: <SavedForLater />
-      },
-      {
-        path: "Refer&Earn",
-        element: <ReferEarn />
-      },
-      {
-        path: "Products/:type",
-        element: <ProductCard2 />
-      },
-      {
         path: "Medicines",
         element: <MedicinePage />
       },
@@ -58,6 +50,50 @@ const router = createBrowserRouter([
         path: "Categories/:type",
         element: <Categories />
       },
+      {
+        path: "Products/:type",
+        element: <ProductCard2 />
+      },
+      // User Links-------------------------------------------------------------------
+      {
+        path: "User",
+        element: <User />,
+        children: [
+          {
+            path: "profile",
+            element: <Profile />
+          },
+          {
+            path: "MyOrders",
+            element: <MyOrders />
+          },
+          {
+            path: "MyRefills",
+            element: <MyRefills />
+          },
+          {
+            path: "MedicalRecords",
+            element: <MedicalRecords />
+          },
+          {
+            path: "SavedForLater",
+            element: <SavedForLater />
+          },
+          {
+            path: "Wallet",
+            element: <Wallet />
+          },
+          {
+            path: "Refer&Earn",
+            element: <ReferEarn />
+          }
+        ]
+      },
+      {
+        path: "Cart",
+        element: <Cart />
+      },
+      // Footer---------------------------------------------------------------------
       {
         path: "Company/Help",
         element: <FAQ />

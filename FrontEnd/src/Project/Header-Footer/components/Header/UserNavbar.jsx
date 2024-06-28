@@ -4,27 +4,32 @@ import { Link } from 'react-router-dom'
 function UserNavbar({ userName, setUserName }){
   const items = [{
     id:1,
-    name:"My Orders"
+    name:"My Orders",
+    link:"User/myOrders"
   },{
     id:2,
     name:"Save For Later",
-    link:"SavedForLater"
+    link:"User/SavedForLater"
   },{
     id:3,
-    name:"My Refills"
+    name:"My Refills",
+    link:"User/myRefills"
   },{
     id:4,
-    name:"Medical Records"
+    name:"Medical Records",
+    link:"User/MedicalRecords"
   },{
     id:5,
-    name:"My Profile"
+    name:"My Profile",
+    link:"User/profile"
   },{
     id:6,
-    name:"Wallet"
+    name:"Wallet",
+    link:"User/Wallet"
   },{
     id:7,
     name:"Refer & Earn",
-    link:"Refer&Earn"
+    link:"User/Refer&Earn"
   },{
     id:8,
     name:"Notifications"

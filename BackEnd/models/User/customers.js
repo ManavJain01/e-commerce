@@ -15,6 +15,9 @@ const CustomerSchema = new Schema({
     type: String,
     unique: true
   },
+  cart:{
+    type: Object
+  },
   signupLocation:{
     type: Object,
     required: true

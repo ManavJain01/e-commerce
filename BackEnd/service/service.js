@@ -40,7 +40,7 @@ const getMedicines = async () => {
 const getCustomer = async (data) => {
   try {
     let phone = data.phone;
-    let userData = await CustomerModel.findOne({phone});
+    let userData = await CustomerModel.findOne({phone}).select(['name', 'phone', 'email', 'cart']);
     if(userData == null){
       await CustomerModel.create({
         phone: data.phone,

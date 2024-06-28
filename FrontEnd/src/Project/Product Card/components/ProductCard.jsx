@@ -9,15 +9,15 @@ import { IoImageOutline } from "react-icons/io5";
 
 // Importing redux Files
 import {useDispatch, useSelector} from 'react-redux' 
-import { addToCart, removeFromCart, updateCart, storeStates } from '../../Redux/features/cartSlice'
+import { addToCart, removeFromCart, updateCart} from '../../Redux/features/cartSlice'
 
 function ProductCard({ e, title }){
   const dispatch = useDispatch()
-  const reduxItems = useSelector(state => state.cartItems)
+  const cartItems = useSelector(state => state.cart.cartItems)
   
   const [ medicineQTY, setMedicineQTY ] = useState(0);
   useMemo(() => {
-    reduxItems.map((item) => {
+    cartItems.map((item) => {
       if(item.list.item === e.item) setMedicineQTY(item.cartQty)
     })
   },[])
@@ -26,7 +26,7 @@ function ProductCard({ e, title }){
     if(medicineQTY == 0)  dispatch(removeFromCart(e))
     else if(medicineQTY == 1) dispatch(addToCart(e))
     else{
-      reduxItems.map((item) => {
+      cartItems.map((item) => {
         if(item.list.item === e.item) dispatch(updateCart({e,medicineQTY}))
       })
     }

@@ -3,7 +3,6 @@ import {createSlice, nanoid} from '@reduxjs/toolkit'
 const initialState = {
   // cartItems: [{id: 1, cartQty: 2, list: {item: 'honda city', company: 'honda', price: 19.93, packaging: 'Pack of 15 Units', quantity: 10}}],
   cartItems: [],
-  stateItems: [{stateName: 'stateName', state: 'state'}]
 }
 
 // let i = 0;
@@ -37,25 +36,10 @@ export const cartSlice = createSlice({
           e.list = action.payload.e
         }
       })
-    },
-    storeStates: (state, action) => {
-      let isAvailable = false
-      state.stateItems.map((item) =>{
-        if(item.stateName === action.payload.name) isAvailable = true;
-      })
-
-      if(!isAvailable){
-        const item = {
-          stateName: action.payload.name,
-          state: action.payload.state
-        }
-
-        state.stateItems.push(item)
-      }
     }
   }
 })
 
-export const {addToCart, removeFromCart, updateCart, storeStates} = cartSlice.actions
+export const {addToCart, removeFromCart, updateCart} = cartSlice.actions
 
 export default cartSlice.reducer

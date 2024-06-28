@@ -13,7 +13,6 @@ import Signup from './Signup'
 import OtpPage from './OtpPage'
 
 function Login({ loginPage, setLoginPage, setUserName }){
-  document.body.style.overflow = "hidden";
 
   // UseStates
   const [ph, setPh] = useState({phone: "", confirmation: ""})
@@ -37,7 +36,6 @@ function Login({ loginPage, setLoginPage, setUserName }){
         localStorage.setItem("name", data.name ? data.name : "");
         setUserName(prevUsername => {return {...prevUsername, name: data?.name, phone: ph.phone, isLoggedIn: true}});
         setLoginPage(!loginPage);
-        
       })
     } catch (error) {
       console.log("Customer Logging In Error: ", error);

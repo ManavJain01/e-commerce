@@ -13,7 +13,8 @@ import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 // Importing React Redux
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { storeStates } from '../../../Redux/features/stateSlice'
 
 // Importing Local Files
 import InputBtn from '../InputBtn'
@@ -25,18 +26,20 @@ import './header.css'
 
 function Header(){
   // redux
-  const reduxItems = useSelector(state => state.cartItems)
+  const dispatch = useDispatch()
+  const cartItems = useSelector(state => state.cart.cartItems)
+  const stateItems = useSelector(state => state.state.stateItems)
 
   // UseStates
   const [navbar, setNavbar] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
   const [userName, setUserName] = useState({name: "", phone: "", isLoggedIn: false});
-  const [itemsInCart, setItemsInCart] = useState(reduxItems.length);
+  const [itemsInCart, setItemsInCart] = useState(cartItems.length);
 
   // UseMemo
   useMemo(()=>{
-    setItemsInCart(reduxItems.length)
-  },[reduxItems])
+    setItemsInCart(cartItems.length)
+  },[cartItems])
 
   // UseEffect
   useEffect(() => {
@@ -46,7 +49,21 @@ function Header(){
       setUserName(prevUsername => {return {...prevUsername, name: name, phone: phone, isLoggedIn: true}})
     }
 
+    dispatch(storeStates({stateName: "userName", state: userName}))
   }, [])
+
+  useEffect(() => {
+    const tempUser = stateItems.filter(item => item?.stateName == 'userName')
+    
+    if(tempUser[0]?.message == "logging out"){
+      setUserName(prevUsername => {return {...prevUsername, name: "", phone: "", isLoggedIn: false}})
+    }
+  }, [stateItems])
+
+  useEffect(() => {
+    if(loginPage) document.body.style.overflowY = "hidden";
+    else document.body.style.overflowY = "scroll";
+  }, [loginPage])
 
   // Functions
   const changeNavbar = () => {
@@ -100,7 +117,12 @@ function Header(){
                   <button onClick={()=>setLoginPage(true)}>Login | Signup</button>
                 </li>
             }
-            {loginPage ? <Login loginPage={loginPage} setLoginPage={setLoginPage} setUserName={setUserName} /> : ""}
+            <div>
+              {loginPage
+                ? <Login loginPage={loginPage} setLoginPage={setLoginPage} setUserName={setUserName} />
+                : ""
+              }
+            </div>
 
             <li>
               <Link to="/Cart"

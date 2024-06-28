@@ -1,5 +1,5 @@
-import copyLogo from '../../Images/copy.png'
-import whatsapp from '../../Images/whatsapp.png'
+import copyLogo from '../Images/copy.png'
+import whatsapp from '../Images/whatsapp.png'
 
 function ReferEarn(){
   return(

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import SavedItemsLogo from '../../Images/emptyCart.png'
+import SavedItemsLogo from '../Images/emptyCart.png'
 
 function SavedForLater(){
   const [isEmpty, setIsEmpty] = useState(true);

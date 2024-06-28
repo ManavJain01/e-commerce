@@ -25,14 +25,14 @@ function ProductCard2(){
   const e = useLocation().state.value;
 
   const dispatch = useDispatch()
-  const reduxItems = useSelector(state => state.cartItems)
+  const cartItems = useSelector(state => state.cart.cartItems)
   
   const slides = e.img
 
   const [ deliveryDate, setdeliveryDate ] = useState('Today');
   const [ medicineQTY, setMedicineQTY ] = useState(0);
   useMemo(() => {
-    reduxItems.map((item) => {
+    cartItems.map((item) => {
       if(item.list.item === e.item) setMedicineQTY(item.cartQty)
     })
   },[])
@@ -41,7 +41,7 @@ function ProductCard2(){
     if(medicineQTY == 0)  dispatch(removeFromCart(e))
     else if(medicineQTY == 1) dispatch(addToCart(e))
     else{
-      reduxItems.map((item) => {
+      cartItems.map((item) => {
         if(item.list.item === e.item) dispatch(updateCart({e,medicineQTY}))
       })
     }

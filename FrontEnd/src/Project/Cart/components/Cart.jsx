@@ -12,14 +12,14 @@ import { Link } from 'react-router-dom'
 import { useState, useMemo } from 'react'
 
 // Importing Redux Files
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 // Importing Local Components
 import PaymentDetails from './PaymentDetails'
 
 
 function Cart(){
-  const reduxItems = useSelector(state => state.cartItems)
+  const reduxItems = useSelector(state => state.cart.cartItems)
   const [cartItems, setCartItems] = useState(reduxItems.length)
   
   useMemo(()=>{
