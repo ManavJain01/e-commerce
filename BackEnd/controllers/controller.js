@@ -24,6 +24,26 @@ const findCustomer = async (req, res) => {
   }
 }
 
+const findCustomerData = async (req, res) => {
+  try {
+    const result = await service.getCustomerData(req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(400).send(error);
+  }
+}
+
+const updateCart = async (req, res) => {
+  try {
+    const result = await service.getCartUpdated(req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(400).send(error);
+  }
+}
+
 // Medicines Controller
 const findAllMedicines = async (req, res) => {
   try {
@@ -66,4 +86,4 @@ const findCategory = async (req, res) => {
 
 
 // Exporting controllers
-module.exports = { findNavOptions, findCustomer, findAllMedicines, findAllCategory, findCategory }
+module.exports = { findNavOptions, findCustomer, findCustomerData, updateCart, findAllMedicines, findAllCategory, findCategory }

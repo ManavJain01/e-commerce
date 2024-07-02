@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
 import { auth } from "../../Firebase/firebase.config"
 
-function Signup({ setPh, setGenerateOtpPage }){
+function Signup({ setPh, setGenerateOtpPage, setLoginPage }){
   // Variables
   let tempPh = ""
   
@@ -73,9 +73,22 @@ function Signup({ setPh, setGenerateOtpPage }){
       const confirm = await signInWithPhoneNumber(auth, tempPh, recaptcha)
       
       await setPh(prevPh => {return{...prevPh, confirmation: confirm}})
+      setLoading(false);
       await setGenerateOtpPage(true)
     }catch(err){
-      console.log("Error when sending otp in signup page :", err)
+      switch (err.code) {
+        case 'auth/too-many-requests':
+          alert('Too Many Requests, retry after sometime!!!');
+          setLoading(false);
+          setLoginPage(false);
+          break;
+      
+        default:
+          console.log("Error when sending otp in signup page :", err)
+          setLoading(false);
+          setLoginPage(false);
+          break;
+      }
     }
   }
 

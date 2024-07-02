@@ -12,8 +12,7 @@ const CustomerSchema = new Schema({
     unique: true
   },
   email:{
-    type: String,
-    unique: true
+    type: String
   },
   cart:{
     type: Object
@@ -24,7 +23,7 @@ const CustomerSchema = new Schema({
   },
   date:{
     type: Date,
-    default: Date.now
+    default: Date.now()
   }
 })
 
