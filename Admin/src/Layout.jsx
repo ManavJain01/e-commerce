@@ -19,7 +19,7 @@ export default function Layout() {
       <div className="w-full p-8 flex flex-col">
         <Header setDarkTheme={setDarkTheme} darkTheme={darkTheme} />
         
-        <div className="flex-1 py-11"><Outlet /></div>
+        <div className="flex-1 py-11"><Outlet context={[darkTheme]} /></div>
         
         <Footer />
       </div>

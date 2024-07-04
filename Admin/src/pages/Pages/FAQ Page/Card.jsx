@@ -5,12 +5,12 @@ import { IoIosArrowUp } from "react-icons/io";
 // Importing React Packages
 import { useState } from "react"
 
-export default function Card() {
+export default function Card({darkTheme}) {
   // UseStates
   const [showAns, setShowAns] = useState(false);
 
   return (
-    <div onClick={() => setShowAns(!showAns)} className="bg-gray-900 mt-10 p-5 flex flex-col gap-5 rounded-md shadow-md shadow-gray-700 cursor-pointer">
+    <div onClick={() => setShowAns(!showAns)} className={`${darkTheme ? "bg-gray-900 shadow-gray-700" : "bg-[#fcecc4] shadow-gray-400"} mt-10 p-5 flex flex-col gap-5 rounded-md shadow-md cursor-pointer`}>
       <div className="flex items-center justify-between">
         <p className="text-xl font-bold text-green-600">Question</p>
         

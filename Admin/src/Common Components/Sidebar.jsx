@@ -127,7 +127,7 @@ export default function Sidebar({ darkTheme }) {
   const [showMenu, setShowMenu] = useState(true);
   if(showMenu){
     return (
-      <div className={`py-8 px-5 flex flex-col gap-8 ${darkTheme ? "bg-gray-900" : "bg-[#f4b718]"}`}>
+      <div className={`py-8 px-5 flex flex-col gap-8 ${darkTheme ? "bg-gray-900" : "bg-[#fcecc4]"}`}>
         {/* Headlines */}
         <div className="flex flex-col items-center gap-10">
           <div className="text-2xl flex items-center gap-5">
