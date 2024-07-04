@@ -6,9 +6,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 // Header Links
 import Layout from './Project/Layout'
-import Home from './Project/Home Page/components/Main'
+import Home from './Project/Home Page/pages/Main'
 import MedicinePage from './Project/Medicines/components/MedicinePage'
-import Categories from './Project/Categories/components/Categories'
+import Categories from './Project/Categories/pages/Categories'
+import Sub_Categories from './Project/Categories/components/Categories'
 import ProductCard2 from './Project/Product Card/components/ProductCard2'
 // User Links
 import User from './Project/User/pages/User'
@@ -47,8 +48,12 @@ const router = createBrowserRouter([
         element: <MedicinePage />
       },
       {
-        path: "Categories/:type",
+        path: "Categories",
         element: <Categories />
+      },
+      {
+        path: "Categories/:type",
+        element: <Sub_Categories />
       },
       {
         path: "Products/:type",

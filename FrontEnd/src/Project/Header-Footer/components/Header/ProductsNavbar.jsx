@@ -2,12 +2,14 @@
 import { styled } from "styled-components";
 import { NavLink } from 'react-router-dom'
 
-// Importing Local Components
-import ProductSlide from './ProductsSlide'
+// Importing React Packages
 import { useEffect, useState } from "react";
 
 // Importing Axios Packages
 import axios from 'axios'
+
+// Importing Local Components
+import ProductSlide from './ProductsSlide'
 
 function ProductsNavbar(){
   // useState
