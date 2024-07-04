@@ -7,6 +7,7 @@ import indiaCovered from '../Images/india_covered.jpg'
 import SearchInput from '../../Header-Footer/components/Header/SearchInput'
 import CarouselTab from '../components/CarouselTab'
 import ShopByCategories from '../../Categories/components/ShopByCategories'
+import Messages from '../components/Messages'
 
 
 function Main(){
@@ -18,8 +19,14 @@ function Main(){
     <>
       <div className="bg-blue-100 min-w-[100vw] min-h-[60vh] pb-32 flex flex-col gap-32">
         <SearchInput />
-        <CarouselTab slides={slides} />
-        <div className="m-10">
+
+        <div className="flex flex-col gap-32 px-10">
+          <CarouselTab slides={slides} />
+
+          {/* Messages */}
+          <Messages />
+
+          {/* Shop By Category */}
           <ShopByCategories />
         </div>
       </div>
