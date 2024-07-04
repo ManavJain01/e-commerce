@@ -21,22 +21,19 @@ export default function ShopByCategories(){
       setCategories(response.data)
     }
 
-    // document.getElementById('categoryBtn').click();
+    setTimeout(() => {
+      document.getElementById('categoryBtn').click();
+    }, 30)
 
     getData();
   }, [])
-
-  // Functions
-  const componentDidMount = () => {
-    alert("hi")
-};
 
   return (
     <div className="flex flex-col gap-8 p-5 border-[1px] border-blue-300 rounded-md">
       {/* Headline with a button */}
       <div className="flex justify-between">
         <p className="font-semibold text-3xl text-gray-500">Shop by categories</p>
-        <Link to="/Categories" className="font-semibold text-lg text-blue-600">View All</Link>
+        {location.pathname != '/Categories' && <Link to="/Categories" className="font-semibold text-lg text-blue-600">View All</Link>}
       </div>
 
       {/* Categories */}
@@ -64,11 +61,11 @@ export default function ShopByCategories(){
           {filteredCategory && filteredCategory[1].subitems
             ?.map((e, i) => {
               return(
-                <div key={i} className="relative w-80 h-64 flex flex-col bg-white p-5 rounded-md shadow-lg">
+                <Link key={i} to={`/Categories/${e.item || e}`} state={{value: [e.item || e, filteredCategory[1]?.item]}} className="relative w-80 h-64 flex flex-col bg-white p-5 rounded-md shadow-lg">
                   <span className="font-semibold text-lg text-gray-600">{e?.item || e}</span>
                   
                   {e?.img && <img src={e?.img} alt="image" className="absolute top-[70px] left-20 w-44 mx-auto" />}
-                </div>
+                </Link>
               )
             })
           }
