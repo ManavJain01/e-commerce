@@ -9,7 +9,7 @@ import Layout from './Project/Layout'
 import Home from './Project/Home Page/pages/Main'
 import MedicinePage from './Project/Medicines/components/MedicinePage'
 import Categories from './Project/Categories/pages/Categories'
-import Sub_Categories from './Project/Categories/components/Categories'
+import FilteredCategories from './Project/Categories/pages/FilteredCategories'
 import ProductCard2 from './Project/Product Card/components/ProductCard2'
 // User Links
 import User from './Project/User/pages/User'
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
       },
       {
         path: "Categories/:type",
-        element: <Sub_Categories />
+        element: <FilteredCategories />
       },
       {
         path: "Products/:type",

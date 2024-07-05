@@ -82,7 +82,6 @@ const findAllCategory = async (req, res) => {
 
 
 const findCategory = async (req, res) => {
-  let result;
   if(Array.isArray(req.body.data)) result = await service.getCategory(req.body.data[1], req.body.data[0]);
   else result = await service.getCategory(req.body.data);
 

@@ -12,47 +12,44 @@ import axios from 'axios'
 // Imaporting Local Files
 import ProductCard from '../../Product Card/components/ProductCard'
 
-import Filters from './Filters'
-import FilteredComponent from './FilteredComponent';
+import Filters from '../components/Filters'
+import FilteredComponent from '../components/FilteredComponent';
 
-function Categories(){
+function FilteredCategories(){
   let propsValue;
   if(useLocation().state) propsValue = useLocation().state.value;
   else propsValue = useParams()
 
-  const [filtered, setFiltered] = useState(false)
-  const [currentCategory, setCurrentCategory] = useState(Array.isArray(propsValue) ? propsValue[0] : propsValue)
-  const [categories, setCategories] = useState(0)
-  const [allCategories, setAllCategories] = useState(0)
-
+  const [filtered, setFiltered] = useState({ isActive:false })
+  const [categoryTitle, setCategoryTitle] = useState(Array.isArray(propsValue) ? propsValue[0] : propsValue)
+  const [categories, setCategories] = useState([])
+  const [allCategories, setAllCategories] = useState([])
   
   useEffect(()=>{
     setFiltered(false);
     
     // Getting Data From BackEnd
     const getData = async () => {
-      const response1 = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories/${propsValue[0]}`, { data : propsValue })
-      const response2 = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories/`)
-      
-      setCategories(response1.data)
-      setAllCategories(response2.data)
+      const filteredData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories/${propsValue[0]}`, { data : propsValue })
+      const allData = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories/`)
+      setCategories(filteredData.data.data)
+      setAllCategories(allData.data)
+      setFiltered({ filters: filteredData?.data?.filters, isActive: false })
     }
     getData();
 
-    setCurrentCategory(Array.isArray(propsValue) ? propsValue[0] : propsValue)
-    
-    // console.log(categories);
+    setCategoryTitle(Array.isArray(propsValue) ? propsValue[0] : propsValue)
 
   },[propsValue])
-  
+  console.log(filtered);
   return(
     <div className="flex gap-10 py-20 px-8">
-      {/* <Filters e={allCategories} categories={categories} setFiltered={setFiltered} propsValue={propsValue} /> */}
+      <Filters categories={categories} filtered={filtered} setFiltered={setFiltered} />
 
       <div>
         {/* For small screen */}
         <h1 className="text-2xl font-semibold flex justify-between">
-          {!filtered ? currentCategory : filtered[0]}
+          {!filtered ? categoryTitle : filtered[0]}
           <span className='flex items-center sm:hidden text-green-700 cursor-pointer'>
             <RiExpandUpDownFill />
             Filter
@@ -62,7 +59,7 @@ function Categories(){
         <div className="flex flex-wrap gap-5 py-10 my-4 border-t border-gray-400">
           {
             //  Search Through Navbar
-            !filtered ? 
+            !filtered.isActive ? 
               (categories == 0 || categories == null)
               // If no result found
               ?<div className="flex flex-col justify-center items-center w-[100vw] text-red-500">
@@ -72,7 +69,8 @@ function Categories(){
               // result found, BackEnd API
               :Array.isArray(categories) && categories.map(e => {
                 return e.subitems && e.subitems.map(f => {
-                  return Object.keys(f).length > 6 ? <ProductCard key={f.item} e={f} title={'Categories'} />
+                  return Object.keys(f).length > 6
+                  ? <ProductCard key={f.item} e={f} title={'Categories'} />
                   : f.subitems && f.subitems.map(g => 
                     <ProductCard key={g.item} e={g} title={'Categories'} />
                   )
@@ -81,7 +79,16 @@ function Categories(){
 
             //  Search Through Filters
             // :<FilteredComponent filtered={filtered} e={categories} />
-              : <div>hi</div>
+              : filtered?.filter
+                &&  <div className="flex flex-wrap gap-5">{
+                  categories
+                    .filter(e => e.subCategory == filtered?.filter || e.item == filtered?.filter)
+                    .map((e) => e.subitems.map((f, i) => {
+                      return(
+                        <ProductCard key={i} e={f} title={'Categories'} />
+                      )
+                    }))
+                }</div>
           }
         </div>
       </div>
@@ -89,4 +96,4 @@ function Categories(){
   )
 }
 
-export default Categories;
+export default FilteredCategories;
