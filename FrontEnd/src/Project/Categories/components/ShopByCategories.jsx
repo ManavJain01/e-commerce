@@ -21,10 +21,6 @@ export default function ShopByCategories(){
       setCategories(response.data)
     }
 
-    setTimeout(() => {
-      document.getElementById('categoryBtn').click();
-    }, 30)
-
     getData();
   }, [])
 
@@ -58,7 +54,7 @@ export default function ShopByCategories(){
 
         {/* Sub Category */}
         <div className={`flex-1 ${filteredCategory[0]} max-h-[50rem] flex gap-8 items-start flex-wrap p-5 rounded-md overflow-y-scroll`}>
-          {filteredCategory && filteredCategory[1].subitems
+          {filteredCategory && filteredCategory[1]?.subitems
             ?.map((e, i) => {
               return(
                 <Link key={i} to={`/Categories/${e.item || e}`} state={{value: [e.item || e, filteredCategory[1]?.item]}} className="relative w-80 h-64 flex flex-col bg-white p-5 rounded-md shadow-lg">

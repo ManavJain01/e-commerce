@@ -39,14 +39,14 @@ function PaymentDetails({ reduxItems, cartItems }){
       <h1 className="text-gray-500 text-xl pl-2">Payment details</h1>
 
       <section className="flex flex-col gap-2">
-        <span className="pl-2 flex justify-between">Total MRP <span>rs.{totalMRP}</span></span>
-        <span className="pl-2 flex justify-between">Discount <span>- rs.{discount}</span></span>
-        <span className="pl-2 flex justify-between">Total Amount <span>rs.{totalAmount}</span></span>
-        <span className="pl-2 flex justify-between">Shipping/Delivery Charges <span>rs.{deliveryCharges}</span></span>
+        <span className="pl-2 flex justify-between">Total MRP <span>₹{totalMRP}</span></span>
+        <span className="pl-2 flex justify-between">Discount <span>- ₹{discount}</span></span>
+        <span className="pl-2 flex justify-between">Total Amount <span>₹{totalAmount}</span></span>
+        <span className="pl-2 flex justify-between gap-5">Shipping/Delivery Charges <span>₹{deliveryCharges}</span></span>
       </section>
 
-      <span className="text-blue-400 pl-2 flex justify-between">Total Payable <span>rs.{totalPayable}</span></span>
-      <span className="text-green-600 bg-green-100 px-2 py-1 rounded-mg flex justify-between">Total Savings <span>- rs.{totalSavings}</span></span>
+      <span className="text-blue-400 pl-2 flex justify-between">Total Payable <span>₹{totalPayable}</span></span>
+      <span className="text-green-600 bg-green-100 px-2 py-1 rounded-mg flex justify-between">Total Savings <span>- ₹{totalSavings}</span></span>
     </div>
   )
 }

@@ -6,7 +6,7 @@ const express = require('express')
 const router = express.Router();
 
 // Importing Controllers
-const { findNavOptions, findCustomer, findCustomerData, updateCart, findAllMedicines, findAllCategory, findCategory } = require('../controllers/controller')
+const { handleStripe, findNavOptions, findCustomer, findCustomerData, updateCart, findAllMedicines, findAllCategory, findCategory } = require('../controllers/controller')
 
 // Integrating Admin Panel
 // Serve static files from the React app
@@ -19,6 +19,9 @@ const { findNavOptions, findCustomer, findCustomerData, updateCart, findAllMedic
 //   res.sendFile(path.resolve('../Admin/dist/index.html'));
 // })
 
+
+// Stripe Routes
+router.route('/create-checkout-session').post(handleStripe)
 
 // Reading User
 router.route('/NavOptions').get(findNavOptions)

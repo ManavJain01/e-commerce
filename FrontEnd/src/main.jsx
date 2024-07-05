@@ -20,7 +20,7 @@ import MedicalRecords from './Project/User/pages/MedicalRecords'
 import SavedForLater from './Project/User/pages/SavedForLater'
 import Wallet from './Project/User/pages/Wallet'
 import ReferEarn from './Project/User/pages/ReferEarn'
-import Cart from './Project/Cart/components/Cart'
+import Cart from './Project/Cart/pages/Cart'
 // Footer Links
 import FAQ from './Project/Header-Footer/components/Footer/Company/Help'
 import Health from './Project/Header-Footer/components/Footer/Company/Health'

@@ -1,5 +1,17 @@
 // Importing Services
 const service = require('../service/service')
+const stripe = require('../Stripe/stripe')
+
+// Stripe
+const handleStripe = async (req, res) => {
+  try {
+    const result = await stripe.getStripePayment(req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(400).send(error);
+  }
+}
 
 // Navbar Structure Controller
 const findNavOptions = async (req, res) => {
@@ -86,4 +98,4 @@ const findCategory = async (req, res) => {
 
 
 // Exporting controllers
-module.exports = { findNavOptions, findCustomer, findCustomerData, updateCart, findAllMedicines, findAllCategory, findCategory }
+module.exports = { handleStripe, findNavOptions, findCustomer, findCustomerData, updateCart, findAllMedicines, findAllCategory, findCategory }
