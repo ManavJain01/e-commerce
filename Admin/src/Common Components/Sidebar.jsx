@@ -149,7 +149,7 @@ export default function Sidebar({ darkTheme }) {
         <nav className="flex flex-col">{navOptions.map((e, i) => {
           return(
             <div key={i} className="flex flex-col gap-4 items-start">
-              <NavLink to={e?.link} className={`text-lg font-semibold flex gap-2 justify-start items-center hover:text-blue-600 aria-[current=page]:text-blue-800`}>
+              <NavLink to={e?.link} className={`text-lg font-semibold flex gap-2 justify-start items-center duration-700 ${darkTheme ? "aria-[current=page]:text-blue-800 hover:text-blue-600" : "aria-[current=page]:text-[#ca9509] hover:text-yellow-500"}`}>
                 {e?.component}
                 {e?.option}
               </NavLink>
@@ -158,7 +158,7 @@ export default function Sidebar({ darkTheme }) {
                     <p className={`${darkTheme ? "text-gray-500" : "text-gray-700"}`}>{e?.type}</p>
                     <div className="flex flex-col gap-5">{e?.options?.map((f,j) => {
                       return(
-                        <NavLink key={j} to={f?.link} className={`flex items-center gap-2 hover:text-blue-600 aria-[current=page]:text-blue-800 ${darkTheme ? "" : "text-gray-500"}`}>
+                        <NavLink key={j} to={f?.link} className={`flex items-center gap-2 py-1 duration-700 ${darkTheme ? "aria-[current=page]:text-blue-800 hover:text-blue-600" : "aria-[current=page]:text-[#ca9509] hover:text-yellow-500 text-gray-500"}`}>
                           <span>{f?.component}</span>
                           <span>{f?.option}</span>
                         </NavLink>

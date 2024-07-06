@@ -21,6 +21,10 @@ export default function ShopByCategories(){
       setCategories(response.data)
     }
 
+    setTimeout(() => {
+      document.getElementById("categoryBtn")?.click();
+    }, 30)
+
     getData();
   }, [])
 
