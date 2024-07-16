@@ -23,7 +23,7 @@ const getStripePayment = async (data) => {
       payment_method_types:["card"],
       line_items:lineItems,
       mode:"payment",
-      success_url:"http://localhost:3000",
+      success_url:"http://localhost:3000/Users/MyOrders",
       cancel_url:"http://localhost:3000/Categories"
     })
     return {id:session.id}

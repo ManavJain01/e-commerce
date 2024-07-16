@@ -21,9 +21,9 @@ export default function ShopByCategories(){
       setCategories(response.data)
     }
 
-    setTimeout(() => {
-      document.getElementById("categoryBtn")?.click();
-    }, 30)
+    // setTimeout(() => {
+    //   document.getElementById("categoryBtn")?.click();
+    // }, 30)
 
     getData();
   }, [])
@@ -40,7 +40,7 @@ export default function ShopByCategories(){
       <div className="flex flex-wrap">
         {/* Category Headline */}
         <div className="relative flex flex-col items-start">
-        {categories
+        {Object.keys(categories).length != 0 && categories
           ?.filter(e => e.item != 'Medicines' && e.item != 'Health Article')
           ?.map((e,i) => {
             return(

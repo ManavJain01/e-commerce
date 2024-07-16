@@ -25,13 +25,13 @@ function ProductsNavbar(){
     }
     getData();
   }, [])
-  
+
   return(
     <>
       <div className="absolute -right-10 top-12">
         <ItemStyles>
           <div className="w-[100vw] z-40 py-1 flex justify-around bg-white text-gray-500 text-xs lg:text-sm whitespace-nowrap border shadow-md shadow-gray-700">
-            {navOptions && navOptions.map((e,i) => {
+            {navOptions && Object.keys(navOptions).length != 0 && navOptions?.map((e,i) => {
               return(
                 <div key={i} className="flex flex-col gap-3">
                   <ul>

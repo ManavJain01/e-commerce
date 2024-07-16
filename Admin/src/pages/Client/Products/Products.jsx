@@ -37,9 +37,6 @@ export default function Products() {
     setFilters(filter => { return {...filter, filters: data?.data?.filters} })
     if(filters.length != 0) document.getElementById('subcategory').style.display = "flex"
     else document.getElementById('subcategory').style.display = "none"
-
-    console.log("filter");
-    console.log(filters?.filters);
   }
   
   return (
