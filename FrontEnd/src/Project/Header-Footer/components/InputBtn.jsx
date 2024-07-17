@@ -78,7 +78,7 @@ function InputBtn(e){
             <IoIosArrowDown />
           </button>
           {enableAddressBox && <AddressBtn setCheckAddress={setCheckAddress} setEnableAddressBox={setEnableAddressBox} />}
-          <input type="text" placeholder={e.placeholder} onChange={(e)=>searchInputOnChange(e)} className="h-12 w-full pl-52 px-2 mx-10 border-2 border-blue-300 rounded-md" />
+          <input type="text" placeholder={e.placeholder} onChange={(e)=>searchInputOnChange(e)} className="h-12 w-full pl-52 px-2 mx-10 border-2 border-blue-300 rounded-md outline-none" />
           <button className="bg-blue-600 text-white font-semibold h-12 px-8 rounded-e-lg absolute right-9">{e.button}</button>
         </form>
 
@@ -97,7 +97,7 @@ function InputBtn(e){
             <IoIosArrowDown />
           </button>
           {enableAddressBox && <AddressBtn setCheckAddress={setCheckAddress} setEnableAddressBox={setEnableAddressBox} />}
-          <input type="text" placeholder={e.placeholder} onChange={(e)=>searchInputOnChange(e)} className="h-12 w-full pl-52 px-2 mx-10 border-2 border-blue-300 rounded-md" />
+          <input type="text" placeholder={e.placeholder} onChange={(e)=>searchInputOnChange(e)} className="h-12 w-full pl-52 px-2 mx-10 border-2 border-blue-300 rounded-md outline-none" />
           <button className="bg-blue-600 text-white font-semibold h-12 px-8 rounded-e-lg absolute right-9">{e.button}</button>
         </form>
 
@@ -112,7 +112,7 @@ function InputBtn(e){
     return(
       <>
         <div className="relative max-w-[23rem]">
-          <input type="text" placeholder={e.placeholder} className="h-12 max-w-[23rem] lg:w-[23rem] px-5 py-3 rounded-md" />
+          <input type="text" placeholder={e.placeholder} className="h-12 max-w-[23rem] lg:w-[23rem] px-5 py-3 rounded-md outline-none" />
           <button className="bg-blue-600 text-white text-lg font-semibold h-12 px-8 rounded-e-lg absolute inset-y-0 right-1 lg:right-0">{e.button}</button>
       </div>
       </>
@@ -126,7 +126,7 @@ function InputBtn(e){
             id={e.id}
             type="text"
             placeholder={e.placeholder}
-            className="h-12 px-2 border-2 border-blue-300 rounded-md" />
+            className="h-12 px-2 border-2 border-blue-300 rounded-md outline-none" />
           <button
           onClick={()=>{e.onClick()}}
           className="bg-blue-600 text-white font-semibold h-12 px-8 rounded-e-lg absolute inset-y-0 right-0">{e.button}</button>
