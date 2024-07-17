@@ -2,6 +2,7 @@ import {createSlice, nanoid} from '@reduxjs/toolkit'
 
 // Importing Axios Packages
 import axios from 'axios'
+import { useEffect } from 'react'
 
 const initialState = {
   // cartItems: [{id: 1, cartQty: 2, list: {item: 'honda city', company: 'honda', price: 19.93, packaging: 'Pack of 15 Units', quantity: 10}}],
@@ -10,20 +11,26 @@ const initialState = {
 
 // let i = 0;
 
-let userId = ""
+const addingInCart = async (data) => {
+  await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/AddToCart`, {id: localStorage.getItem("id"), data: data})
+}
 
-const updatingCart = async (data, message) => {
-  const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/updateCart`, { data: data, message: message })
+const updatingCart = async (data, id) => {
+  await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/UpdatingCart`, {id: localStorage.getItem("id"), itemId: id, data: data})
+}
+
+const deleteFromCart = async (id) => {
+  await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/deleteFromCart`, {id: localStorage.getItem("id"), itemId: id})
 }
 
 export const cartSlice = createSlice({
   name: 'items',
   initialState,
   reducers: {
-    creatingInitialState: (state, action) => {
-      console.log("action.payload");
-      console.log(action.payload);
-      // state.cartItems.push(action.payload);
+    creatingInitialState: (state = initialState, action) => {
+      action.payload.data?.map((e, i) => {
+        state.cartItems.push(e);
+      })
     },
     addToCart: (state, action) => {
       let isAvailable = false
@@ -37,25 +44,22 @@ export const cartSlice = createSlice({
           list: action.payload
         }
         state.cartItems.push(e)
-        
-        updatingCart(e, "add");
-        console.log("addToCart running");
+        if(localStorage.getItem("authToken")) addingInCart(e);
       }
     },
     removeFromCart: (state, action) => {
       // i--;
-      state.cartItems = state.cartItems.filter((e) => e.list.item !== action.payload.item )
-      // updatingCart(action.payload.item, "remove");
-      // console.log("removeFromCart running");
-
+      state.cartItems = state.cartItems.filter((e) => {
+        if(localStorage.getItem("authToken") && e.list.item === action.payload.item) deleteFromCart(e.id);
+        return e.list.item !== action.payload.item
+      } )
     },
     updateCart: (state, action) => {
       state.cartItems.map((e) =>{
         if(e.list.item === action.payload.e.item){
           e.cartQty = action.payload.medicineQTY
           e.list = action.payload.e
-          updatingCart(e, "update");
-          console.log("updateCart running");
+          if(localStorage.getItem("authToken")) updatingCart(action.payload, e.id);
         }
       })
 

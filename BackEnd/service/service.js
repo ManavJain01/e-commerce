@@ -1,16 +1,7 @@
-// Json Web Token
-const jwt = require("jsonwebtoken");
-
-// Importing env file
-require("dotenv").config();
-const jwtSecret = process.env.JWT_TOKEN
-
 // Importing Models
   // Navbar Structure
 const NavOptionModel = require('../models/categories')
-  // Customers
-const CustomerModel = require("../models/User/customers")
-const CustomerDataModel = require("../models/User/customer_data")
+
   // Products
 const MedicineModel = require('../models/products/medicines')
 const PersonalCareModel = require('../models/products/personal_care')
@@ -37,77 +28,6 @@ const getMedicines = async () => {
   }
 }
 
-// Customer Login request
-const getCustomer = async (data) => {
-  const inProgress = new Set();
-
-  try {
-    const phone = data.phone;
-
-    if(inProgress.has(phone)){
-      return("Request already in progress for this phone number")
-    }
-    inProgress.add(phone);
-
-    let userData = await CustomerModel.findOne({phone}).select(['name', 'phone', 'email', 'cart']);
-
-    if(userData == null){
-      const userData = await CustomerModel.create({
-        phone: data.phone,
-        signupLocation: data.location
-      })
-
-      const authToken = jwt.sign(data.phone, jwtSecret)
-      return { data: userData, authToken: authToken }
-    }else{
-      const authToken = jwt.sign(userData.phone, jwtSecret)
-      return { data: userData, authToken: authToken };
-    }
-  } catch (error) {
-    console.log("Error Occurred:", error);
-    return error
-  } finally {
-    inProgress.delete(data.phone);
-  }
-}
-
-const getCustomerData = async (data) => {
-  try {
-    const _id = data._id;
-    let userData = await CustomerDataModel.findById(_id);
-
-    if(userData == null){
-      userData = await CustomerDataModel.create({
-        _id: _id,
-        cart: {},
-        saveForLater: {},
-        refills: {},
-        records: {},
-        orders: {}
-      })
-    }
-    return { data: userData }
-  } catch (error) {
-    return error;
-  }
-}
-
-const getCartUpdated = async (data) => {
-  const cartData = data.data;
-  try {
-    if(data.message === 'add'){
-
-    }else if(data.message === 'update'){
-
-    }else if(data.message === 'remove'){
-
-    }else{
-      return "message is bad"
-    }
-  } catch (error) {
-    return error;
-  }
-}
 
 // Creating Categories
   // Functions for Services
@@ -184,4 +104,4 @@ async function getCategory(category, subCategory){
 }
 
 
-module.exports = { getNavOptions, getCustomer, getCustomerData, getCartUpdated, getMedicines, getAllCategories, getCategory }
+module.exports = { getNavOptions, getMedicines, getAllCategories, getCategory }

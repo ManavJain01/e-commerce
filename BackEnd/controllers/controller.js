@@ -25,37 +25,6 @@ const findNavOptions = async (req, res) => {
   }
 }
 
-// Customer Controller
-const findCustomer = async (req, res) => {
-  try {
-    const result = await service.getCustomer(req.body);
-    res.status(200).send(result);
-  } catch (error) {
-    console.log("Error: ", error);
-    res.status(400).send(error);
-  }
-}
-
-const findCustomerData = async (req, res) => {
-  try {
-    const result = await service.getCustomerData(req.body);
-    res.status(200).send(result);
-  } catch (error) {
-    console.log("Error: ", error);
-    res.status(400).send(error);
-  }
-}
-
-const updateCart = async (req, res) => {
-  try {
-    const result = await service.getCartUpdated(req.body);
-    res.status(200).send(result);
-  } catch (error) {
-    console.log("Error: ", error);
-    res.status(400).send(error);
-  }
-}
-
 // Medicines Controller
 const findAllMedicines = async (req, res) => {
   try {
@@ -91,10 +60,10 @@ const findCategory = async (req, res) => {
   } else {
     const msg = req.body.data + " not found!";
     console.log(msg);
-    res.send(msg)
+    res.status(400).send(msg)
   }
 }
 
 
 // Exporting controllers
-module.exports = { handleStripe, findNavOptions, findCustomer, findCustomerData, updateCart, findAllMedicines, findAllCategory, findCategory }
+module.exports = { handleStripe, findNavOptions, findAllMedicines, findAllCategory, findCategory }

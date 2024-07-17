@@ -39,28 +39,19 @@ function Login({ loginPage, setLoginPage, setUserName }){
       // Login/Signup request
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Customer`, { phone: ph.phone, location: "No" /*location.address*/})
       const data = response.data.data;
-      console.log(response);
       
       // User Data request
       const responseData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/CustomerData`, { _id: data._id })
       const userData = responseData.data.data;
-      console.log("responseData");
-      console.log(responseData);
-      console.log("userData");
-      console.log(userData);
+
       // redux cart
-      console.log("working 1");
-      dispatch(creatingInitialState({data: userData?.cart, _id: userData?._id}))
-      console.log("working 2");
-      // const cartItems = useSelector(state => state.cart.cartItems);
-      // console.log("cartItems");
-      // console.log(cartItems);
-      
+      dispatch(creatingInitialState({data: userData?.cart, _id: userData?._id}))      
 
       // setting localStorage variables
       localStorage.setItem("authToken", response.data.authToken);
       localStorage.setItem("phoneNumber", data.phone);
       localStorage.setItem("name", data.name ? data.name : "");
+      localStorage.setItem("id", userData._id);
 
       // Setting useStates
       setUserName(prevUsername => {return {...prevUsername, name: data?.name, phone: ph.phone, isLoggedIn: true}});

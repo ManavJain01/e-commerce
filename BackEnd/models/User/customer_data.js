@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const CustomerDataSchema = new Schema({
   cart:{
-    type: Object,
+    type: Array,
   },
   saveForLater:{
     type: Object,
