@@ -66,6 +66,17 @@ const getCustomerData = async (data) => {
   }
 }
 
+// Fetch Cart Data
+const getCartData = async (id) => {
+  try {
+    return  await CustomerDataModel.findById(id).select('cart -_id');
+
+  } catch (error) {
+    console.log("Error in FetchingCartData", error);
+    return error;
+  }
+}
+
 // AddToCart
 const AddToCart = async (data) => {
   try {
@@ -109,9 +120,39 @@ const DeleteFromCart = async (data) => {
 
     return {status: "Successfull"}
   } catch (error) {
-    console.log("Error in UpdatingCart", error);
+    console.log("Error in DeleteFromCart", error);
     return error;
   }
 }
 
-module.exports = { getCustomer, getCustomerData, AddToCart, UpdateCart, DeleteFromCart }
+const getOrders = async (id) => {
+  try {
+    return  await CustomerDataModel.findById(id).select('orders -_id');
+
+  } catch (error) {
+    console.log("Error in FetchingOrders", error);
+    return error;
+  }
+}
+
+const getRefills = async (id) => {
+  try {
+    return  await CustomerDataModel.findById(id).select('refills -_id');
+
+  } catch (error) {
+    console.log("Error in FetchingRefills", error);
+    return error;
+  }
+}
+
+const getSaveForLater = async (id) => {
+  try {
+    return  await CustomerDataModel.findById(id).select('saveForLater -_id');
+
+  } catch (error) {
+    console.log("Error in FetchingSaveForLater", error);
+    return error;
+  }
+}
+
+module.exports = { getCustomer, getCustomerData, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater }

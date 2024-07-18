@@ -15,6 +15,10 @@ import { Link } from 'react-router-dom'
 // Importing React Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { storeStates } from '../../../Redux/features/stateSlice'
+import { creatingInitialState } from '../../../Redux/features/cartSlice'
+
+// Importing Services
+import { fetchCartItems } from '../../../service/userService'
 
 // Importing Local Files
 import InputBtn from '../InputBtn'
@@ -43,13 +47,19 @@ function Header(){
 
   // UseEffect
   useEffect(() => {
-    if(localStorage.getItem("authToken")){
-      let name = localStorage.getItem('name') && localStorage.getItem('name').split(' ')[0];
-      let phone = localStorage.getItem("phoneNumber")
-      setUserName(prevUsername => {return {...prevUsername, name: name, phone: phone, isLoggedIn: true}})
-    }
+    const runOnLoad = async () => {
+      if(localStorage.getItem("authToken")){
+        let name = localStorage.getItem('name') && localStorage.getItem('name').split(' ')[0];
+        let phone = localStorage.getItem("phoneNumber")
+        setUserName(prevUsername => {return {...prevUsername, name: name, phone: phone, isLoggedIn: true}})
+      }
 
-    dispatch(storeStates({stateName: "userName", state: userName}))
+      // redux
+      dispatch(storeStates({stateName: "userName", state: userName}))
+      dispatch(creatingInitialState(await fetchCartItems()));
+    }
+    
+    runOnLoad();
   }, [])
 
   useEffect(() => {

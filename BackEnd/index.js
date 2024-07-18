@@ -1,5 +1,6 @@
 // Importing Routes
 const routes = require('./routes/route')
+const routes_api = require('./routes/route_api')
 
 // Importing env file
 require("dotenv").config();
@@ -27,6 +28,7 @@ const mongoDB = require("./database/db")
 
 // middleware or to set router
 app.use("/", routes)
+app.use("/api", routes_api)
 
 // Connecting MongoDB Server
 mongoDB();

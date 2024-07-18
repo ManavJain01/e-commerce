@@ -1,7 +1,7 @@
 // Importing path module
 const path = require('path');
 
-// Accessing Express and MongoDB Packages
+// Accessing Express Packages
 const express = require('express')
 const router = express.Router();
 

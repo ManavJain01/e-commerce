@@ -6,11 +6,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 // importing redux
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { creatingInitialState } from '../../Redux/features/cartSlice'
 
-// Importing Axios Packages
-import axios from 'axios'
+// Importing Services
+import { fetchCustomer, fetchCartItems } from '../../service/userService'
 
 // Importing Local files
 import Signup from './Signup'
@@ -36,22 +36,11 @@ function Login({ loginPage, setLoginPage, setUserName }){
         // location = await fetch(url).then(res=>res.json())
       // })
 
-      // Login/Signup request
-      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Customer`, { phone: ph.phone, location: "No" /*location.address*/})
-      const data = response.data.data;
-      
-      // User Data request
-      const responseData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/CustomerData`, { _id: data._id })
-      const userData = responseData.data.data;
+      // get Customer
+      await fetchCustomer(ph.phone /*, location.address*/);
 
-      // redux cart
-      dispatch(creatingInitialState({data: userData?.cart, _id: userData?._id}))      
-
-      // setting localStorage variables
-      localStorage.setItem("authToken", response.data.authToken);
-      localStorage.setItem("phoneNumber", data.phone);
-      localStorage.setItem("name", data.name ? data.name : "");
-      localStorage.setItem("id", userData._id);
+      // redux
+      dispatch(creatingInitialState(await fetchCartItems()));
 
       // Setting useStates
       setUserName(prevUsername => {return {...prevUsername, name: data?.name, phone: ph.phone, isLoggedIn: true}});

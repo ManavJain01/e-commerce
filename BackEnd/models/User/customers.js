@@ -14,9 +14,6 @@ const CustomerSchema = new Schema({
   email:{
     type: String
   },
-  cart:{
-    type: Object
-  },
   signupLocation:{
     type: Object,
     required: true

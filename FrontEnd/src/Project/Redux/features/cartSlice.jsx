@@ -28,8 +28,10 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     creatingInitialState: (state = initialState, action) => {
-      action.payload.data?.map((e, i) => {
-        state.cartItems.push(e);
+      action.payload.cart?.map((e) => {
+        if (!state.cartItems.find(cartItem => cartItem.id === e.id)) {
+          state.cartItems.push(e);
+        }
       })
     },
     addToCart: (state, action) => {
