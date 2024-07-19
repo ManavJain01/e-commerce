@@ -12,15 +12,21 @@ const app = express()
 
 // Importing cors and using it.
 const cors = require('cors')
-app.use(cors())
-app.use((req, res, next)=>{
-  res.setHeader("Access-Control-Allow-Origin",process.env.CLIENT_LOCATION);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-})
+app.use(cors(
+  {
+    origin: [process.env.CLIENT_LOCATION],
+    methods: ["POST", "GET"],
+    credentials: true
+  }
+));
+// app.use((req, res, next)=>{
+//   res.setHeader("Access-Control-Allow-Origin",process.env.CLIENT_LOCATION);
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// })
 app.use(express.json())
 
 
