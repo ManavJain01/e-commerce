@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-// Importing Axios Packages
-import axios from 'axios'
+// Importing services
+import { fetchNavOptions } from '../../service/service'
 
 export default function ShopByCategories(){
   // variables
@@ -17,13 +17,14 @@ export default function ShopByCategories(){
   useEffect(()=>{  
     // Getting Data From BackEnd
     const getData = async () => {
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/NavOptions`)
-      setCategories(response.data)
+      const response = await fetchNavOptions();
+      setCategories(response)
+      
     }
 
-    // setTimeout(() => {
-    //   document.getElementById("categoryBtn")?.click();
-    // }, 30)
+    setTimeout(() => {
+      document.getElementById("categoryBtn")?.click();
+    }, 100)
 
     getData();
   }, [])

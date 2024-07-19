@@ -5,8 +5,8 @@ import ProductCard from '../../Product Card/components/ProductCard'
 // Importing React Packages
 import { useState, useEffect } from 'react'
 
-// Importing Axios Packages
-import axios from 'axios'
+// Importing services
+import { fetchMedicines } from '../../service/service'
 
 
 function MedicinePage(){
@@ -15,8 +15,8 @@ function MedicinePage(){
   // Getting Medicines API
   useEffect(() => {
     const getData = async () => {
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Medicines`)
-      setMedicines(response.data)
+      const response = await fetchMedicines();
+      setMedicines(response);
     }
 
     getData();

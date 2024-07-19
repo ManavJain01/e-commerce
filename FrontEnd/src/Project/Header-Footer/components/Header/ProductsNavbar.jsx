@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom'
 // Importing React Packages
 import { useEffect, useState } from "react";
 
-// Importing Axios Packages
-import axios from 'axios'
+// Importing services
+import { fetchNavOptions } from '../../../service/service'
 
 // Importing Local Components
 import ProductSlide from './ProductsSlide'
@@ -20,8 +20,8 @@ function ProductsNavbar(){
     
     // Getting Data From BackEnd
     const getData = async () => {
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/NavOptions`)
-      setNavOptions(response.data)
+      const response = await fetchNavOptions()
+      setNavOptions(response);
     }
     getData();
   }, [])

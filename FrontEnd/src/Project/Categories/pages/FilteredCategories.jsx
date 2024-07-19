@@ -6,11 +6,11 @@ import { CgUnavailable } from "react-icons/cg";
 import { useParams, useLocation } from 'react-router-dom'
 import { useState, useEffect, useMemo } from "react";
 
-// Importing Axios Packages
-import axios from 'axios'
-
 // Imaporting Local Files
 import ProductCard from '../../Product Card/components/ProductCard'
+
+// Importing Services
+import { fetchFilteredProducts, fetchAllProducts } from '../../service/service'
 
 import Filters from '../components/Filters'
 import FilteredComponent from '../components/FilteredComponent';
@@ -30,10 +30,12 @@ function FilteredCategories(){
     
     // Getting Data From BackEnd
     const getData = async () => {
-      const filteredData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories/${propsValue[0]}`, { data : propsValue })
-      const allData = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories/`)
-      setCategories(filteredData.data.data)
-      setAllCategories(allData.data)
+
+      const filteredData = await fetchFilteredProducts(propsValue);
+      const allData = await fetchAllProducts();
+
+      setCategories(filteredData.data)
+      setAllCategories(allData)
       setFiltered({ filters: filteredData?.data?.filters, isActive: false })
     }
     getData();
@@ -41,7 +43,7 @@ function FilteredCategories(){
     setCategoryTitle(Array.isArray(propsValue) ? propsValue[0] : propsValue)
 
   },[propsValue])
-  console.log(filtered);
+  // console.log(filtered);
   return(
     <div className="flex gap-10 py-20 px-8">
       <Filters categories={categories} filtered={filtered} setFiltered={setFiltered} />

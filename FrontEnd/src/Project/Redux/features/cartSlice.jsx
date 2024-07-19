@@ -4,6 +4,9 @@ import {createSlice, nanoid} from '@reduxjs/toolkit'
 import axios from 'axios'
 import { useEffect } from 'react'
 
+// Importing services
+import { AddToCart, UpdateCart, DeleteFromCart } from '../../service/actionService'
+
 const initialState = {
   // cartItems: [{id: 1, cartQty: 2, list: {item: 'honda city', company: 'honda', price: 19.93, packaging: 'Pack of 15 Units', quantity: 10}}],
   cartItems: [],
@@ -12,15 +15,15 @@ const initialState = {
 // let i = 0;
 
 const addingInCart = async (data) => {
-  await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/AddToCart`, {id: localStorage.getItem("id"), data: data})
+  await AddToCart(data);
 }
 
 const updatingCart = async (data, id) => {
-  await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/UpdatingCart`, {id: localStorage.getItem("id"), itemId: id, data: data})
+  await UpdateCart(data, id);
 }
 
 const deleteFromCart = async (id) => {
-  await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/deleteFromCart`, {id: localStorage.getItem("id"), itemId: id})
+  await DeleteFromCart(id);
 }
 
 export const cartSlice = createSlice({
