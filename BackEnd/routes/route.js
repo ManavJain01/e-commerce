@@ -6,7 +6,7 @@ const express = require('express')
 const router = express.Router();
 
 // Importing Controllers
-const { handleStripe, findNavOptions, findAllMedicines, findAllCategory, findCategory } = require('../controllers/controller')
+const { findNavOptions, findAllMedicines, findAllCategory, findCategory } = require('../controllers/controller')
 const { findCustomer, findCustomerData, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart } = require('../controllers/user_controller')
 
 // Integrating Admin Panel
@@ -20,9 +20,6 @@ const { findCustomer, findCustomerData, ItemAddedInCart, ItemUpdatedInCart, Item
 //   res.sendFile(path.resolve('../Admin/dist/index.html'));
 // })
 
-
-// Stripe Routes
-router.route('/create-checkout-session').post(handleStripe)
 
 // Reading User
 router.route('/NavOptions').get(findNavOptions)

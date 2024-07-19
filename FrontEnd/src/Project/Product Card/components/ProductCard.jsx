@@ -41,7 +41,7 @@ function ProductCard({ e, title }){
         :<IoImageOutline className="object-contain w-48 h-32 text-blue-600" />}
         <div className="text-sm flex flex-col justify-between">
           <p className="font-bold">{e.item}</p>
-          {e.price && <p className="/font-semibold">MRP रु.{(e.price)}</p>}
+          {e.price && <p className="/font-semibold">MRP रु.{e.price}</p>}
         </div>
       </Link>
 
@@ -67,7 +67,7 @@ function ProductCard({ e, title }){
           <p className="font-bold">{e.item}</p>
           <p className="text-gray-400 text-sm">{e.company}</p>
           {e.packaging && <p>{e.packaging}</p>}
-          {e.price && <p className="font-semibold">MRP रु.{(e.price).toFixed(2)}</p>}          
+          {e.price && <p className="font-semibold">MRP रु.{e.price}</p>}          
         </div>
       </Link>
 
@@ -92,7 +92,7 @@ function ProductCard({ e, title }){
           <p className="text-xl font-bold">{e.item}</p>
           <p className="text-gray-400 text-sm">{e.company}</p>
           {e.packaging && <p>{e.packaging}</p>}
-          {e.price && <p className="font-bold">MRP रु.{(e.price).toFixed(2)}</p>}
+          {e.price && <p className="font-bold">MRP रु.{e.price}</p>}
           <p className="text-gray-400 text-sm">(inclusive of all taxes)</p>
           
         </div>

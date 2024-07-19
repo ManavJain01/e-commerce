@@ -111,9 +111,6 @@ const UpdateCart = async (data) => {
 // Deleting From Cart
 const DeleteFromCart = async (data) => {
   try {
-    console.log("data");
-    console.log(data);
-
     await CustomerDataModel
     .updateOne({_id: data.id},
       {$pull: {cart: {id: data.itemId}}})

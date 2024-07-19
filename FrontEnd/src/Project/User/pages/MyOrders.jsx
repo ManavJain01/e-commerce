@@ -13,11 +13,11 @@ export default function MyOrders() {
       <div className="px-10 flex justify-between">
         <p className="text-4xl font-semibold">My Orders</p>
 
-        <select name="orders" id="orders" className="text-xl font-semibold py-2 px-5 border-2 border-blue-400 rounded-md outline-none">
+        <select name="orders" id="orders"  defaultValue='4' className="text-xl font-semibold py-2 px-5 border-2 border-blue-400 rounded-md outline-none">
           <option value="1">Order Delivered</option>
           <option value="2">Order Active</option>
           <option value="3">Order Cancelled</option>
-          <option value="4" selected>All Orders</option>
+          <option value="4">All Orders</option>
         </select>
       </div>
 

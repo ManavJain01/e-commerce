@@ -5,6 +5,13 @@ import { BsFillShieldLockFill } from 'react-icons/bs'
 // Importing React Packages
 import { useState } from 'react'
 
+// importing redux
+import { useDispatch } from 'react-redux'
+import { creatingInitialState } from '../../Redux/features/cartSlice'
+
+// Importing Services
+import { fetchCustomer, fetchCartItems } from '../../service/userService'
+
 // Importing Firebase configuration
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
 import { auth } from "../../Firebase/firebase.config"
@@ -55,6 +62,30 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage }){
     }
   }
 
+  // ----------------------------------------------------------------------------------------------------------------------------------------
+  // Practice
+  const dispatch = useDispatch();
+
+  // Customer Logging/Signing In
+  const getCustomer = async () => {
+    try {
+      // User Data request
+      // const responseData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/CustomerData`, { _id: data._id })
+      // const userData = responseData.data.data;
+
+      // get Customer
+      await fetchCustomer('+91 8269-543-305');
+
+      // redux
+      dispatch(creatingInitialState(await fetchCartItems()));
+
+    } catch (error) {
+      console.log("Customer Logging In Error: ", error);
+    }
+  }
+
+  // ----------------------------------------------------------------------------------------------------------------------------------------
+
   function checkValidNumber(e){
     const input = document.getElementById("validPhn");
     if(input.value == "" || String(input.value).length < 10){
@@ -64,6 +95,7 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage }){
       tempPh = "+91 " + input.value;
       setPh(prevPh => {return{...prevPh, phone: tempPh}})
       sendOtp();
+      // getCustomer();
     }
   }
 

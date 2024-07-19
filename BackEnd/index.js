@@ -1,5 +1,6 @@
 // Importing Routes
 const routes = require('./routes/route')
+const routes_stripe = require('./routes/route_stripe')
 const routes_api = require('./routes/route_api')
 
 // Importing env file
@@ -28,7 +29,12 @@ const mongoDB = require("./database/db")
 
 // middleware or to set router
 app.use("/", routes)
+app.use("/stripe", routes_stripe)
 app.use("/api", routes_api)
+
+// Importing Controllers
+const { postPaymentHandle } = require('./controllers/stripe_controller')
+app.post("/webhook", postPaymentHandle)
 
 // Connecting MongoDB Server
 mongoDB();

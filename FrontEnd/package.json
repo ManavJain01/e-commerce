@@ -19,6 +19,7 @@
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "firebase": "^10.9.0",
+    "ngrok": "^5.0.0-beta.2",
     "npm-check": "^3.2.10",
     "otp-input-react": "^0.3.0",
     "react": "^18.2.0",

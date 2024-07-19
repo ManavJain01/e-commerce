@@ -39,16 +39,17 @@ function Cart(){
     const headers = {
       "Content-Type" : "application/json"
     }
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/create-checkout-session`,{
+    const response = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/stripe/create-checkout-session`,{
       method: "POST",
       headers: headers,
       body: JSON.stringify(body)
     })
-    const session = await response.json();
 
+    const session = await response.json();
     const result = stripe.redirectToCheckout({
       sessionId:session.id
     });
+
     if(result.error){
       console.log("result.error");
     }
@@ -79,7 +80,7 @@ function Cart(){
               }
             </div>
             
-            <div className="flex flex-col items-center gap-8">
+            <div className="h-fit flex flex-col items-center gap-8">
               <PaymentDetails cartItems={cartItems} reduxItems={reduxItems} />
               
               <button onClick={() => makePayment()} className="font-semibold text-lg text-white bg-blue-600 w-fit px-10 py-2 rounded-md">Select payment mode</button>
