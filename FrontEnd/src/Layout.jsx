@@ -1,7 +1,7 @@
 // Importing Local Components
 import Header from './components/Header/Header'
 import Footer from './pages/Footer/Footer'
-import ScrollToTop from './components/ScrollToTop'
+import ScrollToTop from './components/scroll/ScrollToTop'
 
 // Importing routing
 import { Outlet } from 'react-router-dom'

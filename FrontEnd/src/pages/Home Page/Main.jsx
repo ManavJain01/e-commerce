@@ -30,7 +30,6 @@ function Main(){
           <ShopByCategories />
         </div>
       </div>
-
     </>
   )
 }

@@ -63,8 +63,6 @@ export const fetchOrders = async () => {
         throw new Error('Failed to fetch orders');
       }
 
-      // const data = await response.json();
-      // return data;
       return response.data;
     }else{
       return [];
@@ -85,8 +83,6 @@ export const fetchRefills = async () => {
         throw new Error('Failed to fetch refills');
       }
 
-      // const data = await response.json();
-      // return data;
       return response.data;
     }else{
       return [];
@@ -106,9 +102,7 @@ export const fetchSaveForLater = async () => {
       if (response.status !== 200) {
         throw new Error('Failed to fetch saveForLater');
       }
-
-      // const data = await response.json();
-      // return data;
+      
       return response.data;
     }else{
       return [];

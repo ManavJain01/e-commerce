@@ -5,18 +5,20 @@ import { BsFillShieldLockFill } from 'react-icons/bs'
 // Importing React Packages
 import { useState } from 'react'
 
-// importing redux
-import { useDispatch } from 'react-redux'
-import { creatingInitialState } from '../../Redux/features/cartSlice'
-
 // Importing Services
-import { fetchCustomer, fetchCartItems } from '../../service/userService'
+import { fetchCustomer } from '../../service/userService'
+
+// Importing Custom Hooks
+import useCart from '../../hooks/useCart'
+
+// Importing Local files
+import LoadingScreen from '../../components/loading/LoadingScreen'
 
 // Importing Firebase configuration
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
 import { auth } from "../../Firebase/firebase.config"
 
-function Signup({ setPh, setGenerateOtpPage, setLoginPage }){
+function Signup({ setPh, setGenerateOtpPage, setLoginPage, tempLogin }){
   // Variables
   let tempPh = ""
   
@@ -62,30 +64,6 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage }){
     }
   }
 
-  // ----------------------------------------------------------------------------------------------------------------------------------------
-  // Practice
-  const dispatch = useDispatch();
-
-  // Customer Logging/Signing In
-  const getCustomer = async () => {
-    try {
-      // User Data request
-      // const responseData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/CustomerData`, { _id: data._id })
-      // const userData = responseData.data.data;
-
-      // get Customer
-      await fetchCustomer('+91 8269-543-305');
-
-      // redux
-      dispatch(creatingInitialState(await fetchCartItems()));
-
-    } catch (error) {
-      console.log("Customer Logging In Error: ", error);
-    }
-  }
-
-  // ----------------------------------------------------------------------------------------------------------------------------------------
-
   function checkValidNumber(e){
     const input = document.getElementById("validPhn");
     if(input.value == "" || String(input.value).length < 10){
@@ -94,8 +72,9 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage }){
       e.target.disabled = true
       tempPh = "+91 " + input.value;
       setPh(prevPh => {return{...prevPh, phone: tempPh}})
-      // sendOtp();
-      getCustomer();
+
+      if(import.meta.env.VITE_REACT_APP_NODE_ENV == 'production') sendOtp();
+      else  tempLogin();
     }
   }
 

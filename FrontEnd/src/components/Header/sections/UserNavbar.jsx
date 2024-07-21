@@ -1,7 +1,18 @@
+// Importing React Packages
 import { styled } from "styled-components"
 import { Link } from 'react-router-dom'
 
+// Importing Redux Packages
+import { useDispatch } from "react-redux"
+
+// Importing Actions
+import { LogOut } from '../../../actions/userActions'
+
 function UserNavbar({ userName, setUserName }){
+  // UseDispatch
+  const dispatch = useDispatch();
+
+  // Static Object
   const items = [{
     id:1,
     name:"My Orders",
@@ -37,10 +48,8 @@ function UserNavbar({ userName, setUserName }){
     id:9,
     name:"Log Out",
     link:"Home",
-    onClick: () => {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("phoneNumber");
-      localStorage.removeItem("name");
+    onClick: async () => {
+      dispatch(LogOut());
       setUserName(prevUsername => {return {...prevUsername, isLoggedIn: false}})
     }
   }]

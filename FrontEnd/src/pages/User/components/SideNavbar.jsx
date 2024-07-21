@@ -13,7 +13,9 @@ import { NavLink } from 'react-router-dom'
 
 // Importing redux Files
 import {useDispatch} from 'react-redux' 
-import { updateState } from '../../../Redux/features/stateSlice'
+
+// Importing Actions
+import { LogOut } from '../../../actions/userActions'
 
 
 export default function SideNavbar() {
@@ -63,10 +65,7 @@ export default function SideNavbar() {
       icon: <MdLogout />,
       styles: "hover:text-red-600",
       onClick: () => {
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("phoneNumber");
-        localStorage.removeItem("name");
-        dispatch(updateState({stateName: "userName", message: "logging out"}))
+        dispatch(LogOut());
       }
     }
   ]

@@ -20,6 +20,7 @@ const useCart = () => {
     const getCartItems = async () => {
       setLoading(true);
       try {
+        console.log("useCart");
         dispatch(creatingInitialState(await fetchCartItems()));
 
         setError(null);
@@ -33,7 +34,7 @@ const useCart = () => {
     getCartItems();
   }, []);
 
-  return { loading, error }
+  return { loading }
 }
 
 export default useCart;

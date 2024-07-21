@@ -1,7 +1,7 @@
 // Importing React Packages
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
+import '../public/assets/styles/index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 // Header Links
