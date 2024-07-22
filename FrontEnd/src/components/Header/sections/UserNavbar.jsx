@@ -2,15 +2,12 @@
 import { styled } from "styled-components"
 import { Link } from 'react-router-dom'
 
-// Importing Redux Packages
-import { useDispatch } from "react-redux"
-
-// Importing Actions
-import { LogOut } from '../../../actions/userActions'
+// Importing Custom Hook
+import { useLogout } from "../../../hooks/useLogout"
 
 function UserNavbar({ userName, setUserName }){
-  // UseDispatch
-  const dispatch = useDispatch();
+  // useLogout
+  const { logout } = useLogout();
 
   // Static Object
   const items = [{
@@ -49,8 +46,8 @@ function UserNavbar({ userName, setUserName }){
     name:"Log Out",
     link:"Home",
     onClick: async () => {
-      dispatch(LogOut());
       setUserName(prevUsername => {return {...prevUsername, isLoggedIn: false}})
+      await logout();
     }
   }]
 

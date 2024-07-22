@@ -1,8 +1,5 @@
 // Importing Local Icons
 import emptyCart from './Images/cart.png'
-import bin from './Images/bin.png'
-import minus from './Images/minus.png'
-import plus from './Images/plus.png'
 
 // Importing Product Card
 import ProductCard from '../../components/Product Card/ProductCard'

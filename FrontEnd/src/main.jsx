@@ -2,10 +2,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '../public/assets/styles/index.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, Route, Navigate } from 'react-router-dom'
+
+// Import Local components
+import { AuthProvider } from './routes/AuthContext'
+import ProtectedRoute from './routes/ProtectedRoute'
+import Layout from './routes/Layout'
 
 // Header Links
-import Layout from './Layout'
 import Home from './pages/Home Page/Main'
 import MedicinePage from './pages/Products/Medicines/MedicinePage'
 import Categories from './pages/Products/Categories/Categories'
@@ -62,35 +66,35 @@ const router = createBrowserRouter([
       // User Links-------------------------------------------------------------------
       {
         path: "User",
-        element: <User />,
+        element: <ProtectedRoute element={<User />} />,
         children: [
           {
             path: "profile",
-            element: <Profile />
+            element: <ProtectedRoute element={<Profile />} />
           },
           {
             path: "MyOrders",
-            element: <MyOrders />
+            element: <ProtectedRoute element={<MyOrders />} />
           },
           {
             path: "MyRefills",
-            element: <MyRefills />
+            element: <ProtectedRoute element={<MyRefills />} />
           },
           {
             path: "MedicalRecords",
-            element: <MedicalRecords />
+            element: <ProtectedRoute element={<MedicalRecords />} />
           },
           {
             path: "SavedForLater",
-            element: <SavedForLater />
+            element: <ProtectedRoute element={<SavedForLater />} />
           },
           {
             path: "Wallet",
-            element: <Wallet />
+            element: <ProtectedRoute element={<Wallet />} />
           },
           {
             path: "Refer&Earn",
-            element: <ReferEarn />
+            element: <ProtectedRoute element={<ReferEarn />} />
           }
         ]
       },
@@ -122,6 +126,10 @@ const router = createBrowserRouter([
       {
         path: "Legal/Returns&Cancellation-policy",
         element: <Returns />
+      },
+      {
+        path: "*",
+        element: <Navigate to="/" />
       }
     ]
   }
@@ -129,6 +137,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 )

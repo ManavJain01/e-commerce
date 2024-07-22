@@ -14,10 +14,6 @@ import { NavLink } from 'react-router-dom'
 // Importing redux Files
 import {useDispatch} from 'react-redux' 
 
-// Importing Actions
-import { LogOut } from '../../../actions/userActions'
-
-
 export default function SideNavbar() {
   // Redux
   const dispatch = useDispatch();
@@ -65,7 +61,7 @@ export default function SideNavbar() {
       icon: <MdLogout />,
       styles: "hover:text-red-600",
       onClick: () => {
-        dispatch(LogOut());
+        console.log("log out empty function in sideNavbar");
       }
     }
   ]

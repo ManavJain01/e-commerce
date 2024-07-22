@@ -5,15 +5,6 @@ import { BsFillShieldLockFill } from 'react-icons/bs'
 // Importing React Packages
 import { useState } from 'react'
 
-// Importing Services
-import { fetchCustomer } from '../../service/userService'
-
-// Importing Custom Hooks
-import useCart from '../../hooks/useCart'
-
-// Importing Local files
-import LoadingScreen from '../../components/loading/LoadingScreen'
-
 // Importing Firebase configuration
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
 import { auth } from "../../Firebase/firebase.config"

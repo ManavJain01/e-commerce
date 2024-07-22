@@ -5,14 +5,8 @@ import close from './Images/close.png'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-// Importing React-Redux Packages
-import { useDispatch } from 'react-redux'
-
-// Importing Services
-import { fetchCustomer } from '../../service/userService'
-
-// Importing Actions
-import { UserCartItems } from '../../actions/userActions'
+// Import Hooks
+import { useLogin } from '../../hooks/useLogin'
 
 // Importing Local files
 import LoadingScreen from '../../components/loading/LoadingScreen'
@@ -20,8 +14,7 @@ import Signup from './Signup'
 import OtpPage from './OtpPage'
 
 function Login({ loginPage, setLoginPage, setUserName }){
-  // UseDispatch
-  const dispatch = useDispatch()
+  const { login } = useLogin();
 
   // UseStates
   const [ph, setPh] = useState({phone: "", confirmation: ""})
@@ -35,9 +28,7 @@ function Login({ loginPage, setLoginPage, setUserName }){
     try {
 
       // get Customer
-      await fetchCustomer(ph.phone /*, location.address*/);
-      dispatch(UserCartItems());
-
+      await login(ph.phone /*, location.address*/);
       
     } catch (error) {
       console.log("Customer Logging In Error: ", error);
@@ -73,8 +64,7 @@ function Login({ loginPage, setLoginPage, setUserName }){
       const ph = '+91 8269-543-305';
 
       // get Customer
-      await fetchCustomer(ph);
-      dispatch(UserCartItems());
+      await login(ph);
 
     } catch (error) {
       console.log("Customer Logging In Error: ", error);
@@ -119,26 +109,6 @@ function Login({ loginPage, setLoginPage, setUserName }){
 export default Login;
 
 /*
-  // importing redux
-  import { useDispatch } from 'react-redux'
-  import { creatingInitialState } from '../../Redux/features/cartSlice'
-
-  // Importing Services
-  import { fetchCustomer, fetchCartItems } from '../../service/userService'
-
-  // useDispatch
-  const dispatch = useDispatch();
-
-   // Functions
-    // Customer Logging/Signing In
-  const getCustomer = async () => {
-    try {
-      // redux
-      // dispatch(creatingInitialState(await fetchCartItems()));
-    } catch (error) {
-    }
-  }
-
   user location
   // With User Permission
   // let location = "";

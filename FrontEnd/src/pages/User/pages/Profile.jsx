@@ -18,28 +18,28 @@ export default function Profile() {
   const stateItems = useSelector(state => state.state.stateItems)
 
   // USeState
-  const [user, setUser] = useState("")
+  const [verifyBtn, setVerifyBtn] = useState(false);
 
-  // UseEffect
-  // useEffect(() => {
-  //   const temp = stateItems.filter(item => item.stateName == "userName")[0]
-  //   setUser(temp);
-  //   const input = document.getElementById('mobile')
-  //   input.value = temp?.state.phone;
-  // }, [])
+  const verifyCheck = async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("verify");
+    btn.textContent = "Verified"
+    btn.style.color = "green"
+  }
 
   return (
     <div className="w-full py-20 pr-5 md:pr-20 flex flex-col gap-3">
       <p className="text-4xl font-semibold">Edit Profile</p>
 
-      <form action="" className="flex flex-col gap-10 p-8 border-2 border-gray-300 rounded-md shadow-md shadow-gray-500">
+      <form className="flex flex-col gap-10 p-8 border-2 border-gray-300 rounded-md shadow-md shadow-gray-500">
         {/* Name */}
         <InputWithMovingLabel label="Name" type="text" required={true} />
 
         {/* Email and Phone Number */}
-        <div className="flex gap-5 flex-wrap">
+        <div className="relative flex gap-5 flex-wrap">
           <InputWithMovingLabel label="Email" type="email" required={true} />
           <InputWithMovingLabel label="Mobile Number" type="text" required={true} />
+          <button id="verify" onClick={(e)=>verifyCheck(e)} className={`absolute top-12 left-1 text-red-500 duration-700 ${verifyBtn ? "block text-green-500" : "hidden"}`}>Verify Email</button>
         </div>
 
         {/* Age and Gender */}
