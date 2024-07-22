@@ -7,6 +7,11 @@ import { useEffect, useState } from 'react'
 // Importing React Redux
 import { useSelector, useDispatch } from 'react-redux'
 
+// Importing Local Components
+import InputWithMovingLabel from "../../../utils/InputWithMovingLabel";
+import GenderCheckBox from "../../../utils/GenderCheckBox";
+import Button from '../../../components/common/Button'
+
 export default function Profile() {
   // redux
   const dispatch = useDispatch()
@@ -16,12 +21,12 @@ export default function Profile() {
   const [user, setUser] = useState("")
 
   // UseEffect
-  useEffect(() => {
-    const temp = stateItems.filter(item => item.stateName == "userName")[0]
-    setUser(temp);
-    const input = document.getElementById('mobile')
-    input.value = temp?.state.phone;
-  }, [])
+  // useEffect(() => {
+  //   const temp = stateItems.filter(item => item.stateName == "userName")[0]
+  //   setUser(temp);
+  //   const input = document.getElementById('mobile')
+  //   input.value = temp?.state.phone;
+  // }, [])
 
   return (
     <div className="w-full py-20 pr-5 md:pr-20 flex flex-col gap-3">
@@ -29,62 +34,25 @@ export default function Profile() {
 
       <form action="" className="flex flex-col gap-10 p-8 border-2 border-gray-300 rounded-md shadow-md shadow-gray-500">
         {/* Name */}
-        <label htmlFor="name" className="relative flex">
-          <MdOutlineStarPurple500 className="relative -left-1 text-red-400 size-3" />
-          <input type="text" id="name" className="peer text-2xl w-full px-5 py-2 border-2 border-blue-400 focus:border-green-400 rounded-md outline-none" />
-          <span className="absolute top-3 left-4 peer-focus:-top-4 peer-focus:left-2 duration-1000 bg-white text-blue-500 peer-focus:text-green-500 px-1 rounded-lg">Name</span>
-        </label>
+        <InputWithMovingLabel label="Name" type="text" required={true} />
 
         {/* Email and Phone Number */}
         <div className="flex gap-5 flex-wrap">
-          <label htmlFor="email" className="flex-1 flex relative">
-            <MdOutlineStarPurple500 className="relative -left-1 text-red-400 size-3" />
-            <input type="text" id="email" className="peer text-2xl w-full px-5 py-2 border-2 border-blue-400 focus:border-green-400 rounded-md outline-none" />
-            <span className="absolute top-3 left-4 peer-focus:-top-4 peer-focus:left-2 duration-1000 bg-white text-blue-500 peer-focus:text-green-500 px-1 rounded-lg">Email</span>
-          </label>
-
-          <label htmlFor="mobile" className="relative flex-1 flex">
-            <MdOutlineStarPurple500 className="relative -left-1 text-red-400 size-3" />
-            <input type="text" id="mobile" className="peer text-2xl w-full px-5 py-2 border-2 border-blue-400 focus:border-green-400 rounded-md outline-none" />
-            <span className="absolute top-3 left-4 peer-focus:-top-4 peer-focus:left-2 duration-1000 bg-white text-blue-500 peer-focus:text-green-500 px-1 rounded-lg">Mobile Number</span>
-          </label>
+          <InputWithMovingLabel label="Email" type="email" required={true} />
+          <InputWithMovingLabel label="Mobile Number" type="text" required={true} />
         </div>
 
         {/* Age and Gender */}
         <div className="flex gap-5 flex-wrap items-center">
-          <label htmlFor="age" className="flex-1 relative">
-            <input type="text" id="age" className="peer text-2xl w-full px-5 py-2 border-2 border-blue-400 focus:border-green-400 rounded-md outline-none" />
-            <span className="absolute top-3 left-4 peer-focus:-top-4 peer-focus:left-2 duration-1000 bg-white text-blue-500 peer-focus:text-green-500 px-1 rounded-lg">Age</span>
-          </label>
-
-          <div className="flex-1 text-blue-500">
-            <p className="text-lg">Gender</p>
-            <div className="flex gap-10">
-              <div className="relative flex items-center gap-2">
-                <input type="checkbox" />
-                <span>Male</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-                <span>Female</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <input type="checkbox" />
-                <span>Other</span>
-              </div>
-            </div>
-          </div>
+          <InputWithMovingLabel label="Age" type="text" />
+          <GenderCheckBox />
         </div>
 
         {/* Address */}
-        <label htmlFor="address" className="relative">
-          <input type="text" id="address" className="peer text-2xl w-full px-5 py-2 border-2 border-blue-400 focus:border-green-400 rounded-md outline-none" />
-          <span className="absolute top-3 left-4 peer-focus:-top-4 peer-focus:left-2 duration-1000 bg-white text-blue-500 peer-focus:text-green-500 px-1 rounded-lg">Address</span>
-        </label>
+        <InputWithMovingLabel label="Address 1" type="text" required={false} />
+        <InputWithMovingLabel label="Address 2" type="text" required={false} placeholder="optional..." />
 
-        <button className="text-2xl font-semibold text-white bg-green-600 w-fit px-8 py-2 ml-auto rounded-md">Save</button>
+        <Button className="font-semibold text-[25px] text-white bg-green-600 py-2 px-8 ml-auto border-none">Save</Button>
       </form>
     </div>
   )

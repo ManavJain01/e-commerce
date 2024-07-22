@@ -1,20 +1,25 @@
+// Import React Icons
 import { IoIosArrowDown } from "react-icons/io";
 
+// Import React Packages
+import { useState, useEffect } from 'react'
+
+// Import Local Components
 import { medicines } from '../../pages/Products/Medicines/components/MedicinesAPI'
 import SearchFiltered from '../Search/SearchFiltered'
 import AddressBtn from "./AddressBtn";
 
-import { useState } from 'react'
-
 function InputBtn(e){
+  // UseStates
   const [filtered, setFiltered] = useState(null)
   const [filtered2, setFiltered2] = useState(null)
   const [filtered3, setFiltered3] = useState(null)
   const [filtered4, setFiltered4] = useState(null)
   const [filtered5, setFiltered5] = useState(null)
   const [ enableAddressBox, setEnableAddressBox ] = useState(false)
-  const [ checkAddress, setCheckAddress ] = useState("Gwalior, 474011")
-  
+  const [ checkAddress, setCheckAddress ] = useState("Deliver to")
+
+  // Functions
   function searchInputOnChange(e){
     let tempForFiltered2 = []
     let tempForFiltered3 = []

@@ -94,7 +94,7 @@ function Header(){
 
   return(
     <>
-      <div className={navbar ? 'header active' : 'header'}>
+      <div className={`${navbar ? 'header active' : 'header'} z-[99999]`}>
         <div className="bg-white w-screen h-[5rem] px-10 flex justify-between items-center">
           <Link to="/Home">
             <h1 className="font-bold text-xl text-red-700">Dismefa <span className="text-green-700">Medicos</span></h1>

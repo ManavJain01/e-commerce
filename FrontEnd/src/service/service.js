@@ -1,6 +1,62 @@
 // Importing Axios Packages
 import axios from 'axios'
 
+// Fetching Location
+export const fetchInputLocation = async (input) => {
+  try {
+    let response = await fetch(`https://api.postalpincode.in/pincode/${input}`);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch Location');
+    }
+
+    response = await response.json();
+    return await response[0].PostOffice;
+
+  } catch (error) {
+    console.log("Error Fetching Location:", error);
+    return []
+  }
+}
+
+// Fetching Location
+export const fetchCurrLocation = async () => {
+  try {
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      const {latitude,longitude} = pos.coords;
+      let response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch Location');
+      }
+
+      response = await response.json();
+      return response.address;
+    })
+  } catch (error) {
+    console.log("Error Fetching Location:", error);
+    return []
+  }
+}
+
+// Fetching Health Article
+export const fetchHealthArticle = async () => {
+  try {
+    let response = await fetch("https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=036a6dd7247c457d81bf018107237342")
+
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch The Article');
+    }
+
+    response = await response.json();
+
+    return response.articles;
+  } catch (error) {
+    console.log("Error Fetching The Article:", error);
+    return []
+  }
+}
+
 // Fetching NavOptions
 export const fetchNavOptions = async () => {
   try {

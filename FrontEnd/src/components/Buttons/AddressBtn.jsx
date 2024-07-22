@@ -1,26 +1,31 @@
+// Importing React Icons
 import { BiTargetLock } from "react-icons/bi";
+
+// Importing Services
+import { fetchInputLocation, fetchCurrLocation } from '../../service/service'
 
 import InputBtn from "./InputBtn";
 
 function AddressBtn({ setCheckAddress, setEnableAddressBox }){
-
-  function checkPostcode(){
+  async function checkPostcode(){
     const input = document.getElementById("checkAddress").value
-    const url = `https://api.postalpincode.in/pincode/${input}`
-    fetch(url).then(res=>res.json()).then(data=>{
-      setCheckAddress(`${data[0].PostOffice[0].District}, ${input}`)
-    })
+
     
+    const response = await fetchInputLocation(input);
+
+    // if(response) localStorage.setItem("location", {district: response[0]?.District, pincode: input})
+    // setCheckAddress(`${response[0]?.District}, ${input}`)
   }
 
-  function getCurrLocation(){
-    navigator.geolocation.getCurrentPosition(pos=>{
-      const {latitude,longitude} = pos.coords;
-      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-      fetch(url).then(res=>res.json()).then(data=>{
-        setCheckAddress(`${data.address.city}, ${data.address.postcode}`)
-      })
-    })
+  const getCurrLocation = async () => {
+    const response = await fetchCurrLocation();
+    console.log("response in addressBtn: ");
+    console.log(response);
+
+    if(response){
+      setCheckAddress(`${response?.city || ""}, ${response?.postcode || ""}`)
+    }
+
     setEnableAddressBox(false)
   }
 
