@@ -2,8 +2,11 @@ import {createSlice, nanoid} from '@reduxjs/toolkit'
 
 const initialState = {
   // stateItems: [{stateName: 'stateName', state: 'state', setState: 'setState'}]
+  loading: false,
   stateItems: []
 }
+
+let count = 0;
 
 export const stateSlice = createSlice({
   name: 'states',
@@ -25,16 +28,29 @@ export const stateSlice = createSlice({
         state.stateItems.push(item)
       }
     },
+
     updateState: (state, action) => {
       state.stateItems.map((item) => {
         if(item.stateName == action.payload.stateName){
           item.message = action.payload.message;
         }
       })
+    },
+
+    setLoading: (state) => {
+      count++;
+      state.loading = true;
+    },
+    resetLoading: (state) => {
+      count--;
+      if(count <= 0){
+        count = 0;
+        state.loading = false;
+      }
     }
   }
 })
 
-export const { storeStates, updateState } = stateSlice.actions
+export const { storeStates, updateState, setLoading, resetLoading } = stateSlice.actions
 
 export default stateSlice.reducer

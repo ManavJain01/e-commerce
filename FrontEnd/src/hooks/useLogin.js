@@ -1,20 +1,16 @@
-// Importing React Packages
-import { useState } from 'react';
-
 // Importing React-Redux Packages
 import { useDispatch } from 'react-redux'
 
 // importing local redux files
 import { creatingInitialState } from '../Redux/features/cartSlice'
+import { setLoading, resetLoading } from '../Redux/features/stateSlice'
 
 // Importing Services
 import { fetchCartItems } from '../service/userService';
+import { fetchCustomer } from '../service/userService'
 
 // Import useAuth
 import { useAuth } from '../routes/AuthContext'
-
-// Importing Services
-import { fetchCustomer } from '../service/userService'
 
 export const useLogin = () => {
   // useAuth
@@ -25,6 +21,7 @@ export const useLogin = () => {
 
   const login = async (ph) => {
     try {
+      dispatch(setLoading());
       
       await fetchCustomer(ph);
       
@@ -34,7 +31,9 @@ export const useLogin = () => {
       
       await loggedIn();
     } catch (error) {
-      
+      console.log("Error Loggin In: ", error);
+    } finally {
+      dispatch(resetLoading());
     }
   }
 

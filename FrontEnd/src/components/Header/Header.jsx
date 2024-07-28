@@ -2,7 +2,6 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 
-
 // Importing Local Images
 import cartLogo from './Images/cart.png'
 import loginLogo from './Images/login.png'
@@ -20,18 +19,26 @@ import { creatingInitialState } from '../../Redux/features/cartSlice'
 // Importing Services
 import { fetchCartItems } from '../../service/userService'
 
+// Importing Hooks
+import { useServices } from '../../hooks/useServices'
+
 // Importing Local Files
 import InputBtn from '../Buttons/InputBtn'
 import UserNavbar from './sections/UserNavbar'
 import Login from '../../pages/Login/Login'
 import ProductsNavbar from './sections/ProductsNavbar'
+import LoadingScreen from '../loading/LoadingScreen'
 
 import './header.css'
 
 function Header(){
+  // Custom Hooks
+  const { setCartState } = useServices();
+
   // redux
   const dispatch = useDispatch()
   const cartItems = useSelector(state => state.cart.cartItems)
+  const loading = useSelector(state => state.state.loading)
   const stateItems = useSelector(state => state.state.stateItems)
 
   // UseStates
@@ -39,6 +46,7 @@ function Header(){
   const [loginPage, setLoginPage] = useState(false);
   const [userName, setUserName] = useState({name: "", phone: "", isLoggedIn: false});
   const [itemsInCart, setItemsInCart] = useState(cartItems.length);
+  const [navOptions, setNavOptions] = useState([]);
 
   // UseMemo
   useMemo(()=>{
@@ -54,6 +62,9 @@ function Header(){
         setUserName(prevUsername => {return {...prevUsername, name: name, phone: phone, isLoggedIn: true}})
       }
 
+      // Custom Hooks Functions Call
+      setNavOptions(await setCartState());
+      
       // redux
       dispatch(storeStates({stateName: "userName", state: userName}))
       dispatch(creatingInitialState(await fetchCartItems()));
@@ -61,7 +72,7 @@ function Header(){
     
     runOnLoad();
   }, [])
-
+  
   useEffect(() => {
     const tempUser = stateItems.filter(item => item?.stateName == 'userName')
     
@@ -69,11 +80,21 @@ function Header(){
       setUserName(prevUsername => {return {...prevUsername, name: "", phone: "", isLoggedIn: false}})
     }
   }, [stateItems])
-
+  
   useEffect(() => {
     if(loginPage) document.body.style.overflowY = "hidden";
     else document.body.style.overflowY = "scroll";
   }, [loginPage])
+  
+  useEffect(() => {
+    if (!loading) {
+      window.addEventListener('scroll', changeNavbar);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', changeNavbar);
+    };
+  }, [loading]);
 
   // Functions
   const changeNavbar = () => {
@@ -90,9 +111,8 @@ function Header(){
     }
   }
 
-  window.addEventListener('scroll', changeNavbar)
-
-  return(
+  if(loading) return <LoadingScreen />
+  else return(
     <>
       <div className={`${navbar ? 'header active' : 'header'} z-[99999]`}>
         <div className="bg-white w-screen h-[5rem] px-10 flex justify-between items-center">
@@ -143,7 +163,7 @@ function Header(){
               </Link>
             </li>
 
-            <li className="relative"><ProductsNavbar /></li>
+            <li className="relative"><ProductsNavbar navOptions={navOptions} /></li>
           </ul>
 
           <div className="flex sm:hidden relative">
