@@ -2,7 +2,7 @@
 // npm i dotenv
 
 // Accessing Conf File
-import Conf from '../Conf/Conf'
+import Conf from '../../Conf/Conf'
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";

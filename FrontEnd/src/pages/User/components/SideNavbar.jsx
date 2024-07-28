@@ -40,11 +40,11 @@ export default function SideNavbar() {
       link: "medicalRecords",
       icon: <FaBookMedical />
     },
-    {
-      option: "Saved for Later",
-      link: "savedForLater",
-      icon: <BiSave />
-    },
+    // {
+    //   option: "Saved for Later",
+    //   link: "savedForLater",
+    //   icon: <BiSave />
+    // },
     {
       option: "Wallet",
       link: "wallet",

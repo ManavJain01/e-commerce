@@ -40,7 +40,8 @@ function Login({ loginPage, setLoginPage, setUserName }){
 
     // When Submitting Otp
   const onOtpSubmit = async (otp) => {
-    try{   
+    try{ 
+      console.log("onOtpSubmit");  
       await ph.confirmation.confirm(otp)
       getCustomer();
     }catch(err){

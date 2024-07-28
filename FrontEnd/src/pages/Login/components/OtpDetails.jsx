@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 // Importing Firebase configuration
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
-import { auth } from "../../../Firebase/firebase.config"
+import { auth } from "../../../Login Auths/Firebase/firebase.config"
 
 function OtpDetails({ ph, setPh, setOtp, length, setGenerateOtpPage }){
   // Variables

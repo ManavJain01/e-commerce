@@ -14,11 +14,13 @@ function UserNavbar({ userName, setUserName }){
     id:1,
     name:"My Orders",
     link:"User/myOrders"
-  },{
-    id:2,
-    name:"Save For Later",
-    link:"User/SavedForLater"
-  },{
+  },
+  // {
+  //   id:2,
+  //   name:"Save For Later",
+  //   link:"User/SavedForLater"
+  // },
+  {
     id:3,
     name:"My Refills",
     link:"User/myRefills"

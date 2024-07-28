@@ -1,144 +1,48 @@
-// Importing React Packages
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import '../public/assets/styles/index.css'
-import { RouterProvider, createBrowserRouter, Route, Navigate } from 'react-router-dom'
+// Importing Local Components
+import Header from './components/Header/Header'
+import Footer from './pages/Footer/Footer'
+import ScrollToTop from './components/scroll/ScrollToTop'
+import LoadingScreen from './components/loading/LoadingScreen'
 
-// Import Local components
-import { AuthProvider } from './routes/AuthContext'
-import ProtectedRoute from './routes/ProtectedRoute'
-import Layout from './routes/Layout'
+// Import Custom Hooks
+import { useLoading } from './hooks/useLoading'
 
-// Header Links
-import Home from './pages/Home Page/Main'
-import MedicinePage from './pages/Products/Medicines/MedicinePage'
-import Categories from './pages/Products/Categories/Categories'
-import FilteredCategories from './pages/Products/Categories/FilteredCategories'
-import ProductCard2 from './components/Product Card/ProductCard2'
-// User Links
-import User from './pages/User/pages/User'
-import Profile from './pages/User/pages/Profile'
-import MyOrders from './pages/User/pages/MyOrders'
-import MyRefills from './pages/User/pages/MyRefills'
-import MedicalRecords from './pages/User/pages/MedicalRecords'
-import SavedForLater from './pages/User/pages/SavedForLater'
-import Wallet from './pages/User/pages/Wallet'
-import ReferEarn from './pages/User/pages/ReferEarn'
-import Cart from './pages/Cart/Cart'
-// Footer Links
-import FAQ from './pages/Footer/Company/Help'
-import Health from './pages/Footer/Company/Health'
-import Terms from './pages/Footer/Legal/Terms'
-import Privacy from './pages/Footer/Legal/Privacy'
-import Editorial from './pages/Footer/Legal/Editorial'
-import Returns from './pages/Footer/Legal/Returns'
+// Importing routing
+import { Outlet } from 'react-router-dom'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Layout />,
-    children : [
-      // Header Links-----------------------------------------------------------------
-      {
-        path: "",
-        element : <Home />
-      },
-      {
-        path: "Home",
-        element : <Home />
-      },
-      {
-        path: "Medicines",
-        element: <MedicinePage />
-      },
-      {
-        path: "Categories",
-        element: <Categories />
-      },
-      {
-        path: "Categories/:type",
-        element: <FilteredCategories />
-      },
-      {
-        path: "Products/:type",
-        element: <ProductCard2 />
-      },
-      // User Links-------------------------------------------------------------------
-      {
-        path: "User",
-        element: <ProtectedRoute element={<User />} />,
-        children: [
-          {
-            path: "profile",
-            element: <ProtectedRoute element={<Profile />} />
-          },
-          {
-            path: "MyOrders",
-            element: <ProtectedRoute element={<MyOrders />} />
-          },
-          {
-            path: "MyRefills",
-            element: <ProtectedRoute element={<MyRefills />} />
-          },
-          {
-            path: "MedicalRecords",
-            element: <ProtectedRoute element={<MedicalRecords />} />
-          },
-          {
-            path: "SavedForLater",
-            element: <ProtectedRoute element={<SavedForLater />} />
-          },
-          {
-            path: "Wallet",
-            element: <ProtectedRoute element={<Wallet />} />
-          },
-          {
-            path: "Refer&Earn",
-            element: <ProtectedRoute element={<ReferEarn />} />
-          }
-        ]
-      },
-      {
-        path: "Cart",
-        element: <Cart />
-      },
-      // Footer---------------------------------------------------------------------
-      {
-        path: "Company/Help",
-        element: <FAQ />
-      },
-      {
-        path: "Company/Health-Article",
-        element: <Health />
-      },
-      {
-        path: "Legal/Terms&Conditions",
-        element: <Terms />
-      },
-      {
-        path: "Legal/Privacy-policy",
-        element: <Privacy />
-      },
-      {
-        path: "Legal/Editorial-policy",
-        element: <Editorial />
-      },
-      {
-        path: "Legal/Returns&Cancellation-policy",
-        element: <Returns />
-      },
-      {
-        path: "*",
-        element: <Navigate to="/" />
-      }
-    ]
+// Importing Css styles
+import { createGlobalStyle } from "styled-components"
+
+// Importing Redux Configuration
+import {Provider} from 'react-redux'
+import {store} from './Redux/Store/store'
+
+
+const GlobalStyle = createGlobalStyle`
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-])
+`
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </React.StrictMode>
-)
+function Layout(){
+  // Custom Hook
+  const { loading } = useLoading();
+
+  return(
+    <>
+      <Provider store={store}>
+        <div className={`overflow-x-hidden flex flex-col ${loading ? "h-lvh overflow-hidden" : ""}`}>
+          <ScrollToTop />
+          {loading && <LoadingScreen />}
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
+      </Provider>
+    </>
+  )
+}
+
+export default Layout;

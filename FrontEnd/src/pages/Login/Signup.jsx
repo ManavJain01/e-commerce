@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 // Importing Firebase configuration
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
-import { auth } from "../../Firebase/firebase.config"
+import { auth } from "../../Login Auths/Firebase/firebase.config"
 
 function Signup({ setPh, setGenerateOtpPage, setLoginPage, tempLogin }){
   // Variables
@@ -62,6 +62,7 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage, tempLogin }){
     }else{
       e.target.disabled = true
       tempPh = "+91 " + input.value;
+      console.log("PHone number:", tempPh);
       setPh(prevPh => {return{...prevPh, phone: tempPh}})
 
       if(import.meta.env.VITE_REACT_APP_NODE_ENV == 'production') sendOtp();
@@ -71,10 +72,12 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage, tempLogin }){
 
   const sendOtp = async() => {
     try{
+      console.log("in SendOtp");
       setLoading(true)
       const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {})
+      console.log("recaptcha:", recaptcha);
       const confirm = await signInWithPhoneNumber(auth, tempPh, recaptcha)
-      
+      console.log("confirm:", confirm);
       await setPh(prevPh => {return{...prevPh, confirmation: confirm}})
       setLoading(false);
       await setGenerateOtpPage(true)
