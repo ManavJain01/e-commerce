@@ -9,8 +9,8 @@ import { useState, useEffect, useMemo } from "react";
 // Imaporting Local Files
 import ProductCard from '../../../components/Product Card/ProductCard'
 
-// Importing Services
-import { fetchFilteredProducts, fetchAllProducts } from '../../../service/service'
+// Importing Custom Hooks
+import { useServices } from "../../../hooks/useServices";
 
 import Filters from './components/Filters'
 import FilteredComponent from './components/FilteredComponent';
@@ -20,6 +20,10 @@ function FilteredCategories(){
   if(useLocation().state) propsValue = useLocation().state.value;
   else propsValue = useParams()
 
+  // Custom Hooks
+  const { getFilteredProducts, getAllProducts } = useServices();
+
+  // useStates
   const [filtered, setFiltered] = useState({ isActive:false })
   const [categoryTitle, setCategoryTitle] = useState(Array.isArray(propsValue) ? propsValue[0] : propsValue)
   const [categories, setCategories] = useState([])
@@ -31,10 +35,10 @@ function FilteredCategories(){
     // Getting Data From BackEnd
     const getData = async () => {
 
-      const filteredData = await fetchFilteredProducts(propsValue);
-      const allData = await fetchAllProducts();
+      const filteredData = await getFilteredProducts(propsValue);
+      const allData = await getAllProducts();
 
-      setCategories(filteredData.data)
+      setCategories(filteredData?.data)
       setAllCategories(allData)
       setFiltered({ filters: filteredData?.data?.filters, isActive: false })
     }

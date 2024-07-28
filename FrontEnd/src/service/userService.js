@@ -12,19 +12,13 @@ export const fetchCustomer = async (phone) => {
     
     const data = response.data.data;
 
-    // setting localStorage variables
-    localStorage.setItem("authToken", response.data.authToken);
-    localStorage.setItem("phoneNumber", data.phone);
-    localStorage.setItem("name", data.name ? data.name : "");
-    localStorage.setItem("id", data._id);
-
     const responseData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/CustomerData`, { _id: data._id })
 
     if (responseData.status !== 200) {
       throw new Error('Failed to fetch Customer Data');
     }
 
-    return data;
+    return response.data;
   } catch (error) {
     console.log('Error fetching Customer:', error);
     return {};

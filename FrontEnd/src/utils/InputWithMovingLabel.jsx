@@ -7,15 +7,21 @@ import { useState ,useEffect } from "react";
 // Importing Local Component
 import Input from "../components/common/Input";
 
-export default function InputWithMovingLabel({label, type="text", placeholder, required=false}) {
+export default function InputWithMovingLabel({label, type="text", placeholder, value, name, onChange, required=false}) {
   // UseState
   // const [isInvalid, setIsInvalid] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
+  // useEffect
+  useEffect(() => {
+    setInputValue(value)
+  }, [value])
 
   // Functions
   const handleChange = (e) => {
     if (e.target.value) {
       setInputValue(e.target.value);
+      onChange(e);
     } else {
       setInputValue("");
       // setIsInvalid(true);
@@ -37,6 +43,7 @@ export default function InputWithMovingLabel({label, type="text", placeholder, r
           placeholder={placeholder}
           required
           value={inputValue}
+          name={name}
           onChange={(e) => handleChange(e)}
           onBlur={() => handleBlur()}
           className={`peer text-2xl w-full border-2 border-blue-400
@@ -62,19 +69,3 @@ export default function InputWithMovingLabel({label, type="text", placeholder, r
     </>
   )
 }
-
-/*
-        <input
-          type={type}
-          id={label}
-          placeholder={placeholder}
-          onChange={(e) => handleChange(e)}
-          className={`peer text-2xl w-full px-5 py-2 border-2 border-blue-400 rounded-md outline-none duration-700
-            placeholder:pl-24 focus:placeholder:pl-0 placeholder:duration-700
-            valid:border-green-400
-            ${isInvalid ? "invalid:border-red-400" : ""}`}
-          required
-        />
-
-
-*/

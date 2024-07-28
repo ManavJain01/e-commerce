@@ -5,18 +5,21 @@ import ProductCard from '../../../components/Product Card/ProductCard'
 // Importing React Packages
 import { useState, useEffect } from 'react'
 
-// Importing services
-import { fetchMedicines } from '../../../service/service'
-
+// Importing Hooks
+import { useServices } from '../../../hooks/useServices'
 
 function MedicinePage(){
+  // useStates
   const [medicines, setMedicines] = useState()
+
+  // use Custom Hooks
+  const { getMedicines } = useServices();
 
   // Getting Medicines API
   useEffect(() => {
     const getData = async () => {
-      const response = await fetchMedicines();
-      setMedicines(response);
+      const response = await getMedicines();
+      setMedicines(await response);
     }
 
     getData();

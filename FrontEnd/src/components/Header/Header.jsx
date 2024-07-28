@@ -33,13 +33,14 @@ import './header.css'
 
 function Header(){
   // Custom Hooks
-  const { setCartState } = useServices();
+  const { getNavOptions } = useServices();
 
   // redux
   const dispatch = useDispatch()
   const cartItems = useSelector(state => state.cart.cartItems)
   const loading = useSelector(state => state.state.loading)
   const stateItems = useSelector(state => state.state.stateItems)
+  // const customer = useSelector(state => state.user.user)
 
   // UseStates
   const [navbar, setNavbar] = useState(false);
@@ -57,17 +58,18 @@ function Header(){
   useEffect(() => {
     const runOnLoad = async () => {
       if(localStorage.getItem("authToken")){
-        let name = localStorage.getItem('name') && localStorage.getItem('name').split(' ')[0];
-        let phone = localStorage.getItem("phoneNumber")
-        setUserName(prevUsername => {return {...prevUsername, name: name, phone: phone, isLoggedIn: true}})
+        // redux
+        dispatch(storeStates({stateName: "userName", state: userName}))
+        dispatch(creatingInitialState(await fetchCartItems()));
+
+        // let name = localStorage.getItem('name') && localStorage.getItem('name').split(' ')[0];
+        // let phone = localStorage.getItem("phoneNumber")
+        setUserName(prevUsername => {return {...prevUsername, isLoggedIn: true}})
       }
 
       // Custom Hooks Functions Call
-      setNavOptions(await setCartState());
+      setNavOptions(await getNavOptions());
       
-      // redux
-      dispatch(storeStates({stateName: "userName", state: userName}))
-      dispatch(creatingInitialState(await fetchCartItems()));
     }
     
     runOnLoad();

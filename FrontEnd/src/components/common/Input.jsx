@@ -1,8 +1,9 @@
-export default function Input({children, type="text", value, id, placeholder, required, onChange, onBlur, className}) {
+export default function Input({type="text", value, name, id, placeholder, required, onChange, onBlur, className}) {
   return (
     <input
       type={type}
       value={value}
+      name={name}
       id={id}
       placeholder={placeholder}
       required={required}

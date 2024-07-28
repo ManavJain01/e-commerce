@@ -14,15 +14,20 @@ import { useState, useEffect } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-// Importing services
-import { fetchHealthArticle } from "../../service/service";
+// Importing Custom Hooks
+import { useServices } from "../../hooks/useServices";
 
 function Main(){
+  // useStates
   const [articles, setArticles] = useState([])
 
+  // use Hooks
+  const { getHealthArticle } = useServices();
+
+  // useEffect
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchHealthArticle();
+      const response = await getHealthArticle();
       setArticles(response);
     }
 

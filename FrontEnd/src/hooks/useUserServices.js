@@ -2,8 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // Importing Services
-import { fetchCartItems } from '../service/userService';
-import { fetchOrders } from '../service/userService';
+import { fetchCartItems, fetchOrders } from '../service/userService';
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';

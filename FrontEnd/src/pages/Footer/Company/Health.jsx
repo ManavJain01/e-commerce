@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 
-// Importing services
-import { fetchHealthArticle } from "../../../service/service";
+// Importing Custom Hooks
+import { useServices } from "../../../hooks/useServices";
 
 function Health(){
+  // useStates
   const [articles, setArticles] = useState([])
+
+  // use Custom Hooks
+  const { getHealthArticle } = useServices();
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchHealthArticle();
-      setArticles(response);
+      const response = await getHealthArticle();
+      setArticles(await response);
     }
 
     fetchData();

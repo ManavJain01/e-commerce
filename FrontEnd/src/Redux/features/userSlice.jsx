@@ -1,42 +1,41 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit'
 
 const initialState = {
-  users: [],
+  user: {},
 }
 
-let i = users.length;
-
 export const userSlice = createSlice({
-  name: 'users',
+  name: 'user',
   initialState,
   reducers: {
     addUser: (state, action) => {
       let isAvailable = false
-      state.users.map((item) =>{
-        if(item.name === action.payload) isAvailable = true;
-      })
+      if(state.user.id === action.payload?.id) isAvailable = true
+
       if(!isAvailable){
         const user = {
-          id: i++,
-          name: action.payload.name,
-          phnNo: action.payload.phone,
-          address: "",
+          address: action.payload?.address,
+          age: action.payload?.age,
+          email: action.payload?.email,
+          gender: action.payload?.gender,
+          id: action.payload.id,
+          name: action.payload?.name,
+          phone: action.payload.phone,
         }
-        state.users.push(user)
+        state.user = user
       }
     },
-    removeUser: (state, action) => {
-      i--;
-      state.users = state.users.filter((item) => item.name !== action.payload )
+    removeUser: (state) => {
+      state.user = {}
     },
     updateUser: (state, action) => {
-      state.users.map((item) =>{
-        if(item.name === action.payload){
-          item.name = action.payload.name
-          item.phnNo = action.payload.phone
-          item.address = action.payload.address
-        }
-      })
+      state.user.address = action.payload?.address,
+      state.user.age = action.payload?.age,
+      state.user.email = action.payload?.email,
+      state.user.gender = action.payload?.gender,
+      state.user.id = action.payload.id,
+      state.user.name = action.payload?.name,
+      state.user.phone = action.payload.phone
     }
   }
 })
