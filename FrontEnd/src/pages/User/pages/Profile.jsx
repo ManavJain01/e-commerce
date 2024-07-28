@@ -1,25 +1,28 @@
-// Importing React Icons
-import { MdOutlineStarPurple500 } from "react-icons/md";
-
 // Importing React Packages
 import { useEffect, useState } from 'react'
 
 // Importing React Redux
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 // Importing Local Components
 import InputWithMovingLabel from "../../../utils/InputWithMovingLabel";
 import GenderCheckBox from "../../../utils/GenderCheckBox";
 import Button from '../../../components/common/Button'
 
+// Importing Custom Hooks
+import { useUserServices } from '../../../hooks/useUserServices'
+
 export default function Profile() {
   // redux
   const customer = useSelector(state => state.user.user)
 
+  // Custom Hooks
+  const { getCustomerUpdated } = useUserServices();
+
   // UseState
   const [verifyBtn, setVerifyBtn] = useState(false);
   const [data, setData] = useState({
-    address: "",
+    address1: "",
     age: "",
     email: "",
     gender: "",
@@ -31,7 +34,7 @@ export default function Profile() {
   // UseEffect
   useEffect(() => {
     setData({
-      address: customer?.address || "",
+      address1: customer?.address || "",
       age: customer?.age || "",
       email: customer?.email || "",
       gender: customer?.gender || "",
@@ -59,7 +62,7 @@ export default function Profile() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    console.log(data);
+    await getCustomerUpdated(data);
   }
 
   return (
@@ -84,8 +87,8 @@ export default function Profile() {
         </div>
 
         {/* Address */}
-        <InputWithMovingLabel label="Address 1" type="text" value={data?.address} name="address1" onChange={(e) => handleInputChange(e)} />
-        <InputWithMovingLabel label="Address 2" type="text" value={data?.address} name="address2" onChange={(e) => handleInputChange(e)} placeholder="optional..." />
+        <InputWithMovingLabel label="Address 1" type="text" value={data?.address1} name="address1" onChange={(e) => handleInputChange(e)} />
+        <InputWithMovingLabel label="Address 2" type="text" value={data?.address1} name="address2" onChange={(e) => handleInputChange(e)} placeholder="optional..." />
 
         <Button onClick={(e) => handleSave(e)} className="font-semibold text-[25px] text-white bg-green-600 py-2 px-8 ml-auto border-none">Save</Button>
       </form>

@@ -14,6 +14,15 @@ const CustomerSchema = new Schema({
   email:{
     type: String
   },
+  age:{
+    type: Number
+  },
+  gender:{
+    type: String
+  },
+  address:{
+    type: String
+  },
   signupLocation:{
     type: Object,
     required: true

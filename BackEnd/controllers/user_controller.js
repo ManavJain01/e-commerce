@@ -22,6 +22,16 @@ const findCustomerData = async (req, res) => {
   }
 }
 
+const UpdateCustomer = async (req, res) => {
+  try {
+    const result = await user_service.getCustomerUpdated(req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(400).send(error);
+  }
+}
+
 const findCartData = async (req, res) => {
   try {
     const result = await user_service.getCartData(req.query.id);
@@ -93,4 +103,4 @@ const findSaveForLater = async (req, res) => {
 }
 
 // Exporting controllers
-module.exports = { findCustomer, findCustomerData, findCartData, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart, findOrders, findRefills, findSaveForLater }
+module.exports = { findCustomer, findCustomerData, UpdateCustomer, findCartData, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart, findOrders, findRefills, findSaveForLater }

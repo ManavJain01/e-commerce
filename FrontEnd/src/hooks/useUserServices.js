@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // Importing Services
-import { fetchCartItems, fetchOrders } from '../service/userService';
+import { updateCustomer, fetchCartItems, fetchOrders } from '../service/userService';
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
@@ -15,21 +15,32 @@ export const useUserServices = () => {
 
   // UseStates
 
+  const getCustomerUpdated = async (data) => {
+    try {
+      dispatch(setLoading());
+      await updateCustomer(data);
+    } catch (error) {
+      console.log("Error Updating The Customer: ", error);
+    } finally {
+      dispatch(resetLoading());
+    }
+  }
+
   const getCartItems = async () => {
     try {
-      setLoading();
+      dispatch(setLoading());
       dispatch(creatingInitialState(await fetchCartItems()));
 
     } catch (error) {
       console.log("Error Getting Cart Items: ", error);
     } finally {
-      resetLoading();
+      dispatch(resetLoading());
     }
   }
 
   const getOrders = async () => {
     try {
-      setLoading();
+      dispatch(setLoading());
       const data = await fetchOrders();
   
       return data;
@@ -37,9 +48,9 @@ export const useUserServices = () => {
       console.log("Error Getting Orders: ", error);
       return [];
     } finally {
-      resetLoading();
+      dispatch(resetLoading());
     }
   }
 
-  return { getCartItems, getOrders }
+  return { getCustomerUpdated, getCartItems, getOrders }
 }

@@ -66,6 +66,22 @@ const getCustomerData = async (data) => {
   }
 }
 
+// Update The Customer
+const getCustomerUpdated = async (data) => {
+  try {
+    await CustomerModel.findByIdAndUpdate(data.id, {
+      address: data.address1,
+      age: data.age,
+      email: data.email,
+      gender: data.gender,
+      name: data.name
+    });
+
+  } catch (error) {
+    return error;
+  }
+}
+
 // Fetch Cart Data
 const getCartData = async (id) => {
   try {
@@ -152,4 +168,4 @@ const getSaveForLater = async (id) => {
   }
 }
 
-module.exports = { getCustomer, getCustomerData, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater }
+module.exports = { getCustomer, getCustomerData, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater }

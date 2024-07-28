@@ -25,10 +25,25 @@ export const fetchCustomer = async (phone) => {
   }
 }
 
+// Update Customer
+export const updateCustomer = async (data) => {
+  try {
+    if(localStorage.getItem('authToken')){
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/UpdateCustomer`, data)
+      
+      if (response.status !== 200) {
+        throw new Error('Failed to get Customer Updated');
+      }
+    }
+  } catch (error) {
+    console.log("Error Updating The Customer: ", error);
+  }
+}
+
 // Cart
 export const fetchCartItems = async () => {
   try {
-    if(localStorage.getItem('authToken') && localStorage.getItem('id')){
+    if(localStorage.getItem('authToken')){
       const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/cart`, { params: { id: localStorage.getItem('id') }})
       
       if (response.status !== 200) {
@@ -50,7 +65,7 @@ export const fetchCartItems = async () => {
 // Orders
 export const fetchOrders = async () => {
   try {
-    if(localStorage.getItem('authToken') && localStorage.getItem('id')){
+    if(localStorage.getItem('authToken')){
       const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/orders`, { params: { id: localStorage.getItem('id') }})
       
       if (response.status !== 200) {
@@ -70,7 +85,7 @@ export const fetchOrders = async () => {
 // Refills
 export const fetchRefills = async () => {
   try {
-    if(localStorage.getItem('authToken') && localStorage.getItem('id')){
+    if(localStorage.getItem('authToken')){
       const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/refills`, { params: { id: localStorage.getItem('id') }})
       
       if (response.status !== 200) {
@@ -90,7 +105,7 @@ export const fetchRefills = async () => {
 // SaveForLater
 export const fetchSaveForLater = async () => {
   try {
-    if(localStorage.getItem('authToken') && localStorage.getItem('id')){
+    if(localStorage.getItem('authToken')){
       const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/saveForLater`, { params: { id: localStorage.getItem('id') }})
       
       if (response.status !== 200) {
