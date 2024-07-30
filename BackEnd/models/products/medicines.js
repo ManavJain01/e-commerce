@@ -11,5 +11,7 @@ const itemSchema = mongoose.Schema({
   description: String,
 })
 
+itemSchema.index({ item: 'text', company: 'text', description: 'text' });
+
 const MedicineModel = mongoose.model('product_medicines', itemSchema)
 module.exports = MedicineModel

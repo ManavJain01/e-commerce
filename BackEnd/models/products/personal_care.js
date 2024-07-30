@@ -23,5 +23,8 @@ const PersonalCareSchema = mongoose.Schema({
   subitems: [subItemSchema]
 })
 
+itemSchema.index({ item: 'text', company: 'text', description: 'text' });
+PersonalCareSchema.index({ item: 'text', category: 'text', subCategory: 'text' });
+
 const PersonalCareModel = mongoose.model('product_personal_cares', PersonalCareSchema)
 module.exports = PersonalCareModel

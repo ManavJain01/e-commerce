@@ -17,5 +17,8 @@ const DiabetesCareSchema = mongoose.Schema({
   subitems: [itemSchema]
 })
 
+itemSchema.index({ item: 'text', company: 'text', description: 'text' });
+DiabetesCareSchema.index({ item: 'text', category: 'text' });
+
 const DiabetesCareModel = mongoose.model('product_diabetes_cares', DiabetesCareSchema)
 module.exports = DiabetesCareModel

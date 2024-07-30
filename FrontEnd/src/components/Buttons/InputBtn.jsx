@@ -2,73 +2,37 @@
 import { IoIosArrowDown } from "react-icons/io";
 
 // Import React Packages
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 // Import Local Components
-import { medicines } from '../../pages/Products/Medicines/components/MedicinesAPI'
 import SearchFiltered from '../Search/SearchFiltered'
 import AddressBtn from "./AddressBtn";
 
+// Importing Hooks
+import { useServices } from '../../hooks/useServices'
+
 function InputBtn(e){
+  // Custom Hooks
+  const { getSearchResult } = useServices();
+
   // UseStates
   const [filtered, setFiltered] = useState(null)
-  const [filtered2, setFiltered2] = useState(null)
-  const [filtered3, setFiltered3] = useState(null)
-  const [filtered4, setFiltered4] = useState(null)
-  const [filtered5, setFiltered5] = useState(null)
   const [ enableAddressBox, setEnableAddressBox ] = useState(false)
   const [ checkAddress, setCheckAddress ] = useState("Deliver to")
 
   // Functions
-  function searchInputOnChange(e){
-    let tempForFiltered2 = []
-    let tempForFiltered3 = []
-    let tempForFiltered4 = []
-    let tempForFiltered5 = []
+  async function searchInputOnChange(e){
     let target = e.target.value;
     if(target == ""){
       setFiltered("")
-      setFiltered2("")
-      setFiltered3("")
-      setFiltered4("")
-      setFiltered5("")
     }else{
-      // Set Filtered
-      setFiltered(medicines.filter(item => item.type.toLowerCase().includes((e.target.value).toLowerCase())))
-      
-      medicines.map(item =>{
-        item.list && item.list.filter((x => {
-          // Set Filtered2
-          if(x.name.toLowerCase().includes(target.toLowerCase())) return tempForFiltered2.push(x);
-
-          // Set Filtered 3
-          x.Items && x.Items.map((y) => {
-            if(y.name.toLowerCase().includes(target.toLowerCase())) return tempForFiltered3.push(y);
-          })
-
-          x.subList && x.subList.map((y) => {
-            if(y.subItems.toLowerCase().includes(target.toLowerCase())) return tempForFiltered4.push(y);
-
-            y.Items && y.Items.map((z) => {
-            if(z.name.toLowerCase().includes(target.toLowerCase())) return tempForFiltered5.push(z);
-            })
-          })
-        }))
-      })
-      setFiltered2(tempForFiltered2)
-      setFiltered3(tempForFiltered3)
-      setFiltered4(tempForFiltered4)
-      setFiltered5(tempForFiltered5)
+      await getSearchResult(target);
     }
   }
 
   function searchInputOnClick(e){
     e.preventDefault()
     setFiltered("")
-    setFiltered2("")
-    setFiltered3("")
-    setFiltered4("")
-    setFiltered5("")
   }
 
     if(e.title == "header-input" && e.id == "enable"){
@@ -86,7 +50,7 @@ function InputBtn(e){
           <button className="bg-blue-600 text-white font-semibold h-12 px-8 rounded-e-lg absolute right-9">{e.button}</button>
         </form>
 
-        <SearchFiltered filtered={filtered} setFiltered={setFiltered} filtered2={filtered2} setFiltered2={setFiltered2} filtered3={filtered3} setFiltered3={setFiltered3} filtered4={filtered4} setFiltered4={setFiltered4} filtered5={filtered5} setFiltered5={setFiltered5} />
+        <SearchFiltered filtered={filtered} setFiltered={setFiltered} />
       </div>
     )
   }
@@ -106,7 +70,7 @@ function InputBtn(e){
         </form>
 
         <div className="z-50 absolute top-12 left-1 w-full">
-          <SearchFiltered filtered={filtered} setFiltered={setFiltered} filtered2={filtered2} setFiltered2={setFiltered2} filtered3={filtered3} setFiltered3={setFiltered3} filtered4={filtered4} setFiltered4={setFiltered4} filtered5={filtered5} setFiltered5={setFiltered5} />
+          <SearchFiltered filtered={filtered} setFiltered={setFiltered} />
         </div>
       </div>
     )

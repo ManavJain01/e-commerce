@@ -23,5 +23,8 @@ const HealthConditionSchema = mongoose.Schema({
   subitems: ([subItemSchema] || [itemSchema])
 })
 
+itemSchema.index({ item: 'text', company: 'text', description: 'text' });
+HealthConditionSchema.index({ item: 'text', category: 'text', subCategory: 'text' });
+
 const HealthConditionModel = mongoose.model('product_health_conditions', HealthConditionSchema)
 module.exports = HealthConditionModel

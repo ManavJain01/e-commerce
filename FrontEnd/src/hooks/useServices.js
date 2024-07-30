@@ -1,5 +1,5 @@
 // Importing Services
-import { fetchNavOptions, fetchFilteredProducts, fetchAllProducts, fetchMedicines, fetchHealthArticle } from '../service/service'
+import { fetchNavOptions, fetchSearchResult, fetchFilteredProducts, fetchAllProducts, fetchMedicines, fetchHealthArticle } from '../service/service'
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
@@ -83,5 +83,14 @@ export const useServices = () => {
     }
   }
 
-  return { setCart, getNavOptions, getFilteredProducts, getAllProducts, getMedicines, getHealthArticle }
+  const getSearchResult = async (query) => {
+    try {
+      return await fetchSearchResult(query);
+    } catch (error) {
+      console.log("Error Getting Search Result:", error);
+      return "";
+    }
+  }
+
+  return { setCart, getNavOptions, getFilteredProducts, getAllProducts, getMedicines, getHealthArticle, getSearchResult }
 }

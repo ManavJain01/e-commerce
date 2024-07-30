@@ -13,6 +13,18 @@ const findNavOptions = async (req, res) => {
   }
 }
 
+// Search Controller
+const searchData = async (req, res) => {
+  try {
+    const result = await service.getSearchData(req.query.query);
+    res.status(200).send(result);
+
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(400).send(error);
+  }
+}
+
 // Medicines Controller
 const findAllMedicines = async (req, res) => {
   try {
@@ -52,6 +64,5 @@ const findCategory = async (req, res) => {
   }
 }
 
-
 // Exporting controllers
-module.exports = { findNavOptions, findAllMedicines, findAllCategory, findCategory }
+module.exports = { findNavOptions, findAllMedicines, findAllCategory, findCategory, searchData }

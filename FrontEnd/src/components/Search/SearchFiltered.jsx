@@ -1,18 +1,16 @@
+// Importing React Icons
 import { CiSearch } from "react-icons/ci";
 import { FaArrowRight } from "react-icons/fa6";
 
+// Importing React Packages
 import { Link } from 'react-router-dom'
 
-function SearchFiltered({ filtered, filtered2, filtered3, filtered4, filtered5, setFiltered, setFiltered2, setFiltered3, setFiltered4, setFiltered5 }){
+function SearchFiltered({ filtered, setFiltered }){
   function clearSearch(){
     setFiltered("")
-    setFiltered2("")
-    setFiltered3("")
-    setFiltered4("")
-    setFiltered5("")
   }
 
-  if((filtered && filtered != "") || (filtered2 && filtered2 != "") || (filtered3 && filtered3 != "") || (filtered4 && filtered4 != "") || (filtered5 && filtered5 != "")) return(
+  if((filtered && filtered != "")) return(
     <div onClick={()=>clearSearch()} className="bg-white font-bold text-lg flex flex-col max-h-[15rem] mx-9 py-2 rounded-md shadow-md shadow-gray-500 overflow-y-scroll">
       {filtered && filtered != "" && filtered.map((e) => {
         return(
@@ -23,64 +21,6 @@ function SearchFiltered({ filtered, filtered2, filtered3, filtered4, filtered5, 
           className="p-2 hover:bg-green-200 flex items-center justify-between">
             {e.type}
             <CiSearch className="size-7 text-green-500" />
-          </Link>
-        )
-      })}
-
-      {filtered2 && filtered2.map((e) => {
-        if(e.company) return(
-          <Link
-          key={e.name}
-          to='/Products/parameter-data'
-          state={{value: e}}
-          className="p-2 hover:bg-green-200 flex items-center justify-between">
-            {e.name}
-            <FaArrowRight className="size-7 text-green-500" />
-          </Link>
-        )
-        else return(
-          <Link
-          key={e.name}
-          className="p-2 hover:bg-green-200 flex items-center justify-between">
-            {e.name}
-            <CiSearch className="size-7 text-green-500" />
-          </Link>
-        )
-      })}
-
-      {filtered3 && filtered3.map((e) =>{
-        return(
-          <Link
-          key={e.name}
-          to='/Products/parameter-data'
-          state={{value: e}}
-          className="p-2 hover:bg-green-200 flex items-center justify-between">
-            {e.name}
-            <FaArrowRight className="size-7 text-green-500" />
-          </Link>
-        )
-      })}
-
-      {filtered4 && filtered4.map((e) =>{
-        return(
-          <Link
-          key={e.subItems}
-          className="p-2 hover:bg-green-200 flex items-center justify-between">
-            {e.subItems}
-            <CiSearch className="size-7 text-green-500" />
-          </Link>
-        )
-      })}
-
-      {filtered5 && filtered5.map((e) =>{
-        return(
-          <Link
-          key={e.name}
-          to='/Products/parameter-data'
-          state={{value: e}}
-          className="p-2 hover:bg-green-200 flex items-center justify-between">
-            {e.name}
-            <FaArrowRight className="size-7 text-green-500" />
           </Link>
         )
       })}

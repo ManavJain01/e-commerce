@@ -10,6 +10,29 @@ const vitamins_supplementModel = require('../models/products/vitamins&supplement
 const DiabetesCareModel = require('../models/products/disbetes_care')
 const HealthcareDeviceModel = require('../models/products/healthcare_devices')
 
+// Search Functionality
+const getSearchData = async (query) => {
+  try {
+    const medicineResults = await MedicineModel.find({ $text: { $search: query } });
+    const personalCareResults = await PersonalCareModel.find({ $text: { $search: query } });
+    const healthConditionResults = await HealthConditionModel.find({ $text: { $search: query } });
+    const vitaminsSupplementResults = await vitamins_supplementModel.find({ $text: { $search: query } });
+    const diabetesCareResults = await DiabetesCareModel.find({ $text: { $search: query } });
+    const healthcareDeviceResults = await HealthcareDeviceModel.find({ $text: { $search: query } });
+
+    return {
+      medicines: medicineResults,
+      personalCare: personalCareResults,
+      healthConditions: healthConditionResults,
+      vitaminsSupplements: vitaminsSupplementResults,
+      diabetesCare: diabetesCareResults,
+      healthcareDevices: healthcareDeviceResults,
+    };
+  } catch (error) {
+    return error;
+  }
+}
+
 // Sending Navbar Structure
 const getNavOptions = async () => {
   try {
@@ -27,7 +50,6 @@ const getMedicines = async () => {
     return error
   }
 }
-
 
 // Creating Categories
   // Functions for Services
@@ -104,4 +126,4 @@ async function getCategory(category, subCategory){
 }
 
 
-module.exports = { getNavOptions, getMedicines, getAllCategories, getCategory }
+module.exports = { getSearchData, getNavOptions, getMedicines, getAllCategories, getCategory }

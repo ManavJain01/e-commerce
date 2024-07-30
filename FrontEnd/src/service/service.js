@@ -74,6 +74,23 @@ export const fetchNavOptions = async () => {
   }
 }
 
+// Fetching Search Results
+export const fetchSearchResult = async (query) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/search`, { params: {query: query} });
+
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch Results of Search');
+    }
+
+    console.log(response.data);
+    return response.data; 
+  } catch (error) {
+    console.log("Error while fetching Search Result/s: ", error);
+    return {};
+  }
+}
+
 // Fetching Medicines
 export const fetchMedicines = async () => {
   try {
