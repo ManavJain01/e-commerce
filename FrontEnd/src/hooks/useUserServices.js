@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // Importing Services
-import { updateCustomer, fetchCartItems, fetchOrders } from '../service/userService';
+import { updateCustomer, fetchCartItems, fetchOrders, fetchRefills } from '../service/userService';
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
@@ -18,7 +18,12 @@ export const useUserServices = () => {
   const getCustomerUpdated = async (data) => {
     try {
       dispatch(setLoading());
-      await updateCustomer(data);
+
+      if(localStorage.getItem('authToken')){
+        await updateCustomer(data);
+      } else {
+        throw new Error('Token Not Found!!!');
+      }
     } catch (error) {
       console.log("Error Updating The Customer: ", error);
     } finally {
@@ -29,8 +34,12 @@ export const useUserServices = () => {
   const getCartItems = async () => {
     try {
       dispatch(setLoading());
-      dispatch(creatingInitialState(await fetchCartItems()));
 
+      if(localStorage.getItem('authToken')){
+        dispatch(creatingInitialState(await fetchCartItems(localStorage.getItem('authToken'))));
+      } else {
+        throw new Error('Token Not Found!!!');
+      }
     } catch (error) {
       console.log("Error Getting Cart Items: ", error);
     } finally {
@@ -41,9 +50,13 @@ export const useUserServices = () => {
   const getOrders = async () => {
     try {
       dispatch(setLoading());
-      const data = await fetchOrders();
-  
-      return data;
+      
+      if(localStorage.getItem('authToken')){
+        const data = await fetchOrders(localStorage.getItem('authToken'));
+        return data;
+      } else {
+        throw new Error('Token Not Found!!!');
+      }
     } catch (error) {
       console.log("Error Getting Orders: ", error);
       return [];
@@ -52,5 +65,23 @@ export const useUserServices = () => {
     }
   }
 
-  return { getCustomerUpdated, getCartItems, getOrders }
+  const getRefills = async () => {
+    try {
+      dispatch(setLoading());
+      
+      if(localStorage.getItem('authToken')){
+        const data = await fetchRefills(localStorage.getItem('authToken'));
+        return data;
+      } else {
+        throw new Error('Token Not Found!!!');
+      }
+    } catch (error) {
+      console.log("Error Getting Refills: ", error);
+      return [];
+    } finally {
+      dispatch(resetLoading());
+    }
+  }
+
+  return { getCustomerUpdated, getCartItems, getOrders, getRefills }
 }

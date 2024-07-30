@@ -2,17 +2,22 @@
 import { useDispatch } from 'react-redux'
 
 // importing local redux files
-import { creatingInitialState } from '../Redux/features/cartSlice'
 import { setLoading, resetLoading } from '../Redux/features/stateSlice'
 import { addUser } from '../Redux/features/userSlice'
 
 // Importing Services
-import { fetchCartItems, fetchCustomer } from '../service/userService';
+import { fetchCustomer } from '../service/userService';
+
+// Importing Custom Hooks
+import { useUserServices } from './useUserServices';
 
 // Import useAuth
 import { useAuth } from '../routes/AuthContext'
 
 export const useLogin = () => {
+  // custom Hooks
+  const { getCartItems } = useUserServices();
+
   // useAuth
   const { login:loggedIn } = useAuth();
 
@@ -28,8 +33,8 @@ export const useLogin = () => {
       // setting localStorage variables
       localStorage.setItem("authToken", customer?.authToken);
 
-      if(localStorage.getItem('authToken') && localStorage.getItem('id')){
-        dispatch(creatingInitialState(await fetchCartItems())); 
+      if(localStorage.getItem('authToken')){
+        await getCartItems();
 
         dispatch(addUser({
           id: customer.data._id,

@@ -4,10 +4,22 @@ import { fetchNavOptions, fetchFilteredProducts, fetchAllProducts, fetchMedicine
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
 import { setLoading, resetLoading } from '../Redux/features/stateSlice';
+import { creatingInitialState } from '../Redux/features/cartSlice';
 
 export const useServices = () => {
   // useDispatch
   const dispatch = useDispatch();
+
+  const setCart = async () => {
+    try {
+      dispatch(setLoading());
+      dispatch(creatingInitialState({cart: []}));
+    } catch (error) {
+      console.log("Error Setting Cart Items: ", error);
+    } finally {
+      dispatch(resetLoading());
+    }
+  }
 
   const getNavOptions = async () => {
     try {
@@ -71,5 +83,5 @@ export const useServices = () => {
     }
   }
 
-  return { getNavOptions, getFilteredProducts, getAllProducts, getMedicines, getHealthArticle }
+  return { setCart, getNavOptions, getFilteredProducts, getAllProducts, getMedicines, getHealthArticle }
 }

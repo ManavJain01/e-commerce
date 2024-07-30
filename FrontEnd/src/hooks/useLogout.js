@@ -8,8 +8,12 @@ import { removeUser } from '../Redux/features/userSlice'
 
 // Import Custom Hooks
 import { useAuth } from '../routes/AuthContext'
+import { useServices } from './useServices'
 
 export const useLogout = () => {
+  // Custom Hooks
+  const { setCart } = useServices();
+
   // useAuth
   const { logout:loggedOut } = useAuth();
 
@@ -22,7 +26,7 @@ export const useLogout = () => {
       
       localStorage.removeItem("authToken");
       
-      dispatch(creatingInitialState({cart: []}));
+      await setCart();
       dispatch(updateState({stateName: "userName", message: "logging out"}));
       dispatch(removeUser());
 

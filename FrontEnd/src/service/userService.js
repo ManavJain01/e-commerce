@@ -10,13 +10,13 @@ export const fetchCustomer = async (phone) => {
       throw new Error('Failed to fetch Customer');
     }
     
-    const data = response.data.data;
+    // const data = response.data.data;
 
-    const responseData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/CustomerData`, { _id: data._id })
+    // const responseData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/CustomerData`, { _id: data._id })
 
-    if (responseData.status !== 200) {
-      throw new Error('Failed to fetch Customer Data');
-    }
+    // if (responseData.status !== 200) {
+    //   throw new Error('Failed to fetch Customer Data');
+    // }
 
     return response.data;
   } catch (error) {
@@ -28,12 +28,10 @@ export const fetchCustomer = async (phone) => {
 // Update Customer
 export const updateCustomer = async (data) => {
   try {
-    if(localStorage.getItem('authToken')){
-      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/UpdateCustomer`, data)
-      
-      if (response.status !== 200) {
-        throw new Error('Failed to get Customer Updated');
-      }
+    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/UpdateCustomer`, data)
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to get Customer Updated');
     }
   } catch (error) {
     console.log("Error Updating The Customer: ", error);
@@ -41,21 +39,15 @@ export const updateCustomer = async (data) => {
 }
 
 // Cart
-export const fetchCartItems = async () => {
+export const fetchCartItems = async (token) => {
   try {
-    if(localStorage.getItem('authToken')){
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/cart`, { params: { id: localStorage.getItem('id') }})
-      
-      if (response.status !== 200) {
-        throw new Error('Failed to fetch cart items');
-      }
-
-      // const data = await response.json();
-      // return data;
-      return response.data;
-    }else{
-      return [];
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/cart`, { params: { token: token }})
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch cart items');
     }
+
+    return response.data;
   } catch (error) {
     console.log('Error fetching cart items:', error);
     return [];
@@ -63,19 +55,15 @@ export const fetchCartItems = async () => {
 }
 
 // Orders
-export const fetchOrders = async () => {
+export const fetchOrders = async (id) => {
   try {
-    if(localStorage.getItem('authToken')){
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/orders`, { params: { id: localStorage.getItem('id') }})
-      
-      if (response.status !== 200) {
-        throw new Error('Failed to fetch orders');
-      }
-
-      return response.data;
-    }else{
-      return [];
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/orders`, { params: { id: id }})
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch orders');
     }
+
+    return response.data;
   } catch (error) {
     console.log('Error fetching orders:', error);
     return [];
@@ -83,19 +71,15 @@ export const fetchOrders = async () => {
 }
 
 // Refills
-export const fetchRefills = async () => {
+export const fetchRefills = async (id) => {
   try {
-    if(localStorage.getItem('authToken')){
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/refills`, { params: { id: localStorage.getItem('id') }})
-      
-      if (response.status !== 200) {
-        throw new Error('Failed to fetch refills');
-      }
-
-      return response.data;
-    }else{
-      return [];
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/refills`, { params: { id: id }})
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch refills');
     }
+
+    return response.data;
   } catch (error) {
     console.log('Error fetching refills:', error);
     return [];
@@ -106,7 +90,7 @@ export const fetchRefills = async () => {
 export const fetchSaveForLater = async () => {
   try {
     if(localStorage.getItem('authToken')){
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/saveForLater`, { params: { id: localStorage.getItem('id') }})
+      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/saveForLater`, { params: { id: localStorage.getItem('authToken') }})
       
       if (response.status !== 200) {
         throw new Error('Failed to fetch saveForLater');

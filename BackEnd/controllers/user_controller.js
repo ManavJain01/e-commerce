@@ -34,7 +34,7 @@ const UpdateCustomer = async (req, res) => {
 
 const findCartData = async (req, res) => {
   try {
-    const result = await user_service.getCartData(req.query.id);
+    const result = await user_service.getCartData(req.query.token);
     res.status(200).send(result);
   } catch (error) {
     console.log("Error: ", error);

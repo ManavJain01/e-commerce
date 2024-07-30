@@ -14,13 +14,10 @@ import { Link } from 'react-router-dom'
 // Importing React Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { storeStates } from '../../Redux/features/stateSlice'
-import { creatingInitialState } from '../../Redux/features/cartSlice'
-
-// Importing Services
-import { fetchCartItems } from '../../service/userService'
 
 // Importing Hooks
 import { useServices } from '../../hooks/useServices'
+import { useUserServices } from '../../hooks/useUserServices'
 
 // Importing Local Files
 import InputBtn from '../Buttons/InputBtn'
@@ -34,6 +31,7 @@ import './header.css'
 function Header(){
   // Custom Hooks
   const { getNavOptions } = useServices();
+  const { getCartItems } = useUserServices();
 
   // redux
   const dispatch = useDispatch()
@@ -60,7 +58,7 @@ function Header(){
       if(localStorage.getItem("authToken")){
         // redux
         dispatch(storeStates({stateName: "userName", state: userName}))
-        dispatch(creatingInitialState(await fetchCartItems()));
+        await getCartItems();
 
         // let name = localStorage.getItem('name') && localStorage.getItem('name').split(' ')[0];
         // let phone = localStorage.getItem("phoneNumber")
