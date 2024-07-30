@@ -13,12 +13,12 @@ const itemSchema = mongoose.Schema({
 
 const HealthcareDeviceSchema = mongoose.Schema({
   category: String,
-  item: String,
+  subCategory: String,
   subitems: [itemSchema]
 })
 
 itemSchema.index({ item: 'text', company: 'text', description: 'text' });
-HealthcareDeviceSchema.index({ item: 'text', category: 'text' });
+HealthcareDeviceSchema.index({ category: 'text', subCategory: 'text' });
 
 const HealthcareDeviceModel = mongoose.model('product_healthcare_devices', HealthcareDeviceSchema)
 module.exports = HealthcareDeviceModel

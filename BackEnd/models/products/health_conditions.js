@@ -11,16 +11,11 @@ const itemSchema = mongoose.Schema({
   description: String,
 })
 
-const subItemSchema = mongoose.Schema({
-  item: String,
-  subitems: [itemSchema]
-})
-
 const HealthConditionSchema = mongoose.Schema({
+  item: String,
   category: String,
   subCategory: String,
-  item: String,
-  subitems: ([subItemSchema] || [itemSchema])
+  subitems: [itemSchema]
 })
 
 itemSchema.index({ item: 'text', company: 'text', description: 'text' });

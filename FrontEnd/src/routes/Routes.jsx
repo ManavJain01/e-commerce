@@ -9,11 +9,12 @@ import { AuthProvider } from './AuthContext'
 import ProtectedRoute from './ProtectedRoute'
 import Main from '../main'
 
-// Header Links
+// Public Links
 import Home from '../pages/Home Page/Main'
 import MedicinePage from '../pages/Products/Medicines/MedicinePage'
 import Categories from '../pages/Products/Categories/Categories'
 import FilteredCategories from '../pages/Products/Categories/FilteredCategories'
+import Search from '../pages/Search/Search'
 import ProductCard2 from '../components/Product Card/ProductCard2'
 // User Links
 import User from '../pages/User/pages/User'
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Main />,
     children : [
-      // Header Links-----------------------------------------------------------------
+      // Public Links-----------------------------------------------------------------
       {
         path: "",
         element : <Home />
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "Categories/:type",
         element: <FilteredCategories />
+      },
+      {
+        path: "search",
+        element: <Search />
       },
       {
         path: "Products/:type",

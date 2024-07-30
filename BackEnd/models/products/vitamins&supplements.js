@@ -13,12 +13,12 @@ const itemSchema = mongoose.Schema({
 
 const vitamins_supplementSchema = mongoose.Schema({
   category: String,
-  item: String,
+  subCategory: String,
   subitems: [itemSchema]
 })
 
 itemSchema.index({ item: 'text', company: 'text', description: 'text' });
-vitamins_supplementSchema.index({ item: 'text', category: 'text' });
+vitamins_supplementSchema.index({ category: 'text', subCategory: 'text' });
 
 
 const vitamins_supplementModel = mongoose.model('product_vitamins&supplements', vitamins_supplementSchema)

@@ -83,7 +83,6 @@ export const fetchSearchResult = async (query) => {
       throw new Error('Failed to fetch Results of Search');
     }
 
-    console.log(response.data);
     return response.data; 
   } catch (error) {
     console.log("Error while fetching Search Result/s: ", error);

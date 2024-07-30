@@ -10,6 +10,19 @@ const vitamins_supplementModel = require('../models/products/vitamins&supplement
 const DiabetesCareModel = require('../models/products/disbetes_care')
 const HealthcareDeviceModel = require('../models/products/healthcare_devices')
 
+
+// Function to filter subitems based on search query
+const filterSubitems = (items, query) => {
+  return items.filter(item => {
+    return (
+      item.item.toLowerCase().includes(query.toLowerCase()) ||
+      item.company.toLowerCase().includes(query.toLowerCase()) ||
+      item.description.toLowerCase().includes(query.toLowerCase())
+    );
+  });
+};
+
+
 // Search Functionality
 const getSearchData = async (query) => {
   try {
@@ -20,13 +33,38 @@ const getSearchData = async (query) => {
     const diabetesCareResults = await DiabetesCareModel.find({ $text: { $search: query } });
     const healthcareDeviceResults = await HealthcareDeviceModel.find({ $text: { $search: query } });
 
+    // Filter subitems
+    const filteredMedicineResults = medicineResults.map(result => ({
+      ...result._doc,
+    }));
+    const filteredPersonalCareResults = personalCareResults.map(result => ({
+      ...result._doc,
+      subitems: filterSubitems(result.subitems, query),
+    }));
+    const filteredHealthConditionResults = healthConditionResults.map(result => ({
+      ...result._doc,
+      subitems: filterSubitems(result.subitems, query),
+    }));
+    const filteredVitaminsSupplementResults = vitaminsSupplementResults.map(result => ({
+      ...result._doc,
+      subitems: filterSubitems(result.subitems, query),
+    }));
+    const filteredDiabetesCareResults = diabetesCareResults.map(result => ({
+      ...result._doc,
+      subitems: filterSubitems(result.subitems, query),
+    }));
+    const filteredHealthcareDeviceResults = healthcareDeviceResults.map(result => ({
+      ...result._doc,
+      subitems: filterSubitems(result.subitems, query),
+    }));
+
     return {
-      medicines: medicineResults,
-      personalCare: personalCareResults,
-      healthConditions: healthConditionResults,
-      vitaminsSupplements: vitaminsSupplementResults,
-      diabetesCare: diabetesCareResults,
-      healthcareDevices: healthcareDeviceResults,
+      medicines: filteredMedicineResults,
+      personalCare: filteredPersonalCareResults,
+      healthConditions: filteredHealthConditionResults,
+      vitaminsSupplements: filteredVitaminsSupplementResults,
+      diabetesCare: filteredDiabetesCareResults,
+      healthcareDevices: filteredHealthcareDeviceResults,
     };
   } catch (error) {
     return error;
@@ -127,3 +165,43 @@ async function getCategory(category, subCategory){
 
 
 module.exports = { getSearchData, getNavOptions, getMedicines, getAllCategories, getCategory }
+
+
+/*
+  // Process and add results to the array
+    results.push(
+      ...medicineResults.map(result => ({
+        type: 'medicine',
+        ...result._doc,
+        subitems: filterSubitems(result.subitems, query),
+      })),
+      ...personalCareResults.map(result => ({
+        type: 'personalCare',
+        ...result._doc,
+        subitems: filterSubitems(result.subitems, query),
+      })),
+      ...healthConditionResults.map(result => ({
+        type: 'healthCondition',
+        ...result._doc,
+        subitems: filterSubitems(result.subitems, query),
+      })),
+      ...vitaminsSupplementResults.map(result => ({
+        type: 'vitaminsSupplement',
+        ...result._doc,
+        subitems: filterSubitems(result.subitems, query),
+      })),
+      ...diabetesCareResults.map(result => ({
+        type: 'diabetesCare',
+        ...result._doc,
+        subitems: filterSubitems(result.subitems, query),
+      })),
+      ...healthcareDeviceResults.map(result => ({
+        type: 'healthcareDevice',
+        ...result._doc,
+        subitems: filterSubitems(result.subitems, query),
+      }))
+    );
+
+    return results;
+
+*/
