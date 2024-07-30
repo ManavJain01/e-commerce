@@ -1,19 +1,43 @@
 // Importing React Packages
-import { useState, useEffect } from 'react';
 
 // Importing Services
-import { updateCustomer, fetchCartItems, fetchOrders, fetchRefills } from '../service/userService';
+import { customerDetails, updateCustomer, fetchCartItems, fetchOrders, fetchRefills } from '../service/userService';
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
-import { creatingInitialState } from '../Redux/features/cartSlice'
 import { setLoading, resetLoading } from '../Redux/features/stateSlice';
+import { creatingInitialState } from '../Redux/features/cartSlice'
+import { addUser } from '../Redux/features/userSlice'
 
 export const useUserServices = () => {
   // useDispatch
   const dispatch = useDispatch();
 
-  // UseStates
+  const getCustomer = async () => {
+    try {
+      dispatch(setLoading());
+
+      if(localStorage.getItem('authToken')){
+        const customer = await customerDetails(localStorage.getItem('authToken'));
+
+        dispatch(addUser({
+          id: customer._id,
+          phone: customer.phone,
+          name: customer?.name || "",
+          email: customer?.email || "",
+          age: customer?.age || "",
+          gender: customer?.gender || "",
+          address: customer?.address || ""
+        }))
+      } else {
+        throw new Error('Token Not Found!!!');
+      }
+    } catch (error) {
+      console.log("Error Getting The Customer: ", error);
+    } finally {
+      dispatch(resetLoading());
+    }
+  }
 
   const getCustomerUpdated = async (data) => {
     try {
@@ -83,5 +107,5 @@ export const useUserServices = () => {
     }
   }
 
-  return { getCustomerUpdated, getCartItems, getOrders, getRefills }
+  return { getCustomer, getCustomerUpdated, getCartItems, getOrders, getRefills }
 }

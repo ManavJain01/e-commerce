@@ -1,7 +1,8 @@
-export default function Input({type="text", value, name, id, placeholder, required, onChange, onBlur, className}) {
+export default function Input({type="text", disable=false, value, name, id, placeholder, required, onChange, onBlur, className}) {
   return (
     <input
       type={type}
+      disabled={disable}
       value={value}
       name={name}
       id={id}

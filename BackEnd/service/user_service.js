@@ -45,22 +45,17 @@ const getCustomer = async (data) => {
 }
 
 // Fetch Customer's Data
-const getCustomerData = async (data) => {
+const getCustomerDetails = async (_id) => {
   try {
-    const _id = data._id;
-    let userData = await CustomerDataModel.findById(_id);
+    const id = jwt.decode(_id);
 
-    if(userData == null){
-      userData = await CustomerDataModel.create({
-        _id: _id,
-        cart: [],
-        saveForLater: {},
-        refills: {},
-        records: {},
-        orders: {}
-      })
-    }
-    return { data: userData }
+    jwt.verify(_id, jwtSecret, (err, id) => {
+      if (err) {
+        throw new Error('Token verification failed:', err);
+      }
+    });
+
+    return await CustomerModel.findById(id);
   } catch (error) {
     return error;
   }
@@ -221,4 +216,4 @@ const getSaveForLater = async (_id) => {
   }
 }
 
-module.exports = { getCustomer, getCustomerData, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater }
+module.exports = { getCustomer, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater }

@@ -16,7 +16,7 @@ import { useAuth } from '../routes/AuthContext'
 
 export const useLogin = () => {
   // custom Hooks
-  const { getCartItems } = useUserServices();
+  const { getCustomer, getCartItems } = useUserServices();
 
   // useAuth
   const { login:loggedIn } = useAuth();
@@ -36,15 +36,7 @@ export const useLogin = () => {
       if(localStorage.getItem('authToken')){
         await getCartItems();
 
-        dispatch(addUser({
-          id: customer.data._id,
-          phone: customer.data.phone,
-          name: customer.data?.name || "",
-          email: customer.data?.email || "",
-          age: customer.data?.age || "",
-          gender: customer.data?.gender || "",
-          address: customer.data?.address || ""
-        }))
+        await getCustomer();
       }
       
       await loggedIn();

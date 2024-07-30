@@ -12,12 +12,11 @@ import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 // Importing React Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { storeStates } from '../../Redux/features/stateSlice'
+import { useSelector } from 'react-redux'
 
 // Importing Hooks
 import { useServices } from '../../hooks/useServices'
-import { useUserServices } from '../../hooks/useUserServices'
+import { useRefresh } from '../../hooks/useRefresh'
 
 // Importing Local Files
 import InputBtn from '../Buttons/InputBtn'
@@ -31,10 +30,9 @@ import './header.css'
 function Header(){
   // Custom Hooks
   const { getNavOptions } = useServices();
-  const { getCartItems } = useUserServices();
+  const { refresh } = useRefresh();
 
   // redux
-  const dispatch = useDispatch()
   const cartItems = useSelector(state => state.cart.cartItems)
   const loading = useSelector(state => state.state.loading)
   const stateItems = useSelector(state => state.state.stateItems)
@@ -56,18 +54,12 @@ function Header(){
   useEffect(() => {
     const runOnLoad = async () => {
       if(localStorage.getItem("authToken")){
-        // redux
-        dispatch(storeStates({stateName: "userName", state: userName}))
-        await getCartItems();
-
-        // let name = localStorage.getItem('name') && localStorage.getItem('name').split(' ')[0];
-        // let phone = localStorage.getItem("phoneNumber")
+        refresh(userName);
         setUserName(prevUsername => {return {...prevUsername, isLoggedIn: true}})
       }
 
       // Custom Hooks Functions Call
       setNavOptions(await getNavOptions());
-      
     }
     
     runOnLoad();

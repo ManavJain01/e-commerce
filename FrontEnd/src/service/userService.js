@@ -9,18 +9,26 @@ export const fetchCustomer = async (phone) => {
     if (response.status !== 200) {
       throw new Error('Failed to fetch Customer');
     }
-    
-    // const data = response.data.data;
-
-    // const responseData = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/CustomerData`, { _id: data._id })
-
-    // if (responseData.status !== 200) {
-    //   throw new Error('Failed to fetch Customer Data');
-    // }
 
     return response.data;
   } catch (error) {
     console.log('Error fetching Customer:', error);
+    return {};
+  }
+}
+
+// Customer Details
+export const customerDetails = async (id) => {
+  try {    
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/CustomerDetails`, { params: {id: id}})
+
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch Customer Details');
+    }
+
+    return response.data;
+  } catch (error) {
+    console.log('Error fetching Details:', error);
     return {};
   }
 }
