@@ -1,5 +1,5 @@
 // Importing Services
-import { fetchNavOptions, fetchSearchResult, fetchFilteredProducts, fetchAllProducts, fetchMedicines, fetchHealthArticle } from '../service/service'
+import { fetchInputLocation, fetchCurrLocation, fetchNavOptions, fetchSearchResult, fetchFilteredProducts, fetchAllProducts, fetchMedicines, fetchHealthArticle } from '../service/service'
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
@@ -18,6 +18,25 @@ export const useServices = () => {
       console.log("Error Setting Cart Items: ", error);
     } finally {
       dispatch(resetLoading());
+    }
+  }
+
+  const getInputLocation = async (input) => {
+    try {
+      const response = await fetchInputLocation(input);
+      return {pincode: response[0].Pincode, region: response[0].Region};
+    } catch (error) {
+      console.log("Error Getting Input Location Postcode: ", error);
+    }
+  }
+
+  const getCurrentLocation = async () => {
+    try {
+      const response = await fetchCurrLocation();
+
+      return response;
+    } catch (error) {
+      console.log("Error Getting Curr Location Postcode: ", error);
     }
   }
 
@@ -92,5 +111,5 @@ export const useServices = () => {
     }
   }
 
-  return { setCart, getNavOptions, getFilteredProducts, getAllProducts, getMedicines, getHealthArticle, getSearchResult }
+  return { setCart, getInputLocation, getCurrentLocation, getNavOptions, getFilteredProducts, getAllProducts, getMedicines, getHealthArticle, getSearchResult }
 }

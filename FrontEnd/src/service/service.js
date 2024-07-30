@@ -21,22 +21,27 @@ export const fetchInputLocation = async (input) => {
 
 // Fetching Location
 export const fetchCurrLocation = async () => {
-  try {
+  return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(async pos=>{
-      const {latitude,longitude} = pos.coords;
-      let response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+      try {
+        const {latitude, longitude} = pos.coords;
+        let response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
 
-      if (response.status !== 200) {
-        throw new Error('Failed to fetch Location');
+        if (response.status !== 200) {
+          throw new Error('Failed to fetch Current Location');
+        }
+
+        response = await response.json();
+        resolve({city: response.address.city || "", postcode: response.address.postcode || ""});
+      } catch (error) {
+        console.log("Error Fetching Current Location:", error);
+        reject(error);
       }
-
-      response = await response.json();
-      return response.address;
+    }, (error) => {
+      console.log("Error Getting Geolocation:", error);
+      reject(error);
     })
-  } catch (error) {
-    console.log("Error Fetching Location:", error);
-    return []
-  }
+  })
 }
 
 // Fetching Health Article

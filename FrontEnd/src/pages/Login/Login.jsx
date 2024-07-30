@@ -62,10 +62,9 @@ function Login({ loginPage, setLoginPage, setUserName }){
     // Practice Function
   const tempLogin = async () => {
     try {
-      const ph = '+91 8269-543-305';
 
       // get Customer
-      await login(ph);
+      await login(ph.phone || '+91 8269-543-305');
 
     } catch (error) {
       console.log("Customer Logging In Error: ", error);

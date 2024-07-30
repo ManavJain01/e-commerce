@@ -40,10 +40,10 @@ function InputBtn(e){
   async function searchInputOnClick(e){
     e.preventDefault();
     const query = inputRef.current.value;
-
-    const data = await getSearchResult(query);
-
-    navigate('/search', { state: { query, data } });
+    if(query){
+      const data = await getSearchResult(query);
+      navigate('/search', { state: { query, data } });
+    }
   }
 
   if(e.title == "header-input" && e.id == "enable"){

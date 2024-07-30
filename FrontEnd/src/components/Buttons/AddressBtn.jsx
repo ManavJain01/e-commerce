@@ -1,32 +1,32 @@
 // Importing React Icons
 import { BiTargetLock } from "react-icons/bi";
 
-// Importing Services
-import { fetchInputLocation, fetchCurrLocation } from '../../service/service'
+// Importing Hooks
+import { useServices } from "../../hooks/useServices";
 
 import InputBtn from "./InputBtn";
 
 function AddressBtn({ setCheckAddress, setEnableAddressBox }){
+  // Custom Hooks
+  const { getInputLocation, getCurrentLocation } = useServices();
+
   async function checkPostcode(){
     const input = document.getElementById("checkAddress").value
 
+    const response = await getInputLocation(input)
+    setCheckAddress(`${response.region}, ${response.pincode}`)
     
-    const response = await fetchInputLocation(input);
-
-    // if(response) localStorage.setItem("location", {district: response[0]?.District, pincode: input})
-    // setCheckAddress(`${response[0]?.District}, ${input}`)
+    await setEnableAddressBox(false)
   }
 
   const getCurrLocation = async () => {
-    const response = await fetchCurrLocation();
-    console.log("response in addressBtn: ");
-    console.log(response);
+    const response = await getCurrentLocation();
 
     if(response){
       setCheckAddress(`${response?.city || ""}, ${response?.postcode || ""}`)
     }
 
-    setEnableAddressBox(false)
+    await setEnableAddressBox(false)
   }
 
   return(

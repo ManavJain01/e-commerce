@@ -62,7 +62,6 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage, tempLogin }){
     }else{
       e.target.disabled = true
       tempPh = "+91 " + input.value;
-      console.log("PHone number:", tempPh);
       setPh(prevPh => {return{...prevPh, phone: tempPh}})
 
       if(import.meta.env.VITE_REACT_APP_NODE_ENV == 'production') sendOtp();
