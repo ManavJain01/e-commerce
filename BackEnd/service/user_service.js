@@ -109,7 +109,7 @@ const AddToCart = async (data) => {
     await CustomerDataModel.findByIdAndUpdate(id, {$push: {cart: data.data}}); 
     return {status: "Successfull"}
   } catch (error) {
-    throw `Error in AddToCart: ${error.message}`;
+    throw error;
   }
 }
 

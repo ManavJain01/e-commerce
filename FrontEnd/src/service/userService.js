@@ -143,7 +143,7 @@ export const paymentProcess = async (reduxItems, userId) => {
       console.log("result.error");
     }
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 }
 
@@ -158,6 +158,6 @@ export const postPaymentProcess = async (status, id) => {
     
     return response.data;
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 }
