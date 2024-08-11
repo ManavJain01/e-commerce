@@ -37,8 +37,7 @@ const getCustomer = async (data) => {
       return { data: userData, authToken: authToken };
     }
   } catch (error) {
-    console.log("Error Occurred:", error);
-    return error
+    throw error.message
   } finally {
     inProgress.delete(data.phone);
   }
@@ -57,7 +56,7 @@ const getCustomerDetails = async (_id) => {
 
     return await CustomerModel.findById(id);
   } catch (error) {
-    return error;
+    throw error.message;
   }
 }
 
@@ -73,7 +72,7 @@ const getCustomerUpdated = async (data) => {
     });
 
   } catch (error) {
-    return error;
+    throw error.message;
   }
 }
 
@@ -92,8 +91,7 @@ const getCartData = async (token) => {
 
     return await CustomerDataModel.findById(id).select('cart -_id');
   } catch (error) {
-    console.log("Error in FetchingCartData", error);
-    return error;
+    throw `Error in FetchingCartData: ${error.message}`;
   }
 }
 
@@ -111,8 +109,7 @@ const AddToCart = async (data) => {
     await CustomerDataModel.findByIdAndUpdate(id, {$push: {cart: data.data}}); 
     return {status: "Successfull"}
   } catch (error) {
-    console.log("Error in AddToCart", error);
-    return error;
+    throw `Error in AddToCart: ${error.message}`;
   }
 }
 
@@ -138,8 +135,8 @@ const UpdateCart = async (data) => {
 
     return {status: "Successfull"}
   } catch (error) {
-    console.log("Error in UpdatingCart", error);
-    return error;
+    console.log("", error);
+    throw `Error in UpdatingCart: ${error.message}`;
   }
 }
 
@@ -160,8 +157,7 @@ const DeleteFromCart = async (data) => {
 
     return {status: "Successfull"}
   } catch (error) {
-    console.log("Error in DeleteFromCart", error);
-    return error;
+    throw `Error in DeleteFromCart: ${error.message}`;
   }
 }
 
@@ -177,8 +173,7 @@ const getOrders = async (_id) => {
 
     return  await CustomerDataModel.findById(id).select('orders -_id');
   } catch (error) {
-    console.log("Error in FetchingOrders", error);
-    return error;
+    throw `Error in FetchingOrders: ${error}`;
   }
 }
 
@@ -194,8 +189,7 @@ const getRefills = async (_id) => {
 
     return  await CustomerDataModel.findById(id).select('refills -_id');
   } catch (error) {
-    console.log("Error in FetchingRefills", error);
-    return error;
+    throw `Error in FetchingRefills: ${error.message}`;
   }
 }
 
@@ -211,8 +205,7 @@ const getSaveForLater = async (_id) => {
 
     return  await CustomerDataModel.findById(id).select('saveForLater -_id');
   } catch (error) {
-    console.log("Error in FetchingSaveForLater", error);
-    return error;
+    throw `Error in FetchingSaveForLater: ${error}`;
   }
 }
 

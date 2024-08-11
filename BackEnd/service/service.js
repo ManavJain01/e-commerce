@@ -67,7 +67,7 @@ const getSearchData = async (query) => {
       healthcareDevices: filteredHealthcareDeviceResults,
     };
   } catch (error) {
-    return error;
+    throw error.message;
   }
 }
 
@@ -76,7 +76,7 @@ const getNavOptions = async () => {
   try {
     return await NavOptionModel.find({})
   } catch (error) {
-    return error
+    throw error.message;
   }
 }
 
@@ -85,7 +85,7 @@ const getMedicines = async () => {
   try {
     return await MedicineModel.find({})  
   } catch (error) {
-    return error
+    throw error.message;
   }
 }
 
@@ -109,7 +109,7 @@ const getMedicines = async () => {
     try {
       return await Model.find({});
     } catch (error) {
-      return error;
+      throw error.message;
     }
   }
 
@@ -134,7 +134,7 @@ async function getModel(category){
     else if(category == 'Diabetes Care') return await DiabetesCareModel;
     else if(category == 'Healthcare Devices') return await HealthcareDeviceModel;
   } catch (error) {
-    console.log("Error in getModel Function", error);
+    throw `Error in getModel Function: ${error.message}`;
   }
 }
 
@@ -159,49 +159,9 @@ async function getCategory(category, subCategory){
     }
 
   } catch (error) {
-    return error;
+    throw error.message;
   }
 }
 
 
 module.exports = { getSearchData, getNavOptions, getMedicines, getAllCategories, getCategory }
-
-
-/*
-  // Process and add results to the array
-    results.push(
-      ...medicineResults.map(result => ({
-        type: 'medicine',
-        ...result._doc,
-        subitems: filterSubitems(result.subitems, query),
-      })),
-      ...personalCareResults.map(result => ({
-        type: 'personalCare',
-        ...result._doc,
-        subitems: filterSubitems(result.subitems, query),
-      })),
-      ...healthConditionResults.map(result => ({
-        type: 'healthCondition',
-        ...result._doc,
-        subitems: filterSubitems(result.subitems, query),
-      })),
-      ...vitaminsSupplementResults.map(result => ({
-        type: 'vitaminsSupplement',
-        ...result._doc,
-        subitems: filterSubitems(result.subitems, query),
-      })),
-      ...diabetesCareResults.map(result => ({
-        type: 'diabetesCare',
-        ...result._doc,
-        subitems: filterSubitems(result.subitems, query),
-      })),
-      ...healthcareDeviceResults.map(result => ({
-        type: 'healthcareDevice',
-        ...result._doc,
-        subitems: filterSubitems(result.subitems, query),
-      }))
-    );
-
-    return results;
-
-*/

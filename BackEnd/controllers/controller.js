@@ -8,8 +8,8 @@ const findNavOptions = async (req, res) => {
     res.status(200).send(result);
 
   } catch (error) {
-    console.log("Error: ", error);
-    res.status(400).send(error);
+    console.error("Error: ", error.message);
+    res.status(400).send(error.message);
   }
 }
 
@@ -20,8 +20,8 @@ const searchData = async (req, res) => {
     res.status(200).send(result);
 
   } catch (error) {
-    console.log("Error: ", error);
-    res.status(400).send(error);
+    console.error("Error: ", error.message);
+    res.status(400).send(error.message);
   }
 }
 
@@ -32,7 +32,7 @@ const findAllMedicines = async (req, res) => {
     res.status(200).send(result)
 
   } catch (error) {
-    console.log("Medicines not found");
+    console.error("Medicines not found: ", error.message);
     res.status(400).send("Medicines not found")
   }
 }
@@ -44,23 +44,28 @@ const findAllCategory = async (req, res) => {
     res.status(200).send(result)
 
   } catch (error) {
-    console.log("Categories not found");
+    console.error("Categories not found: ", error.message);
     res.status(400).send("Categories not found")
   }
 }
 
 
 const findCategory = async (req, res) => {
-  if(Array.isArray(req.body.data)) result = await service.getCategory(req.body.data[1], req.body.data[0]);
-  else result = await service.getCategory(req.body.data);
-
-
-  if(result){
-    res.send(result)
-  } else {
-    const msg = req.body.data + " not found!";
-    console.log(msg);
-    res.status(400).send(msg)
+  try {
+    if(Array.isArray(req.body.data)) result = await service.getCategory(req.body.data[1], req.body.data[0]);
+    else result = await service.getCategory(req.body.data);
+  
+  
+    if(result){
+      res.send(result)
+    } else {
+      const msg = req.body.data + " not found!";
+      console.log(msg);
+      res.status(400).send(msg)
+    }
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error.message);
   }
 }
 

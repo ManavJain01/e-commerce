@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 
 // Importing Local Components
 import PaymentDetails from './components/PaymentDetails'
+import Verify from './components/Verify'
 
 // Importing Stripe Packages
 import { loadStripe } from '@stripe/stripe-js'
@@ -79,7 +80,6 @@ function Cart(){
             
             <div className="h-fit flex flex-col items-center gap-8">
               <PaymentDetails cartItems={cartItems} reduxItems={reduxItems} />
-              
               <button onClick={() => makePayment()} className="font-semibold text-lg text-white bg-blue-600 w-fit px-10 py-2 rounded-md">Select payment mode</button>
             </div>
           </div>

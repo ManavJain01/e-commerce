@@ -24,14 +24,13 @@ const getStripePayment = async (data) => {
       payment_method_types:["card"],
       line_items:lineItems,
       mode:"payment",
-      success_url:"http://localhost:3000/User/myOrders",
-      cancel_url:"http://localhost:3000/Cart"
+      success_url:"http://localhost:3000/verify?success=true",
+      cancel_url:"http://localhost:3000/verify?success=false"
     })
 
     return { id: session.id };
   } catch (error) {
-    console.error('Error creating Stripe session:', error.message);
-    return { error: error.message };
+    throw `Error creating Stripe session: ${error.message}`;
   }
 }
 

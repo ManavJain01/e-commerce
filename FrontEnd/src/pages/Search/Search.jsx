@@ -34,7 +34,7 @@ export default function Search() {
     <div className="bg-blue-100 w-[100vw] min-h-[80vh] pt-16 px-10 flex gap-10 justify-between">
       <div className="flex flex-col gap-5">
         {query && <p>Search Results for: <span className="font-bold">{query}</span></p>}
-        <div>
+        <div className="flex flex-col gap-5">
           {Object.keys(data).map((e) =>
             data[e]?.map((e, i) =>
               e.subitems ? e?.subitems?.map((e,i) => 
