@@ -26,6 +26,7 @@ import MedicalRecords from '../pages/User/pages/MedicalRecords'
 import Wallet from '../pages/User/pages/Wallet'
 import ReferEarn from '../pages/User/pages/ReferEarn'
 import Cart from '../pages/Cart/Cart'
+import Verify from '../pages/Cart/components/Verify'
 // Footer Links
 import FAQ from '../pages/Footer/Company/Help'
 import Health from '../pages/Footer/Company/Health'
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: "Cart",
         element: <Cart />
+      },
+      {
+        path: "verify",
+        element: <Verify />
       },
       // Footer---------------------------------------------------------------------
       {

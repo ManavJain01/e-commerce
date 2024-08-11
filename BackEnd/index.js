@@ -41,14 +41,10 @@ app.use("/", routes)
 app.use("/stripe", routes_stripe)
 app.use("/api", routes_api)
 
-// Importing Controllers
-const { postPaymentHandle } = require('./controllers/stripe_controller')
-app.post("/webhook", postPaymentHandle)
-
 // Connecting MongoDB Server
 // mongoDB();
 mongoDB().catch((err) => {
-  console.error(err.message);
+  console.error("Error when connecting the database: ", err.message);
   process.exit(1); // Exit the process if the DB connection fails
 });
 

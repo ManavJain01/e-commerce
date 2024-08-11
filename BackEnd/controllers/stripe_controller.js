@@ -7,22 +7,22 @@ const handleStripe = async (req, res) => {
     const result = await stripe.getStripePayment(req.body);
     res.status(200).send(result);
   } catch (error) {
-    console.error("Error: ", error.message);
+    console.error("Error in handleStripe: ", error.message);
     res.status(400).send(error.message);
   }
 }
 
-const postPaymentHandle = async (req, res) => {
+const paymentStatus = async (req, res) => {
   try {
-    console.log("in controller after payment");
-    console.log(req);
-    const result = await stripe.AfterPayment(req.body);
+    console.log("Comes here");
+    const { status, id } = req.query;
+    const result = await stripe.postPayment(status, id);
     res.status(200).send(result);
   } catch (error) {
-    console.error("Error: ", error.message);
+    console.error("Error in paymentStatus: ", error);
     res.status(400).send(error.message);
   }
 }
 
 // Exporting controllers
-module.exports = { handleStripe, postPaymentHandle }
+module.exports = { handleStripe, paymentStatus }

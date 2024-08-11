@@ -1,6 +1,9 @@
 // Importing Axios Packages
 import axios from 'axios'
 
+// Importing Stripe Packages
+import { loadStripe } from '@stripe/stripe-js'
+
 // get Customer
 export const fetchCustomer = async (phone) => {
   try {
@@ -111,5 +114,52 @@ export const fetchSaveForLater = async () => {
   } catch (error) {
     console.log('Error fetching saveForLater:', error);
     return [];
+  }
+}
+
+// Stripe payment method
+export const paymentProcess = async (reduxItems, userId) => {
+  try {
+    const stripe = await loadStripe(import.meta.env.VITE_REACT_APP_publishable_key);
+    const body = {
+      userId: userId,
+      products: reduxItems,
+    }
+    const headers = {
+      "Content-Type" : "application/json"
+    }
+    const response = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/stripe/create-checkout-session`,{
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body)
+    })
+
+    const session = await response.json();
+    const result = stripe.redirectToCheckout({
+      sessionId:session.id
+    });
+
+    if(result.error){
+      console.log("result.error");
+    }
+  } catch (error) {
+    console.log('Error while making payment:', error);
+    return {};
+  }
+}
+
+// Post payment method
+export const postPaymentProcess = async (status, id) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/stripe/verify?status=${status}&id=${id}`);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Post Payment Process');
+    }
+    
+    return response.data;
+  } catch (error) {
+    console.error('Error while making payment:', error.message);
+    return {};
   }
 }

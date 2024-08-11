@@ -15,44 +15,22 @@ import { useSelector } from 'react-redux'
 import PaymentDetails from './components/PaymentDetails'
 import Verify from './components/Verify'
 
-// Importing Stripe Packages
-import { loadStripe } from '@stripe/stripe-js'
+// Importing Custom Hooks
+import { useUserServices } from '../../hooks/useUserServices'
 
 function Cart(){
+  // Custom Hooks
+  const { makePayment } = useUserServices();
+
   // UseStates
   const reduxItems = useSelector(state => state.cart.cartItems)
   const [cartItems, setCartItems] = useState(reduxItems.length)
   
   // UseMemo
   useMemo(()=>{
-    setCartItems(reduxItems.length)
+    setCartItems(reduxItems.length);
   },[reduxItems])
 
-  // Stripe
-  const makePayment = async () => {
-    const stripe = await loadStripe(import.meta.env.VITE_REACT_APP_publishable_key);
-    const body = {
-      products: reduxItems,
-    }
-    const headers = {
-      "Content-Type" : "application/json"
-    }
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/stripe/create-checkout-session`,{
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body)
-    })
-
-    const session = await response.json();
-    const result = stripe.redirectToCheckout({
-      sessionId:session.id
-    });
-
-    if(result.error){
-      console.log("result.error");
-    }
-  }
-  
   if(cartItems == 0){
     return (
       <> 
@@ -80,7 +58,7 @@ function Cart(){
             
             <div className="h-fit flex flex-col items-center gap-8">
               <PaymentDetails cartItems={cartItems} reduxItems={reduxItems} />
-              <button onClick={() => makePayment()} className="font-semibold text-lg text-white bg-blue-600 w-fit px-10 py-2 rounded-md">Select payment mode</button>
+              <button onClick={() => makePayment(reduxItems)} className="font-semibold text-lg text-white bg-blue-600 w-fit px-10 py-2 rounded-md">Select payment mode</button>
             </div>
           </div>
         </>

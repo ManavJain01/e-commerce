@@ -1,38 +1,45 @@
-import { useContext, useEffect } from 'react'
+// Importing React Packages
+import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-// import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 
-const Verify = () => {
+// Importing Custom Hooks
+import { useUserServices } from '../../../hooks/useUserServices'
 
+const Verify = () => {
+    // Custom Hooks
+    const { postPayment } = useUserServices();
+
+    // useSearchParams
     const [searchParams] = useSearchParams();
-    const success = searchParams.get("success")
-    const orderId = searchParams.get("orderId");
-    console.log("SearchParas: ", searchParams);
-    const url = "http:localhost:3000"
-    // const {url} = useContext(StoreContext);
+    const success = searchParams.get("success");
+    const id = searchParams.get("id");
+
+    // useNavigate
     const navigate = useNavigate();
 
-   const verifyPayment = async() =>{
-    const response = await axios.post(url+"/api/order/verify",{success,orderId});
-    if(response.data.success){
-        navigate("/myorders");
-    }
-    else {
-        navigate("/")
-    }
-   }
+    // useEffect
+    useEffect (()=>{
+        const verifyPayment = async () =>{
+            if(success && id){
+                const response = await postPayment(success, id);
 
-   useEffect (()=>{
+                if(response.status){
+                    navigate("/User/myOrders");
+                }
+                else {
+                    navigate("/");
+                }
+            }
+        }
+
         verifyPayment();
    },[])
 
   return (
-    <div className='min-h-[12px] grid'>
-        <div className='animate-rotate w-[100px] h-[100px] place-self-center border-[5px] border-t-green-600 rounded-full border-solid border-gray-400'>
-          
-        </div>
-
+    <div className='min-h-[12px] my-20 grid place-content-center gap-12'>
+        <span className='font-bold text-3xl text-green-800'>Verifying your order...</span>
+        <div className='w-[100px] h-[100px] place-self-center border-[10px] border-t-green-800 rounded-full border-solid border-gray-400 animate-spin' />
     </div>
   )
 }

@@ -20,11 +20,13 @@ export default function ShopByCategories(){
       const response = await fetchNavOptions();
       setCategories(response)
       
+      // Automatically click "Personal Care" button if it exists
+      const personalCareCategory = response.find(e => e.item === "Personal care");
+      
+      if(personalCareCategory) {
+        setFilteredCategory([colors[response.indexOf(personalCareCategory)-1], personalCareCategory]);
+      }
     }
-
-    setTimeout(() => {
-      document.getElementById("categoryBtn")?.click();
-    }, 100)
 
     getData();
   }, [])

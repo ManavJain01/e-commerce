@@ -1,7 +1,7 @@
 // Importing React Packages
 
 // Importing Services
-import { customerDetails, updateCustomer, fetchCartItems, fetchOrders, fetchRefills } from '../service/userService';
+import { customerDetails, updateCustomer, fetchCartItems, fetchOrders, fetchRefills, paymentProcess, postPaymentProcess } from '../service/userService';
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
@@ -107,5 +107,41 @@ export const useUserServices = () => {
     }
   }
 
-  return { getCustomer, getCustomerUpdated, getCartItems, getOrders, getRefills }
+  const makePayment = async (items) => {
+    try {
+      dispatch(setLoading());
+      
+      if(localStorage.getItem('authToken')){
+        const data = await paymentProcess(items, localStorage.getItem('authToken'));
+        return data;
+      } else {
+        throw new Error('Token Not Found!!!');
+      }
+    } catch (error) {
+      console.log("Error While Payment Process: ", error.message);
+      return [];
+    } finally {
+      dispatch(resetLoading());
+    }
+  }
+
+  const postPayment = async (status, id) => {
+    try {
+      dispatch(setLoading());
+      
+      if(localStorage.getItem('authToken')){
+        const data = await postPaymentProcess(status, id);
+        return data;
+      } else {
+        throw new Error('Token Not Found!!!');
+      }
+    } catch (error) {
+      console.log("Error While Post Payment Process: ", error.message);
+      return [];
+    } finally {
+      dispatch(resetLoading());
+    }
+  }
+
+  return { getCustomer, getCustomerUpdated, getCartItems, getOrders, getRefills, makePayment, postPayment }
 }

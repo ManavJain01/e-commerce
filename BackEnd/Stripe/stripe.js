@@ -1,12 +1,29 @@
+// Customers Models
+const CustomerDataModel = require("../models/User/customer_data");
+
+// Json Web Token
+const jwt = require("jsonwebtoken");
+
 // Importing env file
 require("dotenv").config();
-
+const jwtSecret = process.env.JWT_TOKEN
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const client = process.env.CLIENT_LOCATION
 
 // Stripe
 const getStripePayment = async (data) => {
   try {
-    const {products} = data;
+    const {userId, products} = data;
+
+    const id = jwt.decode(userId);
+    jwt.verify(userId, jwtSecret, (err, id) => {
+      if (err) {
+        throw new Error('Token verification failed:', err);
+      }
+    });
+    
+    await CustomerDataModel.findByIdAndUpdate(id, { $push: { 'orders.failure': products } });
+
     const lineItems = products.map((product) => ({
       price_data:{
         currency:"inr",
@@ -24,61 +41,40 @@ const getStripePayment = async (data) => {
       payment_method_types:["card"],
       line_items:lineItems,
       mode:"payment",
-      success_url:"http://localhost:3000/verify?success=true",
-      cancel_url:"http://localhost:3000/verify?success=false"
+      success_url:`${client}/verify?success=true&id=${id}`,
+      cancel_url:`${client}/verify?success=false&id=${id}`
     })
 
     return { id: session.id };
   } catch (error) {
-    throw `Error creating Stripe session: ${error.message}`;
+    throw error.message;
   }
 }
 
-// Endpoint to handle Stripe webhook events
-const AfterPayment = async (req) => {
-  console.log("after payment section");
-  console.log(req);
-  // Simulate post-payment processing (ideally use webhook)
-    // if (session.status === 'open') {
-      // console.log("comes here");
+const postPayment = async (status, id) => {
+  try {
+    console.log("status: ", status);
+    console.log("id: ", id);
+    
+    if(status === 'true'){
+      const customer = await CustomerDataModel.findById(id);
+      const lastFailureItem = customer.orders.failure.pop();
 
-    //   console.log("comes here after successfull");
-    //   // Fetch cart items from database based on userId
-    //   // const cartItems = await getCartItems(userId);
+      await CustomerDataModel.findByIdAndUpdate(id, {
+        $set: {
+          'orders.failure': customer.orders.failure,
+          'cart': []
+        },
+        $push: { 'orders.success': {deliveryStatus: "processing", products: lastFailureItem} }
+      });
 
-    //   // Create a new order with the cart items
-    //   // const order = await createOrder(userId, cartItems);
-
-    //   // Clear the cart
-    //   // await clearCart(userId);
-
-    //   console.log(`✅ Payment for session ${session.id} succeeded and order created`);
-    // }
-
-  // return {status: "successfull"}
-};
-
-// Helper functions
-async function getCartItems(lineItems) {
-  return lineItems.map(item => ({
-    name: item.name,
-    price: item.amount / 100,
-    quantity: item.quantity,
-  }));
+      return {status: true}
+    }else{
+      throw new Error(`Payment was not successfull! User is ${id}.`);
+    }
+  } catch (error) {
+    throw error.message;
+  }
 }
 
-async function createOrder(userId, cartItems) {
-  const order = {
-    userId,
-    items: cartItems,
-    createdAt: new Date(),
-  };
-  // await saveOrder(order);
-  return order;
-}
-
-async function clearCart(userId) {
-  // await deleteCartItems(userId);
-}
-
-module.exports = { getStripePayment, AfterPayment }
+module.exports = { getStripePayment, postPayment }

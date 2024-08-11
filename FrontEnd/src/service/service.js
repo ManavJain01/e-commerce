@@ -144,33 +144,3 @@ export const fetchAllProducts = async () => {
     return {};
   }
 }
-
-// Stripe payment method
-export const makePayment = async () => {
-  try {
-    const stripe = await loadStripe(import.meta.env.VITE_REACT_APP_publishable_key);
-    const body = {
-      products: reduxItems,
-    }
-    const headers = {
-      "Content-Type" : "application/json"
-    }
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/stripe/create-checkout-session`,{
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body)
-    })
-
-    const session = await response.json();
-    const result = stripe.redirectToCheckout({
-      sessionId:session.id
-    });
-
-    // if(result.error){
-    //   console.log("result.error");
-    // }
-  } catch (error) {
-    console.log('Error while making payment:', error);
-    return {};
-  }
-}
