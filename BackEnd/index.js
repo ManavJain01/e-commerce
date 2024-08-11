@@ -3,8 +3,11 @@ const routes = require('./routes/route')
 const routes_stripe = require('./routes/route_stripe')
 const routes_api = require('./routes/route_api')
 
+const { errorHandler } = require('./middlewares/errorHandler');
+
 // Importing env file
 require("dotenv").config();
+const PORT = process.env.PORT;
 
 // Accessing Express Packages
 const express = require('express')
@@ -43,9 +46,16 @@ const { postPaymentHandle } = require('./controllers/stripe_controller')
 app.post("/webhook", postPaymentHandle)
 
 // Connecting MongoDB Server
-mongoDB();
+// mongoDB();
+mongoDB().catch((err) => {
+  console.error(err.message);
+  process.exit(1); // Exit the process if the DB connection fails
+});
+
+// Using the error handler middleware
+app.use(errorHandler);
 
 // Starting the server
-app.listen(5000, ()=>{
+app.listen(PORT || 5000, ()=>{
   console.log("Server is running on port 5000.");
 })
