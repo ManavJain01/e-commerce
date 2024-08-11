@@ -14,7 +14,6 @@ const handleStripe = async (req, res) => {
 
 const paymentStatus = async (req, res) => {
   try {
-    console.log("Comes here");
     const { status, id } = req.query;
     const result = await stripe.postPayment(status, id);
     res.status(200).send(result);

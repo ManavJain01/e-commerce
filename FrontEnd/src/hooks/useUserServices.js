@@ -118,8 +118,8 @@ export const useUserServices = () => {
         throw new Error('Token Not Found!!!');
       }
     } catch (error) {
-      console.log("Error While Payment Process: ", error.message);
-      return [];
+      console.error("Error While Payment Process: ", error.message);
+
     } finally {
       dispatch(resetLoading());
     }
@@ -136,8 +136,8 @@ export const useUserServices = () => {
         throw new Error('Token Not Found!!!');
       }
     } catch (error) {
-      console.log("Error While Post Payment Process: ", error.message);
-      return [];
+      console.error("Error While Post Payment Process: ", error.message);
+
     } finally {
       dispatch(resetLoading());
     }

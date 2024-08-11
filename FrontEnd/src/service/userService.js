@@ -143,8 +143,7 @@ export const paymentProcess = async (reduxItems, userId) => {
       console.log("result.error");
     }
   } catch (error) {
-    console.log('Error while making payment:', error);
-    return {};
+    throw error.message;
   }
 }
 
@@ -159,7 +158,6 @@ export const postPaymentProcess = async (status, id) => {
     
     return response.data;
   } catch (error) {
-    console.error('Error while making payment:', error.message);
-    return {};
+    throw error.message;
   }
 }

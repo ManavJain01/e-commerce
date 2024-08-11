@@ -38,7 +38,7 @@ const getStripePayment = async (data) => {
 
     const session = await stripe.checkout.sessions.create({
       // comment below
-      payment_method_types:["card"],
+      // payment_method_types:["card"],
       line_items:lineItems,
       mode:"payment",
       success_url:`${client}/verify?success=true&id=${id}`,
@@ -52,10 +52,7 @@ const getStripePayment = async (data) => {
 }
 
 const postPayment = async (status, id) => {
-  try {
-    console.log("status: ", status);
-    console.log("id: ", id);
-    
+  try {  
     if(status === 'true'){
       const customer = await CustomerDataModel.findById(id);
       const lastFailureItem = customer.orders.failure.pop();
