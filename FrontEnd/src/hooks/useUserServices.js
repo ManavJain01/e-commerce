@@ -13,12 +13,15 @@ export const useUserServices = () => {
   // useDispatch
   const dispatch = useDispatch();
 
+  // Customer
+  const customerId = localStorage.getItem('authToken');
+
   const getCustomer = async () => {
     try {
       dispatch(setLoading());
 
-      if(localStorage.getItem('authToken')){
-        const customer = await customerDetails(localStorage.getItem('authToken'));
+      if(customerId){
+        const customer = await customerDetails(customerId);
 
         dispatch(addUser({
           id: customer._id,
@@ -43,7 +46,7 @@ export const useUserServices = () => {
     try {
       dispatch(setLoading());
 
-      if(localStorage.getItem('authToken')){
+      if(customerId){
         await updateCustomer(data);
       } else {
         throw new Error('Token Not Found!!!');
@@ -59,7 +62,7 @@ export const useUserServices = () => {
     try {
       dispatch(setLoading());
 
-      if(localStorage.getItem('authToken')){
+      if(customerId){
         dispatch(creatingInitialState(await fetchCartItems(localStorage.getItem('authToken'))));
       } else {
         throw new Error('Token Not Found!!!');
@@ -75,7 +78,7 @@ export const useUserServices = () => {
     try {
       dispatch(setLoading());
       
-      if(localStorage.getItem('authToken')){
+      if(customerId){
         const data = await fetchOrders(localStorage.getItem('authToken'));
         return data;
       } else {
@@ -93,8 +96,8 @@ export const useUserServices = () => {
     try {
       dispatch(setLoading());
       
-      if(localStorage.getItem('authToken')){
-        const data = await fetchRefills(localStorage.getItem('authToken'));
+      if(customerId){
+        const data = await fetchRefills(customerId);
         return data;
       } else {
         throw new Error('Token Not Found!!!');
@@ -111,8 +114,8 @@ export const useUserServices = () => {
     try {
       dispatch(setLoading());
       
-      if(localStorage.getItem('authToken')){
-        const data = await paymentProcess(items, localStorage.getItem('authToken'));
+      if(customerId){
+        const data = await paymentProcess(items, customerId);
         return data;
       } else {
         throw new Error('Token Not Found!!!');
@@ -128,9 +131,9 @@ export const useUserServices = () => {
   const postPayment = async (status, id) => {
     try {
       dispatch(setLoading());
-      
-      if(localStorage.getItem('authToken')){
-        const data = await postPaymentProcess(status, id);
+
+      if(customerId){
+        const data = await postPaymentProcess(status, customerId, id);
         return data;
       } else {
         throw new Error('Token Not Found!!!');

@@ -82,19 +82,21 @@ function Main(){
           <ShopByCategories />
 
           {/* Health Articles */}
-          <div className='flex flex-col gap-10'>
-            <span className='font-bold text-3xl'>Health Articles</span>
-            <Carousel responsive={responsive} className='rounded-md'>
-              {articles?.map((e,i) => {
-                return(
-                  <a key={i} href={e?.url} className="bg-blue-200 h-full flex flex-col justify-between p-3 border-[1px] rounded-md">
-                    <h1 className="font-semibold text-2xl">{e?.title}</h1>
-                    {e?.author && <span className="text-end">By - {e?.author}</span>}
-                  </a>
-                )
-              })}
-            </Carousel>
-          </div>
+          {articles
+            &&<div className='flex flex-col gap-10'>
+              <span className='font-bold text-3xl'>Health Articles</span>
+              <Carousel responsive={responsive} className='rounded-md'>
+                {articles?.map((e,i) => {
+                  return(
+                    <a key={i} href={e?.url} className="bg-blue-200 h-full flex flex-col justify-between p-3 border-[1px] rounded-md">
+                      <h1 className="font-semibold text-2xl">{e?.title}</h1>
+                      {e?.author && <span className="text-end">By - {e?.author}</span>}
+                    </a>
+                  )
+                })}
+              </Carousel>
+            </div>
+          }
         </div>
       </div>
     </>

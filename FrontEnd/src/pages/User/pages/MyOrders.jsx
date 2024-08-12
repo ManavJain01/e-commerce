@@ -2,12 +2,38 @@
 import { LuPackageX } from "react-icons/lu";
 
 // Importing React Packages
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
+// Importing Custom Hooks
+import { useUserServices } from '../../../hooks/useUserServices'
+
+// Importing local files
+import Orders from "./My Orders/Orders";
+import ShowOrder from "./My Orders/ShowOrder";
 
 export default function MyOrders() {
+  // Custom Hooks
+  const { getOrders } = useUserServices();
+
   // UseStates
   const [orders, setOrders] = useState("")
+  const [showOrder, setShowOrder] = useState({visible: false});
 
+  // useEffect
+  useEffect(() => {
+    const SetOrders = async () => {
+      const response = await getOrders();
+      
+      setOrders(response);
+    }
+    
+    SetOrders();
+  }, [])
+  
+  if(showOrder.visible) return(
+    <ShowOrder showOrder={showOrder} setShowOrder={setShowOrder} />
+  )
+  else
   return (
     <div className="w-full py-20 flex flex-col gap-20">
       <div className="px-10 flex justify-between">
@@ -24,7 +50,7 @@ export default function MyOrders() {
       <div className="flex gap-5">
         <div className="flex-1">
           {orders
-            ? <div></div>
+            ? <Orders orders={orders} setShowOrder={setShowOrder} />
             : <div className="py-10 flex flex-col items-center gap-5">
                 <LuPackageX className="size-80 text-blue-300" />
                 <p className="text-xl font-bold">No Orders yet. Start Ordering!</p>
@@ -33,16 +59,18 @@ export default function MyOrders() {
           }
         </div>
 
-        <div className="flex-1">
-          <div className="mx-10 px-5 flex flex-col justify-between gap-5 border-2 border-gray-300 rounded-md">
-            <div>
-              <h1 className="font-semibold text-lg">Upload prescription and get medicines</h1>
-              <p className="font-semibold text-sm text-gray-400">Quick Buy! Place an order in a single click by uploading a valid prescription.</p>
-            </div>
+        {!orders
+          &&<div className="flex-1">
+            <div className="mx-10 px-5 flex flex-col justify-between gap-5 border-2 border-gray-300 rounded-md">
+              <div>
+                <h1 className="font-semibold text-lg">Upload prescription and get medicines</h1>
+                <p className="font-semibold text-sm text-gray-400">Quick Buy! Place an order in a single click by uploading a valid prescription.</p>
+              </div>
 
-            <button className="text-2xl text-semibold text-blue-600 underline my-5">Upload Prescription</button>
+              <button className="text-2xl text-semibold text-blue-600 underline my-5">Upload Prescription</button>
+            </div>
           </div>
-        </div>
+        }
       </div>
     </div>
   )

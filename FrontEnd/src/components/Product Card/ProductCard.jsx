@@ -108,6 +108,15 @@ function ProductCard({ e, title }){
       }
     </div>
     )
+
+  if(title == 'order'){
+    return(
+    <div key={e._id} className="h-20 w-full flex flex-col justify-between px-5 py-2 border border-black rounded-lg">
+      <p className="">{e.item}</p>
+      {e.price && <p className="">MRP रु.{e.price}</p>}          
+    </div>
+    )
+  }
 }
 
 export default ProductCard;

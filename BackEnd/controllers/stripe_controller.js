@@ -14,8 +14,8 @@ const handleStripe = async (req, res) => {
 
 const paymentStatus = async (req, res) => {
   try {
-    const { status, id } = req.query;
-    const result = await stripe.postPayment(status, id);
+    const { status, id, orderId } = req.query;
+    const result = await stripe.postPayment(status, id, orderId);
     res.status(200).send(result);
   } catch (error) {
     console.error("Error in paymentStatus: ", error);

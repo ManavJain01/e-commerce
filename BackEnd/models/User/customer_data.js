@@ -2,6 +2,31 @@ const mongoose = require('mongoose')
 
 const { Schema } = mongoose;
 
+const OrderSchema = new Schema({
+  id: {
+    type: Schema.Types.ObjectId,
+    required: true,
+  },
+  paymentStatus: {
+    type: String,
+    enum: ['Pending', 'Completed', 'Failed'], // Customize the statuses as needed
+    required: true,
+  },
+  deliveryStatus: {
+    type: String,
+    enum: ['Pending', 'Shipped', 'Delivered', 'Canceled'], // Customize the statuses as needed
+    required: true,
+  },
+  products: {
+    type: Object,
+    required: true,
+  },
+  orderTime: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 const CustomerDataSchema = new Schema({
   cart:{
     type: Array,
@@ -16,7 +41,8 @@ const CustomerDataSchema = new Schema({
     type: Object
   },
   orders:{
-    type: Object,
+    type: [OrderSchema],
+    default: [],
   }
 })
 

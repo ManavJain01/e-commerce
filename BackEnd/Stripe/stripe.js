@@ -21,49 +21,69 @@ const getStripePayment = async (data) => {
         throw new Error('Token verification failed:', err);
       }
     });
-    
-    await CustomerDataModel.findByIdAndUpdate(id, { $push: { 'orders.failure': products } });
 
-    const lineItems = products.map((product) => ({
-      price_data:{
-        currency:"inr",
-        product_data:{
-          name:product.list.item,
-          images:[product.list?.img]
+    const newOrder = await CustomerDataModel.findByIdAndUpdate(id, { 
+      $push: { 
+        orders: { 
+          paymentStatus: 'Pending', // or 'Completed', 'Failed', etc.
+          deliveryStatus: 'Pending', // or 'Shipped', 'Delivered', etc.
+          products: products,
+          orderTime: new Date(), // or any specific time if needed
+        }
+      }
+    }, { new: true }); // Return the updated document
+
+    // Check if the customer document was updated and has orders
+    if (newOrder && newOrder.orders.length > 0) {
+      // Get the latest order from the orders array
+      const latestOrder = newOrder.orders[newOrder.orders.length - 1];
+      
+      const lineItems = products.map((product) => ({
+        price_data:{
+          currency:"inr",
+          product_data:{
+            name:product.list.item,
+            images:[product.list?.img]
+          },
+          unit_amount: Math.round(product.list.price*100),
         },
-        unit_amount: Math.round(product.list.price*100),
-      },
-      quantity:product.cartQty
-    }));
+        quantity:product.cartQty
+      }));
+  
+      const session = await stripe.checkout.sessions.create({
+        // comment below
+        // payment_method_types:["card"],
+        line_items:lineItems,
+        mode:"payment",
+        success_url:`${client}/verify?success=true&id=${latestOrder._id}`,
+        cancel_url:`${client}/verify?success=false&id=${latestOrder._id}`
+      })
 
-    const session = await stripe.checkout.sessions.create({
-      // comment below
-      // payment_method_types:["card"],
-      line_items:lineItems,
-      mode:"payment",
-      success_url:`${client}/verify?success=true&id=${id}`,
-      cancel_url:`${client}/verify?success=false&id=${id}`
-    })
+      return { id: session.id };
+    } else {
+      console.log('No orders found.');
+    }
 
-    return { id: session.id };
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 }
 
-const postPayment = async (status, id) => {
+const postPayment = async (status, _id, orderId) => {
   try {  
-    if(status === 'true'){
-      const customer = await CustomerDataModel.findById(id);
-      const lastFailureItem = customer.orders.failure.pop();
+    const id = jwt.decode(_id);
+    jwt.verify(_id, jwtSecret, (err, id) => {
+      if (err) {
+        throw new Error('Token verification failed:', err);
+      }
+    });
 
-      await CustomerDataModel.findByIdAndUpdate(id, {
-        $set: {
-          'orders.failure': customer.orders.failure,
-          'cart': []
-        },
-        $push: { 'orders.success': {deliveryStatus: "processing", products: lastFailureItem} }
-      });
+    if(status === 'true'){
+      await CustomerDataModel.findByIdAndUpdate(
+        { _id: id },
+        { $set: { 'orders.$[elem].paymentStatus': 'Completed', cart : [] } },
+        { arrayFilters: [{ 'elem._id': orderId }],  new: true }
+      );
 
       return {status: true}
     }else{

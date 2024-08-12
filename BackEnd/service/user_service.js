@@ -171,9 +171,14 @@ const getOrders = async (_id) => {
       }
     });
 
-    return  await CustomerDataModel.findById(id).select('orders -_id');
+    // return await CustomerDataModel.findById(id).select('orders.paymentDetails -_id');
+    const orders = await CustomerDataModel.findById(id)
+    .select(['orders']);
+    const completedOrders = orders.orders.filter(order => order.paymentStatus === "Completed");
+
+    return completedOrders;
   } catch (error) {
-    throw `Error in FetchingOrders: ${error}`;
+    throw error.message;
   }
 }
 

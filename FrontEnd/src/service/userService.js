@@ -76,8 +76,7 @@ export const fetchOrders = async (id) => {
 
     return response.data;
   } catch (error) {
-    console.log('Error fetching orders:', error);
-    return [];
+    throw error.message;
   }
 }
 
@@ -148,9 +147,9 @@ export const paymentProcess = async (reduxItems, userId) => {
 }
 
 // Post payment method
-export const postPaymentProcess = async (status, id) => {
+export const postPaymentProcess = async (status,customerId, id) => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/stripe/verify?status=${status}&id=${id}`);
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/stripe/verify?status=${status}&id=${customerId}&orderId=${id}`);
     
     if (response.status !== 200) {
       throw new Error('Failed to Post Payment Process');
