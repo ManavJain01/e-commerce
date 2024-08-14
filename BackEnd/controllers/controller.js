@@ -57,7 +57,7 @@ const findCategory = async (req, res) => {
   
   
     if(result){
-      res.send(result)
+      res.status(200).send(result)
     } else {
       const msg = req.body.data + " not found!";
       console.log(msg);

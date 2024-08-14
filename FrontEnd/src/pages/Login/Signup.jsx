@@ -5,11 +5,7 @@ import { BsFillShieldLockFill } from 'react-icons/bs'
 // Importing React Packages
 import { useState } from 'react'
 
-// Importing Firebase configuration
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
-import { auth } from "../../Login Auths/Firebase/firebase.config"
-
-function Signup({ setPh, setGenerateOtpPage, setLoginPage, tempLogin }){
+function Signup({ setPh }){
   // Variables
   let tempPh = ""
   
@@ -63,37 +59,6 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage, tempLogin }){
       e.target.disabled = true
       tempPh = "+91 " + input.value;
       setPh(prevPh => {return{...prevPh, phone: tempPh}})
-
-      if(import.meta.env.VITE_REACT_APP_NODE_ENV == 'production') sendOtp();
-      else  tempLogin();
-    }
-  }
-
-  const sendOtp = async() => {
-    try{
-      console.log("in SendOtp");
-      setLoading(true)
-      const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {})
-      console.log("recaptcha:", recaptcha);
-      const confirm = await signInWithPhoneNumber(auth, tempPh, recaptcha)
-      console.log("confirm:", confirm);
-      await setPh(prevPh => {return{...prevPh, confirmation: confirm}})
-      setLoading(false);
-      await setGenerateOtpPage(true)
-    }catch(err){
-      switch (err.code) {
-        case 'auth/too-many-requests':
-          alert('Too Many Requests, retry after sometime!!!');
-          setLoading(false);
-          setLoginPage(false);
-          break;
-      
-        default:
-          console.log("Error when sending otp in signup page :", err)
-          setLoading(false);
-          setLoginPage(false);
-          break;
-      }
     }
   }
 
@@ -104,12 +69,13 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage, tempLogin }){
         // required
         // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
         id="validPhn"
-        type="text"
+        type="tel"
         placeholder='Your Mobile Number'
         onChange={(e) => PhFormatOnChange(e)}
         onKeyDown={(e) => PhFormatOnKeyDown(e)}
-        className="px-10 py-2 border-2 border-gray-400 rounded-md"
-      /> 
+        className="px-10 py-2 border-2 border-gray-400 rounded-lg outline-none"
+        required
+      />
       {notValid ?<span className="absolute top-24 left-10 text-sm text-red-500">
           Enter valid mobile number
         </span>
@@ -117,11 +83,8 @@ function Signup({ setPh, setGenerateOtpPage, setLoginPage, tempLogin }){
       }
       <button onClick={(e) => checkValidNumber(e)} className="bg-green-700 text-white flex justify-center items-center gap-5 rounded-md mt-10 py-3 hover:opacity-80 active:opacity-90">
         { loading && <CgSpinner size={20} className="animate-spin" />}
-        Send OTP
+        <span>Login / Signup</span>
       </button>
-
-      {/* Here Firebase CheckBot Comes */}
-      <div id="recaptcha" className="mt-5 m-auto" />
     </div>
   )
 }

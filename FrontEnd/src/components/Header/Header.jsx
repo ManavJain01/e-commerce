@@ -107,6 +107,14 @@ function Header(){
   else return(
     <>
       <div className={`${navbar ? 'header active' : 'header'} z-[99999]`}>
+        {/* Login Page */}
+        <div className="relative z-[9999999]">
+          {loginPage
+            ? <Login loginPage={loginPage} setLoginPage={setLoginPage} setUserName={setUserName} />
+            : ""
+          }
+        </div>
+
         <div className="bg-white w-screen h-[5rem] px-10 flex justify-between items-center">
           <Link to="/Home">
             <h1 className="font-bold text-xl text-red-700">Dismefa <span className="text-green-700">Medicos</span></h1>
@@ -139,12 +147,6 @@ function Header(){
                   <button onClick={()=>setLoginPage(true)}>Login | Signup</button>
                 </li>
             }
-            <div>
-              {loginPage
-                ? <Login loginPage={loginPage} setLoginPage={setLoginPage} setUserName={setUserName} />
-                : ""
-              }
-            </div>
 
             <li>
               <Link to="/Cart"

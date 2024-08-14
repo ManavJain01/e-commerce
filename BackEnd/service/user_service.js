@@ -12,34 +12,45 @@ const CustomerDataModel = require("../models/User/customer_data")
 
 // Customer Login request
 const getCustomer = async (data) => {
-  const inProgress = new Set();
-
   try {
     const phone = data.phone;
+    const user = await CustomerModel.find({phone: phone});
+    if(user)  return 'success';
+    return 'not found';
 
-    if(inProgress.has(phone)){
-      return("Request already in progress for this phone number")
-    }
-    inProgress.add(phone);
-
-    let userData = await CustomerModel.findOne({phone});
-
-    if(userData == null){
-      const userData = await CustomerModel.create({
-        phone: data.phone,
-        signupLocation: data.location
-      })
-      
-      const authToken = jwt.sign((userData._id).toString(), jwtSecret)
-      return { data: userData, authToken: authToken }
-    }else{
-      const authToken = jwt.sign((userData._id).toString(), jwtSecret)
-      return { data: userData, authToken: authToken };
-    }
   } catch (error) {
     throw error.message
-  } finally {
-    inProgress.delete(data.phone);
+  }
+}
+
+const getSignup = async (data) => {
+  try {
+    const { phone, password } = data;
+    const user = await CustomerModel.create({
+      phone: phone,
+      password: password
+    });
+
+    const authToken = jwt.sign((user._id).toString(), jwtSecret);
+    return { data: user, authToken: authToken };
+  } catch (error) {
+    throw error.message;
+  }
+}
+
+const getLogin = async () => {
+  try {
+    const { phone, password } = data;
+
+    const user = await CustomerModel.find({
+      phone: phone,
+      password: password
+    });
+
+    const authToken = jwt.sign((user._id).toString(), jwtSecret);
+    return { data: user, authToken: authToken };
+  } catch (error) {
+    throw error.message; 
   }
 }
 
@@ -214,4 +225,4 @@ const getSaveForLater = async (_id) => {
   }
 }
 
-module.exports = { getCustomer, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater }
+module.exports = { getCustomer, getSignup, getLogin, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater }

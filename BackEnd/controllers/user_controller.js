@@ -7,8 +7,28 @@ const findCustomer = async (req, res) => {
     const result = await user_service.getCustomer(req.body);
     res.status(200).send(result);
   } catch (error) {
-    console.log("Error: ", error);
-    res.status(400).send(error);
+    console.error("Error find customer: ", error.message);
+    res.status(400).send(error.message);
+  }
+}
+
+const signup = async (req, res) => {
+  try {
+    const result = await user_service.getSignup(req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error Login: ", error.message);
+    res.status(400).send(error.message);
+  }
+}
+
+const login = async (req, res) => {
+  try {
+    const result = await user_service.getLogin(req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error Signup: ", error.message);
+    res.status(400).send(error.message);
   }
 }
 
@@ -103,4 +123,4 @@ const findSaveForLater = async (req, res) => {
 }
 
 // Exporting controllers
-module.exports = { findCustomer, findCustomerDetails, UpdateCustomer, findCartData, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart, findOrders, findRefills, findSaveForLater }
+module.exports = { findCustomer, signup, login, findCustomerDetails, UpdateCustomer, findCartData, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart, findOrders, findRefills, findSaveForLater }

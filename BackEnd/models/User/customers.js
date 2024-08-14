@@ -11,6 +11,10 @@ const CustomerSchema = new Schema({
     required: true,
     unique: true
   },
+  password:{
+    type: String,
+    required: true
+  },
   email:{
     type: String
   },
