@@ -1,1 +1,0 @@
-Connection with MongoDB Database and with React is through here.
