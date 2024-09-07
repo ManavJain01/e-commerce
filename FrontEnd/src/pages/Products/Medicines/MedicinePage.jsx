@@ -1,3 +1,6 @@
+// Importing React Icons
+import { LuLoader } from "react-icons/lu";
+
 // Importing Local Files
 // import { medicines } from './MedicinesAPI'
 import ProductCard from '../../../components/Product Card/ProductCard'
@@ -13,7 +16,7 @@ function MedicinePage(){
   const [medicines, setMedicines] = useState()
 
   // use Custom Hooks
-  const { getMedicines } = useServices();
+  const { loading, error, getMedicines } = useServices();
 
   // Getting Medicines API
   useEffect(() => {
@@ -23,14 +26,17 @@ function MedicinePage(){
     }
 
     getData();
-  }, [])
+  }, []);
 
   // when accessing frontend object file
   // const medicinesList = medicines.filter(e => e.type.includes('Medicines'))[0].list
 
-  return(
+  if(loading) return(
+    <span className="my-40"><LuLoader className="text-green-700 size-32 mx-auto animate-spin" /></span>
+  )
+  else return(
     <>
-      <div className="mx-10 mt-20 p-10 border rounded-t-md shadow-md shadow-gray-700">
+      <div className="mx-10 mt-40 p-10 border rounded-t-md shadow-md shadow-gray-700">
         <section className="flex flex-col gap-3">
           <h1 className="font-semibold text-4xl">All Medicine List</h1>
           <span className="text-lg">Find your medicines here</span>

@@ -1,9 +1,12 @@
+// Importing React Icons
+import { LuLoader } from "react-icons/lu";
+
 // Importing React Packages
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-// Importing services
-import { fetchNavOptions } from '../../../../service/service'
+// Importing Custom Hooks
+import { useServices } from "../../../../hooks/useServices"
 
 export default function ShopByCategories(){
   // variables
@@ -13,15 +16,19 @@ export default function ShopByCategories(){
   const [categories, setCategories] = useState([])
   const [filteredCategory, setFilteredCategory] = useState("")
 
+  // Custom Hooks
+  const { loading, error, getNavOptions } = useServices();
+
   // useEffect
   useEffect(()=>{  
     // Getting Data From BackEnd
     const getData = async () => {
-      const response = await fetchNavOptions();
-      setCategories(response)
+      const response = await getNavOptions();
+      setCategories(response);
+
       
       // Automatically click "Personal Care" button if it exists
-      const personalCareCategory = response.find(e => e.item === "Personal care");
+      const personalCareCategory = response?.find(e => e.item === "Personal care");
       
       if(personalCareCategory) {
         setFilteredCategory([colors[response.indexOf(personalCareCategory)-1], personalCareCategory]);
@@ -29,9 +36,13 @@ export default function ShopByCategories(){
     }
 
     getData();
-  }, [])
+  }, []);
 
-  return (
+  if(loading) return(
+    <span><LuLoader className="text-green-700 size-32 mx-auto animate-spin" /></span>
+  )
+  else if((Array.isArray(categories) && categories.length < 1) || !Array.isArray(categories)) return;
+  else return (
     <div className="flex flex-col gap-8 p-5 border-[1px] border-blue-300 rounded-md">
       {/* Headline with a button */}
       <div className="flex justify-between">

@@ -57,8 +57,7 @@ export const fetchHealthArticle = async () => {
 
     return response.articles;
   } catch (error) {
-    console.log("Error Fetching The Article:", error);
-    return []
+    throw error;
   }
 }
 
@@ -72,7 +71,6 @@ export const fetchNavOptions = async () => {
     }
 
     return response.data;
-    
   } catch (error) {
     console.log("Error while fetching NavOptions: ", error);
     return {};
@@ -108,6 +106,21 @@ export const fetchMedicines = async () => {
   } catch (error) {
     console.log("Error while fetching Medicines: ", error);
     return [];
+  }
+}
+
+// Fetching Filters
+export const fetchFilteres = async (MainCategory) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/filters`, { params: {category: MainCategory} });
+
+    if (response.status !== 200) {
+      throw new Error('Failed to fetch Filters');
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
   }
 }
 

@@ -1,4 +1,6 @@
 // Importing React-Icons
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { CiSearch } from "react-icons/ci";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 
@@ -23,18 +25,16 @@ import InputBtn from '../Buttons/InputBtn'
 import UserNavbar from './sections/UserNavbar'
 import Login from '../../pages/Login/Login'
 import ProductsNavbar from './sections/ProductsNavbar'
-import LoadingScreen from '../loading/LoadingScreen'
 
 import './header.css'
 
 function Header(){
   // Custom Hooks
-  const { getNavOptions } = useServices();
+  const { getNavOptions, loading } = useServices();
   const { refresh } = useRefresh();
 
   // redux
   const cartItems = useSelector(state => state.cart.cartItems)
-  const loading = useSelector(state => state.state.loading)
   const stateItems = useSelector(state => state.state.stateItems)
   // const customer = useSelector(state => state.user.user)
 
@@ -103,10 +103,10 @@ function Header(){
     }
   }
 
-  if(loading) return <LoadingScreen />
-  else return(
+  return(
     <>
-      <div className={`${navbar ? 'header active' : 'header'} z-[99999]`}>
+      {/* <div className={`${navbar ? 'header active' : 'header'} z-[99999]`}> */}
+      <div className={`fixed z-[99999]`}>
         {/* Login Page */}
         <div className="relative z-[9999999]">
           {loginPage
@@ -156,8 +156,15 @@ function Header(){
                 Cart
               </Link>
             </li>
-
-            <li className="relative"><ProductsNavbar navOptions={navOptions} /></li>
+            
+            <li className="relative">
+              {loading
+                ?<span className="absolute top-12 -right-10 bg-white w-lvw">
+                  <AiOutlineLoading3Quarters className="size-5 mx-auto animate-spin" />
+                </span>
+                :<ProductsNavbar navOptions={navOptions} />
+              }
+            </li>
           </ul>
 
           <div className="flex sm:hidden relative">

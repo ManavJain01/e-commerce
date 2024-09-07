@@ -1,15 +1,39 @@
 // Importing React Icons
 import { BiTargetLock } from "react-icons/bi";
 
+// Importing React Packages
+import { useEffect, useRef } from "react";
+
 // Importing Hooks
 import { useServices } from "../../hooks/useServices";
 
 import InputBtn from "./InputBtn";
 
-function AddressBtn({ setCheckAddress, setEnableAddressBox }){
+function AddressBtn({ setCheckAddress, enableAddressBox, setEnableAddressBox }){
   // Custom Hooks
   const { getInputLocation, getCurrentLocation } = useServices();
 
+  // useRef
+  const modalRef = useRef();
+
+  // useEffect
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setEnableAddressBox(false);
+      }
+    }
+
+    if (enableAddressBox) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [enableAddressBox]);
+
+  // Functions
   async function checkPostcode(){
     const input = document.getElementById("checkAddress").value
 
@@ -30,7 +54,7 @@ function AddressBtn({ setCheckAddress, setEnableAddressBox }){
   }
 
   return(
-    <div className="z-50 absolute top-12 left-10 bg-white flex flex-col gap-5 min-w-80 min-h-40 p-5 rounded-md shadow-md shadow-gray-400">
+    <div ref={modalRef} className="z-50 absolute top-12 left-10 bg-white flex flex-col gap-5 min-w-80 min-h-40 p-5 rounded-md shadow-md shadow-gray-400">
       <h1 className="font-semibold text-lg">Choose your location</h1>
       <InputBtn
         id="checkAddress"

@@ -23,7 +23,7 @@ function Help(){
 
   return(
     <>
-      <div className="m-8 flex flex-col justify-between xl:h-[35rem]">
+      <div className="mx-8 mt-40 flex flex-col justify-between xl:h-[35rem]">
         <section>
           <h1 className="text-red-700 font-semibold">How can we help you?</h1>
           <ul className="flex flex-col gap-6 my-6 whitespace-nowrap">

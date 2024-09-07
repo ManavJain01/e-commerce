@@ -1,3 +1,6 @@
+// Importing React Icons
+import { LuLoader } from "react-icons/lu";
+
 import { useEffect, useState } from "react";
 
 // Importing Custom Hooks
@@ -8,7 +11,7 @@ function Health(){
   const [articles, setArticles] = useState([])
 
   // use Custom Hooks
-  const { getHealthArticle } = useServices();
+  const { loading, error, getHealthArticle } = useServices();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,11 +20,14 @@ function Health(){
     }
 
     fetchData();
-  }, [])
+  }, []);
 
-  return(
+  if(loading) return(
+    <span className="my-20"><LuLoader className="text-green-700 size-32 mx-auto animate-spin" /></span>
+  )
+  else return(
     <>
-      <div>
+      <div className="my-24">
         <div className="bg-blue-200 h-[13rem] w-screen flex justify-center items-center">
           <h1 className="text-blue-900 text-6xl font-bold">Blog</h1>
         </div>

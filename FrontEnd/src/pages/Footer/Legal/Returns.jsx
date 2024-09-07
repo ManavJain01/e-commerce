@@ -1,7 +1,7 @@
 function Returns(){
   return(
     <>
-      <div className="m-10 text-gray-600">
+      <div className="mx-10 my-40 text-gray-600">
         <div>
           <h1 className="text-4xl font-bold">Returns & Cancellations Policy</h1>
           <span>Last Updated: Mar, 2024</span>

@@ -13,6 +13,17 @@ const findNavOptions = async (req, res) => {
   }
 }
 
+const findAllFilters = async (req, res) => {
+  try {
+    const result = await service.getFilterService(req.query.category);
+    res.status(200).send(result);
+
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error.message);
+  }
+}
+
 // Search Controller
 const searchData = async (req, res) => {
   try {
@@ -70,4 +81,4 @@ const findCategory = async (req, res) => {
 }
 
 // Exporting controllers
-module.exports = { findNavOptions, findAllMedicines, findAllCategory, findCategory, searchData }
+module.exports = { findNavOptions, findAllFilters, findAllMedicines, findAllCategory, findCategory, searchData }

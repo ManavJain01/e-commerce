@@ -95,79 +95,89 @@ function CarouselTab({slides}){
     setCurrIndex(slideIndex)
   }
 
-  //--------------------------------------------------------------------------------------------------------
-  // Code for magnifying image
-  // https://www.youtube.com/watch?v=E-dekdL0BOs
+  // useEffect
+  useEffect(() => {
+    const lens = document.querySelector('#magnifier-lens');
+    const product_img = document.querySelector('#img');
+    const magnified_img = document.querySelector('#magnified-img');
 
-  const lens = document.querySelector('#magnifier-lens')
-  const product_img = document.querySelector('#img')
-  const magnified_img = document.querySelector('#magnified-img')
+    function magnify(product_img, magnified_img) {
+      lens.addEventListener('mousemove', moveLens);
+      product_img.addEventListener('mousemove', moveLens);
+      lens.addEventListener('mouseout', leaveLens);
+    }
 
-  function magnify(product_img, magnified_img){
-    lens.addEventListener('mousemove', moveLens)
-    product_img.addEventListener('mousemove', moveLens)
-    // take mouse out of image
-    lens.addEventListener('mouseout', leaveLens)
-  }
+    function moveLens(e) {
+      let x, y, cx, cy;
+      const product_img_rect = product_img.getBoundingClientRect();
+      x = e.pageX - product_img_rect.left - lens.offsetWidth / 2;
+      y = e.pageY - product_img_rect.top - lens.offsetHeight / 2;
 
-  function moveLens(e){
-    let x, y, cx, cy;
-    // Get the position of the cursor
-    const product_img_rect = product_img.getBoundingClientRect();
-    x = e.pageX - product_img_rect.left - lens.offsetWidth/2;
-    y = e.pageY - product_img_rect.top - lens.offsetHeight/2;
+      let max_xpos = product_img_rect.width - lens.offsetWidth;
+      let max_ypos = product_img_rect.height - lens.offsetHeight;
 
-    
-    let max_xpos = product_img_rect.width - lens.offsetWidth;
-    let max_ypos = product_img_rect.height - lens.offsetHeight;
-    
-    if(x > max_xpos) x = max_xpos;
-    if(x < 0) x = 0;
-    
-    if(y > max_ypos) y = max_ypos;
-    if(y < 0) y = 0;
+      if (x > max_xpos) x = max_xpos;
+      if (x < 0) x = 0;
 
-    lens.style.cssText = `top: ${y}px; left: ${x}px` 
+      if (y > max_ypos) y = max_ypos;
+      if (y < 0) y = 0;
 
-    // calculate the magnified_Img & len's Aspect Ratio
-    cx = magnified_img.offsetWidth / lens.offsetWidth
-    cy = magnified_img.offsetHeight / lens.offsetHeight
+      lens.style.cssText = `top: ${y}px; left: ${x}px`;
 
-    magnified_img.style.cssText = `
-      background: url(${slides[currIndex]})
-      -${x *cx}px -${y *cy}px /
-      ${product_img_rect.width * cx}px ${product_img_rect.height * cy}px
-      no-repeat
-    `
+      cx = magnified_img.offsetWidth / lens.offsetWidth;
+      cy = magnified_img.offsetHeight / lens.offsetHeight;
 
-    lens.classList.add("active")
-    magnified_img.classList.add("active")
-  }
+      magnified_img.style.cssText = `
+        background: url(${slides[currIndex]})
+        -${x * cx}px -${y * cy}px /
+        ${product_img_rect.width * cx}px ${product_img_rect.height * cy}px
+        no-repeat
+      `;
 
-  function leaveLens(){
-    lens.classList.remove("active")
-    magnified_img.classList.remove("active")
-  }
+      lens.classList.add("active");
+      magnified_img.classList.add("active");
+    }
 
-  setTimeout(()=>magnify(product_img, magnified_img), 0)
+    function leaveLens() {
+      lens.classList.remove("active");
+      magnified_img.classList.remove("active");
+    }
+
+    magnify(product_img, magnified_img);
+
+    // Cleanup event listeners on unmount
+    return () => {
+      lens.removeEventListener('mousemove', moveLens);
+      product_img.removeEventListener('mousemove', moveLens);
+      lens.removeEventListener('mouseout', leaveLens);
+    };
+  }, [currIndex, slides]);
   
   return(
     <DIVSTYLES>
       <div id="img-container" style={containerStyles}>
-        {/* Left arrow key functionality */}
-        <div style={leftArrowStyles} onClick={goToPrevious} className="hover:opacity-65"><IoIosArrowDropleft /></div>
-        {/* Right arrow key functionality */}
-        <div style={rightArrowStyles} onClick={goToNext} className="hover:opacity-65"><IoIosArrowDropright /></div>
+        {Array.isArray(slides) && slides.length > 1
+          &&
+          <div>
+            {/* Left arrow key functionality */}
+            <div style={leftArrowStyles} onClick={goToPrevious} className="hover:opacity-65"><IoIosArrowDropleft /></div>
+            {/* Right arrow key functionality */}
+            <div style={rightArrowStyles} onClick={goToNext} className="hover:opacity-65"><IoIosArrowDropright /></div>
+          </div>
+        }
         {/* It is carousel container */}
         <div id="img" style={slideStyles}></div>
+        
         {/* It is dots container */}
-        <div style={dotsContainerStyles}>
-          {slides.map((slide, slideIndex) => (
-            <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}>
-              <FaRegCircle className={`size-2 rounded-full ${slideIndex == currIndex ? "bg-black" : "bg-white"}`} />
-            </div>
-          ))}
-        </div>
+        {Array.isArray(slides) && slides.length > 1
+          &&<div style={dotsContainerStyles}>
+            {slides.map((slide, slideIndex) => (
+              <div key={slideIndex} style={dotStyles} onClick={() => goToSlide(slideIndex)}>
+                <FaRegCircle className={`size-2 rounded-full ${slideIndex == currIndex ? "bg-black" : "bg-white"}`} />
+              </div>
+            ))}
+          </div>
+        }
 
         <div
           id="magnifier-lens"

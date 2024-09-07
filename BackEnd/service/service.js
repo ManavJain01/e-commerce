@@ -80,6 +80,24 @@ const getNavOptions = async () => {
   }
 }
 
+const getFilterService = async (category) => {
+  try {
+    const categories = await NavOptionModel.find(
+      {item: category}
+    )
+    .select(["subitems.item"]);
+
+    const subCategories = await NavOptionModel.find(
+      {item: category}
+    )
+    .select(["subitems.subitems"]);
+
+    return {categories: categories[0]?.subitems, subCategories: subCategories[0]?.subitems};  
+  } catch (error) {
+    throw error.message;
+  }
+}
+
 // Sending Medicines
 const getMedicines = async () => {
   try {
@@ -164,4 +182,4 @@ async function getCategory(category, subCategory){
 }
 
 
-module.exports = { getSearchData, getNavOptions, getMedicines, getAllCategories, getCategory }
+module.exports = { getSearchData, getNavOptions, getFilterService, getMedicines, getAllCategories, getCategory }

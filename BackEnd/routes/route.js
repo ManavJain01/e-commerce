@@ -6,7 +6,7 @@ const express = require('express')
 const router = express.Router();
 
 // Importing Controllers
-const { findNavOptions, findAllMedicines, findAllCategory, findCategory } = require('../controllers/controller')
+const { findNavOptions, findAllFilters, findAllMedicines, findAllCategory, findCategory } = require('../controllers/controller')
 const { UpdateCustomer, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart } = require('../controllers/user_controller')
 
 // Integrating Admin Panel
@@ -30,6 +30,7 @@ router.route('/UpdatingCart').post(ItemUpdatedInCart)
 router.route('/deleteFromCart').post(ItemDeletedFromCart)
 
 // Category related routes
+router.route('/filters').get(findAllFilters)
 router.route('/Medicines').get(findAllMedicines)
 router.route('/Categories').get(findAllCategory)
 router.route('/Categories/:category').post(findCategory)

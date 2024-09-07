@@ -26,7 +26,7 @@ function ProductCard2(){
   const dispatch = useDispatch()
   const cartItems = useSelector(state => state.cart.cartItems)
   
-  const slides = e.img
+  const slides = e.img;
 
   const [ deliveryDate, setdeliveryDate ] = useState('Today');
   const [ medicineQTY, setMedicineQTY ] = useState(0);
@@ -44,13 +44,13 @@ function ProductCard2(){
         if(item.list.item === e.item) dispatch(updateCart({e,medicineQTY}))
       })
     }
-  },[medicineQTY])
+  },[medicineQTY]);
 
   return(
     <div className='flex flex-col lg:flex-row gap-5 py-20 px-10 border border-gray-200 m-10 rounded-md shadow-md'>
 
       <div className="sticky flex justify-center py-2 px-10 border border-gray-200">
-        { e.img && typeof e.img == Object ? <CarouselTab slides={slides} />
+        { e.img && Array.isArray(e.img) ? <CarouselTab slides={slides} />
         :<IoImageOutline className='object-contain w-64 h-64 mt-10 text-blue-600' />}
       </div>
 

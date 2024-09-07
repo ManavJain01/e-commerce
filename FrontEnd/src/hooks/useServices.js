@@ -1,18 +1,25 @@
+// Importing React Packages
+import { useState } from 'react';
+
 // Importing Services
-import { fetchInputLocation, fetchCurrLocation, fetchNavOptions, fetchSearchResult, fetchFilteredProducts, fetchAllProducts, fetchMedicines, fetchHealthArticle } from '../service/service'
+import { fetchInputLocation, fetchCurrLocation, fetchNavOptions, fetchSearchResult, fetchFilteres, fetchFilteredProducts, fetchAllProducts, fetchMedicines, fetchHealthArticle } from '../service/service'
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
-import { setLoading, resetLoading } from '../Redux/features/stateSlice';
+import { setLoading as setLoadingFeature, resetLoading } from '../Redux/features/stateSlice';
 import { creatingInitialState } from '../Redux/features/cartSlice';
 
 export const useServices = () => {
   // useDispatch
   const dispatch = useDispatch();
 
+  // usseState
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const setCart = async () => {
     try {
-      dispatch(setLoading());
+      dispatch(setLoadingFeature());
       dispatch(creatingInitialState({cart: []}));
     } catch (error) {
       console.log("Error Setting Cart Items: ", error);
@@ -42,74 +49,87 @@ export const useServices = () => {
 
   const getNavOptions = async () => {
     try {
-      dispatch(setLoading());
-
+      setLoading(true);
+      // dispatch(setLoadingFeature());
+      
       const response = await fetchNavOptions();
       return await response;
     } catch (error) {
-      console.log("Error Getting Nav Options:", error);
+      setError(error.message);
+      console.error("Error Getting Nav Options:", error);
       return [];
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
+      // dispatch(resetLoading());
+    }
+  }
+
+  const getFilters = async (MainCategory) => {
+    try {
+      setLoadingFeature(true);
+      return await fetchFilteres(MainCategory);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
   const getFilteredProducts = async (props) => {
     try {
-      dispatch(setLoading());
+      setLoading(true);
       return await fetchFilteredProducts(props)
     } catch (error) {
-      console.log("Error Getting Filtered Products:", error);
-      return {};
+      setError(error.message);
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
   const getAllProducts = async () => {
     try {
-      dispatch(setLoading());
+      setLoading(true);
       return await fetchAllProducts();
     } catch (error) {
-      console.log("Error Getting All Products:", error);
-      return [];
+      setError(error.message);
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
   const getMedicines = async () => {
     try {
-      dispatch(setLoading());
+      setLoading(true);
       return await fetchMedicines();
     } catch (error) {
-      console.log("Error Getting Medicines:", error);
-      return [];
+      setError(error.message);
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
   const getHealthArticle = async () => {
     try {
-      dispatch(setLoading());
+      setLoading(true);
       return await fetchHealthArticle();
     } catch (error) {
-      console.log("Error Getting Health Articles:", error);
-      return [];
+      setError(error);
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
   const getSearchResult = async (query) => {
     try {
+      setLoading(true);
+      
       return await fetchSearchResult(query);
     } catch (error) {
-      console.log("Error Getting Search Result:", error);
-      return "";
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
-  return { setCart, getInputLocation, getCurrentLocation, getNavOptions, getFilteredProducts, getAllProducts, getMedicines, getHealthArticle, getSearchResult }
+  return { loading, error, setCart, getInputLocation, getCurrentLocation, getNavOptions, getFilters, getFilteredProducts, getAllProducts, getMedicines, getHealthArticle, getSearchResult }
 }

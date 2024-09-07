@@ -1,9 +1,37 @@
-function Filters({ categories, filtered, setFiltered }){ 
-  return(
+// Importing React Icons
+import { LuLoader } from "react-icons/lu";
+
+// Importing React Packages
+import { useState, useEffect } from "react";
+
+// Importing Custom Hooks
+import { useServices } from "../../../../hooks/useServices";
+
+function Filters({ MainCategory, filtered, setFiltered }){ 
+  // Custom Hooks
+  const { loading, error, getFilters } = useServices();
+
+  // useState
+  const [filters, setFilters] = useState({});
+
+  // useEffect
+  useEffect(() => {
+    const handleRefresh = async () => {
+      const res = await getFilters(MainCategory);
+      setFilters(res);
+    }
+
+    handleRefresh();
+  }, []);
+
+  if(loading) return(
+    <span className="w-[15rem] pt-40"><LuLoader className="text-green-800 size-20 mx-auto animate-spin" /></span>
+  )
+  else return(
     <div className="hidden sm:flex flex-col gap-4">
       <h1 className="text-2xl font-semibold">Filters</h1>
       {/* First Category */}
-      {filtered?.filters?.category
+      {filters?.categories
         && <div className="py-2 px-5 max-w-[15rem] border border-gray-400 rounded-md">
               <section className="flex justify-between gap-10 pb-3 border-b border-gray-300">
                 <h2 className="font-semibold">Category</h2>
@@ -11,14 +39,15 @@ function Filters({ categories, filtered, setFiltered }){
               </section>
 
               <div className="flex flex-col gap-3 text-gray-500 text-sm my-2 max-h-[10rem] overflow-y-scroll">
-                {filtered?.filters?.category.map((e, i) => {
+                {filters?.categories?.map((e, i) => {
                   return <div key={i} className="flex gap-2">
                     <input
                       type="radio"
                       name="category"
-                      onClick={()=>setFiltered(filter => { return {...filter, filter: e, isActive: true} })} />
+                      // onClick={()=>setFiltered(filter => { return {...filter, filter: e, isActive: true} })}
+                    />
 
-                    <span>{e}</span>
+                    <span>{e.item}</span>
                   </div>
                 })}
               </div>
@@ -26,23 +55,26 @@ function Filters({ categories, filtered, setFiltered }){
       }
       
       {/* Second Category */}
-      {filtered?.filters?.subCategory && <div className="py-2 px-5 border max-w-[15rem] border-gray-400 rounded-md">
+      {filters?.subCategories && <div className="py-2 px-5 border max-w-[15rem] border-gray-400 rounded-md">
           <section className="flex justify-between pb-3 border-b border-gray-300">
             <h2 className="font-semibold">Sub-category</h2>
             <button onClick={() => setFiltered(filter => { return {...filter, isActive: false}})} className="text-red-600 font-semibold text-sm active:text-red-800">Clear</button>
           </section>
 
           <div className="flex flex-col gap-3 text-gray-500 text-sm mt-2 max-h-[10rem] overflow-y-scroll">
-            {filtered?.filters?.subCategory.map((e, i) => {
-              return(
-                <div key={i} className="flex gap-2">
-                  <input 
-                    type="radio"
-                    name="subCategory"
-                    onClick={()=>setFiltered(filter => { return {...filter, filter: e, isActive: true} })} />
-                  <span className="whitespace-nowrap">{e}</span>
-                </div>
-              )
+            {filters?.subCategories.map((e) => {              
+              return e?.subitems && e?.subitems?.map((f, i) => {                            
+                return(
+                  <div key={i} className="flex gap-2">
+                    <input 
+                      type="radio"
+                      name="subCategory"
+                      // onClick={()=>setFiltered(filter => { return {...filter, filter: e, isActive: true} })}
+                    />
+                    <span className="whitespace-nowrap">{f}</span>
+                  </div>
+                )
+              })
             })}
           </div>   
         </div>

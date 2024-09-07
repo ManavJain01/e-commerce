@@ -34,7 +34,7 @@ function Cart(){
   if(cartItems == 0){
     return (
       <> 
-        <div className="m-32 flex flex-col items-center justify-center gap-3">
+        <div className="my-32 flex flex-col items-center justify-center gap-3">
           <img src={emptyCart} className="w-64 object-contain" />
           <h1 className="font-mono font-extrabold text-xl">Your cart is empty</h1>
           <span>Add Medicines and healthcare products in your cart</span>
@@ -45,7 +45,7 @@ function Cart(){
     }else{
       return(
         <>
-          <div className="m-10 pt-20 flex flex-wrap gap-20 lg:gap-0 justify-around">
+          <div className="mx-10 my-40 flex flex-wrap gap-20 lg:gap-0 justify-around">
             <div className="w-[30rem] flex flex-col gap-2">
               <h1 className="font-bold text-2xl mb-5">{cartItems} Items in your Cart</h1>
 

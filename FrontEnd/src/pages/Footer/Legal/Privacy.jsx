@@ -1,7 +1,7 @@
 function Privacy(){
   return(
     <>
-      <div className="m-8">
+      <div className="mx-8 my-40">
         <ul className="text-gray-600 flex flex-col gap-5">
           <li><h1 className="font-bold text-3xl flex flex-col">Privacy Policy<span>(Applicable from 03/26/2024)</span></h1></li>
           <li className="flex flex-col">PRIVACY POLICY<span>1.Scope and Purpose</span></li>

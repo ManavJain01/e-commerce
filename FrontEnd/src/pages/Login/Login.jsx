@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom'
 import { useLogin } from '../../hooks/useLogin'
 
 // Importing Local files
-import LoadingScreen from '../../components/loading/LoadingScreen'
 import Signup from './Signup'
 
 function Login({ loginPage, setLoginPage, setUserName }){
@@ -38,7 +37,7 @@ function Login({ loginPage, setLoginPage, setUserName }){
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [loginPage])
+  }, [loginPage]);
 
   // Functions
     // Customer Logging/Signing In
@@ -55,12 +54,7 @@ function Login({ loginPage, setLoginPage, setUserName }){
     }
   }
 
-  if (loading)
-    return(
-      <LoadingScreen />
-    )
-  else
-    return(
+  return(
     <div className="absolute top-0 left-0 w-lvw h-lvh">
       <div ref={modalRef} className={`${loginPage ? "overflow-hidden" : "overflow-scroll"} z-50 w-[30rem] h-screen bg-green-500 flex flex-col items-end shadow-2xl shadow-black fixed right-0 top-0`}>
         {/* Button for closing this component */}

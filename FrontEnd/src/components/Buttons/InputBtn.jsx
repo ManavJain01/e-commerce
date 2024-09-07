@@ -9,13 +9,7 @@ import { useNavigate } from "react-router-dom";
 import SearchFiltered from '../Search/SearchFiltered'
 import AddressBtn from "./AddressBtn";
 
-// Importing Hooks
-import { useServices } from '../../hooks/useServices'
-
 function InputBtn(e){
-  // Custom Hooks
-  const { getSearchResult } = useServices();
-
   // useNavigate
   const navigate = useNavigate();
 
@@ -41,8 +35,7 @@ function InputBtn(e){
     e.preventDefault();
     const query = inputRef.current.value;
     if(query){
-      const data = await getSearchResult(query);
-      navigate('/search', { state: { query, data } });
+      navigate('/search', { state: { query } });
     }
   }
 
@@ -56,7 +49,7 @@ function InputBtn(e){
             {checkAddress}
             <IoIosArrowDown />
           </button>
-          {enableAddressBox && <AddressBtn setCheckAddress={setCheckAddress} setEnableAddressBox={setEnableAddressBox} />}
+          {enableAddressBox && <AddressBtn setCheckAddress={setCheckAddress} enableAddressBox={enableAddressBox} setEnableAddressBox={setEnableAddressBox} />}
           <input type="text" placeholder={e.placeholder} onChange={(e)=>searchInputOnChange(e)} ref={inputRef} className="h-12 w-full pl-52 px-2 mx-10 border-2 border-blue-300 rounded-md outline-none" />
           <button onClick={(e)=>searchInputOnClick(e)} className="bg-blue-600 text-white font-semibold h-12 px-8 rounded-e-lg absolute right-9">{e.button}</button>
         </form>
@@ -75,7 +68,7 @@ function InputBtn(e){
             {checkAddress}
             <IoIosArrowDown />
           </button>
-          {enableAddressBox && <AddressBtn setCheckAddress={setCheckAddress} setEnableAddressBox={setEnableAddressBox} />}
+          {enableAddressBox && <AddressBtn setCheckAddress={setCheckAddress} enableAddressBox={enableAddressBox} setEnableAddressBox={setEnableAddressBox} />}
           <input type="text" placeholder={e.placeholder} onChange={(e)=>searchInputOnChange(e)} ref={inputRef} className="h-12 w-full pl-52 px-2 mx-10 border-2 border-blue-300 rounded-md outline-none" />
           <button className="bg-blue-600 text-white font-semibold h-12 px-8 rounded-e-lg absolute right-9">{e.button}</button>
         </form>

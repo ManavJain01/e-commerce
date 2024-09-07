@@ -33,11 +33,11 @@ function ProductCard({ e, title }){
   },[medicineQTY])
 
   
-  if(title == 'Categories' || title == 'MedicinePage'){
+  if(title == 'Categories' || title == 'MedicinePage'){    
     return(
       <div key={e._id} className="h-[19rem] w-[16rem] flex flex-col gap-2 border px-5 py-2 border-black rounded-md">
       <Link to='/Products/parameter-data' state={{value: e}} className='h-[19rem] flex flex-col items-center justify-around /gap-5'>
-        {e.img ? <img src={e.img[0]} className="object-contain w-48 h-32" /> 
+        {Array.isArray(e?.img) && e?.img?.length > 0 ? <img src={e.img[0]} className="object-contain w-48 h-32" /> 
         :<IoImageOutline className="object-contain w-48 h-32 text-blue-600" />}
         <div className="text-sm flex flex-col justify-between">
           <p className="font-bold">{e.item}</p>

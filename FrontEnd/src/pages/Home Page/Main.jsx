@@ -1,3 +1,6 @@
+// Importing React Icons
+import { LuLoader } from "react-icons/lu";
+
 // importing local images
 import step from './Images/3step.jpg'
 import cod from './Images/cod.jpg'
@@ -19,10 +22,10 @@ import { useServices } from "../../hooks/useServices";
 
 function Main(){
   // useStates
-  const [articles, setArticles] = useState([])
+  const [articles, setArticles] = useState([]);
 
   // use Hooks
-  const { getHealthArticle } = useServices();
+  const { loading, error, getHealthArticle } = useServices();
 
   // useEffect
   useEffect(() => {
@@ -60,7 +63,7 @@ function Main(){
 
   return(
     <>
-      <div className="bg-blue-100 min-w-[100vw] min-h-[60vh] pb-32 flex flex-col gap-32">
+      <div className="bg-blue-100 min-w-[100vw] min-h-[60vh] py-24 flex flex-col gap-32">
         <SearchInput />
 
         <div className="flex flex-col gap-32 px-10">
@@ -82,7 +85,9 @@ function Main(){
           <ShopByCategories />
 
           {/* Health Articles */}
-          {articles
+          {loading
+            ?<span><LuLoader className="text-green-700 size-20 mx-auto animate-spin" /></span>
+            :Array.isArray(articles) && articles.length > 0
             &&<div className='flex flex-col gap-10'>
               <span className='font-bold text-3xl'>Health Articles</span>
               <Carousel responsive={responsive} className='rounded-md'>

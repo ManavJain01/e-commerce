@@ -1,7 +1,7 @@
 function Editorial(){
   return(
     <>
-      <div className="m-8">
+      <div className="mx-8 mt-40">
         <ul className="text-gray-600 flex flex-col gap-5">
           <li><h1 className="font-bold text-3xl flex flex-col">Dismefa Editorial Policy</h1></li>
           <li><p className="text-lg font-semibold">Our medical experts are committed to delivering you dependable, authoritative, and upright content</p></li>

@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 
 export default function User() {
   return (
-    <div className="min-h-[60vh] flex items-start">
+    <div className="mt-40 min-h-[60vh] flex items-start">
       <SideNavbar />
       <Outlet />
     </div>

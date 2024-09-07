@@ -1,6 +1,7 @@
 // Importing React Icons
 import { RiExpandUpDownFill } from "react-icons/ri";
 import { CgUnavailable } from "react-icons/cg";
+import { LuLoader } from "react-icons/lu";
 
 // Importing React Packages
 import { useParams, useLocation } from 'react-router-dom'
@@ -21,14 +22,14 @@ function FilteredCategories(){
   else propsValue = useParams()
 
   // Custom Hooks
-  const { getFilteredProducts, getAllProducts } = useServices();
+  const {  loading, error, getFilteredProducts, getAllProducts } = useServices();
 
   // useStates
   const [filtered, setFiltered] = useState({ isActive:false })
   const [categoryTitle, setCategoryTitle] = useState(Array.isArray(propsValue) ? propsValue[0] : propsValue)
   const [categories, setCategories] = useState([])
   const [allCategories, setAllCategories] = useState([])
-  
+
   useEffect(()=>{
     setFiltered(false);
     
@@ -36,21 +37,24 @@ function FilteredCategories(){
     const getData = async () => {
 
       const filteredData = await getFilteredProducts(propsValue);
-      const allData = await getAllProducts();
+      // const allData = await getAllProducts();
 
       setCategories(filteredData?.data)
-      setAllCategories(allData)
+      // setAllCategories(allData)
       setFiltered({ filters: filteredData?.data?.filters, isActive: false })
     }
     getData();
 
     setCategoryTitle(Array.isArray(propsValue) ? propsValue[0] : propsValue)
 
-  },[propsValue])
-  // console.log(filtered);
-  return(
-    <div className="flex gap-10 py-20 px-8">
-      <Filters categories={categories} filtered={filtered} setFiltered={setFiltered} />
+  },[propsValue]);
+
+  if(loading) return(
+    <span className="my-40"><LuLoader className="text-green-700 size-32 mx-auto animate-spin" /></span>
+  )
+  else return(
+    <div className="flex gap-10 mt-40 px-8">
+      <Filters MainCategory={Array.isArray(propsValue) ? propsValue[1] : propsValue} filtered={filtered} setFiltered={setFiltered} />
 
       <div>
         {/* For small screen */}
@@ -66,7 +70,7 @@ function FilteredCategories(){
           {
             //  Search Through Navbar
             !filtered.isActive ? 
-              (categories == 0 || categories == null)
+              (categories == 0 || categories == null) && !filtered.filters
               // If no result found
               ?<div className="flex flex-col justify-center items-center w-[100vw] text-red-500">
                 <span className="text-6xl font-bold">No Result Found</span>
