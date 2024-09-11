@@ -27,10 +27,6 @@ const CustomerSchema = new Schema({
   address:{
     type: String
   },
-  signupLocation:{
-    type: Object,
-    required: true
-  },
   date:{
     type: Date,
     default: Date.now()

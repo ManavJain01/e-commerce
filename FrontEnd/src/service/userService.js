@@ -4,10 +4,40 @@ import axios from 'axios'
 // Importing Stripe Packages
 import { loadStripe } from '@stripe/stripe-js'
 
+// signup
+export const getSignup = async (data) => {
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/signup`, data);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Signup');
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// signup
+export const getLogin = async (data) => {
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/login`, data);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Login');
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // get Customer
 export const fetchCustomer = async (phone) => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Customer`, { phone: phone, location: "No"})
+    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Customer`, { phone: phone });
     
     if (response.status !== 200) {
       throw new Error('Failed to fetch Customer');

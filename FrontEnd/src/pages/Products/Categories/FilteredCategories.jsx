@@ -1,7 +1,6 @@
 // Importing React Icons
 import { RiExpandUpDownFill } from "react-icons/ri";
 import { CgUnavailable } from "react-icons/cg";
-import { LuLoader } from "react-icons/lu";
 
 // Importing React Packages
 import { useParams, useLocation } from 'react-router-dom'
@@ -9,12 +8,12 @@ import { useState, useEffect, useMemo } from "react";
 
 // Imaporting Local Files
 import ProductCard from '../../../components/Product Card/ProductCard'
+import Filters from './components/Filters'
+import FilteredComponent from './components/FilteredComponent';
+import ShimmerEffect from "./components/ShimmerEffect";
 
 // Importing Custom Hooks
 import { useServices } from "../../../hooks/useServices";
-
-import Filters from './components/Filters'
-import FilteredComponent from './components/FilteredComponent';
 
 function FilteredCategories(){
   let propsValue;
@@ -22,7 +21,7 @@ function FilteredCategories(){
   else propsValue = useParams()
 
   // Custom Hooks
-  const {  loading, error, getFilteredProducts, getAllProducts } = useServices();
+  const { loading, error, getFilteredProducts, getAllProducts } = useServices();
 
   // useStates
   const [filtered, setFiltered] = useState({ isActive:false })
@@ -49,11 +48,8 @@ function FilteredCategories(){
 
   },[propsValue]);
 
-  if(loading) return(
-    <span className="my-40"><LuLoader className="text-green-700 size-32 mx-auto animate-spin" /></span>
-  )
-  else return(
-    <div className="flex gap-10 mt-40 px-8">
+  return(
+    <div className="flex gap-10 mt-40 mb-10 px-8">
       <Filters MainCategory={Array.isArray(propsValue) ? propsValue[1] : propsValue} filtered={filtered} setFiltered={setFiltered} />
 
       <div>
@@ -68,8 +64,9 @@ function FilteredCategories(){
 
         <div className="flex flex-wrap gap-5 py-10 my-4 border-t border-gray-400">
           {
+            loading ? <ShimmerEffect />
             //  Search Through Navbar
-            !filtered.isActive ? 
+            :!filtered.isActive ? 
               (categories == 0 || categories == null) && !filtered.filters
               // If no result found
               ?<div className="flex flex-col justify-center items-center w-[100vw] text-red-500">

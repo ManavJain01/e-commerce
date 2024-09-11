@@ -25,7 +25,10 @@ function Filters({ MainCategory, filtered, setFiltered }){
   }, []);
 
   if(loading) return(
-    <span className="w-[15rem] pt-40"><LuLoader className="text-green-800 size-20 mx-auto animate-spin" /></span>
+    <div className="flex flex-col gap-10 mt-16">
+      <div className="bg-slate-200 h-64 w-48 rounded-lg animate-pulse" />
+      <div className="bg-slate-200 h-64 w-48 rounded-lg animate-pulse" />
+    </div>
   )
   else return(
     <div className="hidden sm:flex flex-col gap-4">

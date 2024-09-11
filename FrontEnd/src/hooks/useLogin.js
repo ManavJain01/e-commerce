@@ -1,51 +1,56 @@
-// Importing React-Redux Packages
-import { useDispatch } from 'react-redux'
-
-// importing local redux files
-import { setLoading, resetLoading } from '../Redux/features/stateSlice'
-import { addUser } from '../Redux/features/userSlice'
+// Importing React Packages
+import { useState } from 'react';
 
 // Importing Services
-import { fetchCustomer } from '../service/userService';
+import { getSignup, getLogin } from '../service/userService';
 
 // Importing Custom Hooks
-import { useUserServices } from './useUserServices';
-
-// Import useAuth
-import { useAuth } from '../routes/AuthContext'
+import { useUserServices } from './useUserServices'
 
 export const useLogin = () => {
-  // custom Hooks
+  // Hooks
   const { getCustomer, getCartItems } = useUserServices();
 
-  // useAuth
-  const { login:loggedIn } = useAuth();
-
-  // useDispatch
-  const dispatch = useDispatch();
+  // useState
+  const [loading, setLoading] = useState(false);
 
   const login = async (ph) => {
     try {
-      dispatch(setLoading());
+      setLoading(true);   
+      const customer = await getLogin(ph);
       
-      const customer = await fetchCustomer(ph);
-
       // setting localStorage variables
-      localStorage.setItem("authToken", customer?.authToken);
+      if(customer?.authToken) localStorage.setItem("authToken", customer.authToken);
 
       if(localStorage.getItem('authToken')){
         await getCartItems();
-
         await getCustomer();
       }
-      
-      await loggedIn();
     } catch (error) {
       console.log("Error Loggin In: ", error);
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
-  return { login }
+  const signup = async (ph) => {
+    try {
+      setLoading(true);   
+      const customer = await getSignup(ph);
+      
+      // setting localStorage variables
+      if(customer?.authToken) localStorage.setItem("authToken", customer.authToken);
+
+      if(localStorage.getItem('authToken')){
+        await getCartItems();
+        await getCustomer();
+      }
+    } catch (error) {
+      console.log("Error signing up: ", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { loading, login, signup }
 }

@@ -27,7 +27,7 @@ const login = async (req, res) => {
     const result = await user_service.getLogin(req.body);
     res.status(200).send(result);
   } catch (error) {
-    console.error("Error Signup: ", error.message);
+    console.error("Error Login: ", error.message);
     res.status(400).send(error.message);
   }
 }

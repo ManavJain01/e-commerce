@@ -10,7 +10,8 @@ import { useServices } from "../../../../hooks/useServices"
 
 export default function ShopByCategories(){
   // variables
-  const colors = ["bg-blue-200", "bg-purple-300", "bg-green-200", "bg-yellow-200", "bg-pink-200", "bg-red-200", "bg-orange-200", "bg-lime-200", "bg-emerald-200", "bg-teal-200"]
+  const colors = ["bg-blue-200", "bg-purple-300", "bg-green-200", "bg-yellow-200", "bg-pink-200", "bg-red-200", "bg-orange-200", "bg-lime-200", "bg-emerald-200", "bg-teal-200"];
+  let afterFetching = false;
 
   // useState
   const [categories, setCategories] = useState([])
@@ -24,6 +25,7 @@ export default function ShopByCategories(){
     // Getting Data From BackEnd
     const getData = async () => {
       const response = await getNavOptions();
+      afterFetching = true;
       setCategories(response);
 
       
@@ -38,10 +40,8 @@ export default function ShopByCategories(){
     getData();
   }, []);
 
-  if(loading) return(
-    <span><LuLoader className="text-green-700 size-32 mx-auto animate-spin" /></span>
-  )
-  else if((Array.isArray(categories) && categories.length < 1) || !Array.isArray(categories)) return;
+
+  if((afterFetching && Array.isArray(categories) && categories.length < 1) || !Array.isArray(categories)) return;
   else return (
     <div className="flex flex-col gap-8 p-5 border-[1px] border-blue-300 rounded-md">
       {/* Headline with a button */}
@@ -54,25 +54,29 @@ export default function ShopByCategories(){
       <div className="flex flex-wrap">
         {/* Category Headline */}
         <div className="relative flex flex-col items-start">
-        {Object.keys(categories).length != 0 && categories
-          ?.filter(e => e.item != 'Medicines' && e.item != 'Health Article')
-          ?.map((e,i) => {
-            return(
-              <button
-                key={i}
-                id="categoryBtn"
-                onClick={() => setFilteredCategory([colors[i], e])}
-                className={`${filteredCategory[1]?.item == e.item ? colors[i] : ""} relative left-2 flex items-center gap-5 w-full p-5 rounded-l-md`}>
-                  {e?.img && <img src={e?.img} alt="image" className="w-20 rounded-full" />}        
-                  <span>{e.item}</span>
-              </button>
-            )
+        {loading
+          ?<div className="bg-blue-200 w-64 h-full mr-5 rounded-xl animate-pulse" />
+          :Object.keys(categories).length != 0 && categories
+            ?.filter(e => e.item != 'Medicines' && e.item != 'Health Article')
+            ?.map((e,i) => {
+              return(
+                <button
+                  key={i}
+                  id="categoryBtn"
+                  onClick={() => setFilteredCategory([colors[i], e])}
+                  className={`${filteredCategory[1]?.item == e.item ? colors[i] : ""} relative left-2 flex items-center gap-5 w-full p-5 rounded-l-md`}>
+                    {e?.img && <img src={e?.img} alt="image" className="w-20 rounded-full" />}        
+                    <span>{e.item}</span>
+                </button>
+              )
         })}
         </div>
 
         {/* Sub Category */}
-        <div className={`flex-1 ${filteredCategory[0]} max-h-[50rem] flex gap-8 items-start flex-wrap p-5 rounded-md overflow-y-scroll`}>
-          {filteredCategory && filteredCategory[1]?.subitems
+        <div className={`flex-1 ${loading ? "" : filteredCategory[0] + " p-5 overflow-y-scroll"} max-h-[50rem] flex gap-8 items-start flex-wrap rounded-md`}>
+          {loading
+            ?<div className="bg-blue-200 w-full h-[30rem] animate-pulse" />
+            :filteredCategory && filteredCategory[1]?.subitems
             ?.map((e, i) => {
               return(
                 <Link key={i} to={`/Categories/${e.item || e}`} state={{value: [e.item || e, filteredCategory[1]?.item]}} className="relative w-80 h-64 flex flex-col bg-white p-5 rounded-md shadow-lg">

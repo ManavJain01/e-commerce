@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import { useServices } from "../../../hooks/useServices";
 
 function Health(){
+  // variables
+  const shimmerQty = 8;
+
   // useStates
   const [articles, setArticles] = useState([])
 
@@ -22,18 +25,22 @@ function Health(){
     fetchData();
   }, []);
 
-  if(loading) return(
-    <span className="my-20"><LuLoader className="text-green-700 size-32 mx-auto animate-spin" /></span>
-  )
-  else return(
+  return(
     <>
       <div className="my-24">
         <div className="bg-blue-200 h-[13rem] w-screen flex justify-center items-center">
           <h1 className="text-blue-900 text-6xl font-bold">Blog</h1>
         </div>
 
-        <div className="my-32 px-10 flex flex-wrap gap-10">
-          {articles?.map((e,i)=>{
+        <div className={`${loading ? "mt-10" : "my-32"} px-10 flex flex-wrap gap-10`}>
+          {loading
+            ?Array.from({ length: shimmerQty }).map((_, index) => (
+              <div
+                key={index}
+                className="bg-slate-200 h-56 w-64 mx-auto rounded-lg animate-pulse"
+              />
+            ))
+            :articles?.map((e,i)=>{
             return(
               <a key={i} href={e?.url} className="max-w-80 h-fit flex flex-col justify-between border-[1px] border-gray-400 rounded-md">
                 {e?.urlToImage && <img src={e?.urlToImage} alt="img" className="h-32" />}

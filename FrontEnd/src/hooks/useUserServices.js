@@ -1,4 +1,5 @@
 // Importing React Packages
+// import { useState, useEffect } from 'react';
 
 // Importing Services
 import { customerDetails, updateCustomer, fetchCartItems, fetchOrders, fetchRefills, paymentProcess, postPaymentProcess } from '../service/userService';
@@ -18,7 +19,7 @@ export const useUserServices = () => {
 
   const getCustomer = async () => {
     try {
-      dispatch(setLoading());
+      const customerId = localStorage.getItem('authToken');
 
       if(customerId){
         const customer = await customerDetails(customerId);
@@ -37,8 +38,6 @@ export const useUserServices = () => {
       }
     } catch (error) {
       console.log("Error Getting The Customer: ", error);
-    } finally {
-      dispatch(resetLoading());
     }
   }
 
@@ -60,7 +59,7 @@ export const useUserServices = () => {
 
   const getCartItems = async () => {
     try {
-      dispatch(setLoading());
+      const customerId = localStorage.getItem('authToken');
 
       if(customerId){
         dispatch(creatingInitialState(await fetchCartItems(localStorage.getItem('authToken'))));
@@ -69,8 +68,6 @@ export const useUserServices = () => {
       }
     } catch (error) {
       console.log("Error Getting Cart Items: ", error);
-    } finally {
-      dispatch(resetLoading());
     }
   }
 

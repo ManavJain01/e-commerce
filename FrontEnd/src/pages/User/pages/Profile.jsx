@@ -1,5 +1,6 @@
 // Importing React Packages
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // Importing React Redux
 import { useSelector } from 'react-redux'
@@ -62,6 +63,8 @@ export default function Profile() {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    console.log("data:", data);
+    
     await getCustomerUpdated(data);
   }
 
@@ -86,11 +89,12 @@ export default function Profile() {
           <GenderCheckBox value={data?.gender} name="gender" onChange={(e) => handleInputChange(e)} />
         </div>
 
-        {/* Address */}
-        <InputWithMovingLabel label="Address 1" type="text" value={data?.address1} name="address1" onChange={(e) => handleInputChange(e)} />
-        <InputWithMovingLabel label="Address 2" type="text" value={data?.address1} name="address2" onChange={(e) => handleInputChange(e)} placeholder="optional..." />
+        <div className="flex gap-8">
+          <Link to="/User/addresses" className="whitespace-nowrap text-lg text-white bg-blue-600 px-5 py-2 rounded-lg">Manage Address +</Link>
+          <Link to="/User/patients" className="whitespace-nowrap text-lg text-white bg-blue-600 px-5 py-2 rounded-lg">Manage Patient +</Link>
+          <Button onClick={(e) => handleSave(e)} className="font-semibold text-[25px] text-white bg-green-600 py-2 px-8 ml-auto border-none">Save</Button>
+        </div>
 
-        <Button onClick={(e) => handleSave(e)} className="font-semibold text-[25px] text-white bg-green-600 py-2 px-8 ml-auto border-none">Save</Button>
       </form>
     </div>
   )

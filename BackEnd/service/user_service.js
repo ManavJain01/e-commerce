@@ -34,15 +34,15 @@ const getSignup = async (data) => {
     const authToken = jwt.sign((user._id).toString(), jwtSecret);
     return { data: user, authToken: authToken };
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 }
 
-const getLogin = async () => {
+const getLogin = async (data) => {
   try {
     const { phone, password } = data;
 
-    const user = await CustomerModel.find({
+    const user = await CustomerModel.findOne({
       phone: phone,
       password: password
     });
@@ -50,7 +50,7 @@ const getLogin = async () => {
     const authToken = jwt.sign((user._id).toString(), jwtSecret);
     return { data: user, authToken: authToken };
   } catch (error) {
-    throw error.message; 
+    throw error; 
   }
 }
 
@@ -98,9 +98,12 @@ const getCartData = async (token) => {
       }
     });
 
-    const customer = await CustomerDataModel.findById(id).select('cart -_id');
-
-    return await CustomerDataModel.findById(id).select('cart -_id');
+    let customerData = await CustomerDataModel.findById(id).select('cart -_id');
+    if(customerData) return customerData;
+    else{
+      customerData = new CustomerDataModel({_id: id});
+      await customerData.save();
+    }    
   } catch (error) {
     throw `Error in FetchingCartData: ${error.message}`;
   }
