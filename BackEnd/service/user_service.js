@@ -26,6 +26,10 @@ const getCustomer = async (data) => {
 const getSignup = async (data) => {
   try {
     const { phone, password } = data;
+    if(await CustomerModel.findOne({phone})){
+      throw new Error("User Already Exist");
+    }
+
     const user = await CustomerModel.create({
       phone: phone,
       password: password
@@ -42,13 +46,23 @@ const getLogin = async (data) => {
   try {
     const { phone, password } = data;
 
+    // Validating of user existance
     const user = await CustomerModel.findOne({
       phone: phone,
-      password: password
     });
 
-    const authToken = jwt.sign((user._id).toString(), jwtSecret);
-    return { data: user, authToken: authToken };
+    // Validating of user's password
+    if(user && user.password === password){
+      const authToken = jwt.sign((user._id).toString(), jwtSecret);
+      return { data: user, authToken: authToken };
+
+    }else if(user && user.password !== password){
+      // if password is Incorrect
+      throw new Error("Password is Incorrect");
+    }else{
+      // If User does not found
+      throw new Error("User does not Exist");
+    }
   } catch (error) {
     throw error; 
   }

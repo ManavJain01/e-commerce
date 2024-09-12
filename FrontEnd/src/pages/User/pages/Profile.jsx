@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 // Importing Local Components
+import Skeleton from './Profile/Skeleton'
 import InputWithMovingLabel from "../../../utils/InputWithMovingLabel";
 import GenderCheckBox from "../../../utils/GenderCheckBox";
 import Button from '../../../components/common/Button'
@@ -18,7 +19,7 @@ export default function Profile() {
   const customer = useSelector(state => state.user.user)
 
   // Custom Hooks
-  const { getCustomerUpdated } = useUserServices();
+  const { loading, getCustomerUpdated } = useUserServices();
 
   // UseState
   const [verifyBtn, setVerifyBtn] = useState(false);
@@ -68,7 +69,18 @@ export default function Profile() {
     await getCustomerUpdated(data);
   }
 
-  return (
+  if(loading) return(
+    <div className="bg-gray-200 flex flex-col gap-2 justify-around w-full h-[25rem] px-10 rounded-lg animate-pulse">
+      <div className="bg-gray-300 flex flex-col gap-10 w-full h-12 rounded-lg" />
+      <div className="bg-gray-300 flex flex-col gap-10 w-full h-12 rounded-lg" />
+      <div className="flex gap-10">
+        <div className="bg-gray-300 flex flex-col gap-10 w-full h-12 rounded-lg" />
+        <div className="bg-gray-300 flex flex-col gap-10 w-full h-12 rounded-lg" />
+      </div>
+      <div className="bg-gray-300 flex flex-col gap-10 w-full h-12 rounded-lg" />
+    </div>
+  )
+  else return (
     <div className="w-full py-20 pr-5 md:pr-20 flex flex-col gap-3">
       <p className="text-4xl font-semibold">Edit Profile</p>
 

@@ -40,7 +40,7 @@ export default function CategoriesNavbar() {
           {Array.isArray(navOptions) && Object.keys(navOptions).length != 0 && navOptions?.map((e,i) => {
             return(
               <div key={i} className="flex flex-col gap-3">
-                <ul>{e.path 
+                <ul className="group">{e.path 
                   ?<NavLink to={e?.path} id={e._id} className="aria-[current=page]:text-red-400 hover:text-red-500">{e?.item}</NavLink>
                   :<li id={e._id}><NavLink
                     to={`Categories/${e?.item}`}
@@ -50,15 +50,15 @@ export default function CategoriesNavbar() {
                 }
 
                 {e?.subitems
-                  &&<div className="hidden absolute bg-white py-2 rounded-md shadow-md /flex">
+                  &&<div className="absolute bg-white py-2 rounded-md shadow-md">
                     {e.subitems.map((f, i) => {
                       return(
-                        <div key={i} className="flex justify-between gap-2 px-5 py-1 text-xs lg:text-sm">
+                        <NavbarStyle key={i} className="hidden hover:bg-blue-100 group-hover:flex /flex justify-between gap-2 px-5 py-1 text-xs lg:text-sm">
                           <NavLink to={`Categories/${f.item || f}`} state={{value: [f.item || f, e.item]}} className="aria-[current=page]:text-red-600 hover:text-red-500">{f.item || f}</NavLink>
                           {f.subitems
-                            ?<div className="flex relative">
-                              {/* <img src={rightArrowLogo} className="object-contain w-3" />  */}
-                              <div className="hidden bg-white px-3 py-2 absolute -top-1 left-7 /flex flex-col gap-2 rounded-md shadow-md">
+                            &&<div className="flex items-center relative">
+                              <IoMdArrowDropright />
+                              <div className="thirdColumn hidden bg-white px-3 py-2 absolute -top-1 left-7 /flex flex-col gap-2 rounded-md shadow-md">
                                 {f.subitems.map((g, i)=>{
                                   return(
                                     <div key={i} className="hover:bg-black"><NavLink to={`Categories/${g}`} state={{value: [g, e.item]}} className="aria-[current=page]:text-red-600">{g}</NavLink></div>
@@ -66,10 +66,8 @@ export default function CategoriesNavbar() {
                                 })}
                               </div>
                             </div>
-
-                            : ""
                           }
-                        </div>
+                        </NavbarStyle>
                       )
                     })}
                   </div>
@@ -82,3 +80,10 @@ export default function CategoriesNavbar() {
     </div>
   )
 }
+
+const NavbarStyle = styled.div`
+  cursor: pointer;
+  :hover .thirdColumn{
+    display: flex;
+  }
+`

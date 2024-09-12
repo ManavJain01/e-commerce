@@ -54,7 +54,7 @@ function AddressBtn({ setCheckAddress, enableAddressBox, setEnableAddressBox }){
   }
 
   return(
-    <div ref={modalRef} className="z-50 absolute top-12 left-10 bg-white flex flex-col gap-5 min-w-80 min-h-40 p-5 rounded-md shadow-md shadow-gray-400">
+    <div ref={modalRef} className="z-50 absolute top-12 left-0 bg-white flex flex-col gap-5 min-w-80 min-h-40 p-5 rounded-md shadow-md shadow-gray-400">
       <h1 className="font-semibold text-lg">Choose your location</h1>
       <InputBtn
         id="checkAddress"

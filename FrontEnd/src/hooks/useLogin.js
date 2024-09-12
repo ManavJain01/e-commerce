@@ -26,8 +26,15 @@ export const useLogin = () => {
         await getCartItems();
         await getCustomer();
       }
+      return "success";
     } catch (error) {
-      console.log("Error Loggin In: ", error);
+      if(error?.response?.data === "User does not Exist"){
+        return "User Not Found"
+      }else if(error?.response?.data === "Password is Incorrect"){
+        return "Password is incorrect"
+      }else{
+        console.error("Error Loggin In: ", error.response.data);
+      }
     } finally {
       setLoading(false);
     }
@@ -46,7 +53,11 @@ export const useLogin = () => {
         await getCustomer();
       }
     } catch (error) {
-      console.log("Error signing up: ", error);
+      if(error?.response?.data === "User Already Exist"){
+        return "User Already Exist"
+      }else{
+        console.error("Error signing up: ", error.response.data);
+      }
     } finally {
       setLoading(false);
     }

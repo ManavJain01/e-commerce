@@ -1,12 +1,11 @@
 // Importing React Packages
-// import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // Importing Services
 import { customerDetails, updateCustomer, fetchCartItems, fetchOrders, fetchRefills, paymentProcess, postPaymentProcess } from '../service/userService';
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
-import { setLoading, resetLoading } from '../Redux/features/stateSlice';
 import { creatingInitialState } from '../Redux/features/cartSlice'
 import { addUser } from '../Redux/features/userSlice'
 
@@ -17,8 +16,12 @@ export const useUserServices = () => {
   // Customer
   const customerId = localStorage.getItem('authToken');
 
+  // useState
+  const [loading, setLoading] = useState(false);
+
   const getCustomer = async () => {
     try {
+      setLoading(true);
       const customerId = localStorage.getItem('authToken');
 
       if(customerId){
@@ -38,12 +41,14 @@ export const useUserServices = () => {
       }
     } catch (error) {
       console.log("Error Getting The Customer: ", error);
+    } finally {
+      setLoading(false);
     }
   }
 
   const getCustomerUpdated = async (data) => {
     try {
-      dispatch(setLoading());
+      setLoading(true);
 
       if(customerId){
         await updateCustomer(data);
@@ -53,12 +58,13 @@ export const useUserServices = () => {
     } catch (error) {
       console.log("Error Updating The Customer: ", error);
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
   const getCartItems = async () => {
     try {
+      setLoading(true);
       const customerId = localStorage.getItem('authToken');
 
       if(customerId){
@@ -68,13 +74,15 @@ export const useUserServices = () => {
       }
     } catch (error) {
       console.log("Error Getting Cart Items: ", error);
+    }  finally {
+      setLoading(false);
     }
   }
 
   const getOrders = async () => {
     try {
-      dispatch(setLoading());
-      
+      setLoading(true);
+
       if(customerId){
         const data = await fetchOrders(localStorage.getItem('authToken'));
         return data;
@@ -85,14 +93,14 @@ export const useUserServices = () => {
       console.log("Error Getting Orders: ", error);
       return [];
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
   const getRefills = async () => {
     try {
-      dispatch(setLoading());
-      
+      setLoading(true);
+
       if(customerId){
         const data = await fetchRefills(customerId);
         return data;
@@ -103,13 +111,13 @@ export const useUserServices = () => {
       console.log("Error Getting Refills: ", error);
       return [];
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
   const makePayment = async (items) => {
     try {
-      dispatch(setLoading());
+      setLoading(true);
       
       if(customerId){
         const data = await paymentProcess(items, customerId);
@@ -121,13 +129,13 @@ export const useUserServices = () => {
       console.error("Error While Payment Process: ", error.message);
 
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
   const postPayment = async (status, id) => {
     try {
-      dispatch(setLoading());
+      setLoading(true);
 
       if(customerId){
         const data = await postPaymentProcess(status, customerId, id);
@@ -139,9 +147,9 @@ export const useUserServices = () => {
       console.error("Error While Post Payment Process: ", error.message);
 
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
-  return { getCustomer, getCustomerUpdated, getCartItems, getOrders, getRefills, makePayment, postPayment }
+  return { loading, getCustomer, getCustomerUpdated, getCartItems, getOrders, getRefills, makePayment, postPayment }
 }

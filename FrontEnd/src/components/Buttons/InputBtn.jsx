@@ -42,16 +42,16 @@ function InputBtn(e){
   if(e.title == "header-input" && e.id == "enable"){
     return(
       <div>
-        <form onSubmit={(e)=>searchInputOnClick(e)} id={e.id} className="flex relative">
+        <form onSubmit={(e)=>searchInputOnClick(e)} id={e.id} className="z-10 flex relative">
           <button
             onClick={()=>setEnableAddressBox(!enableAddressBox)}
-            className="bg-blue-100 text-black flex items-center justify-between h-10 mt-1 px-2 pl-5 w-48 rounded-lg absolute left-11">
+            className="bg-blue-100 text-black flex items-center justify-between h-10 mt-1 px-2 pl-5 w-48 rounded-lg absolute left-1">
             {checkAddress}
             <IoIosArrowDown />
           </button>
           {enableAddressBox && <AddressBtn setCheckAddress={setCheckAddress} enableAddressBox={enableAddressBox} setEnableAddressBox={setEnableAddressBox} />}
-          <input type="text" placeholder={e.placeholder} onChange={(e)=>searchInputOnChange(e)} ref={inputRef} className="h-12 w-full pl-52 px-2 mx-10 border-2 border-blue-300 rounded-md outline-none" />
-          <button onClick={(e)=>searchInputOnClick(e)} className="bg-blue-600 text-white font-semibold h-12 px-8 rounded-e-lg absolute right-9">{e.button}</button>
+          <input type="text" placeholder={e.placeholder} onChange={(e)=>searchInputOnChange(e)} ref={inputRef} className="h-12 w-full pl-52 px-2 /mx-10 border-2 border-blue-300 rounded-md outline-none" />
+          <button onClick={(e)=>searchInputOnClick(e)} className="bg-blue-600 text-white font-semibold h-12 px-8 rounded-e-lg absolute right-0">{e.button}</button>
         </form>
 
         <SearchFiltered filtered={filtered} setFiltered={setFiltered} />

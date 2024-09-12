@@ -22,7 +22,7 @@ export const useRefresh = () => {
 
       if(localStorage.getItem("authToken")){
         // redux
-        dispatch(storeStates({stateName: "userName", state: userName}))
+        dispatch(storeStates({stateName: "userName", state: userName || "User"}))
         await getCartItems();
         await getCustomer();
       }

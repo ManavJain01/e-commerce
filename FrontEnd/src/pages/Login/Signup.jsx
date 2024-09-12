@@ -1,6 +1,8 @@
 // Importing Icons from react-icons
 import { CgSpinner } from "react-icons/cg";
 import { BsFillShieldLockFill } from 'react-icons/bs'
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 // Importing React Packages
 import { useState } from 'react'
@@ -8,11 +10,12 @@ import { useState } from 'react'
 // Import Hooks
 import { useLogin } from '../../hooks/useLogin'
 
-function Signup(){
+function Signup({ setLoginPage }){
   // Custom Hooks
   const { loading, login, signup } = useLogin();
   
   // UseStates
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
@@ -63,13 +66,8 @@ function Signup(){
       if(isLogin) res = await login({phone: phone, password: password});
       else res = await signup({phone: phone, password: password});
 
-      // const input = document.getElementById("validPhn");
-      // if(input.value == "" || String(input.value).length < 10){
-      //   setError(true);
-      // }else{
-      //   // get Customer
-      //   await login("+91 " + input.value);
-      // }
+      if(res === "User Already Exist" || res === "User Not Found" || res === "Password is incorrect") setError(res);
+      else if(res === "success") setLoginPage(false);
     } catch (error) {
      setError(error.message); 
     }
@@ -80,6 +78,7 @@ function Signup(){
       <h1 className='mb-5 font-semibold text-lg flex gap-5 items-center relative before:absolute before:content-["+91"] before:text-gray-400 before:top-14 before:left-1'><BsFillShieldLockFill />Enter your mobile number</h1>
 
       <form onSubmit={checkValidNumber} className="flex flex-col gap-5">
+        {/* Enter mobile number */}
         <input
           // required
           // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -91,13 +90,21 @@ function Signup(){
           className="px-10 py-2 border-2 border-gray-400 rounded-lg outline-none"
           required
         />
-        {/* {error &&<span className="absolute top-24 left-10 text-sm text-red-500">
-            Enter valid mobile number
-          </span>
-        } */}
 
-        <input type="text" placeholder="Enter Password" className="px-5 py-2 border-2 border-gray-400 rounded-lg outline-none" />
+        {/* Enter password */}
+        <div className="relative flex flex-col">
+          <input type={showPassword ? "text" : "password"} id="signup_password" placeholder="Enter Password" className="px-5 py-2 border-2 border-gray-400 rounded-lg outline-none" />
+          <label htmlFor="signup_password" className="absolute right-5 top-3"><button type="button" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword
+              ?<FaEyeSlash className="size-5" />
+              :<FaEye className="size-5" />  
+            }</button></label>
+        </div>
 
+        {/* Display Error */}
+        {error && <span className="tracking-wider font-semibold text-center text-red-600">{error}</span>}
+
+        {/* Submit button */}
         <button className="bg-green-700 text-white rounded-md py-3 hover:opacity-80 active:opacity-90">
           {loading
             ?<span className="flex gap-5 items-center justify-center">
