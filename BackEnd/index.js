@@ -1,27 +1,27 @@
 // Importing Routes
-const routes = require('./routes/route')
-const routes_stripe = require('./routes/route_stripe')
-const routes_api = require('./routes/route_api')
+const routes = require("./routes/route");
+const routes_stripe = require("./routes/route_stripe");
+const routes_api = require("./routes/route_api");
 
-const { errorHandler } = require('./middlewares/errorHandler');
+const { errorHandler } = require("./middlewares/errorHandler");
 
 // Importing env file
 require("dotenv").config();
 const PORT = process.env.PORT;
 
 // Accessing Express Packages
-const express = require('express')
-const app = express()
+const express = require("express");
+const app = express();
 
 // Importing cors and using it.
-const cors = require('cors')
-app.use(cors(
-  {
+const cors = require("cors");
+app.use(
+  cors({
     origin: [process.env.CLIENT_LOCATION],
     methods: ["POST", "GET"],
-    credentials: true
-  }
-));
+    credentials: true,
+  })
+);
 // app.use((req, res, next)=>{
 //   res.setHeader("Access-Control-Allow-Origin",process.env.CLIENT_LOCATION);
 //   res.header(
@@ -30,16 +30,21 @@ app.use(cors(
 //   );
 //   next();
 // })
-app.use(express.json())
+app.use(express.json());
 
+// set EJS as the view engine
+app.set('view engine', 'ejs');
+
+// Serve static files (CSS, JS);
+app.use(express.static('public'));
 
 // Importing Database
-const mongoDB = require("./database/db")
+const mongoDB = require("./database/db");
 
 // middleware or to set router
-app.use("/", routes)
-app.use("/stripe", routes_stripe)
-app.use("/api", routes_api)
+app.use("/", routes);
+app.use("/stripe", routes_stripe);
+app.use("/api", routes_api);
 
 // Connecting MongoDB Server
 // mongoDB();
@@ -52,6 +57,6 @@ mongoDB().catch((err) => {
 app.use(errorHandler);
 
 // Starting the server
-app.listen(PORT || 5000, ()=>{
+app.listen(PORT || 5000, () => {
   console.log("Server is running on port 5000.");
-})
+});

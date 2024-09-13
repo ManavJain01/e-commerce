@@ -8,6 +8,10 @@ import { Link } from "react-router-dom";
 // Importing Custom Hooks
 import { useServices } from "../../../../hooks/useServices"
 
+// Importing Local Files
+import { handleResize } from "../../../../components/Screen Resize/ScreenResize";
+  
+
 export default function ShopByCategories(){
   // variables
   const colors = ["bg-blue-200", "bg-purple-300", "bg-green-200", "bg-yellow-200", "bg-pink-200", "bg-red-200", "bg-orange-200", "bg-lime-200", "bg-emerald-200", "bg-teal-200"];
@@ -16,6 +20,7 @@ export default function ShopByCategories(){
   // useState
   const [categories, setCategories] = useState([])
   const [filteredCategory, setFilteredCategory] = useState("")
+  const [smallScreen, setSmallScreen] = useState(false);
 
   // Custom Hooks
   const { loading, error, getNavOptions } = useServices();
@@ -37,7 +42,19 @@ export default function ShopByCategories(){
       }
     }
 
+    const resizeHandler = () => handleResize(setSmallScreen);
+
+    // Call handleResize initially
     getData();
+    resizeHandler();
+
+    // Add event listener
+    window.addEventListener('resize', resizeHandler);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', resizeHandler);
+    };
   }, []);
 
 
@@ -53,9 +70,13 @@ export default function ShopByCategories(){
       {/* Categories */}
       <div className="flex flex-wrap">
         {/* Category Headline */}
-        <div className="relative flex flex-col items-start">
+        <div className={`relative flex ${smallScreen ? "flex-row" : "flex-col"} items-start overflow-x-scroll`}>
         {loading
-          ?<div className="bg-blue-200 w-64 h-full mr-5 rounded-xl animate-pulse" />
+          ?<div className="bg-blue-50 flex flex-col justify-between h-full mr-5 animate-pulse">
+            <div className="bg-blue-200 w-64 h-32 rounded-xl" />
+            <div className="bg-blue-200 w-64 h-32 rounded-xl" />
+            <div className="bg-blue-200 w-64 h-32 rounded-xl" />
+          </div>
           :Object.keys(categories).length != 0 && categories
             ?.filter(e => e.item != 'Medicines' && e.item != 'Health Article')
             ?.map((e,i) => {
@@ -64,7 +85,7 @@ export default function ShopByCategories(){
                   key={i}
                   id="categoryBtn"
                   onClick={() => setFilteredCategory([colors[i], e])}
-                  className={`${filteredCategory[1]?.item == e.item ? colors[i] : ""} relative left-2 flex items-center gap-5 w-full p-5 rounded-l-md`}>
+                  className={`${filteredCategory[1]?.item == e.item && colors[i]} relative flex ${smallScreen ? "flex-col h-full rounded-t-md" : "left-2 flex-row rounded-l-md"}  items-center gap-5 w-full p-5`}>
                     {e?.img && <img src={e?.img} alt="image" className="w-20 rounded-full" />}        
                     <span>{e.item}</span>
                 </button>
@@ -75,14 +96,26 @@ export default function ShopByCategories(){
         {/* Sub Category */}
         <div className={`flex-1 ${loading ? "" : filteredCategory[0] + " p-5 overflow-y-scroll"} max-h-[50rem] flex gap-8 items-start flex-wrap rounded-md`}>
           {loading
-            ?<div className="bg-blue-200 w-full h-[30rem] animate-pulse" />
+            ?<div className="bg-blue-100 flex flex-col gap-5 justify-around w-full h-[30rem] animate-pulse">
+              <div className="flex justify-between px-10">
+                <div className="bg-white w-64 h-44 rounded-xl" />
+                <div className="bg-white w-64 h-44 rounded-xl" />
+                <div className="bg-white w-64 h-44 rounded-xl" />
+              </div>
+
+              <div className="flex justify-between px-10">
+                <div className="bg-white w-64 h-44 rounded-xl" />
+                <div className="bg-white w-64 h-44 rounded-xl" />
+                <div className="bg-white w-64 h-44 rounded-xl" />
+              </div>
+            </div>
             :filteredCategory && filteredCategory[1]?.subitems
             ?.map((e, i) => {
               return(
-                <Link key={i} to={`/Categories/${e.item || e}`} state={{value: [e.item || e, filteredCategory[1]?.item]}} className="relative w-80 h-64 flex flex-col bg-white p-5 rounded-md shadow-lg">
-                  <span className="font-semibold text-lg text-gray-600">{e?.item || e}</span>
+                <Link key={i} to={`/Categories/${e.item || e}`} state={{value: [e.item || e, filteredCategory[1]?.item]}} className={`relative ${smallScreen ? "h-32 w-28 p-1" : "h-64 w-80 p-5"} flex flex-col bg-white rounded-md shadow-lg`}>
+                  <span className={`font-semibold text-gray-600 ${smallScreen ? "text-xs" : "text-lg"}`}>{e?.item || e}</span>
                   
-                  {e?.img && <img src={e?.img} alt="image" className="absolute top-[70px] left-20 w-44 mx-auto" />}
+                  {e?.img && <img src={e?.img} alt="image" className={`absolute mx-auto ${smallScreen ? "w-16 top-10" : "top-[70px] left-20 w-44"}`} />}
                 </Link>
               )
             })

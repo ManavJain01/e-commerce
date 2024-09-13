@@ -26,6 +26,9 @@ export default function AddressDetails({openModel, setOpenModel}) {
   }, []);
 
   const Details = () => {
+    // useState
+    const [saveas, setSaveAs] = useState("Other");
+
     return(
       <div className="flex flex-col gap-3 mx-8">
         {/* Pincode */}
@@ -70,9 +73,9 @@ export default function AddressDetails({openModel, setOpenModel}) {
         <div className="flex flex-col gap-2">
           <span className="font-semibold">Save as</span>
           <div className="flex gap-6">
-            <button className="px-5 py-2 border">Home</button>
-            <button className="px-5 py-2 border">Office</button>
-            <button className="px-5 py-2 border">Other</button>
+            <button onClick={() => setSaveAs("Home")} className={`${saveas === "Home" && "text-blue-700 border-blue-600"} px-5 py-2 border`}>Home</button>
+            <button onClick={() => setSaveAs("Office")} className={`${saveas === "Office" && "text-blue-700 border-blue-600"} px-5 py-2 border`}>Office</button>
+            <button onClick={() => setSaveAs("Other")} className={`${saveas === "Other" && "text-blue-700 border-blue-600"} px-5 py-2 border`}>Other</button>
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 // Import React Icons
 import { IoIosArrowDroprightCircle } from "react-icons/io";
-import { LuLoader } from "react-icons/lu";
 
 // Import React Packages
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,6 +9,7 @@ import { useState, useMemo, useEffect } from "react";
 // Importing Local Files
 import Button from '../../components/common/Button'
 import ProductCard from '../../components/Product Card/ProductCard'
+import Skeleton from "./components/Skeleton";
 
 // Importing Hooks
 import { useServices } from '../../hooks/useServices'
@@ -54,7 +54,7 @@ export default function Search() {
       <div className="flex flex-col gap-5">
         {query && <p>Search Results for: <span className="font-bold">{query}</span></p>}
         {loading
-          ?<span><LuLoader className="text-green-700 size-32 mt-8 animate-spin" /></span>
+          ?<Skeleton />
           :<div className="flex flex-col gap-5">
             {Object.keys(data).map((e) =>
               data[e]?.map((e, i) =>

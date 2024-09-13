@@ -11,9 +11,10 @@ import SearchInput from '../../components/Header/components/SearchInput'
 import CarouselTab from './components/CarouselTab'
 import ShopByCategories from '../Products/Categories/components/ShopByCategories'
 import Messages from './components/Messages'
+import DataFromServer from "./components/DataFromServer";
 
 // Import React Packages
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -102,6 +103,8 @@ function Main(){
               </Carousel>
             </div>
           }
+
+          {/* <DataFromServer /> */}
         </div>
       </div>
     </>

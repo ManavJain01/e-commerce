@@ -19,5 +19,14 @@ router.route('/saveForLater').get(findSaveForLater)
 // fetch public routes
 router.route('/search').get(searchData)
 
+// fetching html...
+// Render EJS file with CSS and JS
+router.get('/html', (req, res) => {
+  res.render('index', {
+    title: 'Hello from the Backend!',
+    message: 'This is rendered with EJS, including CSS and JavaScript.'
+  });
+});
+
 // Exporting router
 module.exports = router;
