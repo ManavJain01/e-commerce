@@ -116,6 +116,8 @@ export const useUserServices = () => {
   }
 
   const makePayment = async (items) => {
+    const customerId = localStorage.getItem('authToken');
+
     try {
       setLoading(true);
       

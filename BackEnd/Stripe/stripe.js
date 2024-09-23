@@ -1,5 +1,6 @@
 // Customers Models
 const CustomerDataModel = require("../models/User/customer_data");
+const OrderModel = require("../models/orders");
 
 // Json Web Token
 const jwt = require("jsonwebtoken");
@@ -22,7 +23,8 @@ const getStripePayment = async (data) => {
       }
     });
 
-    const newOrder = await CustomerDataModel.findByIdAndUpdate(id, { 
+    const newOrder = await OrderModel.findOneAndUpdate(
+      { _id: id }, { 
       $push: { 
         orders: { 
           paymentStatus: 'Pending', // or 'Completed', 'Failed', etc.
@@ -31,7 +33,11 @@ const getStripePayment = async (data) => {
           orderTime: new Date(), // or any specific time if needed
         }
       }
-    }, { new: true }); // Return the updated document
+    }, { 
+      new: true, // Return the updated document
+      upsert: true, // Create a new document if none is found
+      setDefaultsOnInsert: true // Apply default values when creating
+    });    
 
     // Check if the customer document was updated and has orders
     if (newOrder && newOrder.orders.length > 0) {
@@ -79,7 +85,7 @@ const postPayment = async (status, _id, orderId) => {
     });
 
     if(status === 'true'){
-      await CustomerDataModel.findByIdAndUpdate(
+      await OrderModel.findByIdAndUpdate(
         { _id: id },
         { $set: { 'orders.$[elem].paymentStatus': 'Completed', cart : [] } },
         { arrayFilters: [{ 'elem._id': orderId }],  new: true }

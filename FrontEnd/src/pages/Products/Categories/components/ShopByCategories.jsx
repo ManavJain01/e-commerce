@@ -23,9 +23,7 @@ export default function ShopByCategories(){
   const [smallScreen, setSmallScreen] = useState(false);
 
   // Custom Hooks
-  // const { loading, error, getNavOptions } = useServices();
-  const { error, getNavOptions } = useServices();
-  const loading = true;
+  const { loading, error, getNavOptions } = useServices();
 
   // useEffect
   useEffect(()=>{  

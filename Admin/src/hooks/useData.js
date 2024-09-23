@@ -9,7 +9,7 @@ export const useData = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const getUsers = async (ph) => {
+  const getUsers = async () => {
     try {
       setLoading(true);
       const response = await axios.get(`${import.meta.env.VITE_REACT_APP_Clients_Server_Location}/admin/users`);

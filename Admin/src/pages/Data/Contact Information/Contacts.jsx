@@ -26,7 +26,6 @@ export default function Contacts() {
 
     fetchUsers();
   }, []);
-console.log(users);
 
   return (
     <div>

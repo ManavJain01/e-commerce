@@ -29,8 +29,8 @@ export default function Summary() {
     if(cartItems.length <= 0) {
       // navigate("/");
     }
-  }, [cartItems])
-
+  }, [cartItems]);
+  
   return (
     <div className="mx-10 pt-40 pb-10 flex flex-wrap gap-5 lg:gap-5 justify-around">
       {/* first column */}

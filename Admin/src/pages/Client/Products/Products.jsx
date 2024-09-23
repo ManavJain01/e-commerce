@@ -2,13 +2,16 @@
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
-// Importing Axios Packages
-import axios from 'axios'
+// Importing Custom Hooks
+import { useClient } from "../../../hooks/useClient";
 
 // Importing local files
 import Sidebar from './components/sidebar'
 
 export default function Products() {
+  // Custom Data
+  const { loading, error, getSubcategories } = useClient();
+
   // getting darkTheme state
   const [darkTheme] = useOutletContext();
 
@@ -19,21 +22,8 @@ export default function Products() {
   // const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState([]);
 
-  // UseEffects
-  // useEffect(() => {
-  //   // Getting Data From BackEnd
-  //   const getData = async () => {
-  //     const allData = await axios.get(`${import.meta.env.VITE_REACT_APP_Clients_Server_Location}/Categories/`)
-
-  //     setProducts(allData.data)
-  //   }
-  //   getData();
-  // }, [])
-
-  // Getting Data From BackEnd
-  const getSubcategories = async (e) => {
-    const category = e.target.value;
-    const data = await axios.post(`${import.meta.env.VITE_REACT_APP_Clients_Server_Location}/Categories/${category}}`, { data : category })
+  const fn = async (e) => {
+    const data = await getSubcategories(e);
     setFilters(filter => { return {...filter, filters: data?.data?.filters} })
     if(filters.length != 0) document.getElementById('subcategory').style.display = "flex"
     else document.getElementById('subcategory').style.display = "none"
@@ -47,7 +37,7 @@ export default function Products() {
           <p className="text-green-600">All Products Available</p>
         </span>
 
-        <select name="categories" id="categories" onChange={(e)=>getSubcategories(e)} className="font-bold text-black text-xl flex flex-col gap-8 items-start h-fit p-1 rounded-md">{categories.map((e, i) => {
+        <select name="categories" id="categories" onChange={(e)=>fn(e)} className="font-bold text-black text-xl flex flex-col gap-8 items-start h-fit p-1 rounded-md">{categories.map((e, i) => {
           return(
             <option
               key={i}
