@@ -4,6 +4,9 @@
 // Importing Hooks
 import { useUserServices } from './useUserServices'
 
+// Importing React Packages
+import { useState, useEffect } from 'react';
+
 // Importing Redux Files
 import { useDispatch } from "react-redux";
 import { storeStates } from '../Redux/features/stateSlice'
@@ -16,6 +19,17 @@ export const useRefresh = () => {
   // useDispatch
   const dispatch = useDispatch();
 
+  // useState
+  const [isLogin, setIsLogin] = useState(false);
+
+  // useEffect
+  useEffect(() => {
+    if(localStorage.getItem("authToken")){
+      setIsLogin(true);
+    }
+  }, [])
+
+  // Functions
   const refresh = async (userName) => {
     try {
       dispatch(setLoading());
@@ -33,5 +47,5 @@ export const useRefresh = () => {
     }
   }
 
-  return { refresh }
+  return { refresh, isLogin }
 }

@@ -28,7 +28,7 @@ const findOrders = async (req, res) => {
   try {
     const users = await CustomerModel
       .find({})
-      .select(["_id", "phone"]);
+      .select(["_id", "name", "phone"]);
     const orders = await Promise.all(
       users.map(async (user) => {
         
@@ -52,4 +52,22 @@ const findOrders = async (req, res) => {
   }
 }
 
-module.exports = { findUsers, findOrders };
+// Delivery Status
+const setDeliveryStatus = async (req, res) => {
+  try {
+    const { status, id } = req.body;
+    
+    const response = await OrderModel.findOneAndUpdate(
+      { "orders._id": id },
+      { $set: { [`orders.$.deliveryStatus`]: status } },
+      { new: true }
+    );
+    
+    res.status(200).send(response);
+  } catch (error) {
+    console.error("Error setting delivery Status: ", error.message);
+    res.status(400).send(error.message);
+  }
+}
+
+module.exports = { findUsers, findOrders, setDeliveryStatus };

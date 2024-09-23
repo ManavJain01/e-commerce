@@ -8,7 +8,8 @@ import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 
 // Importing React Redux
-import { useSelector } from 'react-redux'
+import { setOpenLoginPage } from "../../../Redux/features/stateSlice";
+import { useDispatch, useSelector } from 'react-redux';
 
 // Importing Local Files
   // Navbar
@@ -16,11 +17,14 @@ import UserNavbar from './UserNavbar';
   // searchbar
 import InputBtn from '../../../components/Buttons/InputBtn';
 
-export default function MainNavbar({ setOpenLoginPage }) {
+export default function MainNavbar() {
   // redux
   const cartItems = useSelector(state => state.cart.cartItems);
   const userStore = useSelector(state => state.state.stateItems);
-
+  
+  // useDispatch
+  const dispatch = useDispatch();
+  
   // useState
   const [isSearching, setIsSearching] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -60,7 +64,7 @@ export default function MainNavbar({ setOpenLoginPage }) {
           ?<UserNavbar />
 
           // Login
-          :<button onClick={() => setOpenLoginPage(true)}>Login/Signup</button>
+          :<button onClick={() => dispatch(setOpenLoginPage(true))}>Login/Signup</button>
         }
 
         <Link to="/cart" className="relative flex gap-2 items-center">

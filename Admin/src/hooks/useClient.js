@@ -53,9 +53,29 @@ export const useClient = () => {
 
   const getSubcategories = async (e) => {
     const category = e.target.value;
-    const data = await axios.post(`${import.meta.env.VITE_REACT_APP_Clients_Server_Location}/Categories/${category}}`, { data : category })
-    return data;
+    try {
+      setLoading(true);
+      const data = await axios.post(`${import.meta.env.VITE_REACT_APP_Clients_Server_Location}/Categories/${category}}`, { data : category })
+      return data;
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  return { loading, error, getOrders, getCustomers, getSubcategories };
+  const setDeliveryStatus = async (status, id) => {
+    try {
+      setLoading(true);
+      const data = await axios.post(`${import.meta.env.VITE_REACT_APP_Clients_Server_Location}/admin/deliveryStatus`, { status : status, id: id })
+      // return data;
+      
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { loading, error, getOrders, getCustomers, getSubcategories, setDeliveryStatus };
 }

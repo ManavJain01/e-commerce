@@ -7,12 +7,19 @@ import { FaEyeSlash } from "react-icons/fa";
 // Importing React Packages
 import { useState } from 'react'
 
+// Importing React Redux
+import { setOpenLoginPage } from "../../Redux/features/stateSlice";
+import { useDispatch } from 'react-redux';
+
 // Import Hooks
 import { useLogin } from '../../hooks/useLogin'
 
-function Signup({ setLoginPage }){
+function Signup(){
   // Custom Hooks
   const { loading, login, signup } = useLogin();
+
+  // useDispatch
+  const dispatch = useDispatch();
   
   // UseStates
   const [showPassword, setShowPassword] = useState(false);
@@ -67,7 +74,7 @@ function Signup({ setLoginPage }){
       else res = await signup({phone: phone, password: password});
 
       if(res === "User Already Exist" || res === "User Not Found" || res === "Password is incorrect") setError(res);
-      else if(res === "success") setLoginPage(false);
+      else if(res === "success") dispatch(setOpenLoginPage(false));
     } catch (error) {
      setError(error.message); 
     }

@@ -14,7 +14,8 @@ import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 // Importing React Redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setOpenLoginPage } from "../../Redux/features/stateSlice";
 
 // Importing Hooks
 import { useServices } from '../../hooks/useServices'
@@ -33,9 +34,13 @@ function Header(){
   const { getNavOptions, loading } = useServices();
   const { refresh } = useRefresh();
 
+  // useDispatch
+  const dispatch = useDispatch();
+
   // redux
   const cartItems = useSelector(state => state.cart.cartItems)
   const stateItems = useSelector(state => state.state.stateItems)
+  const openLoginPage = useSelector(state => state.state.openLoginPage)
   // const customer = useSelector(state => state.user.user)
 
   // UseStates
@@ -74,9 +79,9 @@ function Header(){
   }, [stateItems])
   
   useEffect(() => {
-    if(loginPage) document.body.style.overflowY = "hidden";
+    if(openLoginPage) document.body.style.overflowY = "hidden";
     else document.body.style.overflowY = "scroll";
-  }, [loginPage])
+  }, [openLoginPage])
   
   useEffect(() => {
     if (!loading) {
@@ -109,8 +114,8 @@ function Header(){
       <div className={`fixed z-[99999]`}>
         {/* Login Page */}
         <div className="relative z-[9999999]">
-          {loginPage
-            ? <Login loginPage={loginPage} setLoginPage={setLoginPage} setUserName={setUserName} />
+          {openLoginPage
+            ? <Login loginPage={openLoginPage} setUserName={setUserName} />
             : ""
           }
         </div>
@@ -144,7 +149,7 @@ function Header(){
                   </div>
                 </li>
               : <li className="whitespace-nowrap">
-                  <button onClick={()=>setLoginPage(true)}>Login | Signup</button>
+                  <button onClick={()=>dispatch(setOpenLoginPage(true))}>Login | Signup</button>
                 </li>
             }
 

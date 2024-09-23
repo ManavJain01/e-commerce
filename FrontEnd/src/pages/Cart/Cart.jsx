@@ -2,10 +2,14 @@
 import emptyCart from './Images/cart.png'
 
 // Importing React Files
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // Importing Redux Files
-import { useSelector } from 'react-redux'
+import { setOpenLoginPage } from '../../Redux/features/stateSlice'
+import { useSelector, useDispatch } from 'react-redux'
+
+// Importing Custom Hooks
+import { useRefresh } from '../../hooks/useRefresh'
 
 // Importing Local Components
 import PaymentDetails from './components/PaymentDetails'
@@ -13,8 +17,26 @@ import CartItems from './components/CartItems'
 import UploadPrescripBtn from '../User/pages/Medical Records/UploadPrescripBtn'
 
 function Cart(){
+  // Custom Hooks
+  const { isLogin } = useRefresh();
+  
+  // useNavigate
+  const navigate =  useNavigate();
+
+  // useDispatch
+  const dispatch = useDispatch();
+
   // UseStates
   const reduxItems = useSelector(state => state.cart.cartItems)
+
+  // Functions
+  const handleCheckout = () => {
+    if(isLogin){
+      navigate('/Summary');
+    } else {
+      dispatch(setOpenLoginPage(true));
+    }
+  }
 
   if(reduxItems.length == 0){
     return (
@@ -35,7 +57,7 @@ function Cart(){
           
           <div className="w-[23rem] h-fit flex flex-col gap-8">
             <PaymentDetails />
-            <Link to="/Summary" className="font-semibold text-center text-lg text-white bg-blue-600 py-2 rounded-md">Proceed to Checkout</Link>
+            <button onClick={() => handleCheckout()} className="font-semibold text-center text-lg text-white bg-blue-600 py-2 rounded-md">Proceed to Checkout</button>
           </div>
         </div>
       )

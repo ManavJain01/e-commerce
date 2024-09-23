@@ -1,5 +1,6 @@
 // Importing React Packages
 import { useState, useEffect } from "react"
+import { useSelector } from 'react-redux';
 
 // Importing Hooks
 import { useRefresh } from '../../hooks/useRefresh'
@@ -17,10 +18,14 @@ import { handleResize } from "../../components/Screen Resize/ScreenResize";
 export default function Header() {
   // Custom Hooks
   const { refresh } = useRefresh();
+  
+
+  // useSelector
+  const openLoginPage = useSelector(state => state.state.openLoginPage);
+
 
   // useState
   const [hamMenu, setHamMenu] = useState(false);
-  const [openLoginPage, setOpenLoginPage] = useState(false);
 
   // useEffect
   useEffect(() => {
@@ -55,13 +60,13 @@ export default function Header() {
   return (
     <>
       {/* Login Page */}
-      {openLoginPage && <Login loginPage={openLoginPage} setLoginPage={setOpenLoginPage} />}
+      {openLoginPage && <Login loginPage={openLoginPage} />}
       
       {hamMenu
         ?<HamMenu />
         :<div className="fixed z-[999999] bg-white w-full h-[104px] shadow-md shadow-gray-500">
           {/* Upper section */}
-          <MainNavbar setOpenLoginPage={setOpenLoginPage} />
+          <MainNavbar />
 
           {/* Categories Section */}
           <CategoriesNavbar />

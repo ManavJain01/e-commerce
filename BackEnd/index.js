@@ -19,7 +19,7 @@ const app = express();
 const cors = require("cors");
 app.use(
   cors({
-    origin: [process.env.CLIENT_LOCATION],
+    origin: [process.env.CLIENT_LOCATION, process.env.Admin_LOCATION],
     methods: ["POST", "GET"],
     credentials: true,
   })

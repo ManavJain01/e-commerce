@@ -3,6 +3,7 @@ import {createSlice, nanoid} from '@reduxjs/toolkit'
 const initialState = {
   // stateItems: [{stateName: 'stateName', state: 'state', setState: 'setState'}]
   loading: false,
+  openLoginPage: false,
   stateItems: []
 }
 
@@ -37,6 +38,11 @@ export const stateSlice = createSlice({
       })
     },
 
+    setOpenLoginPage: (state, action) => {      
+      if(action.payload === true) state.openLoginPage = true;
+      else state.openLoginPage = false;
+    },
+
     setLoading: (state) => {
       count++;
       state.loading = true;
@@ -51,6 +57,6 @@ export const stateSlice = createSlice({
   }
 })
 
-export const { storeStates, updateState, setLoading, resetLoading } = stateSlice.actions
+export const { storeStates, updateState, setOpenLoginPage, setLoading, resetLoading } = stateSlice.actions
 
 export default stateSlice.reducer

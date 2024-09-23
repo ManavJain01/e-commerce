@@ -79,13 +79,13 @@ export default function Orders() {
           </thead>
           {/* nth rows */}
           <tbody>
-            {orders?.map((e, i) => {
+            {orders?.map((e, i) => {          
               return(
                 <tr key={i} className="group border-b-[1px] border-gray-500">
                   <td className="py-5 px-5"><input type="checkbox" /></td>
                   <td className="group-hover:opacity-60 px-2">{i+1}</td>
                   <td className="group-hover:opacity-60 px-2">{e?._id}</td>
-                  <td className="group-hover:opacity-60 px-10">{e?.name || "User"}</td>
+                  <td className="group-hover:opacity-60 whitespace-nowrap px-10">{e?.name || "User"}</td>
                   <td className="group-hover:opacity-60 whitespace-nowrap px-8">{e?.phone || "NaN"}</td>
                   <td className="px-6">
                     <button onClick={() => setUserOrder({showOrder: true, user: e})} className="bg-green-500 px-3 py-1 rounded-lg">Orders</button>

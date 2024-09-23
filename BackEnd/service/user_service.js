@@ -6,8 +6,9 @@ require("dotenv").config();
 const jwtSecret = process.env.JWT_TOKEN
 
 // Customers Models
-const CustomerModel = require("../models/User/customers")
-const CustomerDataModel = require("../models/User/customer_data")
+const CustomerModel = require("../models/User/customers");
+const CustomerDataModel = require("../models/User/customer_data");
+const OrderModel = require("../models/orders");
 
 
 // Customer Login request
@@ -200,7 +201,7 @@ const getOrders = async (_id) => {
     });
 
     // return await CustomerDataModel.findById(id).select('orders.paymentDetails -_id');
-    const orders = await CustomerDataModel.findById(id)
+    const orders = await OrderModel.findById(id)
     .select(['orders']);
     const completedOrders = orders.orders.filter(order => order.paymentStatus === "Completed");
 
