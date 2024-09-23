@@ -23,7 +23,9 @@ export default function ShopByCategories(){
   const [smallScreen, setSmallScreen] = useState(false);
 
   // Custom Hooks
-  const { loading, error, getNavOptions } = useServices();
+  // const { loading, error, getNavOptions } = useServices();
+  const { error, getNavOptions } = useServices();
+  const loading = true;
 
   // useEffect
   useEffect(()=>{  
@@ -57,7 +59,6 @@ export default function ShopByCategories(){
     };
   }, []);
 
-
   if((afterFetching && Array.isArray(categories) && categories.length < 1) || !Array.isArray(categories)) return;
   else return (
     <div className="flex flex-col gap-8 p-5 border-[1px] border-blue-300 rounded-md">
@@ -68,14 +69,14 @@ export default function ShopByCategories(){
       </div>
 
       {/* Categories */}
-      <div className="flex flex-wrap">
+      <div className={`flex ${smallScreen && !loading && "flex-wrap" } ${smallScreen && loading && "gap-10 justify-around"}`}>
         {/* Category Headline */}
-        <div className={`relative flex ${smallScreen ? "flex-row" : "flex-col"} items-start overflow-x-scroll`}>
+        <div className={`relative flex ${smallScreen ? "flex-row overflow-x-scroll" : "flex-col"} items-start`}>
         {loading
-          ?<div className="bg-blue-50 flex flex-col justify-between h-full mr-5 animate-pulse">
-            <div className="bg-blue-200 w-64 h-32 rounded-xl" />
-            <div className="bg-blue-200 w-64 h-32 rounded-xl" />
-            <div className="bg-blue-200 w-64 h-32 rounded-xl" />
+          ?<div className={`flex ${smallScreen ? "gap-5" : "flex-col"} justify-between h-full mr-5 animate-pulse`}>
+            <div className={`bg-blue-200 ${smallScreen ? "w-32 h-28" : "w-64 h-32"} rounded-xl`} />
+            <div className={`bg-blue-200 ${smallScreen ? "w-32 h-28" : "w-64 h-32"} rounded-xl`} />
+            <div className={`bg-blue-200 ${smallScreen ? "w-32 h-28" : "w-64 h-32"} rounded-xl`} />
           </div>
           :Object.keys(categories).length != 0 && categories
             ?.filter(e => e.item != 'Medicines' && e.item != 'Health Article')
@@ -96,17 +97,17 @@ export default function ShopByCategories(){
         {/* Sub Category */}
         <div className={`flex-1 ${loading ? "" : filteredCategory[0] + " p-5 overflow-y-scroll"} max-h-[50rem] flex gap-8 items-start flex-wrap rounded-md`}>
           {loading
-            ?<div className="bg-blue-100 flex flex-col gap-5 justify-around w-full h-[30rem] animate-pulse">
-              <div className="flex justify-between px-10">
-                <div className="bg-white w-64 h-44 rounded-xl" />
-                <div className="bg-white w-64 h-44 rounded-xl" />
-                <div className="bg-white w-64 h-44 rounded-xl" />
+            ?<div className={`bg-blue-100 flex ${smallScreen ? "flex-wrap" : "flex-col gap-5"} justify-around w-full h-[30rem] animate-pulse`}>
+              <div className={`flex ${smallScreen ? "gap-10" : "px-10"} justify-between`}>
+                <div className={`bg-white ${smallScreen ? "w-32 h-28" : "w-48 h-40 lg:w-56 lg:h-40 xl:w-64 xl:h-44"} rounded-xl`} />
+                <div className={`bg-white ${smallScreen ? "w-32 h-28" : "w-48 h-40 lg:w-56 lg:h-40 xl:w-64 xl:h-44"} rounded-xl`} />
+                <div className={`bg-white ${smallScreen ? "w-32 h-28" : "w-48 h-40 lg:w-56 lg:h-40 xl:w-64 xl:h-44"} rounded-xl`} />
               </div>
 
-              <div className="flex justify-between px-10">
-                <div className="bg-white w-64 h-44 rounded-xl" />
-                <div className="bg-white w-64 h-44 rounded-xl" />
-                <div className="bg-white w-64 h-44 rounded-xl" />
+              <div className={`flex ${smallScreen ? "gap-10" : "px-10"} justify-between`}>
+                <div className={`bg-white ${smallScreen ? "w-32 h-28" : "w-48 h-40 lg:w-56 lg:h-40 xl:w-64 xl:h-44"} rounded-xl`} />
+                <div className={`bg-white ${smallScreen ? "w-32 h-28" : "w-48 h-40 lg:w-56 lg:h-40 xl:w-64 xl:h-44"} rounded-xl`} />
+                <div className={`bg-white ${smallScreen ? "w-32 h-28" : "w-48 h-40 lg:w-56 lg:h-40 xl:w-64 xl:h-44"} rounded-xl`} />
               </div>
             </div>
             :filteredCategory && filteredCategory[1]?.subitems

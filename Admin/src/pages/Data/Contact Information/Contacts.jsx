@@ -4,28 +4,29 @@ import { IoFilterSharp } from "react-icons/io5";
 import { MdDensityMedium } from "react-icons/md";
 import { PiExport } from "react-icons/pi";
 
+// Importing React Packages
+import { useEffect, useState } from "react";
+
+// Importing Custom Hooks
+import { useData } from "../../../hooks/useData";
+
 export default function Contacts() {
-  // Sample Data
-  const sampleData = [
-    {
-      name: "manav jain",
-      age: "24",
-      phoneNumber: "8269543305",
-      email: "nit474011gwl@gmail.com",
-      address: "city center",
-      city: "gwalior",
-      zipCode: "474011"
-    },
-    {
-      name: "sunil jain",
-      age: "50",
-      phoneNumber: "9301100870",
-      email: "gwsgsi@yahoo.co.in",
-      address: "city center",
-      city: "gwalior",
-      zipCode: "474011"
+  // Custom Data
+  const { loading, error, getUsers } = useData();
+
+  // useState
+  const [users, setUsers] = useState([]);
+
+  // useEffect
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await getUsers();
+      setUsers(response);
     }
-  ]
+
+    fetchUsers();
+  }, []);
+console.log(users);
 
   return (
     <div>
@@ -66,31 +67,31 @@ export default function Contacts() {
             <tr className="bg-blue-800">
               <td className="py-2 px-5"><input type="checkbox" /></td>
               <td className="px-2">ID</td>
-              <td className="px-10">Register ID</td>
-              <td className="px-10">Name</td>
+              <td className="whitespace-nowrap px-10">Register ID</td>
+              <td className="whitespace-nowrap px-10">Name</td>
               <td className="px-5">Age</td>
-              <td className="px-8">Phone Number</td>
-              <td className="px-10">Email</td>
-              <td className="px-5">Address</td>
-              <td className="px-5">City</td>
-              <td className="px-5">Zip Code</td>
+              <td className="whitespace-nowrap px-8">Phone Number</td>
+              <td className="whitespace-nowrap px-10">Email</td>
+              <td className="whitespace-nowrap px-5">Address</td>
+              <td className="whitespace-nowrap px-5">City</td>
+              <td className="whitespace-nowrap px-5">Zip Code</td>
             </tr>
           </thead>
           {/* nth rows */}
           <tbody>
-            {sampleData?.map((e, i) => {
+            {users?.map((e, i) => {
               return(
-                <tr key={i} className="border-b-[1px] border-gray-500 hover:opacity-60">
+                <tr key={i} className="group border-b-[1px] border-gray-500">
                   <td className="py-5 px-5"><input type="checkbox" /></td>
-                  <td className="px-2">1</td>
-                  <td className="px-2">12321</td>
-                  <td className="px-10">{e?.name}</td>
-                  <td className="px-5">{e?.age}</td>
-                  <td className="px-8">{e?.phoneNumber}</td>
-                  <td className="px-10">{e?.email}</td>
-                  <td className="px-10">{e?.address}</td>
-                  <td className="px-10">{e?.city}</td>
-                  <td className="px-10">{e?.zipCode}</td>
+                  <td className="group-hover:opacity-60 px-2">1</td>
+                  <td className="group-hover:opacity-60 px-2">12321</td>
+                  <td className="group-hover:opacity-60 px-10">{e?.name || "User"}</td>
+                  <td className="group-hover:opacity-60 px-5">{e?.age || "NaN"}</td>
+                  <td className="group-hover:opacity-60 whitespace-nowrap px-8">{e?.phone || "NaN"}</td>
+                  <td className="group-hover:opacity-60 px-10">{e?.email || "NaN"}</td>
+                  <td className="group-hover:opacity-60 px-10">{e?.address || "NaN"}</td>
+                  <td className="group-hover:opacity-60 px-10">{e?.city || "NaN"}</td>
+                  <td className="group-hover:opacity-60 px-10">{e?.zipCode || "NaN"}</td>
                 </tr>
               )
             })}

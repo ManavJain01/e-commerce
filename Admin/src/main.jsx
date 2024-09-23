@@ -12,6 +12,7 @@ import App from './App.jsx'
 import Team from './pages/Data/Team/Team.jsx'
 import Contacts from './pages/Data/Contact Information/Contacts.jsx'
 import Invoices from './pages/Data/Invoices/Invoices.jsx'
+import Broadcast from './pages/Data/Broadcast/Broadcast.jsx'
 // Client
 import Orders from './pages/Client/Orders/Orders.jsx'
 import Customers from './pages/Client/Customers/Customers.jsx'
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "Invoices",
         element : <Invoices />
+      },
+      {
+        path: "Broadcast",
+        element : <Broadcast />
       },
       // Client
       {

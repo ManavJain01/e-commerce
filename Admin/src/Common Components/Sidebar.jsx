@@ -7,6 +7,7 @@ import { PiHouseLight } from "react-icons/pi";
 import { MdPeopleAlt } from "react-icons/md";
 import { MdContacts } from "react-icons/md";
 import { LuFileSpreadsheet } from "react-icons/lu";
+import { GoBroadcast } from "react-icons/go";
 // Client
 import { AiOutlineProduct } from "react-icons/ai";
 import { MdBorderColor } from "react-icons/md";
@@ -53,6 +54,11 @@ export default function Sidebar({ darkTheme }) {
           option: "Invoices Balances",
           component: <LuFileSpreadsheet />,
           link: "/invoices"
+        },
+        {
+          option: "Broadcast",
+          component: <GoBroadcast />,
+          link: "/Broadcast"
         }
       ]
     },

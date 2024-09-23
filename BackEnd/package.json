@@ -16,6 +16,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4",
     "nodemon": "^3.1.0",
-    "stripe": "^16.1.0"
+    "stripe": "^16.1.0",
+    "twilio": "^5.3.0"
   }
 }

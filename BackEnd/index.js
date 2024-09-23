@@ -1,7 +1,9 @@
 // Importing Routes
 const routes = require("./routes/route");
 const routes_stripe = require("./routes/route_stripe");
+const routes_twilio = require("./routes/route_twilio");
 const routes_api = require("./routes/route_api");
+const routes_admin = require("./routes/route_admin");
 
 const { errorHandler } = require("./middlewares/errorHandler");
 
@@ -44,7 +46,9 @@ const mongoDB = require("./database/db");
 // middleware or to set router
 app.use("/", routes);
 app.use("/stripe", routes_stripe);
+app.use("/twilio", routes_twilio);
 app.use("/api", routes_api);
+app.use("/admin", routes_admin);
 
 // Connecting MongoDB Server
 // mongoDB();

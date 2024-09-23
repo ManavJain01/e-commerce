@@ -1,21 +1,25 @@
+// Importing React Packages
+import { useEffect, useState } from "react";
+
+// Importing Custom Hooks
+import { useData } from "../../../hooks/useData";
+
 export default function Invoices() {
-  // Sample Data
-  const sampleData = [
-    {
-      name: "manav jain",
-      phoneNumber: "8269543305",
-      email: "nit474011gwl@gmail.com",
-      cost: "rs.3000",
-      date: "11-10-23"
-    },
-    {
-      name: "sunil jain",
-      phoneNumber: "9301100870",
-      email: "gwsgsi@yahoo.co.in",
-      cost: "rs.2000",
-      date: "10-02-24"
+  // Custom Data
+  const { loading, error, getUsers } = useData();
+
+  // useState
+  const [users, setUsers] = useState([]);
+
+  // useEffect
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await getUsers();
+      setUsers(response);
     }
-  ]
+
+    fetchUsers();
+  }, []);
 
   return (
     <div>
@@ -33,9 +37,9 @@ export default function Invoices() {
             <tr className="bg-blue-800">
               <td className="py-2 px-5"><input type="checkbox" /></td>
               <td className="px-2">ID</td>
-              <td className="px-10">Name</td>
-              <td className="px-8">Phone Number</td>
-              <td className="px-10">Email</td>
+              <td className="whitespace-nowrap px-10">Name</td>
+              <td className="whitespace-nowrap px-8">Phone Number</td>
+              <td className="whitespace-nowrap px-10">Email</td>
               <td className="px-5">Cost</td>
               <td className="px-5">Date</td>
             </tr>
@@ -43,16 +47,16 @@ export default function Invoices() {
 
           {/* nth rows */}
           <tbody>
-            {sampleData?.map((e, i) => {
+            {users?.map((e, i) => {
               return(
-                <tr key={i} className="border-b-[1px] border-gray-500 hover:opacity-60">
+                <tr key={i} className="group border-b-[1px] border-gray-500">
                   <td className="py-5 px-5"><input type="checkbox" /></td>
-                  <td className="px-2">1</td>
-                  <td className="px-10">{e?.name}</td>
-                  <td className="px-8">{e?.phoneNumber}</td>
-                  <td className="px-10">{e?.email}</td>
-                  <td className="px-5">{e?.cost}</td>
-                  <td className="px-5">{e?.date}</td>
+                  <td className="group-hover:opacity-60 px-2">1</td>
+                  <td className="group-hover:opacity-60 whitespace-nowrap px-10">{e?.name || "User"}</td>
+                  <td className="group-hover:opacity-60 whitespace-nowrap px-8">{e?.phone || "NaN"}</td>
+                  <td className="group-hover:opacity-60 whitespace-nowrap px-10">{e?.email || "NaN"}</td>
+                  <td className="group-hover:opacity-60 px-5">{e?.cost || "0"}</td>
+                  <td className="group-hover:opacity-60 px-5">{e?.date || "NaN"}</td>
                 </tr>
               )
             })}
