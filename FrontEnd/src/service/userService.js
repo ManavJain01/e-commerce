@@ -190,3 +190,93 @@ export const postPaymentProcess = async (status,customerId, id) => {
     throw error;
   }
 }
+
+// Save Address Details
+export const SaveAddress = async (data, id) => {
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/saveAddress?id=${id}`, {data: data});
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Save Address');
+    }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Deleting the Address
+export const deleteAddressService = async (address_id, id) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/deleteAddress?id=${id}&address_id=${address_id}`);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Delete the Address');
+    }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Getting All Addresses
+export const getAllAddressService = async (id) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/allAddress?id=${id}`);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Fetch Addresses');
+    }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Save Patient Details
+export const SavePatient = async (data, id) => {
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/savePatient?id=${id}`, {data: data});
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Save Patient');
+    }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Deleting the Patient
+export const deletePatientService = async (patient_id, id) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/deletePatient?id=${id}&patient_id=${patient_id}`);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Delete the Patient');
+    }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Getting All Addresses
+export const getAllPatientService = async (id) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/allPatients?id=${id}`);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Fetch Patients');
+    }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 
 // Importing Redux Files
 import { useDispatch } from "react-redux";
-import { storeStates } from '../Redux/features/stateSlice'
+import { storeStates, setIsLogin } from '../Redux/features/stateSlice'
 import { setLoading, resetLoading } from '../Redux/features/stateSlice';
 
 export const useRefresh = () => {
@@ -19,16 +19,6 @@ export const useRefresh = () => {
   // useDispatch
   const dispatch = useDispatch();
 
-  // useState
-  const [isLogin, setIsLogin] = useState(false);
-
-  // useEffect
-  useEffect(() => {
-    if(localStorage.getItem("authToken")){
-      setIsLogin(true);
-    }
-  }, [])
-
   // Functions
   const refresh = async (userName) => {
     try {
@@ -36,6 +26,7 @@ export const useRefresh = () => {
 
       if(localStorage.getItem("authToken")){
         // redux
+        dispatch(setIsLogin(true));
         dispatch(storeStates({stateName: "userName", state: userName || "User"}))
         await getCartItems();
         await getCustomer();
@@ -47,5 +38,5 @@ export const useRefresh = () => {
     }
   }
 
-  return { refresh, isLogin }
+  return { refresh }
 }

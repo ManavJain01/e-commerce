@@ -7,9 +7,16 @@ import { getSignup, getLogin } from '../service/userService';
 // Importing Custom Hooks
 import { useUserServices } from './useUserServices'
 
+// Importing Redux files
+import { useDispatch } from 'react-redux';
+import { setIsLogin } from '../Redux/features/stateSlice';
+
 export const useLogin = () => {
   // Hooks
   const { getCustomer, getCartItems } = useUserServices();
+
+  // useDispatch
+  const dispatch = useDispatch();
 
   // useState
   const [loading, setLoading] = useState(false);
@@ -23,6 +30,7 @@ export const useLogin = () => {
       if(customer?.authToken) localStorage.setItem("authToken", customer.authToken);
 
       if(localStorage.getItem('authToken')){
+        dispatch(setIsLogin(true));
         await getCartItems();
         await getCustomer();
       }
@@ -49,6 +57,7 @@ export const useLogin = () => {
       if(customer?.authToken) localStorage.setItem("authToken", customer.authToken);
 
       if(localStorage.getItem('authToken')){
+        dispatch(setIsLogin(true));
         await getCartItems();
         await getCustomer();
       }

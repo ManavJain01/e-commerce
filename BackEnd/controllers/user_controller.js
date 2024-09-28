@@ -122,5 +122,72 @@ const findSaveForLater = async (req, res) => {
   }
 }
 
+const savingAddressDetails = async (req, res) => {
+  try {
+    const { data} = req.body;
+
+    const result = await user_service.saveAddress(data, req.user);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error);
+  }
+}
+
+const deleteAddressDetail = async (req, res) => {
+  try {
+    const { address_id } = req.query;
+    const result = await user_service.deleteAddress(req.user, address_id);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error);
+  }
+}
+
+const sendingAllAddress = async (req, res) => {
+  try {
+    const result = await user_service.showAllAddress(req.user);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error);
+  }
+}
+
+const savingPatientDetails = async (req, res) => {
+  try {
+    const { data } = req.body;
+        
+    const result = await user_service.savePatient(data, req.user);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error);
+  }
+}
+
+const deletePatientDetail = async (req, res) => {
+  try {
+    const { patient_id } = req.query;
+
+    const result = await user_service.deletePatient(req.user, patient_id);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error);
+  }
+}
+
+const sendingAllPatients = async (req, res) => {
+  try {
+    const result = await user_service.showAllPatients(req.user);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error);
+  }
+}
+
 // Exporting controllers
-module.exports = { findCustomer, signup, login, findCustomerDetails, UpdateCustomer, findCartData, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart, findOrders, findRefills, findSaveForLater }
+module.exports = { findCustomer, signup, login, findCustomerDetails, UpdateCustomer, findCartData, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart, findOrders, findRefills, findSaveForLater, savingAddressDetails, deleteAddressDetail, sendingAllAddress, savingPatientDetails, deletePatientDetail, sendingAllPatients, savingPatientDetails, deletePatientDetail, sendingAllPatients }

@@ -24,9 +24,6 @@ const CustomerSchema = new Schema({
   gender:{
     type: String
   },
-  address:{
-    type: String
-  },
   date:{
     type: Date,
     default: Date.now()

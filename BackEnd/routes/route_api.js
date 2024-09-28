@@ -2,8 +2,11 @@
 const express = require('express')
 const router = express.Router();
 
+// Importing Middleware
+const ProtectedRoute = require('../middlewares/ProtectedRoute');
+
 // Importing Controllers
-const { findCustomer, signup, login, findCustomerDetails, findCartData, findOrders, findRefills, findSaveForLater } = require('../controllers/user_controller')
+const { findCustomer, signup, login, findCustomerDetails, findCartData, findOrders, findRefills, findSaveForLater, savingAddressDetails, deleteAddressDetail, sendingAllAddress, savingPatientDetails, deletePatientDetail, sendingAllPatients } = require('../controllers/user_controller')
 const { searchData } = require('../controllers/controller')
 
 // fetch User data routes
@@ -15,6 +18,13 @@ router.route('/cart').get(findCartData)
 router.route('/orders').get(findOrders)
 router.route('/refills').get(findRefills)
 router.route('/saveForLater').get(findSaveForLater)
+// Protected Routes
+router.route('/saveAddress').post(ProtectedRoute, savingAddressDetails)
+router.route('/deleteAddress').get(ProtectedRoute, deleteAddressDetail)
+router.route('/allAddress').get(ProtectedRoute, sendingAllAddress)
+router.route('/savePatient').post(ProtectedRoute, savingPatientDetails)
+router.route('/deletePatient').get(ProtectedRoute, deletePatientDetail)
+router.route('/allPatients').get(ProtectedRoute, sendingAllPatients)
 
 // fetch public routes
 router.route('/search').get(searchData)

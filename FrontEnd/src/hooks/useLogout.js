@@ -2,7 +2,7 @@
 import { useDispatch } from 'react-redux'
 
 // importing local redux files
-import { updateState, setLoading, resetLoading } from '../Redux/features/stateSlice'
+import { updateState, setIsLogin } from '../Redux/features/stateSlice'
 import { creatingInitialState } from '../Redux/features/cartSlice'
 import { removeUser } from '../Redux/features/userSlice'
 
@@ -22,19 +22,15 @@ export const useLogout = () => {
 
   const logout = async (ph) => {
     try {
-      dispatch(setLoading());
-      
       localStorage.removeItem("authToken");
-      
+      dispatch(setIsLogin(false));
       await setCart();
       dispatch(updateState({stateName: "userName", message: "logging out"}));
       dispatch(removeUser());
 
       await loggedOut();
     } catch (error) {
-      console.log("Error Loggin Out: ", error);
-    } finally {
-      dispatch(resetLoading());
+      console.error("Error Loggin Out: ", error.message);
     }
   }
 

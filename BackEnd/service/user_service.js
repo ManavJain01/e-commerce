@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 // Json Web Token
 const jwt = require("jsonwebtoken");
 
@@ -89,14 +91,14 @@ const getCustomerDetails = async (_id) => {
 // Update The Customer
 const getCustomerUpdated = async (data) => {
   try {
-    await CustomerModel.findByIdAndUpdate(data.id, {
-      address: data.address1,
+    await CustomerModel.findByIdAndUpdate(data._id, {
       age: data.age,
       email: data.email,
       gender: data.gender,
       name: data.name
     });
 
+    await savePatient(data, data._id);
   } catch (error) {
     throw error.message;
   }
@@ -243,4 +245,110 @@ const getSaveForLater = async (_id) => {
   }
 }
 
-module.exports = { getCustomer, getSignup, getLogin, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater }
+const saveAddress = async (data, _id) => {
+  if(data?._id) {    
+    await CustomerDataModel.findOneAndUpdate(
+      { _id: _id, 'address._id': data?._id },
+      { $set: { 'address.$': data } }, // Update the found address
+      { new: true }
+    );
+
+  } else {
+    await CustomerDataModel.findOneAndUpdate(
+      { _id: _id },
+      { $push: { address: { ...data, _id: new mongoose.Types.ObjectId() } } },
+      { new: true } // This option returns the updated document
+    );
+  }
+
+
+  return "success"  
+}
+
+const deleteAddress = async (_id, address_id) => {
+  await CustomerDataModel.findOneAndUpdate(
+    { _id: _id }, // Find the document by its _id
+    { $pull: { address: { _id: address_id } } }, // Pull the specific address with the matching _id
+    { new: true } // Return the updated document after deletion
+  );
+
+  return "success"  
+}
+
+const showAllAddress = async (_id) => {  
+  const addresses = await CustomerDataModel
+    .findById(_id)
+    .select(["address"]);
+
+  return addresses; 
+}
+
+const savePatient = async (data, _id) => {  
+  let newPatient = { name: data?.name, age: data?.age, gender: data?.gender, email: data?.email, _id: data?._id };
+  const { patient } = data;
+  
+  if(newPatient && newPatient?.name?.length >= 1 && newPatient?.gender?.length >= 1){
+    if(newPatient?._id){      
+      const updatedPatient = await CustomerDataModel.findOneAndUpdate(
+        { _id: _id, 'patient._id': newPatient._id },
+        { $set: { 'patient.$': newPatient } }, // Update the found address
+        { new: true }
+      );
+
+      if(!updatedPatient) {
+        await CustomerDataModel.findOneAndUpdate(
+          { _id: _id },
+          { $push: { patient: { ...newPatient, _id: _id } } },
+          { new: true } // This option returns the updated document
+        );
+      }
+    } else {
+      const theUserId = await CustomerModel.findById(_id);
+      
+      await CustomerDataModel.findOneAndUpdate(
+        { _id: theUserId._id },
+        { $push: { patient: { ...newPatient, _id: theUserId._id } } },
+        { new: true } // This option returns the updated document
+      );
+      
+      newPatient._id = theUserId._id;
+      await getCustomerUpdated(newPatient);
+    }
+  }
+
+
+  if(patient && patient?._id){
+    await CustomerDataModel.findOneAndUpdate(
+      { _id: _id, 'patient._id': patient._id },
+      { $set: { 'patient.$': patient } }, // Update the found address
+      { new: true }
+    );
+  } else if(patient) {
+    await CustomerDataModel.findOneAndUpdate(
+      { _id: _id },
+      { $push: { patient: { ...patient, _id: new mongoose.Types.ObjectId() } } },
+      { new: true } // This option returns the updated document
+    );
+  }
+  return "success";
+}
+
+const deletePatient = async (_id, patient_id) => {
+  await CustomerDataModel.findOneAndUpdate(
+    { _id: _id }, // Find the document by its _id
+    { $pull: { patient: { _id: patient_id } } }, // Pull the specific address with the matching _id
+    { new: true } // Return the updated document after deletion
+  );
+
+  return "success"  
+}
+
+const showAllPatients = async (_id) => {
+  const patients = await CustomerDataModel
+    .findById(_id)
+    .select(["patient"]);
+
+  return patients; 
+}
+
+module.exports = { getCustomer, getSignup, getLogin, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater, saveAddress, deleteAddress, showAllAddress, savePatient, deletePatient, showAllPatients };

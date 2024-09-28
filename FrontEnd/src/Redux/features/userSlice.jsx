@@ -10,7 +10,7 @@ export const userSlice = createSlice({
   reducers: {
     addUser: (state, action) => {
       let isAvailable = false
-      if(state.user.id === action.payload?.id) isAvailable = true
+      if(state.user.id === action.payload?._id) isAvailable = true
 
       if(!isAvailable){
         const user = {
@@ -18,7 +18,7 @@ export const userSlice = createSlice({
           age: action.payload?.age,
           email: action.payload?.email,
           gender: action.payload?.gender,
-          id: action.payload.id,
+          _id: action.payload._id,
           name: action.payload?.name,
           phone: action.payload.phone,
         }
@@ -33,7 +33,7 @@ export const userSlice = createSlice({
       state.user.age = action.payload?.age,
       state.user.email = action.payload?.email,
       state.user.gender = action.payload?.gender,
-      state.user.id = action.payload.id,
+      state.user._id = action.payload._id,
       state.user.name = action.payload?.name,
       state.user.phone = action.payload.phone
     }

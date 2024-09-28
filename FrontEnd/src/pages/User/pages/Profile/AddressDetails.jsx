@@ -1,12 +1,22 @@
 // Importing React Icons
 import { FaArrowLeft } from "react-icons/fa6";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 // Importing React Packages
 import { useState, useEffect, useRef } from 'react'
 
-export default function AddressDetails({openModel, setOpenModel}) {
+// Importing Cuatom Hooks
+import { useUserProfile } from '../../../../hooks/useUserProfile'
+
+export default function AddressDetails({openModel, setOpenModel, formData = {}, setFormData}) {
+  // Hooks
+  const { loading, addAddress } = useUserProfile();
+
   // useRef
   const modalRef = useRef();
+
+  // useState
+  const [saveAs, setSaveAs] = useState("Other");
 
   // useEffect
   useEffect(() => {
@@ -23,68 +33,35 @@ export default function AddressDetails({openModel, setOpenModel}) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [openModel]);
 
-  const Details = () => {
-    // useState
-    const [saveas, setSaveAs] = useState("Other");
+  // Functions
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    await addAddress(formData);
 
-    return(
-      <div className="flex flex-col gap-3 mx-8">
-        {/* Pincode */}
-        <div className="flex flex-col gap-2">
-          <span className="font-semibold">Enter Pincode</span>
-          <input type="text" placeholder="474011" className="text-sm px-5 py-2 rounded-md border outline-none" />
-        </div>
+    setFormData({
+      pincode: "",
+      houseNumber: "",
+      area: "",
+      landmark: "",
+      city: "",
+      state: "",
+      saveas: "other"
+    });
 
-        {/* House number, Floor, Building name */}
-        <div className="flex flex-col gap-2">
-          <span className="font-semibold">House number, Floor, Building name</span>
-          <input type="text" placeholder="21/24, Kailash Apartment" className="text-sm px-5 py-2 rounded-md border outline-none" />
-        </div>
+    setOpenModel(false);
+  }
 
-        {/* Street, Locality, Area */}
-        <div className="flex flex-col gap-2">
-          <span className="font-semibold">Street, Locality, Area</span>
-          <input type="text" placeholder="Indiranagar" className="text-sm px-5 py-2 rounded-md border outline-none" />
-        </div>
-
-        {/* Landmark (Optional) */}
-        <div className="flex flex-col gap-2">
-          <span className="font-semibold">Landmark (Optional)</span>
-          <input type="text" placeholder="Indiranagar bus stop" className="text-sm px-5 py-2 rounded-md border outline-none" />
-        </div>
-
-        {/* City and State */}
-        <div className="flex gap-5">
-          {/* City */}
-          <div className="flex flex-col gap-2">
-            <span className="font-semibold">City</span>
-            <input type="text" placeholder="Mumbai" className="text-sm px-5 py-2 rounded-md border outline-none" />
-          </div>
-
-          {/* State */}
-          <div className="flex flex-col gap-2">
-            <span className="font-semibold">State</span>
-            <input type="text" placeholder="Maharashtra" className="text-sm px-5 py-2 rounded-md border outline-none" />
-          </div>
-        </div>
-        {/* Save as */}
-        <div className="flex flex-col gap-2">
-          <span className="font-semibold">Save as</span>
-          <div className="flex gap-6">
-            <button onClick={() => setSaveAs("Home")} className={`${saveas === "Home" && "text-blue-700 border-blue-600"} px-5 py-2 border`}>Home</button>
-            <button onClick={() => setSaveAs("Office")} className={`${saveas === "Office" && "text-blue-700 border-blue-600"} px-5 py-2 border`}>Office</button>
-            <button onClick={() => setSaveAs("Other")} className={`${saveas === "Other" && "text-blue-700 border-blue-600"} px-5 py-2 border`}>Other</button>
-          </div>
-        </div>
-      </div>
-    )
+  const handleSaveAs = async (e) => {
+    setSaveAs(e);
+    setFormData(prevData => {return { ...prevData, saveas: e }});
   }
 
   return (
     <div className="z-[999999] fixed top-0 left-0 bg-black bg-opacity-45 w-lvw h-lvh">
-      <div ref={modalRef} className="absolute top-0 right-0 bg-white flex flex-col gap-8 h-full w-[25rem] rounded-tl-lg">
+      <form onSubmit={handleSubmit} ref={modalRef} className="absolute top-0 right-0 bg-white flex flex-col gap-8 h-full w-[25rem] rounded-tl-lg">
         {/* Upper Section */}
         <div>
           <div className="flex items-center gap-4 p-5">
@@ -95,14 +72,62 @@ export default function AddressDetails({openModel, setOpenModel}) {
         </div>
 
         {/* Address Section */}
-        <Details />
+        <div className="flex flex-col gap-3 mx-8">
+          {/* Pincode */}
+          <div className="flex flex-col gap-2">
+            <span className="font-semibold">Enter Pincode</span>
+            <input type="text" placeholder="474011" required={true} value={formData.pincode} onChange={(e) => setFormData(prevData => {return{...prevData, pincode: e.target.value}})} className="text-sm px-5 py-2 rounded-md border outline-none" />
+          </div>
+
+          {/* House number, Floor, Building name */}
+          <div className="flex flex-col gap-2">
+            <span className="font-semibold">House number, Floor, Building name</span>
+            <input type="text" placeholder="21/24, Kailash Apartment" required={true} value={formData?.houseNumber} onChange={(e) => setFormData(prevData => {return{...prevData, houseNumber: e.target.value}})} className="text-sm px-5 py-2 rounded-md border outline-none" />
+          </div>
+
+          {/* Street, Locality, Area */}
+          <div className="flex flex-col gap-2">
+            <span className="font-semibold">Street, Locality, Area</span>
+            <input type="text" placeholder="Indiranagar" required={true} value={formData?.area} onChange={(e) => setFormData(prevData => {return{...prevData, area: e.target.value}})} className="text-sm px-5 py-2 rounded-md border outline-none" />
+          </div>
+
+          {/* Landmark (Optional) */}
+          <div className="flex flex-col gap-2">
+            <span className="font-semibold">Landmark (Optional)</span>
+            <input type="text" placeholder="Indiranagar bus stop" value={formData?.landmark} onChange={(e) => setFormData(prevData => {return{...prevData, landmark: e.target.value}})} className="text-sm px-5 py-2 rounded-md border outline-none" />
+          </div>
+
+          {/* City and State */}
+          <div className="flex gap-5">
+            {/* City */}
+            <div className="flex flex-col gap-2">
+              <span className="font-semibold">City</span>
+              <input type="text" placeholder="Mumbai" required={true} value={formData?.city} onChange={(e) => setFormData(prevData => {return{...prevData, city: e.target.value}})} className="text-sm px-5 py-2 rounded-md border outline-none" />
+            </div>
+
+            {/* State */}
+            <div className="flex flex-col gap-2">
+              <span className="font-semibold">State</span>
+              <input type="text" placeholder="Maharashtra" required={true} value={formData?.state} onChange={(e) => setFormData(prevData => {return{...prevData, state: e.target.value}})} className="text-sm px-5 py-2 rounded-md border outline-none" />
+            </div>
+          </div>
+          {/* Save as */}
+          <div className="flex flex-col gap-2">
+            <span className="font-semibold">Save as</span>
+            <div className="flex gap-6">
+              <button type="button" onClick={() => handleSaveAs("Home")} className={`${saveAs === "Home" && "text-blue-700 border-blue-600"} px-5 py-2 border`}>Home</button>
+              <button type="button" onClick={() => handleSaveAs("Office")} className={`${saveAs === "Office" && "text-blue-700 border-blue-600"} px-5 py-2 border`}>Office</button>
+              <button type="button" onClick={() => handleSaveAs("Other")} className={`${saveAs === "Other" && "text-blue-700 border-blue-600"} px-5 py-2 border`}>Other</button>
+            </div>
+          </div>
+        </div>
 
         {/* Lower Section */}
         <div className="flex flex-col mt-auto">
           <hr />
-          <button className="text-white bg-blue-800 my-4 mx-8 py-2 rounded-lg">Save & Continue</button>
+          <button type="submit" disabled={loading} className="text-white bg-blue-800 my-4 mx-8 py-2 rounded-lg">{loading ? <AiOutlineLoading3Quarters className="size-6 mx-auto animate-spin" /> : "Save & Continue"}</button>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

@@ -4,6 +4,7 @@ const initialState = {
   // stateItems: [{stateName: 'stateName', state: 'state', setState: 'setState'}]
   loading: false,
   openLoginPage: false,
+  isLogin: false,
   stateItems: []
 }
 
@@ -53,10 +54,18 @@ export const stateSlice = createSlice({
         count = 0;
         state.loading = false;
       }
+    },
+
+    setIsLogin: (state, action) => {
+      if(action.payload === true){
+        state.isLogin = true;
+      } else if(action.payload === false) {
+        state.isLogin = false;
+      }
     }
   }
 })
 
-export const { storeStates, updateState, setOpenLoginPage, setLoading, resetLoading } = stateSlice.actions
+export const { storeStates, updateState, setOpenLoginPage, setLoading, resetLoading, setIsLogin } = stateSlice.actions
 
 export default stateSlice.reducer

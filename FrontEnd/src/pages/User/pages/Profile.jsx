@@ -24,11 +24,10 @@ export default function Profile() {
   // UseState
   const [verifyBtn, setVerifyBtn] = useState(false);
   const [data, setData] = useState({
-    address1: "",
     age: "",
     email: "",
     gender: "",
-    id: "",
+    _id: "",
     name: "",
     phone: "",
   })
@@ -36,11 +35,10 @@ export default function Profile() {
   // UseEffect
   useEffect(() => {
     setData({
-      address1: customer?.address || "",
       age: customer?.age || "",
       email: customer?.email || "",
       gender: customer?.gender || "",
-      id: customer.id || "",
+      _id: customer._id || "",
       name: customer?.name || "",
       phone: customer.phone || "",
     });
@@ -64,7 +62,6 @@ export default function Profile() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    console.log("data:", data);
     
     await getCustomerUpdated(data);
   }

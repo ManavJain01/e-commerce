@@ -2,29 +2,21 @@ const mongoose = require('mongoose')
 
 const { Schema } = mongoose;
 
-const OrderSchema = new Schema({
-  id: {
-    type: Schema.Types.ObjectId,
-    required: true,
-  },
-  paymentStatus: {
-    type: String,
-    enum: ['Pending', 'Completed', 'Failed'], // Customize the statuses as needed
-    required: true,
-  },
-  deliveryStatus: {
-    type: String,
-    enum: ['Pending', 'Shipped', 'Delivered', 'Canceled'], // Customize the statuses as needed
-    required: true,
-  },
-  products: {
-    type: Object,
-    required: true,
-  },
-  orderTime: {
-    type: Date,
-    default: Date.now,
-  },
+const AddressSchema = new Schema({
+  houseNumber: String,
+  area: String,
+  city: String,
+  state: String,
+  landmark: String,
+  pincode: String,
+  saveas: String,
+});
+
+const PatientSchema = new Schema({
+  name: String,
+  age: Number,
+  email: String,
+  gender: String
 });
 
 const CustomerDataSchema = new Schema({
@@ -40,9 +32,11 @@ const CustomerDataSchema = new Schema({
   records:{
     type: Object
   },
-  orders:{
-    type: [OrderSchema],
-    default: [],
+  address: {
+    type: [AddressSchema]
+  },
+  patient: {
+    type: [PatientSchema]
   }
 })
 

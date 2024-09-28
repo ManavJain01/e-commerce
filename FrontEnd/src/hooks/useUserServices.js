@@ -28,7 +28,7 @@ export const useUserServices = () => {
         const customer = await customerDetails(customerId);
 
         dispatch(addUser({
-          id: customer._id,
+          _id: customer._id,
           phone: customer.phone,
           name: customer?.name || "",
           email: customer?.email || "",

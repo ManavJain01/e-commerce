@@ -18,7 +18,7 @@ import UploadPrescripBtn from '../User/pages/Medical Records/UploadPrescripBtn'
 
 function Cart(){
   // Custom Hooks
-  const { isLogin } = useRefresh();
+  const isLogin = useSelector(state => state.state.isLogin);
   
   // useNavigate
   const navigate =  useNavigate();
@@ -57,7 +57,7 @@ function Cart(){
           
           <div className="w-[23rem] h-fit flex flex-col gap-8">
             <PaymentDetails />
-            <button onClick={() => handleCheckout()} className="font-semibold text-center text-lg text-white bg-blue-600 py-2 rounded-md">Proceed to Checkout</button>
+            <button onClick={() => handleCheckout()} className="font-semibold text-center text-lg text-white bg-blue-600 py-2 rounded-md">{isLogin ? "Proceed to Checkout" : "Click To Login"}</button>
           </div>
         </div>
       )
