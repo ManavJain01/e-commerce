@@ -98,7 +98,19 @@ const getCustomerUpdated = async (data) => {
       name: data.name
     });
 
-    await savePatient(data, data._id);
+    const userAsPatient = await CustomerDataModel.findOneAndUpdate(
+      { _id: data._id, 'patient._id': data._id },
+      { $set: { 'patient.$': data } }, // Update the found address
+      { new: true }
+    );
+
+    if(!userAsPatient){
+      await CustomerDataModel.findOneAndUpdate(
+        { _id: data._id },
+        { $push: { patient: { ...data, _id: data._id } } },
+        { new: true } // This option returns the updated document
+      );
+    }
   } catch (error) {
     throw error.message;
   }
@@ -209,7 +221,7 @@ const getOrders = async (_id) => {
 
     return completedOrders;
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 }
 
@@ -225,7 +237,7 @@ const getRefills = async (_id) => {
 
     return  await CustomerDataModel.findById(id).select('refills -_id');
   } catch (error) {
-    throw `Error in FetchingRefills: ${error.message}`;
+    throw error;
   }
 }
 
@@ -246,109 +258,136 @@ const getSaveForLater = async (_id) => {
 }
 
 const saveAddress = async (data, _id) => {
-  if(data?._id) {    
-    await CustomerDataModel.findOneAndUpdate(
-      { _id: _id, 'address._id': data?._id },
-      { $set: { 'address.$': data } }, // Update the found address
-      { new: true }
-    );
-
-  } else {
-    await CustomerDataModel.findOneAndUpdate(
-      { _id: _id },
-      { $push: { address: { ...data, _id: new mongoose.Types.ObjectId() } } },
-      { new: true } // This option returns the updated document
-    );
+  try {
+    if(data?._id) {    
+      await CustomerDataModel.findOneAndUpdate(
+        { _id: _id, 'address._id': data?._id },
+        { $set: { 'address.$': data } }, // Update the found address
+        { new: true }
+      );
+  
+    } else {
+      await CustomerDataModel.findOneAndUpdate(
+        { _id: _id },
+        { $push: { address: { ...data, _id: new mongoose.Types.ObjectId() } } },
+        { new: true } // This option returns the updated document
+      );
+    }
+  
+    return "success";
+  } catch (error) {
+    throw error;
   }
-
-
-  return "success"  
 }
 
 const deleteAddress = async (_id, address_id) => {
-  await CustomerDataModel.findOneAndUpdate(
-    { _id: _id }, // Find the document by its _id
-    { $pull: { address: { _id: address_id } } }, // Pull the specific address with the matching _id
-    { new: true } // Return the updated document after deletion
-  );
-
-  return "success"  
-}
-
-const showAllAddress = async (_id) => {  
-  const addresses = await CustomerDataModel
-    .findById(_id)
-    .select(["address"]);
-
-  return addresses; 
-}
-
-const savePatient = async (data, _id) => {  
-  let newPatient = { name: data?.name, age: data?.age, gender: data?.gender, email: data?.email, _id: data?._id };
-  const { patient } = data;
+  try {
+    await CustomerDataModel.findOneAndUpdate(
+      { _id: _id }, // Find the document by its _id
+      { $pull: { address: { _id: address_id } } }, // Pull the specific address with the matching _id
+      { new: true } // Return the updated document after deletion
+    );
   
-  if(newPatient && newPatient?.name?.length >= 1 && newPatient?.gender?.length >= 1){
-    if(newPatient?._id){      
-      const updatedPatient = await CustomerDataModel.findOneAndUpdate(
-        { _id: _id, 'patient._id': newPatient._id },
-        { $set: { 'patient.$': newPatient } }, // Update the found address
+    return "success";
+  } catch (error) {
+    throw error;
+  }
+}
+
+const showAllAddress = async (_id) => {
+  try {
+    const addresses = await CustomerDataModel
+      .findById(_id)
+      .select(["address"]);
+  
+    return addresses; 
+  } catch (error) {
+    throw error;
+  } 
+}
+
+const savePatient = async (_id, patient) => {
+  try {
+    if(patient?._id){
+      await CustomerDataModel.findOneAndUpdate(
+        { _id: _id, 'patient._id': patient._id },
+        { $set: { 'patient.$': patient } }, // Update the found address
         { new: true }
       );
-
-      if(!updatedPatient) {
-        await CustomerDataModel.findOneAndUpdate(
-          { _id: _id },
-          { $push: { patient: { ...newPatient, _id: _id } } },
-          { new: true } // This option returns the updated document
-        );
-      }
-    } else {
-      const theUserId = await CustomerModel.findById(_id);
-      
-      await CustomerDataModel.findOneAndUpdate(
-        { _id: theUserId._id },
-        { $push: { patient: { ...newPatient, _id: theUserId._id } } },
-        { new: true } // This option returns the updated document
-      );
-      
-      newPatient._id = theUserId._id;
-      await getCustomerUpdated(newPatient);
+      return;
     }
-  }
 
-
-  if(patient && patient?._id){
-    await CustomerDataModel.findOneAndUpdate(
-      { _id: _id, 'patient._id': patient._id },
-      { $set: { 'patient.$': patient } }, // Update the found address
-      { new: true }
-    );
-  } else if(patient) {
     await CustomerDataModel.findOneAndUpdate(
       { _id: _id },
       { $push: { patient: { ...patient, _id: new mongoose.Types.ObjectId() } } },
       { new: true } // This option returns the updated document
     );
+  } catch (error) {
+    throw error;
   }
-  return "success";
+}
+
+const saveUserAsPatient = async (data, _id) => {  
+  const { patient } = data;
+  let userDetails = { name: data?.name, age: data?.age, gender: data?.gender, email: data?.email, _id: data?._id };
+
+  try {
+    if(patient) await savePatient(_id, patient);
+
+    if(userDetails?._id){      
+      await CustomerDataModel.findOneAndUpdate(
+        { _id: _id, 'patient._id': userDetails._id },
+        { $set: { 'patient.$': userDetails } }, // Update the found address
+        { new: true }
+      );
+    } else if(userDetails?.name !== "") {
+      await CustomerDataModel.findOneAndUpdate(
+        { _id: _id },
+        { $push: { patient: { ...userDetails, _id: _id } } },
+        { new: true } // This option returns the updated document
+      );
+    }
+
+    if(userDetails?.name !== ""){
+      await CustomerModel.findByIdAndUpdate(_id, {
+        age: userDetails?.age,
+        email: userDetails?.email,
+        gender: userDetails?.gender,
+        name: userDetails?.name
+      });
+    }
+  
+    return "success"; 
+  } catch (error) {
+    throw error;
+  }
+  
 }
 
 const deletePatient = async (_id, patient_id) => {
-  await CustomerDataModel.findOneAndUpdate(
-    { _id: _id }, // Find the document by its _id
-    { $pull: { patient: { _id: patient_id } } }, // Pull the specific address with the matching _id
-    { new: true } // Return the updated document after deletion
-  );
-
-  return "success"  
+  try {
+    await CustomerDataModel.findOneAndUpdate(
+      { _id: _id }, // Find the document by its _id
+      { $pull: { patient: { _id: patient_id } } }, // Pull the specific address with the matching _id
+      { new: true } // Return the updated document after deletion
+    );
+  
+    return "success" ; 
+  } catch (error) {
+    throw error;
+  }
 }
 
 const showAllPatients = async (_id) => {
-  const patients = await CustomerDataModel
-    .findById(_id)
-    .select(["patient"]);
-
-  return patients; 
+  try {
+    const patients = await CustomerDataModel
+      .findById(_id)
+      .select(["patient"]);
+  
+    return patients; 
+  } catch (error) {
+    throw error;
+  }
 }
 
-module.exports = { getCustomer, getSignup, getLogin, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater, saveAddress, deleteAddress, showAllAddress, savePatient, deletePatient, showAllPatients };
+module.exports = { getCustomer, getSignup, getLogin, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater, saveAddress, deleteAddress, showAllAddress, saveUserAsPatient, deletePatient, showAllPatients };

@@ -159,7 +159,7 @@ const savingPatientDetails = async (req, res) => {
   try {
     const { data } = req.body;
         
-    const result = await user_service.savePatient(data, req.user);
+    const result = await user_service.saveUserAsPatient(data, req.user);
     res.status(200).send(result);
   } catch (error) {
     console.error("Error: ", error.message);

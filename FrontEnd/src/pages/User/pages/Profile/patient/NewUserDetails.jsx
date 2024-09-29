@@ -24,17 +24,17 @@ export default function newUserDetails({ formData, setFormData, orderForHimself,
         <span className="font-semibold">Gender</span>
         <div className="flex gap-8 items-center">
           <div className="flex items-center gap-1">
-            <input type="checkbox" id="patient_male" checked={formData?.gender === "Male"} onChange={() => setFormData(prevData => {return{...prevData, gender: "male"}})} />
+            <input type="checkbox" id="patient_male" checked={formData?.gender === "Male"} onChange={() => setFormData(prevData => {return{...prevData, gender: "Male"}})} />
             <label htmlFor="patient_male">Male</label>
           </div>
 
           <div className="flex items-center gap-1">
-            <input type="checkbox" id="patient_female" checked={formData?.gender === "Female"} onChange={() => setFormData(prevData => {return{...prevData, gender: "female"}})} />
+            <input type="checkbox" id="patient_female" checked={formData?.gender === "Female"} onChange={() => setFormData(prevData => {return{...prevData, gender: "Female"}})} />
             <label htmlFor="patient_female">Female</label>
           </div>
 
           <div className="flex items-center gap-1">
-            <input type="checkbox" id="patient_other" checked={formData?.gender === "Other"} onChange={() => setFormData(prevData => {return{...prevData, gender: "other"}})} />
+            <input type="checkbox" id="patient_other" checked={formData?.gender === "Other"} onChange={() => setFormData(prevData => {return{...prevData, gender: "Other"}})} />
             <label htmlFor="patient_other">Other</label>
           </div>
         </div>

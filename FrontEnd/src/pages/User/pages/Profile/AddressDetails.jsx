@@ -16,12 +16,21 @@ export default function AddressDetails({openModel, setOpenModel, formData = {}, 
   const modalRef = useRef();
 
   // useState
-  const [saveAs, setSaveAs] = useState("Other");
+  const [saveAs, setSaveAs] = useState(formData?.saveas || "Other");
 
   // useEffect
   useEffect(() => {
     function handleClickOutside(event) {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setFormData({
+          pincode: "",
+          houseNumber: "",
+          area: "",
+          landmark: "",
+          city: "",
+          state: "",
+          saveas: "Other"
+        });
         setOpenModel(false);
       }
     }
@@ -48,7 +57,7 @@ export default function AddressDetails({openModel, setOpenModel, formData = {}, 
       landmark: "",
       city: "",
       state: "",
-      saveas: "other"
+      saveas: "Other"
     });
 
     setOpenModel(false);

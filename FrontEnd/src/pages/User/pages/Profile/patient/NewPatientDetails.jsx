@@ -18,17 +18,17 @@ return (
         <span className="font-semibold">Gender</span>
         <div className="flex gap-8 items-center">
           <div className="flex items-center gap-1">
-            <input type="checkbox" id="patient_male" checked={formData?.patient?.gender === "Male"} onChange={() => setFormData(prevData => {return{...prevData, patient: {...prevData?.patient, gender: "male"}}})} />
+            <input type="checkbox" id="patient_male" checked={formData?.patient?.gender === "Male"} onChange={() => setFormData(prevData => {return{...prevData, patient: {...prevData?.patient, gender: "Male"}}})} />
             <label htmlFor="patient_male">Male</label>
           </div>
 
           <div className="flex items-center gap-1">
-            <input type="checkbox" id="patient_female" checked={formData?.patient?.gender === "Female"} onChange={() => setFormData(prevData => {return{...prevData, patient: {...prevData?.patient, gender: "female"}}})} />
+            <input type="checkbox" id="patient_female" checked={formData?.patient?.gender === "Female"} onChange={() => setFormData(prevData => {return{...prevData, patient: {...prevData?.patient, gender: "Female"}}})} />
             <label htmlFor="patient_female">Female</label>
           </div>
 
           <div className="flex items-center gap-1">
-            <input type="checkbox" id="patient_other" checked={formData?.patient?.gender === "Other"} onChange={() => setFormData(prevData => {return{...prevData, patient: {...prevData?.patient, gender: "other"}}})} />
+            <input type="checkbox" id="patient_other" checked={formData?.patient?.gender === "Other"} onChange={() => setFormData(prevData => {return{...prevData, patient: {...prevData?.patient, gender: "Other"}}})} />
             <label htmlFor="patient_other">Other</label>
           </div>
         </div>

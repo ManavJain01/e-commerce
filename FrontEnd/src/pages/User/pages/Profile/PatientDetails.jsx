@@ -26,6 +26,12 @@ export default function PatientDetails({openModel, setOpenModel, createMYSELF, e
   useEffect(() => {
     function handleClickOutside(event) {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setFormData({
+          name: "",
+          age: 0,
+          gender: ""
+        });
+
         setOpenModel(false);
       }
     }

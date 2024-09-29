@@ -25,7 +25,7 @@ export default function ManageAddress() {
     landmark: "",
     city: "",
     state: "",
-    saveas: "other"
+    saveas: "Other"
   });
 
   // useEffect
@@ -70,12 +70,7 @@ export default function ManageAddress() {
                 <div key={i} className="w-full h-[8rem] flex gap-5 justify-between p-5 rounded-md border">
                   {/* address */}
                   <div className="flex flex-col">
-                    <section className="flex gap-20 items-center">
-                      <p className="font-bold">{e?.saveas}</p>
-                      <p className="font-bold">-</p>
-                      <p className="font-bold">{e?.pincode}</p>
-                    </section>
-
+                    <p className="font-bold">{e?.saveas}, {e?.pincode}</p>
                     <p>{e?.houseNumber}, {e?.area}, {e?.city}, {e?.state}</p>
                     <p>{e?.landmark}</p>
                   </div>
