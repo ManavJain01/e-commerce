@@ -15,7 +15,8 @@ const client = process.env.CLIENT_LOCATION
 const getStripePayment = async (data) => {
   try {
     const {userId, products} = data;
-
+    const {cartItems, totalAmount, deliveryDetails} = products;
+    
     const id = jwt.decode(userId);
     jwt.verify(userId, jwtSecret, (err, id) => {
       if (err) {
@@ -29,7 +30,9 @@ const getStripePayment = async (data) => {
         orders: { 
           paymentStatus: 'Pending', // or 'Completed', 'Failed', etc.
           deliveryStatus: 'Pending', // or 'Shipped', 'Delivered', etc.
-          products: products,
+          products: cartItems,
+          totalAmount: totalAmount,
+          deliveryDetails: deliveryDetails,
           orderTime: new Date(), // or any specific time if needed
         }
       }
@@ -39,12 +42,12 @@ const getStripePayment = async (data) => {
       setDefaultsOnInsert: true // Apply default values when creating
     });    
 
-    // Check if the customer document was updated and has orders
+    // // // Check if the customer document was updated and has orders
     if (newOrder && newOrder.orders.length > 0) {
       // Get the latest order from the orders array
       const latestOrder = newOrder.orders[newOrder.orders.length - 1];
       
-      const lineItems = products.map((product) => ({
+      const lineItems = cartItems.map((product) => ({
         price_data:{
           currency:"inr",
           product_data:{

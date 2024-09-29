@@ -15,6 +15,12 @@ const orderSchema = mongoose.Schema({
     type: Object,
     required: true,
   },
+  deliveryDetails: {
+    type: Object
+  },
+  totalAmount: {
+    type: Number
+  },
   orderTime: {
     type: Date,
     default: Date.now,
