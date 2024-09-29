@@ -78,7 +78,7 @@ export default function Profile() {
     </div>
   )
   else return (
-    <div className="w-full py-20 pr-5 md:pr-20 flex flex-col gap-3">
+    <div className="w-full sm:py-20 pr-5 md:pr-20 flex flex-col gap-3">
       <p className="text-4xl font-semibold">Edit Profile</p>
 
       <form className="flex flex-col gap-10 p-8 border-2 border-gray-300 rounded-md shadow-md shadow-gray-500">

@@ -16,6 +16,7 @@ export default function ManagePatient() {
   const { loading, deletePatient, getAllPatients } = useUserProfile();
 
   // useState
+  const [error, setError] = useState(false);
   const [addPatient, setAddPatient] = useState(false);
   const [allPatients, setAllPatients] = useState([]);
   const [createMYSELF, setCreateMYSELF] = useState(true);
@@ -55,8 +56,13 @@ export default function ManagePatient() {
   }
 
   const handleDelete = async (patient_id) => {
-    await deletePatient(patient_id);    
-    await handleRefresh();
+    const res = await deletePatient(patient_id);
+    
+    if(res === "Patient is already assigned."){
+      setError({id: patient_id, msg: res});
+
+      setTimeout(() => setError(false), 2000);
+    } else await handleRefresh();
   }
 
   return (
@@ -86,6 +92,7 @@ export default function ManagePatient() {
                       <p>{e?.age}, </p>
                       <p>{e?.gender}</p>
                     </section>
+                    {error?.id === e?._id && <span className="text-red-600">{error?.msg || ""}</span>}
                   </div>
                   {/* edit/delete */}
                   <div className="flex items-center gap-5">

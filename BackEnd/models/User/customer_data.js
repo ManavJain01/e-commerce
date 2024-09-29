@@ -37,6 +37,9 @@ const CustomerDataSchema = new Schema({
   },
   patient: {
     type: [PatientSchema]
+  },
+  delivery_details: {
+    type: Object
   }
 })
 

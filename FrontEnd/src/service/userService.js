@@ -53,7 +53,7 @@ export const fetchCustomer = async (phone) => {
 // Customer Details
 export const customerDetails = async (id) => {
   try {    
-    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/CustomerDetails`, { params: {id: id}})
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/CustomerDetails?id=${id}`);
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch Customer Details');
@@ -262,6 +262,7 @@ export const deletePatientService = async (patient_id, id) => {
     
     return response.data;
   } catch (error) {
+    if(error?.response?.data) return error?.response?.data;
     throw error;
   }
 }
@@ -273,6 +274,36 @@ export const getAllPatientService = async (id) => {
     
     if (response.status !== 200) {
       throw new Error('Failed to Fetch Patients');
+    }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Setting Delivery Details
+export const setDeliveryDetailService = async (id, details) => {
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/setDeliveryDetails?id=${id}`, details);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to set Delivery Details');
+    }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Getting Delivery Details
+export const getDeliveryDetailService = async (id) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/getDeliveryDetails?id=${id}`);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to get Delivery Details');
     }
     
     return response.data;

@@ -72,13 +72,13 @@ export default function SideNavbar() {
         <p className="text-white text-4xl absolute top-3 left-5">U</p>
       </div>
 
-      <nav className="flex flex-col border-2 border-gray-400 rounded-md shadow-md shadow-gray-400">
+      <nav className="flex sm:flex-col border-2 border-gray-400 rounded-md shadow-md shadow-gray-400">
         {navOptions.map((e,i) => {
           return(
             <ul key={i} className="flex flex-col text-2xl">
-              <li onClick={e?.onClick} className="hover:text-green-400"><NavLink to={e.link} className={`px-20 py-5 flex items-center gap-5 whitespace-nowrap aria-[current=page]:text-green-600 hover:bg-gray-100 ${e?.styles}`}>
+              <li onClick={e?.onClick} className="hover:text-green-400"><NavLink to={e.link} className={`px-5 sm:px-20 py-5 flex items-center gap-5 whitespace-nowrap aria-[current=page]:text-green-600 hover:bg-gray-100 ${e?.styles}`}>
                 {e?.icon}
-                {e.option}
+                <span className="hidden md:block">{e.option}</span>
               </NavLink></li>
             </ul>
           )

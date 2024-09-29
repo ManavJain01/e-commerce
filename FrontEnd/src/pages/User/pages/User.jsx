@@ -6,9 +6,11 @@ import { Outlet } from 'react-router-dom'
 
 export default function User() {
   return (
-    <div className="mt-40 min-h-[60vh] flex items-start">
+    <div className="sm:mt-40 min-h-[60vh] flex flex-col sm:flex-row items-start">
       <SideNavbar />
-      <Outlet />
+      <div className="flex-1">
+        <Outlet />
+      </div>
     </div>
   )
 }

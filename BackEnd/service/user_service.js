@@ -74,15 +74,7 @@ const getLogin = async (data) => {
 // Fetch Customer's Data
 const getCustomerDetails = async (_id) => {
   try {
-    const id = jwt.decode(_id);
-
-    jwt.verify(_id, jwtSecret, (err, id) => {
-      if (err) {
-        throw new Error('Token verification failed:', err);
-      }
-    });
-
-    return await CustomerModel.findById(id);
+    return await CustomerModel.findById(_id);
   } catch (error) {
     throw error.message;
   }
@@ -287,6 +279,12 @@ const deleteAddress = async (_id, address_id) => {
       { $pull: { address: { _id: address_id } } }, // Pull the specific address with the matching _id
       { new: true } // Return the updated document after deletion
     );
+
+    await CustomerDataModel.findByIdAndUpdate(
+      { _id: _id, "delivery_details.address._id": address_id },
+      { $unset: { "delivery_details.address": "" } }, // Unset the address field within delivery_details
+      { new: true, select: ["delivery_details"] } // Return the updated document with selected fields
+    );
   
     return "success";
   } catch (error) {
@@ -366,6 +364,12 @@ const saveUserAsPatient = async (data, _id) => {
 
 const deletePatient = async (_id, patient_id) => {
   try {
+    const assignedPatient = await CustomerDataModel.findOne(
+      { _id: _id, "delivery_details.patient._id": patient_id }
+    );
+
+    if(assignedPatient) throw new Error("Patient is already assigned.");
+
     await CustomerDataModel.findOneAndUpdate(
       { _id: _id }, // Find the document by its _id
       { $pull: { patient: { _id: patient_id } } }, // Pull the specific address with the matching _id
@@ -380,14 +384,36 @@ const deletePatient = async (_id, patient_id) => {
 
 const showAllPatients = async (_id) => {
   try {
-    const patients = await CustomerDataModel
+    return await CustomerDataModel
       .findById(_id)
       .select(["patient"]);
-  
-    return patients; 
   } catch (error) {
     throw error;
   }
 }
 
-module.exports = { getCustomer, getSignup, getLogin, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart, UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater, saveAddress, deleteAddress, showAllAddress, saveUserAsPatient, deletePatient, showAllPatients };
+const setDeliveryDetails = async (_id, details) => {
+  try {
+    await CustomerDataModel.findByIdAndUpdate(
+      _id,
+      { delivery_details: details }, // Set the delivery details
+      { new: true, select: ["delivery_details"] } // Return the updated document with selected fields
+    );
+  } catch (error) {
+    throw error;
+  }
+}
+
+const getDeliveryDetails = async (_id) => {
+  try {
+    return await CustomerDataModel
+      .findById(_id)
+      .select(["delivery_details"]);
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = { getCustomer, getSignup, getLogin, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart,
+  UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater, saveAddress, deleteAddress, showAllAddress,
+  saveUserAsPatient, deletePatient, showAllPatients, setDeliveryDetails, getDeliveryDetails };

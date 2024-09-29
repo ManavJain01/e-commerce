@@ -36,6 +36,8 @@ export const useUserServices = () => {
           gender: customer?.gender || "",
           address: customer?.address || ""
         }))
+
+        return customer;
       } else {
         throw new Error('Token Not Found!!!');
       }

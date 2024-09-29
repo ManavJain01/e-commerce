@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 
 // Importing Services
-import { SaveAddress, getAllAddressService, deleteAddressService, SavePatient ,deletePatientService , getAllPatientService } from '../service/userService';
+import { SaveAddress, getAllAddressService, deleteAddressService, SavePatient ,deletePatientService
+  , getAllPatientService, setDeliveryDetailService, getDeliveryDetailService } from '../service/userService';
 
 export const useUserProfile = () => {
   // useState
@@ -122,5 +123,43 @@ export const useUserProfile = () => {
     }
   }
 
-  return { loading, addAddress, deleteAddress, getAllAddress, addPatient, deletePatient, getAllPatients };
+  const setDeliveryDetails = async (details) => {
+    try {
+      setLoading(true);
+      const customerId = localStorage.getItem('authToken');
+
+      if(customerId){
+        const res = await setDeliveryDetailService(customerId, details);
+        return res;
+
+      } else {
+        throw new Error('Token Not Found!!!');
+      }
+    } catch (error) {
+      console.error("Error setting Delivery Details: ", error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const getDeliveryDetails = async () => {
+    try {
+      setLoading(true);
+      const customerId = localStorage.getItem('authToken');
+
+      if(customerId){
+        const res = await getDeliveryDetailService(customerId);
+        return res;
+
+      } else {
+        throw new Error('Token Not Found!!!');
+      }
+    } catch (error) {
+      console.error("Error getting Delivery Details: ", error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { loading, addAddress, deleteAddress, getAllAddress, addPatient, deletePatient, getAllPatients, setDeliveryDetails, getDeliveryDetails };
 }

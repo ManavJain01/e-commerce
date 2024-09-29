@@ -6,14 +6,16 @@ const router = express.Router();
 const ProtectedRoute = require('../middlewares/ProtectedRoute');
 
 // Importing Controllers
-const { findCustomer, signup, login, findCustomerDetails, findCartData, findOrders, findRefills, findSaveForLater, savingAddressDetails, deleteAddressDetail, sendingAllAddress, savingPatientDetails, deletePatientDetail, sendingAllPatients } = require('../controllers/user_controller')
+const { findCustomer, signup, login, findCustomerDetails, findCartData, findOrders, findRefills, findSaveForLater, savingAddressDetails,
+  deleteAddressDetail, sendingAllAddress, savingPatientDetails, deletePatientDetail, sendingAllPatients, settingDeliveryDetails,
+  gettingDeliveryDetails } = require('../controllers/user_controller');
 const { searchData } = require('../controllers/controller')
 
 // fetch User data routes
 router.route('/Customer').post(findCustomer)
 router.route('/signup').post(signup)
 router.route('/login').post(login)
-router.route('/CustomerDetails').get(findCustomerDetails)
+router.route('/CustomerDetails').get(ProtectedRoute, findCustomerDetails)
 router.route('/cart').get(findCartData)
 router.route('/orders').get(findOrders)
 router.route('/refills').get(findRefills)
@@ -25,6 +27,8 @@ router.route('/allAddress').get(ProtectedRoute, sendingAllAddress)
 router.route('/savePatient').post(ProtectedRoute, savingPatientDetails)
 router.route('/deletePatient').get(ProtectedRoute, deletePatientDetail)
 router.route('/allPatients').get(ProtectedRoute, sendingAllPatients)
+router.route('/setDeliveryDetails').post(ProtectedRoute, settingDeliveryDetails)
+router.route('/getDeliveryDetails').get(ProtectedRoute, gettingDeliveryDetails)
 
 // fetch public routes
 router.route('/search').get(searchData)

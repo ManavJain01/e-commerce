@@ -34,7 +34,7 @@ const login = async (req, res) => {
 
 const findCustomerDetails = async (req, res) => {
   try {
-    const result = await user_service.getCustomerDetails(req.query.id);
+    const result = await user_service.getCustomerDetails(req.user);
     res.status(200).send(result);
   } catch (error) {
     console.log("Error: ", error);
@@ -175,7 +175,7 @@ const deletePatientDetail = async (req, res) => {
     res.status(200).send(result);
   } catch (error) {
     console.error("Error: ", error.message);
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 }
 
@@ -185,9 +185,32 @@ const sendingAllPatients = async (req, res) => {
     res.status(200).send(result);
   } catch (error) {
     console.error("Error: ", error.message);
-    res.status(400).send(error);
+    res.status(400).send(error.message);
+  }
+}
+
+const settingDeliveryDetails = async (req, res) => {
+  try {
+    const result = await user_service.setDeliveryDetails(req.user, req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error.message);
+  }
+}
+
+const gettingDeliveryDetails = async (req, res) => {
+  try {
+    const result = await user_service.getDeliveryDetails(req.user);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error.message);
   }
 }
 
 // Exporting controllers
-module.exports = { findCustomer, signup, login, findCustomerDetails, UpdateCustomer, findCartData, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart, findOrders, findRefills, findSaveForLater, savingAddressDetails, deleteAddressDetail, sendingAllAddress, savingPatientDetails, deletePatientDetail, sendingAllPatients, savingPatientDetails, deletePatientDetail, sendingAllPatients }
+module.exports = { findCustomer, signup, login, findCustomerDetails, UpdateCustomer, findCartData, ItemAddedInCart,
+  ItemUpdatedInCart, ItemDeletedFromCart, findOrders, findRefills, findSaveForLater, savingAddressDetails,
+  deleteAddressDetail, sendingAllAddress, savingPatientDetails, deletePatientDetail, sendingAllPatients, savingPatientDetails,
+  deletePatientDetail, sendingAllPatients, settingDeliveryDetails, gettingDeliveryDetails }
