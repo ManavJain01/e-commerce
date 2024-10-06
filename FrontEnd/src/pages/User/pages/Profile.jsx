@@ -42,7 +42,7 @@ export default function Profile() {
       name: customer?.name || "",
       phone: customer.phone || "",
     });
-  }, [])
+  }, [customer])
 
   // Functions
   const verifyCheck = async (e) => {

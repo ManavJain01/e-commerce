@@ -53,15 +53,15 @@ export default function CategoriesNavbar() {
                   &&<div className="absolute bg-white py-2 rounded-md shadow-md">
                     {e.subitems.map((f, i) => {
                       return(
-                        <NavbarStyle key={i} className="hidden hover:bg-blue-100 group-hover:flex /flex justify-between gap-2 px-5 py-1 text-xs lg:text-sm">
+                        <NavbarStyle key={i} className="hidden hover:bg-blue-100 group-hover:flex /flex justify-between gap-2 pl-5 py-1 text-xs lg:text-sm">
                           <NavLink to={`Categories/${f.item || f}`} state={{value: [f.item || f, e.item]}} className="aria-[current=page]:text-red-600 hover:text-red-500">{f.item || f}</NavLink>
                           {f.subitems
-                            &&<div className="flex items-center relative">
+                            &&<div className="flex items-center relative pr-5">
                               <IoMdArrowDropright />
-                              <div className="thirdColumn hidden bg-white px-3 py-2 absolute -top-1 left-7 /flex flex-col gap-2 rounded-md shadow-md">
+                              <div className="thirdColumn hidden bg-white absolute -top-1 left-7 /flex flex-col gap-2 rounded-md shadow-md">
                                 {f.subitems.map((g, i)=>{
                                   return(
-                                    <div key={i} className="hover:bg-black"><NavLink to={`Categories/${g}`} state={{value: [g, e.item]}} className="aria-[current=page]:text-red-600">{g}</NavLink></div>
+                                    <div key={i} className="hover:bg-blue-100 px-3 py-1"><NavLink to={`Categories/${g}`} state={{value: [g, e.item]}} className="aria-[current=page]:text-red-600">{g}</NavLink></div>
                                   )
                                 })}
                               </div>

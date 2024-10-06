@@ -18,11 +18,9 @@ import { handleResize } from "../../components/Screen Resize/ScreenResize";
 export default function Header() {
   // Custom Hooks
   const { refresh } = useRefresh();
-  
 
   // useSelector
   const openLoginPage = useSelector(state => state.state.openLoginPage);
-
 
   // useState
   const [hamMenu, setHamMenu] = useState(false);

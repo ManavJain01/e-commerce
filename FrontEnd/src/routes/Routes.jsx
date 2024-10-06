@@ -2,7 +2,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '../../public/assets/styles/index.css'
-import { RouterProvider, createBrowserRouter, Route, Navigate } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom'
+
+// Importing Redux Configuration
+import {Provider} from 'react-redux'
+import {store} from '../Redux/Store/store'
 
 // Import Local components
 import { AuthProvider } from './AuthContext'
@@ -168,8 +172,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </Provider>
   </React.StrictMode>
 )

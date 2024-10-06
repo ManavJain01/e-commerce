@@ -5,12 +5,11 @@
 import { useUserServices } from './useUserServices'
 
 // Importing React Packages
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Importing Redux Files
 import { useDispatch } from "react-redux";
 import { storeStates, setIsLogin } from '../Redux/features/stateSlice'
-import { setLoading, resetLoading } from '../Redux/features/stateSlice';
 
 export const useRefresh = () => {
   // Custom Hooks
@@ -19,10 +18,13 @@ export const useRefresh = () => {
   // useDispatch
   const dispatch = useDispatch();
 
+  // UseState
+  const [loading, setLoading] = useState(false);
+
   // Functions
   const refresh = async (userName) => {
     try {
-      dispatch(setLoading());
+      setLoading(true);
 
       if(localStorage.getItem("authToken")){
         // redux
@@ -32,11 +34,11 @@ export const useRefresh = () => {
         await getCustomer();
       }
     } catch (error) {
-      console.log("Error Setting User Setup on Refresh: ", error);
+      console.error("Error Setting User Setup on Refresh: ", error.message);
     } finally {
-      dispatch(resetLoading());
+      setLoading(false);
     }
   }
 
-  return { refresh }
+  return { loading, refresh }
 }

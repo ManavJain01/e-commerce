@@ -20,7 +20,7 @@ import InputBtn from '../../../components/Buttons/InputBtn';
 export default function MainNavbar() {
   // redux
   const cartItems = useSelector(state => state.cart.cartItems);
-  const userStore = useSelector(state => state.state.stateItems);
+  const userStore = useSelector(state => state.user.user);
   
   // useDispatch
   const dispatch = useDispatch();
