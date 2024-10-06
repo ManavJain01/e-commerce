@@ -59,15 +59,3 @@ function Login({ loginPage }){
 }
 
 export default Login;
-
-/*
-  user location
-  // With User Permission
-  // let location = "";
-  // navigator.geolocation.getCurrentPosition(async pos=>{
-    // const {latitude,longitude} = pos.coords;
-    // const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-    // location = await fetch(url).then(res=>res.json())
-  // })
-
-*/

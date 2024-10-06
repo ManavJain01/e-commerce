@@ -93,7 +93,7 @@ export default function ShopByCategories(){
         </div>
 
         {/* Sub Category */}
-        <div className={`flex-1 ${loading ? "" : filteredCategory[0] + " p-5 overflow-y-scroll"} max-h-[50rem] flex gap-8 items-start flex-wrap rounded-md`}>
+        <div className={`custom_scroll1 flex-1 ${loading ? "" : filteredCategory[0] + " p-5 overflow-y-scroll"} max-h-[50rem] flex gap-8 items-start flex-wrap rounded-md`}>
           {loading
             ?<div className={`bg-blue-100 flex ${smallScreen ? "flex-wrap" : "flex-col gap-5"} justify-around w-full h-[30rem] animate-pulse`}>
               <div className={`flex ${smallScreen ? "gap-10" : "px-10"} justify-between`}>

@@ -10,7 +10,7 @@ export default function Messages() {
       {/* Contact us */}
       <div className="flex-1 bg-green-400 flex sm:flex-wrap md:flex-nowrap gap-5 items-center justify-center p-5 rounded-md">
         <img
-          src="https://www.truemeds.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FSubBannerImg1.944089d0.png&w=384&q=75"
+          src="https://www.truemeds.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FSubBannerImg1.944089d0.png&w=320&q=75"
           alt="img"
           className="w-32 md:w-48 lg:w-fit" />
 

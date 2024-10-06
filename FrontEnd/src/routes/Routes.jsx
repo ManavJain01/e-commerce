@@ -83,6 +83,10 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<User />} />,
         children: [
           {
+            path: "",
+            element: <ProtectedRoute element={<Profile />} />
+          },
+          {
             path: "profile",
             element: <ProtectedRoute element={<Profile />} />
           },
