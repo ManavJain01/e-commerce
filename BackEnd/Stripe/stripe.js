@@ -94,6 +94,12 @@ const postPayment = async (status, _id, orderId) => {
         { arrayFilters: [{ 'elem._id': orderId }],  new: true }
       );
 
+      await CustomerDataModel.findByIdAndUpdate(
+        { _id: id },
+        { $set: { cart: [] } },
+        { new: true }
+      );
+
       return {status: true}
     }else{
       throw new Error(`Payment was not successfull! User is ${id}.`);

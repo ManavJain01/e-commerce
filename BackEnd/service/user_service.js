@@ -170,8 +170,7 @@ const UpdateCart = async (data) => {
 
     return {status: "Successfull"}
   } catch (error) {
-    console.log("", error);
-    throw `Error in UpdatingCart: ${error.message}`;
+    throw error;
   }
 }
 
@@ -207,11 +206,35 @@ const getOrders = async (_id) => {
     });
 
     // return await CustomerDataModel.findById(id).select('orders.paymentDetails -_id');
-    const orders = await OrderModel.findById(id)
-    .select(['orders']);
-    const completedOrders = orders.orders.filter(order => order.paymentStatus === "Completed");
+    const orders = await OrderModel.findById(id).select(['orders']);
 
-    return completedOrders;
+    if (orders && Array.isArray(orders.orders)) {
+      const completedOrders = orders.orders
+        .filter(order => order.paymentStatus === "Completed")
+        .map(order => {
+          const year = order?.orderTime.getFullYear();
+          const month = String(order?.orderTime.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1
+          const day = String(order?.orderTime.getDate()).padStart(2, '0');
+          const formattedDate = `${day}-${month}-${year}`;
+          return {
+            ...order.toObject(),  // Convert Mongoose document to plain JS object
+            orderTime: formattedDate
+          };
+        });
+      return completedOrders;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+const cancelOrderService = async (_id, orderId) => {
+  try {
+    await OrderModel.findByIdAndUpdate(
+      { _id: _id },
+      { $pull: { orders: { _id: orderId } } },
+      { new: true }
+    );
   } catch (error) {
     throw error;
   }
@@ -415,5 +438,5 @@ const getDeliveryDetails = async (_id) => {
 }
 
 module.exports = { getCustomer, getSignup, getLogin, getCustomerDetails, getCustomerUpdated, getCartData, AddToCart,
-  UpdateCart, DeleteFromCart, getOrders, getRefills, getSaveForLater, saveAddress, deleteAddress, showAllAddress,
+  UpdateCart, DeleteFromCart, getOrders, cancelOrderService, getRefills, getSaveForLater, saveAddress, deleteAddress, showAllAddress,
   saveUserAsPatient, deletePatient, showAllPatients, setDeliveryDetails, getDeliveryDetails };

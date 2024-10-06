@@ -6,7 +6,7 @@ const router = express.Router();
 const ProtectedRoute = require('../middlewares/ProtectedRoute');
 
 // Importing Controllers
-const { findCustomer, signup, login, findCustomerDetails, findCartData, findOrders, findRefills, findSaveForLater, savingAddressDetails,
+const { findCustomer, signup, login, findCustomerDetails, findCartData, findOrders, cancelOrder, findRefills, findSaveForLater, savingAddressDetails,
   deleteAddressDetail, sendingAllAddress, savingPatientDetails, deletePatientDetail, sendingAllPatients, settingDeliveryDetails,
   gettingDeliveryDetails } = require('../controllers/user_controller');
 const { searchData } = require('../controllers/controller')
@@ -18,6 +18,7 @@ router.route('/login').post(login)
 router.route('/CustomerDetails').get(ProtectedRoute, findCustomerDetails)
 router.route('/cart').get(findCartData)
 router.route('/orders').get(findOrders)
+router.route('/cancelOrder').get(ProtectedRoute, cancelOrder)
 router.route('/refills').get(findRefills)
 router.route('/saveForLater').get(findSaveForLater)
 // Protected Routes

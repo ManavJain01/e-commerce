@@ -110,6 +110,21 @@ export const fetchOrders = async (id) => {
   }
 }
 
+// Cancel Order
+export const cancelOrderService = async (id, orderId) => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/api/cancelOrder?id=${id}&orderId=${orderId}`);
+    
+    if (response.status !== 200) {
+      throw new Error('Failed to Cancel Order');
+    }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // Refills
 export const fetchRefills = async (id) => {
   try {

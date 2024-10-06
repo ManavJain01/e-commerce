@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 
 // Importing Services
-import { customerDetails, updateCustomer, fetchCartItems, fetchOrders, fetchRefills, paymentProcess, postPaymentProcess } from '../service/userService';
+import { customerDetails, updateCustomer, fetchCartItems, fetchOrders, cancelOrderService,
+  fetchRefills, paymentProcess, postPaymentProcess } from '../service/userService';
 
 // Importing Redux Files
 import { useDispatch } from 'react-redux';
@@ -85,6 +86,7 @@ export const useUserServices = () => {
     try {
       setLoading(true);
 
+      const customerId = localStorage.getItem('authToken');
       if(customerId){
         const data = await fetchOrders(localStorage.getItem('authToken'));
         return data;
@@ -92,8 +94,21 @@ export const useUserServices = () => {
         throw new Error('Token Not Found!!!');
       }
     } catch (error) {
-      console.log("Error Getting Orders: ", error);
+      console.log("Error Getting Orders: ", error.message);
       return [];
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const cancelOrder = async (orderId) => {
+    try {
+      setLoading(true);
+
+      const customerId = localStorage.getItem('authToken');
+      if(customerId) await cancelOrderService(customerId, orderId);
+    } catch (error) {
+      console.error("Error Canceling order: ", error.message);
     } finally {
       setLoading(false);
     }
@@ -155,5 +170,6 @@ export const useUserServices = () => {
     }
   }
 
-  return { loading, getCustomer, getCustomerUpdated, getCartItems, getOrders, getRefills, makePayment, postPayment }
+  return { loading, getCustomer, getCustomerUpdated, getCartItems, getOrders, cancelOrder,
+    getRefills, makePayment, postPayment }
 }

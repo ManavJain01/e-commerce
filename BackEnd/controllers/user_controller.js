@@ -102,6 +102,18 @@ const findOrders = async (req, res) => {
   }
 }
 
+const cancelOrder = async (req, res) => {
+  try {
+    const { orderId } = req.query;
+    
+    const result = await user_service.cancelOrderService(req.user, orderId);
+    res.status(200).send(result);
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error.message);
+  }
+}
+
 const findRefills = async (req, res) => {
   try {
     const result = await user_service.getRefills(req.query.id);
@@ -211,6 +223,6 @@ const gettingDeliveryDetails = async (req, res) => {
 
 // Exporting controllers
 module.exports = { findCustomer, signup, login, findCustomerDetails, UpdateCustomer, findCartData, ItemAddedInCart,
-  ItemUpdatedInCart, ItemDeletedFromCart, findOrders, findRefills, findSaveForLater, savingAddressDetails,
+  ItemUpdatedInCart, ItemDeletedFromCart, findOrders, cancelOrder, findRefills, findSaveForLater, savingAddressDetails,
   deleteAddressDetail, sendingAllAddress, savingPatientDetails, deletePatientDetail, sendingAllPatients, savingPatientDetails,
   deletePatientDetail, sendingAllPatients, settingDeliveryDetails, gettingDeliveryDetails }
