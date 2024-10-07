@@ -27,7 +27,7 @@ const Pagination = ({ itemsPerPage, data=[], loading }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col justify-between h-full">
       {/* Render the current page data */}
       <ShowProducts loading={loading} categories={paginatedData} />
 

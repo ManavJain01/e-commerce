@@ -12,11 +12,11 @@ import { MdLogout } from "react-icons/md";
 import { NavLink } from 'react-router-dom'
 
 // Importing redux Files
-import {useDispatch} from 'react-redux' 
+import {useSelector} from 'react-redux' 
 
 export default function SideNavbar() {
   // Redux
-  const dispatch = useDispatch();
+  const userStore = useSelector(state => state.user.user);
 
   // Nav Options
   const navOptions = [
@@ -69,7 +69,7 @@ export default function SideNavbar() {
   return (
     <div className="min-h-[90vh] p-10 flex flex-col gap-7 justify-center items-center">
       <div className="relative h-16 w-16 bg-blue-700 rounded-full">
-        <p className="text-white text-4xl absolute top-3 left-5">U</p>
+        <p className="text-white text-4xl absolute top-3 left-4">{userStore?.name?.charAt(0).toUpperCase() || "U"}</p>
       </div>
 
       <nav className="flex sm:flex-col border-2 border-gray-400 rounded-md shadow-md shadow-gray-400">

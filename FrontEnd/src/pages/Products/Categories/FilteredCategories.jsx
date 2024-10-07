@@ -39,7 +39,7 @@ function FilteredCategories(){
     <div className="flex gap-10 mt-40 mb-10 px-8">
       <Filters />
 
-      <div>
+      <div className="flex-1 mb-8">
         {/* For small screen */}
         <h1 className="text-2xl font-semibold flex justify-between">
           {subCategory ? subCategory : category ? category : title}

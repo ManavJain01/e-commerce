@@ -11,8 +11,7 @@ export default function ShowProducts({ loading=false, filtered=[], categories=[]
       {
         loading ? <ShimmerEffect />
         //  Search Through Navbar
-        :!filtered.isActive ? 
-          (categories == 0 || categories == null) && !filtered.filters
+        : (categories == 0 || categories == null)
           // If no result found
           ?<div className="flex flex-col justify-center items-center w-[100vw] text-red-500">
             <span className="text-6xl font-bold">No Result Found</span>
@@ -28,19 +27,6 @@ export default function ShowProducts({ loading=false, filtered=[], categories=[]
               )
             })
           })
-
-        //  Search Through Filters
-        // :<FilteredComponent filtered={filtered} e={categories} />
-          : filtered?.filter
-            &&  <div className="flex flex-wrap gap-5">{
-              categories
-                .filter(e => e.subCategory == filtered?.filter || e.item == filtered?.filter)
-                .map((e) => e.subitems.map((f, i) => {
-                  return(
-                    <ProductCard key={i} e={f} title={'Categories'} />
-                  )
-                }))
-            }</div>
       }
     </div>
   )

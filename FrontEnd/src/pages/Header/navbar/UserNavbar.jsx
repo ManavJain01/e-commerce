@@ -3,14 +3,19 @@ import { FaUserAlt } from "react-icons/fa";
 import { FaAngleDown } from "react-icons/fa";
 
 // Importing React Packages
-import { styled } from "styled-components"
+import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 
+// Importing React Redux
+import { useSelector } from 'react-redux';
 
 // Importing Custom Hook
 import { useLogout } from "../../../hooks/useLogout";
 
-export default function UserNavbar({ userName, setUserName }) {
+export default function UserNavbar() {
+  // redux
+  const userStore = useSelector(state => state.user.user);
+
   // useLogout
   const { logout } = useLogout();
 
@@ -59,11 +64,19 @@ export default function UserNavbar({ userName, setUserName }) {
     }
   }]
 
+  // useState
+  const [userName, setUserName] = useState("User");
+
+  // useEffect
+  useEffect(() => {
+    setUserName(userStore?.name?.split(' ')[0].length > 10 ? userStore?.name?.split(' ')[0].slice(0, 10) + ".." : userStore?.name?.split(' ')[0] || "User");
+  }, [userStore]);
+
   return (
     <div className="group z-[999999] relative">
       <div className="flex items-center gap-1">
         <FaUserAlt className="size-5" />
-        <span>User</span>
+        <span>{userName}</span>
         <FaAngleDown className="size-3" />
       </div>
 

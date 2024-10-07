@@ -109,9 +109,9 @@ export default function ShopByCategories(){
               </div>
             </div>
             :filteredCategory && filteredCategory[1]?.subitems
-            ?.map((e, i) => {
+            ?.map((e, i) => {              
               return(
-                <Link key={i} to={`/Categories/${e.item || e}`} state={{value: [e.item || e, filteredCategory[1]?.item]}} className={`relative ${smallScreen ? "h-32 w-28 p-1" : "h-64 w-80 p-5"} flex flex-col bg-white rounded-md shadow-lg`}>
+                <Link key={i} to={`/Categories/${filteredCategory[1].item}/${e.item}`} className={`relative ${smallScreen ? "h-32 w-28 p-1" : "h-64 w-80 p-5"} flex flex-col bg-white rounded-md shadow-lg`}>
                   <span className={`font-semibold text-gray-600 ${smallScreen ? "text-xs" : "text-lg"}`}>{e?.item || e}</span>
                   
                   {e?.img && <img src={e?.img} alt="image" className={`absolute mx-auto ${smallScreen ? "w-16 top-10" : "top-[70px] left-20 w-44"}`} />}

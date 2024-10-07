@@ -53,8 +53,10 @@ export const useUserServices = () => {
     try {
       setLoading(true);
 
+      const customerId = localStorage.getItem('authToken');
       if(customerId){
         await updateCustomer(data);
+        await getCustomer();
       } else {
         throw new Error('Token Not Found!!!');
       }

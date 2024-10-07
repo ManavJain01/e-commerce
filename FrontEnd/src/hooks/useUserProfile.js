@@ -1,11 +1,17 @@
 // Importing React Packages
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+
+// Importing Custom Hooks
+import { useUserServices } from './useUserServices';
 
 // Importing Services
 import { SaveAddress, getAllAddressService, deleteAddressService, SavePatient ,deletePatientService
   , getAllPatientService, setDeliveryDetailService, getDeliveryDetailService } from '../service/userService';
 
 export const useUserProfile = () => {
+  // Custom Hooks
+  const { getCustomer } = useUserServices();
+
   // useState
   const [loading, setLoading] = useState(false);
 
@@ -73,6 +79,7 @@ export const useUserProfile = () => {
 
       if(customerId){
         const res = await SavePatient(data, customerId);
+        await getCustomer();
         return res;
 
       } else {

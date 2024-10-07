@@ -45,7 +45,7 @@ export default function ManagePatient() {
     setAllPatients(res?.patient);
   }
 
-  const handleEdit = async (e) => {    
+  const handleEdit = async (e) => {      
     if(e?.email){
       setEditMYSELF(true);
       setFormData(e);

@@ -44,7 +44,6 @@ export default function CategoriesNavbar() {
                   ?<NavLink to={e?.path} id={e._id} className="aria-[current=page]:text-red-400 hover:text-red-500">{e?.item}</NavLink>
                   :<li id={e._id}><NavLink
                     to={`Categories/${e?.item}`}
-                    state={{value: e?.item}}
                     className="aria-[current=page]:text-red-600 hover:text-red-500"
                   >{e?.item}</NavLink></li>
                 }
@@ -54,7 +53,7 @@ export default function CategoriesNavbar() {
                     {e.subitems.map((f, i) => {                      
                       return(
                         <NavbarStyle key={i} className={`hidden hover:bg-blue-100 group-hover:flex /flex justify-between gap-2 pl-5 ${!f.subitems && "pr-5"} py-1 text-xs lg:text-sm`}>
-                          <NavLink to={`Categories/${e?.item}/${f?.item}`} state={{value: [f.item || f, e.item]}} className="aria-[current=page]:text-red-600 hover:text-red-500">{f.item || f}</NavLink>
+                          <NavLink to={`Categories/${e?.item}/${f?.item}`} className="aria-[current=page]:text-red-600 hover:text-red-500">{f.item || f}</NavLink>
                           {f.subitems
                             &&<div className="flex items-center relative pr-5">
                               <IoMdArrowDropright />
@@ -62,7 +61,7 @@ export default function CategoriesNavbar() {
                                 {f.subitems.map((g, i)=>{
                                   return(
                                     <div key={i} className="hover:bg-blue-100 px-3 py-1">
-                                      <NavLink to={`Categories/${e?.item}/${f?.item}/${g}`} state={{value: [g, e.item]}} className="aria-[current=page]:text-red-600">{g}</NavLink>
+                                      <NavLink to={`Categories/${e?.item}/${f?.item}/${g}`} className="aria-[current=page]:text-red-600">{g}</NavLink>
                                     </div>
                                   )
                                 })}
