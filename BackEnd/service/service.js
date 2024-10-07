@@ -67,7 +67,7 @@ const getSearchData = async (query) => {
       healthcareDevices: filteredHealthcareDeviceResults,
     };
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 }
 
@@ -76,25 +76,40 @@ const getNavOptions = async () => {
   try {
     return await NavOptionModel.find({})
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 }
 
-const getFilterService = async (category) => {
-  try {
+const getFilterService = async (title, category, subCategory) => {
+  try {    
     const categories = await NavOptionModel.find(
-      {item: category}
+      {item: title}
     )
     .select(["subitems.item"]);
 
-    const subCategories = await NavOptionModel.find(
-      {item: category}
-    )
-    .select(["subitems.subitems"]);
+    let subCategories;
+    
+    if(category){
+      subCategories = await NavOptionModel.find(
+        {
+          item: title,
+          'subitems.item': category
+        },
+        {
+          'subitems.$': 1 // This projects only the matched subitem that contains 'item': category
+        }
+      )
+    } else {
+      subCategories = await NavOptionModel.find(
+        {item: title}
+      )
+      .select(["subitems.subitems"]);
+    }
+
 
     return {categories: categories[0]?.subitems, subCategories: subCategories[0]?.subitems};  
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 }
 

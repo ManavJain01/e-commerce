@@ -15,7 +15,8 @@ const findNavOptions = async (req, res) => {
 
 const findAllFilters = async (req, res) => {
   try {
-    const result = await service.getFilterService(req.query.category);
+    const {title, category, subCategory} = req.query;
+    const result = await service.getFilterService(title, category, subCategory);
     res.status(200).send(result);
 
   } catch (error) {

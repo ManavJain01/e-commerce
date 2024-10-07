@@ -110,9 +110,9 @@ export const fetchMedicines = async () => {
 }
 
 // Fetching Filters
-export const fetchFilteres = async (MainCategory) => {
+export const fetchFilteres = async (data) => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/filters`, { params: {category: MainCategory} });
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/filters`, { params: {title: data.title, category: data?.category, subCategory: data?.subCategory} });
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch Filters');

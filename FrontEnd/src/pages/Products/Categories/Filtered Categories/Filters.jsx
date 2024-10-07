@@ -21,7 +21,12 @@ function Filters(){
   // useEffect
   useEffect(() => {
     const handleRefresh = async () => {
-      const res = await getFilters(title);
+      const res = await getFilters(
+        subCategory ? {title: title, category: category, subCategory: subCategory}
+        : category ? {title: title, category: category}
+        : {title: title}
+      );
+      
       setFilters(res);
     }
 
@@ -47,7 +52,7 @@ function Filters(){
         && <div className="py-2 px-5 max-w-[15rem] border border-gray-400 rounded-md">
               <section className="flex justify-between gap-10 pb-3 border-b border-gray-300">
                 <h2 className="font-semibold">Category</h2>
-                <button className="text-red-600 font-semibold text-sm active:text-red-800">Clear</button>
+                <Link to={`/Categories/${title}`} className="text-red-600 font-semibold text-sm active:text-red-800">Clear</Link>
               </section>
 
               <div className="flex flex-col gap-3 text-gray-500 text-sm my-2 max-h-[10rem] overflow-y-scroll">
@@ -71,7 +76,7 @@ function Filters(){
       {filters?.subCategories && <div className="py-2 px-5 border max-w-[15rem] border-gray-400 rounded-md">
           <section className="flex justify-between pb-3 border-b border-gray-300">
             <h2 className="font-semibold">Sub-category</h2>
-            <button className="text-red-600 font-semibold text-sm active:text-red-800">Clear</button>
+            <Link to={category ? `/Categories/${title}/${category}` : `/Categories/${title}`} className="text-red-600 font-semibold text-sm active:text-red-800">Clear</Link>
           </section>
 
           <div className="flex flex-col gap-3 text-gray-500 text-sm mt-2 max-h-[10rem] overflow-y-scroll">

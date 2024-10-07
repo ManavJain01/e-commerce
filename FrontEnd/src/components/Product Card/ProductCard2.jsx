@@ -50,7 +50,7 @@ function ProductCard2(){
     <div className='flex flex-col lg:flex-row gap-5 py-20 px-10 border border-gray-200 m-10 rounded-md shadow-md'>
 
       <div className="sticky flex justify-center py-2 px-10 border border-gray-200">
-        { e.img && Array.isArray(e.img) ? <CarouselTab slides={slides} />
+        { Array.isArray(e.img) && e.img.length > 0 ? <CarouselTab slides={slides} />
         :<IoImageOutline className='object-contain w-64 h-64 mt-10 text-blue-600' />}
       </div>
 
