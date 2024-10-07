@@ -108,42 +108,6 @@ const getMedicines = async () => {
 }
 
 // Creating Categories
-  // Functions for Services
-  const getFilters = async (filter, Model) => {
-    const categories = await Model.find({}).distinct("subCategory");
-    if(filter == 'Personal care' || filter == 'Health Conditions' || filter == 'Vitamins & Supplements' || filter == 'Diabetes Care' || filter == 'Healthcare Devices'){
-      const subCategories = await Model.find({}).distinct("item");
-      return {category: categories, subCategory: subCategories}
-    }else{
-      let subCategories = await Model.find({subCategory: filter}).distinct('item');
-      if(subCategories.length == 0){
-        subCategories = await Model.find({item: filter}).distinct('item');
-      }
-      return {category: categories, subCategory: subCategories}
-    }
-  }
-
-  async function getAPI(Model){
-    try {
-      return await Model.find({});
-    } catch (error) {
-      throw error.message;
-    }
-  }
-
-async function getAllCategories(){
-  let Categories = [];
-
-  Categories.push(await getAPI(PersonalCareModel))
-  Categories.push(await getAPI(HealthConditionModel))
-  Categories.push(await getAPI(vitamins_supplementModel))
-  Categories.push(await getAPI(DiabetesCareModel))
-  Categories.push(await getAPI(HealthcareDeviceModel))
-  
-  return Categories;
-}
-
-
 async function getModel(category){
   try {
     if(category == 'Personal care') return await PersonalCareModel;
@@ -156,30 +120,31 @@ async function getModel(category){
   }
 }
 
-
-async function getCategory(category, subCategory){
+async function getCategory(title, category, subCategory){
   try {
-    const Model = await getModel(category)
+    const Model = await getModel(title);
     
-    if(typeof subCategory === 'string'){
-      let data = await Model.find({subCategory: subCategory})
-      const filters = await getFilters(subCategory, Model);
-      
-      if(data.length != 0){
-        return {data: data, filters: filters};
-      }else{
-        return {data: await Model.find({item: subCategory}), filters: filters};
-      }
-    }else{
-      const filters = await getFilters(category, Model);
-      data = await getAPI(Model);
-      return {data: data, filters: filters, filters: filters}
+    if(subCategory){
+      const products = await Model.find(
+        { item: subCategory },
+        'subitems'
+      );
+      return products;
+    
+    } else if(category){
+      const products = await Model.find(
+        { subCategory: category },
+        'subitems'
+      );
+      return products;
     }
 
+    const products = await Model.find({}, 'subitems');
+    return products;
   } catch (error) {
-    throw error.message;
+    throw error;
   }
 }
 
 
-module.exports = { getSearchData, getNavOptions, getFilterService, getMedicines, getAllCategories, getCategory }
+module.exports = { getSearchData, getNavOptions, getFilterService, getMedicines, getCategory }

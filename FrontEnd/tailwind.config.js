@@ -1,17 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-/*
-// Original Configuration
-
-export default {
-  content: [],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-*/
-
 export default {
   content: [
   "./index.html",

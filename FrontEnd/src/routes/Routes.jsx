@@ -66,7 +66,15 @@ const router = createBrowserRouter([
         element: <Categories />
       },
       {
-        path: "Categories/:type",
+        path: "Categories/:title",
+        element: <FilteredCategories />
+      },
+      {
+        path: "Categories/:title/:category",
+        element: <FilteredCategories />
+      },
+      {
+        path: "Categories/:title/:category/:subCategory",
         element: <FilteredCategories />
       },
       {

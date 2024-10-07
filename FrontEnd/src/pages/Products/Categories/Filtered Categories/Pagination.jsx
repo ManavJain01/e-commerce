@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ShowProducts from "./ShowProducts";
 
-// Importing React Icons
-import { CgUnavailable } from "react-icons/cg";
-
-// Imaporting Local Files
-import ProductCard from '../../../../components/Product Card/ProductCard'
-import ShimmerEffect from "./ShimmerEffect";
-
-
-const Pagination = ({ itemsPerPage, data=[], loading, filtered, categories }) => {
+const Pagination = ({ itemsPerPage, data=[], loading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState([]);
 
@@ -37,7 +29,7 @@ const Pagination = ({ itemsPerPage, data=[], loading, filtered, categories }) =>
   return (
     <div>
       {/* Render the current page data */}
-      <ShowProducts loading={loading} filtered={filtered} categories={paginatedData} />
+      <ShowProducts loading={loading} categories={paginatedData} />
 
       {/* Pagination Controls */}
       <div className="flex justify-center mt-4">

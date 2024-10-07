@@ -127,7 +127,7 @@ export const fetchFilteres = async (MainCategory) => {
 // Fetching Filtered Products
 export const fetchFilteredProducts = async (category) => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories/${category[0]}`, { data : category })
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_LOCATION}/Categories`, { params: { title: category?.title, category: category?.category, subCategory: category?.subCategory } })
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch Filtered Products');

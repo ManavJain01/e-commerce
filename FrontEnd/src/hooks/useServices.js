@@ -78,9 +78,13 @@ export const useServices = () => {
   const getFilteredProducts = async (props) => {
     try {
       setLoading(true);
-      return await fetchFilteredProducts(props)
+      const res = await fetchFilteredProducts(props);
+      
+      if(Array.isArray(res)) return res;
+      else return [];
     } catch (error) {
       setError(error.message);
+      return [];
     } finally {
       setLoading(false);
     }

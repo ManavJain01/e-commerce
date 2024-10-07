@@ -13,46 +13,36 @@ import Pagination from "./Filtered Categories/Pagination";
 import { useServices } from "../../../hooks/useServices";
 
 function FilteredCategories(){
-  let propsValue;
-  if(useLocation().state) propsValue = useLocation().state.value;
-  else propsValue = useParams()
+  const { title, category, subCategory } = useParams();
 
   // Custom Hooks
-  const { loading, error, getFilteredProducts, getAllProducts } = useServices();
+  const { loading, getFilteredProducts } = useServices();
 
   // useStates
-  const [filtered, setFiltered] = useState({ isActive:false })
-  const [categoryTitle, setCategoryTitle] = useState(Array.isArray(propsValue) ? propsValue[0] : propsValue)
   const [categories, setCategories] = useState([])
-  const [allCategories, setAllCategories] = useState([])
 
-  useEffect(()=>{
-    setFiltered(false);
-    
+  useEffect(()=>{    
     // Getting Data From BackEnd
     const getData = async () => {
+      const res = await getFilteredProducts(
+        subCategory ? {title: title, category: category, subCategory: subCategory}
+        : category ? {title: title, category: category}
+        : {title: title}
+      );
 
-      const filteredData = await getFilteredProducts(propsValue);
-      // const allData = await getAllProducts();
-
-      setCategories(filteredData?.data)
-      // setAllCategories(allData)
-      setFiltered({ filters: filteredData?.data?.filters, isActive: false })
+      setCategories(res);
     }
     getData();
-
-    setCategoryTitle(Array.isArray(propsValue) ? propsValue[0] : propsValue)
-
-  },[propsValue]);
+  },[title, category, subCategory]);
 
   return(
     <div className="flex gap-10 mt-40 mb-10 px-8">
-      <Filters MainCategory={Array.isArray(propsValue) ? propsValue[1] : propsValue} filtered={filtered} setFiltered={setFiltered} />
+      <Filters />
 
       <div>
         {/* For small screen */}
         <h1 className="text-2xl font-semibold flex justify-between">
-          {!filtered ? categoryTitle : filtered[0]}
+          {subCategory ? subCategory : category ? category : title}
           <span className='flex items-center sm:hidden text-green-700 cursor-pointer'>
             <RiExpandUpDownFill />
             Filter
@@ -60,7 +50,7 @@ function FilteredCategories(){
         </h1>
 
         {/* Pagination */}
-        <Pagination itemsPerPage={10} data={categories} loading={loading} filtered={filtered} categories={categories} />
+        <Pagination itemsPerPage={10} data={categories} loading={loading} />
       </div>
     </div>
   )

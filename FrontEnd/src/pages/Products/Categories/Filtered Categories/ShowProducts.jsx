@@ -5,7 +5,7 @@ import { CgUnavailable } from "react-icons/cg";
 import ProductCard from '../../../../components/Product Card/ProductCard'
 import ShimmerEffect from "./ShimmerEffect";
 
-export default function ShowProducts({ loading=false, filtered, categories=[] }) {
+export default function ShowProducts({ loading=false, filtered=[], categories=[] }) {
   return (
     <div className="flex flex-wrap gap-5 py-10 my-4 border-t border-gray-400">
       {

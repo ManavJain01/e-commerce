@@ -48,24 +48,11 @@ const findAllMedicines = async (req, res) => {
   }
 }
 
-// Categories Controllers
-const findAllCategory = async (req, res) => {
-  try {
-    const result = await service.getAllCategories();
-    res.status(200).send(result)
-
-  } catch (error) {
-    console.error("Categories not found: ", error.message);
-    res.status(400).send("Categories not found")
-  }
-}
-
-
 const findCategory = async (req, res) => {
   try {
-    if(Array.isArray(req.body.data)) result = await service.getCategory(req.body.data[1], req.body.data[0]);
-    else result = await service.getCategory(req.body.data);
-  
+    const { title, category, subCategory } = req.query;
+    
+    const result = await service.getCategory(title, category, subCategory);
   
     if(result){
       res.status(200).send(result)
@@ -81,4 +68,4 @@ const findCategory = async (req, res) => {
 }
 
 // Exporting controllers
-module.exports = { findNavOptions, findAllFilters, findAllMedicines, findAllCategory, findCategory, searchData }
+module.exports = { findNavOptions, findAllFilters, findAllMedicines, findCategory, searchData }
