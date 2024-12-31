@@ -68,5 +68,16 @@ const findCategory = async (req, res) => {
   }
 }
 
+const addReviewController = async (req, res) => {
+  try {
+    const result = await service.addReviewService(req.body);
+    res.status(200).send(result)
+
+  } catch (error) {
+    console.error("Error: ", error.message);
+    res.status(400).send(error.message);
+  }
+}
+
 // Exporting controllers
-module.exports = { findNavOptions, findAllFilters, findAllMedicines, findCategory, searchData }
+module.exports = { findNavOptions, findAllFilters, findAllMedicines, findCategory, searchData, addReviewController }

@@ -57,6 +57,14 @@ function Cart(){
     }
   }
 
+  const handleDeliveryDetails = () => {
+    if(isLogin){
+      setOpenModal(true);
+    } else {
+      dispatch(setOpenLoginPage(true));
+    }
+  }
+
   if(reduxItems.length == 0){
     return (
       <div className="my-32 flex flex-col items-center justify-center gap-3">
@@ -78,7 +86,7 @@ function Cart(){
             <PaymentDetails />
             {details?.address && details?.patient
               ?<button onClick={() => handleCheckout()} className="font-semibold text-center text-lg text-white bg-blue-600 py-2 rounded-md">{isLogin ? "Proceed to Checkout" : "Click To Login"}</button>
-              :<button onClick={() => setOpenModal(true)} className="font-semibold text-lg text-white bg-blue-600 py-2 rounded-md">Add Delivery Details</button>
+              :<button onClick={handleDeliveryDetails} className="font-semibold text-lg text-white bg-blue-600 py-2 rounded-md">{isLogin ? "Add Delivery Details" : "Click To Login"}</button>
             }
           </div>
 

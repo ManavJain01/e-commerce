@@ -52,7 +52,7 @@ const getStripePayment = async (data) => {
           currency:"inr",
           product_data:{
             name:product.list.item,
-            images:[product.list?.img]
+            images: product.list?.img
           },
           unit_amount: Math.round(product.list.price*100),
         },

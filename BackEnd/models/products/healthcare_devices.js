@@ -9,7 +9,8 @@ const itemSchema = mongoose.Schema({
   prescription: String,
   img: Array,
   description: String,
-})
+  reviews: [],
+});
 
 const HealthcareDeviceSchema = mongoose.Schema({
   category: String,

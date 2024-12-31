@@ -42,7 +42,7 @@ export default function Search() {
     }
 
     handleRefresh();
-  }, []);
+  }, [query]);
 
   // useMemo
   useMemo(()=>{

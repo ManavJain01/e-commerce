@@ -2,6 +2,9 @@
 import minus from './Images/minus.png'
 import plus from './Images/plus.png'
 
+// Importing React Icons
+import { IoIosStar } from "react-icons/io";
+
 // Importing React Files
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
@@ -11,17 +14,23 @@ import { IoImageOutline } from "react-icons/io5";
 import {useDispatch, useSelector} from 'react-redux' 
 import { addToCart, removeFromCart, updateCart} from '../../Redux/features/cartSlice'
 
-function ProductCard({ e, title }){
+function ProductCard({ e, title, categoryId }){
+  // Redux
   const dispatch = useDispatch()
   const cartItems = useSelector(state => state.cart.cartItems)
-  
+
+  // useState
   const [ medicineQTY, setMedicineQTY ] = useState(0);
+  const [ averageReview, setAverageReview ] = useState(0);
+
+  // useMemo
   useMemo(() => {
     cartItems.map((item) => {
       if(item.list.item === e.item) setMedicineQTY(item.cartQty)
     })
   },[])
 
+  // useEffect
   useEffect(() => {
     if(medicineQTY == 0)  dispatch(removeFromCart(e))
     else if(medicineQTY == 1) dispatch(addToCart(e))
@@ -32,16 +41,44 @@ function ProductCard({ e, title }){
     }
   },[medicineQTY])
 
+  useEffect(() => {
+    let allReviews = 0;
   
+    if(e?.reviews){
+      e?.reviews.map((review) => {
+        allReviews += Number(review);
+      })
+
+      const totalSize = e?.reviews?.length;
+      
+      
+      allReviews = allReviews / totalSize;
+
+      setAverageReview(allReviews);
+      
+    }
+  },[e]);
+
   if(title == 'Categories' || title == 'MedicinePage'){
     return(
       <div key={e._id} className="h-[19rem] w-[16rem] flex flex-col gap-2 border px-5 py-2 border-black rounded-md">
-      <Link to='/Products/parameter-data' state={{value: e}} className='h-[19rem] flex flex-col items-center justify-around /gap-5'>
+      <Link to='/Products/parameter-data' state={{value: e, categoryId: categoryId}} className='h-[19rem] flex flex-col items-center justify-around'>
         {Array.isArray(e?.img) && e.img.length > 0 ? <img src={e.img[0]} className="object-contain w-48 h-32" /> 
         :<IoImageOutline className="object-contain w-48 h-32 text-blue-600" />}
-        <div className="text-sm flex flex-col justify-between">
-          <p className="font-bold">{e.item}</p>
-          {e.price && <p className="/font-semibold">MRP रु.{e.price}</p>}
+        
+        <div className="flex flex-col gap-1">
+          <div className="text-sm flex flex-col justify-between">
+            <p className="font-bold">{e.item}</p>
+            {e.price && <p className="/font-semibold">MRP रु.{e.price}</p>}
+          </div>
+
+          {!isNaN(averageReview) && <div className="flex items-center gap-2">
+            <p className="text-sm flex items-center">
+              {Array.from({length: Math.ceil(averageReview)}, (_, i) => <IoIosStar key={i} className="size-4 text-yellow-500" />)}
+            </p>
+            
+            <p className="text-xs text-blue-800">{e?.reviews?.length} ratings</p>
+          </div>}
         </div>
       </Link>
 
@@ -61,7 +98,7 @@ function ProductCard({ e, title }){
   if(title == 'Cart'){
     return(
       <div key={e._id} className="h-[11rem] w-[30rem] flex flex-col border px-5 py-2 border-black rounded-md">
-      <Link to='/Products/parameter-data' state={{value: e}} className='flex justify-around'>
+      <Link to='/Products/parameter-data' state={{value: e, categoryId: categoryId}} className='flex justify-around'>
         {e.img ? <img src={e.img} className="object-contain w-28 h-28" /> : <IoImageOutline className='object-contain w-48 h-32 text-blue-600' />}
         <div className="m-auto ml-2 flex flex-col justify-between">
           <p className="font-bold">{e.item}</p>
@@ -87,7 +124,7 @@ function ProductCard({ e, title }){
   if(title == 'search')
     return(
       <div key={e._id} className="h-[11rem] w-[45rem] flex flex-col px-5 py-2 border border-gray-300 rounded-md">
-      <Link to='/Products/parameter-data' state={{value: e}} className='flex justify-around'>
+      <Link to='/Products/parameter-data' state={{value: e, categoryId: categoryId}} className='flex justify-around'>
         {e.img ? <img src={e.img} className="object-contain w-28 h-28" /> : <IoImageOutline className='object-contain w-48 h-32 text-blue-600' />}
         <div className="m-auto ml-2 flex flex-col justify-between">
           <p className="font-bold">{e.item}</p>

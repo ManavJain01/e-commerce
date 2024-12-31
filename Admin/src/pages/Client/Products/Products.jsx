@@ -7,6 +7,7 @@ import { useClient } from "../../../hooks/useClient";
 
 // Importing local files
 import Sidebar from './components/sidebar'
+import CreateProduct from "./CreateProduct";
 
 export default function Products() {
   // Custom Data
@@ -55,6 +56,9 @@ export default function Products() {
 
         <div></div>
       </div>
+
+      {/* Create Products */}
+      <CreateProduct darkTheme={darkTheme} />
     </div>
   )
 }

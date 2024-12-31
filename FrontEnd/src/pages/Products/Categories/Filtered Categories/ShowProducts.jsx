@@ -21,9 +21,9 @@ export default function ShowProducts({ loading=false, filtered=[], categories=[]
           :Array.isArray(categories) && categories.map(e => {
             return e.subitems && e.subitems.map(f => {
               return Object.keys(f).length > 6
-              ? <ProductCard key={f.item} e={f} title={'Categories'} />
+              ? <ProductCard key={f.item} e={f} title={'Categories'} categoryId={e?._id} />
               : f.subitems && f.subitems.map(g => 
-                <ProductCard key={g.item} e={g} title={'Categories'} />
+                <ProductCard key={g.item} e={g} title={'Categories'} categoryId={e?._id} />
               )
             })
           })

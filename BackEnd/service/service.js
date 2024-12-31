@@ -161,5 +161,79 @@ async function getCategory(title, category, subCategory){
   }
 }
 
+const addReviewService = async (data) => {
+  const {review, productId, item, categoryId} = data;
+    
+  // PersonalCareModel
+  findItem = await PersonalCareModel.findOne(
+    {_id: categoryId},
+  );
 
-module.exports = { getSearchData, getNavOptions, getFilterService, getMedicines, getCategory }
+  if(findItem){
+    findItem?.subitems?.map((thisItem)=>{
+      thisItem.item === item && thisItem.reviews.push(review);
+    });
+  }
+
+  // HealthConditionModel
+  if(!findItem){
+    findItem = await HealthConditionModel.findOne(
+      {_id: categoryId},
+    );
+
+    if(findItem){
+      findItem?.subitems?.map((thisItem)=>{
+        thisItem.item === item && thisItem.reviews.push(review);
+      });
+    }
+  }
+
+  // vitamins_supplementModel
+  if(!findItem){
+    findItem = await vitamins_supplementModel.findOne(
+      {_id: categoryId},
+    );
+
+    if(findItem){
+      findItem?.subitems?.map((thisItem)=>{
+        thisItem.item === item && thisItem.reviews.push(review);
+      });
+    }
+  }
+
+  // DiabetesCareModel
+  if(!findItem){
+    findItem = await DiabetesCareModel.findOne(
+      {_id: categoryId},
+    );
+
+    if(findItem){
+      findItem?.subitems?.map((thisItem)=>{
+        thisItem.item === item && thisItem.reviews.push(review);
+      });
+    }
+  }
+
+  // HealthcareDeviceModel
+  if(!findItem){
+    console.log(categoryId);
+    
+    findItem = await HealthcareDeviceModel.findOne(
+      {_id: categoryId},
+    );
+
+    if(findItem){
+      findItem?.subitems?.map((thisItem)=>{
+        thisItem.item === item && thisItem.reviews.push(review);
+      });
+    }
+  }
+
+  if(findItem)  await findItem.save();
+  
+  return "success";
+};
+
+
+
+module.exports = { getSearchData, getNavOptions, getFilterService, getMedicines, getCategory, addReviewService }

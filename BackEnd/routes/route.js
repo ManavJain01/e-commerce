@@ -6,7 +6,7 @@ const express = require('express')
 const router = express.Router();
 
 // Importing Controllers
-const { findNavOptions, findAllFilters, findAllMedicines, findCategory } = require('../controllers/controller')
+const { findNavOptions, findAllFilters, findAllMedicines, findCategory, addReviewController } = require('../controllers/controller')
 const { UpdateCustomer, ItemAddedInCart, ItemUpdatedInCart, ItemDeletedFromCart } = require('../controllers/user_controller')
 
 // Integrating Admin Panel
@@ -33,6 +33,9 @@ router.route('/deleteFromCart').post(ItemDeletedFromCart)
 router.route('/filters').get(findAllFilters)
 router.route('/Medicines').get(findAllMedicines)
 router.route('/Categories').get(findCategory)
+
+// Dynamic Reviews
+router.route('/addReview').post(addReviewController)
 
 // Exporting router
 module.exports = router;

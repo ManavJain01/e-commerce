@@ -21,7 +21,8 @@ const Verify = () => {
     // useEffect
     useEffect (()=>{
         const verifyPayment = async () =>{
-            if(success && id){
+            if(success === "false") navigate("/");
+            else if(success && id){                
                 const response = await postPayment(success, id);
 
                 if(response.status){
