@@ -50,7 +50,20 @@ export default function HamMenu() {
       </section>
 
       {/* Body */}
-      <div className="flex flex-col gap-5 h-full">
+      <div className="flex flex-col gap-2 h-full">
+        {/* Facilities */}
+        <div>
+          <Link to="/consult-doctors" className="flex gap-5 items-center justify-between pl-5 pr-2 py-2">
+            <span className="font-semibold">Consult A Doctor</span>
+            <MdOutlineKeyboardArrowRight className="size-7" />
+          </Link>
+          <Link to="/lab-tests" className="flex gap-5 items-center justify-between pl-5 pr-2 py-2">
+            <span className="font-semibold">Book Lab Tests</span>
+            <MdOutlineKeyboardArrowRight className="size-7" />
+          </Link>
+        </div>
+        <hr className="border-2 border-gray-200" />
+
         {/* Categories */}
         <div className="flex flex-col">
           {Array.isArray(navOptions) && navOptions?.map((e, i) => {

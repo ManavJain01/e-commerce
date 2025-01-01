@@ -59,6 +59,11 @@ export default function MainNavbar() {
           </div>
         </button>}
 
+        {!isSearching && <div className="flex items-center gap-5">
+          <Link to="lab-tests">Lab Tests</Link>  
+          <Link to="consult-doctors">Consult Doctors</Link>  
+        </div>}
+
         {isLoggedIn
           // User Navbar
           ?<UserNavbar />

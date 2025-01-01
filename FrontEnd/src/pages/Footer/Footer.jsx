@@ -18,6 +18,14 @@ function Footer(){
       category: "Company",
       subCategories: [
         {
+          subCategory: "Consult A Doctor",
+          link: "/consult-doctors"
+        },
+        {
+          subCategory: "Book Lab Tests",
+          link: "/lab-tests"
+        },
+        {
           subCategory: "Health Article",
           link: "/Company/Health-Article"
         },

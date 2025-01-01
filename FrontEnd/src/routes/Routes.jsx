@@ -20,6 +20,11 @@ import Categories from '../pages/Products/Categories/Categories'
 import FilteredCategories from '../pages/Products/Categories/FilteredCategories'
 import Search from '../pages/Search/Search'
 import ProductCard2 from '../components/Product Card/ProductCard2'
+  // Facilities
+import ConsultDoctors from '../pages/Facilities/Consult Doctors/ConsultDoctors'
+import RegisterPatient from '../pages/Facilities/Consult Doctors/RegisterPatient'
+import RegisterDoctor from '../pages/Facilities/Register Doctors/RegisterDoctor'
+import LabTests from '../pages/Facilities/Lab Tests/LabTests'
 // User Links
 import User from '../pages/User/pages/User'
 import Profile from '../pages/User/pages/Profile'
@@ -35,7 +40,7 @@ import ReferEarn from '../pages/User/pages/ReferEarn'
 import Cart from '../pages/Cart/Cart'
 import Summary from '../pages/Cart/components/Summary'
 import Verify from '../pages/Cart/components/Verify'
-// Footer Links
+  // Footer Links
 import FAQ from '../pages/Footer/Company/Help'
 import Health from '../pages/Footer/Company/Health'
 import Terms from '../pages/Footer/Legal/Terms'
@@ -148,6 +153,23 @@ const router = createBrowserRouter([
       {
         path: "verify",
         element: <Verify />
+      },
+      // Facilities-----------------------------------------------------------------
+      {
+        path: "consult-doctors",
+        element: <ConsultDoctors />
+      },
+      {
+        path: "consult-doctors/patient",
+        element: <RegisterPatient />
+      },
+      {
+        path: "register-doctors",
+        element: <RegisterDoctor />
+      },
+      {
+        path: "lab-tests",
+        element: <LabTests />
       },
       // Footer---------------------------------------------------------------------
       {
